@@ -2,12 +2,45 @@ services:
 
   nginx: 
     image: nginx:alpine
-    volumes:
-    ports: "443:443"
+    ports: 
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
     networks:
       - tr_network
-    depends_on:
     restart: always
 
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    networks:
+      - tr_network
+    restart: always
+
+  backend:
+    build: ./backend
+    depends_on:
+      - database
+    networks:
+      - tr_network
+    restart: always
+
+  database:
+    image : postgres:16-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - tr_network
+    restart: always
+  
 networks:
   tr_network:
+
+volumes:
+  db_data:
