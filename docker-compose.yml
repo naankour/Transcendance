@@ -1,0 +1,13 @@
+services:
+
+  nginx: 
+    image: nginx:alpine
+    volumes:
+    ports: "443:443"
+    networks:
+      - tr_network
+    depends_on:
+    restart: always
+
+networks:
+  tr_network:
