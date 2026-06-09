@@ -13,6 +13,8 @@ services:
 
   frontend:
     build: ./frontend
+    expose: 
+      - "5173"
     depends_on:
       - backend
     networks:
@@ -21,11 +23,13 @@ services:
 
   backend:
     build: ./backend
+    expose: 
+      - "3000"
     depends_on:
       - database
     networks:
       - tr_network
-    restart: always
+    restart: alwayss
 
   database:
     image : postgres:16-alpine
