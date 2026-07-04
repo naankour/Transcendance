@@ -4,9 +4,9 @@ services:
     build: ./nginx
     ports: 
       - "443:443"
-    # depends_on:
-    #   - backend
-    #   - frontend
+    depends_on:
+      - backend
+      - frontend
     networks:
       - tr_network
     restart: always
