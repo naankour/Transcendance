@@ -14,6 +14,42 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS reviews (
+    id SERIAL PRIMARY KEY,
+    movie_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    rating DECIMAL(2,1),
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(id) 
+    -- FOREIGN KEY (movie_id) REFERENCES movies(id),
+    ON DELETE CASCADE
+);
+
+CREATE TABLE favorites (
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    movie_id BIGINT NOT NULL,
+
+    UNIQUE(user_id, movie_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    -- FOREIGN KEY (movie_id) REFERENCES movies(id)
+);
+
+CREATE TABLE watchlist (
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    movie_id BIGINT NOT NULL,
+
+    UNIQUE(user_id, movie_id),
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    -- FOREIGN KEY (movie_id) REFERENCES movies(id)
+);
+
 -- ajout du bon vieux victor mcbernick pour voir si l'automatisation marche bien
 INSERT INTO users (firstname, lastname, username, email, password_hash, bio) 
 VALUES ('Victor', 'McBernick', 'Le V', 'vivipirate06@gmail.com', 'allezvivi.com', 'je suis le roi des pirates')
