@@ -35,7 +35,7 @@ CREATE TABLE favorites (
 
     UNIQUE(user_id, movie_id),
 
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
     -- FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
@@ -46,9 +46,41 @@ CREATE TABLE watchlist (
 
     UNIQUE(user_id, movie_id),
 
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
     -- FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
+
+CREATE TABLE IF NOT EXISTS actors (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    biography TEXT,
+    birthday DATE,
+    deathday DATE,
+    place_of_birth VARCHAR(255),
+
+    gender SMALLINT,
+    known_for_department VARCHAR(100),
+    profile_path TEXT,
+    imdb_id VARCHAR(50),
+    also_known_as TEXT[],
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS movie_actors (
+    id SERIAL PRIMARY KEY,
+
+    movie_id BIGINT NOT NULL,
+    actor_id BIGINT NOT NULL,
+    character_name TEXT,
+    credit_id VARCHAR(100) UNIQUE NOT NULL,
+    cast_order INTEGER,
+
+    FOREIGN KEY (actor_id) REFERENCES actors(id)
+    ON DELETE CASCADE
+);
+
 
 -- ajout du bon vieux victor mcbernick pour voir si l'automatisation marche bien
 INSERT INTO users (firstname, lastname, username, email, password_hash, bio) 
