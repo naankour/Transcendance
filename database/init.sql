@@ -91,9 +91,9 @@ CREATE TABLE IF NOT EXISTS movie_actor (
     credit_id VARCHAR(100) UNIQUE NOT NULL,
     cast_order INTEGER,
 
-    FOREIGN KEY (actor_id) REFERENCES actors(id),
+    FOREIGN KEY (actor_id) REFERENCES actors(id) ON DELETE CASCADE,
     FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
-    ON DELETE CASCADE
+    UNIQUE (movie_id, actor_id, character_name)
 );
 
 CREATE TABLE IF NOT EXISTS genres (
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS movie_genre (
     movie_id BIGINT NOT NULL,
     genre_id BIGINT NOT NULL,
 
-   FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE, 
+    FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE, 
     FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
 
     UNIQUE (movie_id, genre_id)
