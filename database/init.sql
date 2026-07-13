@@ -30,50 +30,38 @@ CREATE TABLE IF NOT EXISTS movies (
 
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
-    movie_id INTEGER NOT NULL,
-
-    user_id INTEGER NOT NULL,
-    rating DECIMAL(2,1) NOT NULL,
-    CHECK (rating IN (0.5,1,1.5,2,2.5,3,3.5,4,4.5,5)),
+    movie_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    rating DECIMAL(2,1),
     content TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(user_id, movie_id),
 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    -- FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
-
+    FOREIGN KEY (user_id) REFERENCES users(id) 
+    FOREIGN KEY (movie_id) REFERENCES movies(id),
+    ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS favorites (
+CREATE TABLE favorites (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
-    movie_id INTEGER NOT NULL,
+    user_id BIGINT NOT NULL,
+    movie_id BIGINT NOT NULL,
 
     UNIQUE(user_id, movie_id),
 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    -- FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
-CREATE TABLE IF NOT EXISTS watchlist (
+CREATE TABLE watchlist (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
-    movie_id INTEGER NOT NULL,
+    user_id BIGINT NOT NULL,
+    movie_id BIGINT NOT NULL,
 
     UNIQUE(user_id, movie_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    -- FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
-);
 
-CREATE TABLE IF NOT EXISTS follows (
-    follower_id INTEGER NOT NULL,
-    followed_id INTEGER NOT NULL,
-
-    PRIMARY KEY(follower_id, followed_id),
-    CHECK (follower_id <> followed_id),
-    FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (followed_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
 CREATE TABLE IF NOT EXISTS actors (
@@ -94,7 +82,7 @@ CREATE TABLE IF NOT EXISTS actors (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS movie_actors (
+CREATE TABLE IF NOT EXISTS movie_actor (
     id SERIAL PRIMARY KEY,
 
     movie_id BIGINT NOT NULL,
@@ -103,10 +91,12 @@ CREATE TABLE IF NOT EXISTS movie_actors (
     credit_id VARCHAR(100) UNIQUE NOT NULL,
     cast_order INTEGER,
 
-    FOREIGN KEY (actor_id) REFERENCES actors(id)
+    FOREIGN KEY (actor_id) REFERENCES actors(id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
     ON DELETE CASCADE
+);
 
-CREATE TABLE IF NOT EXISTS genre (
+CREATE TABLE IF NOT EXISTS genres (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL
 );
@@ -117,12 +107,10 @@ CREATE TABLE IF NOT EXISTS movie_genre (
     movie_id BIGINT NOT NULL,
     genre_id BIGINT NOT NULL,
 
-    FOREIGN KEY (genre_id) REFERENCES genre(id)
-    ON DELETE CASCADE,
-    FOREIGN KEY (movie_id) REFERENCES movie(id)
-    ON DELETE CASCADE
+   FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE, 
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
 
-    -- UNIQUE (movie_id, genre_id)
+    UNIQUE (movie_id, genre_id)
 );
 
 -- ajout du bon vieux victor mcbernick pour voir si l'automatisation marche bien
