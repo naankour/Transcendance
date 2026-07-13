@@ -20,7 +20,7 @@ app.get('/movies/search/:name', async (req, res) => {
       `https://api.themoviedb.org/3/search/movie?query=${name}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
+          Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
         },
       }
     );
