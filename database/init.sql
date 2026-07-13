@@ -23,49 +23,50 @@ CREATE TABLE IF NOT EXISTS movies (
     release_date   DATE,
     metadata       JSONB,
     average_rating DECIMAL(3,2) DEFAULT 0
-        CHECK (average_rating >= 0 AND average_rating <= 10),
+        CHECK (average_rating >= 0 AND average_rating <= 5),
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
-    movie_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    rating DECIMAL(2,1),
+    movie_id INT NOT NULL,
+    user_id INT NOT NULL,
+    rating DECIMAL(2,1)
+        CHECK (rating >= 0 AND rating <= 5),
     content TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (user_id) REFERENCES users(id) 
-    FOREIGN KEY (movie_id) REFERENCES movies(id),
-    ON DELETE CASCADE
+    UNIQUE (user_id, movie_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
 
 CREATE TABLE favorites (
     id SERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    movie_id BIGINT NOT NULL,
+    user_id INT NOT NULL,
+    movie_id INT NOT NULL,
 
     UNIQUE(user_id, movie_id),
 
-    FOREIGN KEY (user_id) REFERENCES users(id)
-    FOREIGN KEY (movie_id) REFERENCES movies(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
 
 CREATE TABLE watchlist (
     id SERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    movie_id BIGINT NOT NULL,
+    user_id INT NOT NULL,
+    movie_id INT NOT NULL,
 
     UNIQUE(user_id, movie_id),
 
-    FOREIGN KEY (user_id) REFERENCES users(id)
-    FOREIGN KEY (movie_id) REFERENCES movies(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS actors (
-    id BIGINT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     biography TEXT,
     birthday DATE,
@@ -85,8 +86,8 @@ CREATE TABLE IF NOT EXISTS actors (
 CREATE TABLE IF NOT EXISTS movie_actor (
     id SERIAL PRIMARY KEY,
 
-    movie_id BIGINT NOT NULL,
-    actor_id BIGINT NOT NULL,
+    movie_id INT NOT NULL,
+    actor_id INT NOT NULL,
     character_name TEXT,
     credit_id VARCHAR(100) UNIQUE NOT NULL,
     cast_order INTEGER,
@@ -98,14 +99,14 @@ CREATE TABLE IF NOT EXISTS movie_actor (
 
 CREATE TABLE IF NOT EXISTS genres (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
+    name TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS movie_genre (
     id SERIAL PRIMARY KEY,
 
-    movie_id BIGINT NOT NULL,
-    genre_id BIGINT NOT NULL,
+    movie_id INT NOT NULL,
+    genre_id INT NOT NULL,
 
     FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE, 
     FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
