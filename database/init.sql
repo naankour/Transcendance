@@ -50,6 +50,26 @@ CREATE TABLE watchlist (
     -- FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
+
+CREATE TABLE IF NOT EXISTS genre (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS movie_genre (
+    id SERIAL PRIMARY KEY,
+
+    movie_id BIGINT NOT NULL,
+    genre_id BIGINT NOT NULL,
+
+    FOREIGN KEY (genre_id) REFERENCES genre(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movie(id)
+    ON DELETE CASCADE
+
+    -- UNIQUE (movie_id, genre_id)
+);
+
 -- ajout du bon vieux victor mcbernick pour voir si l'automatisation marche bien
 INSERT INTO users (firstname, lastname, username, email, password_hash, bio) 
 VALUES ('Victor', 'McBernick', 'Le V', 'vivipirate06@gmail.com', 'allezvivi.com', 'je suis le roi des pirates')
