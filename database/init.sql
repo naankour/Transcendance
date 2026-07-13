@@ -50,6 +50,20 @@ CREATE TABLE watchlist (
     -- FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
+CREATE TABLE IF NOT EXISTS movies (
+    id             SERIAL PRIMARY KEY,
+    imdb_id        VARCHAR(20) UNIQUE,
+    title          VARCHAR(255) NOT NULL,
+    synopsis       TEXT,
+    poster         TEXT,
+    release_date   DATE,
+    metadata       JSONB,
+    average_rating DECIMAL(3,2) DEFAULT 0
+        CHECK (average_rating >= 0 AND average_rating <= 10),
+    created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ajout du bon vieux victor mcbernick pour voir si l'automatisation marche bien
 INSERT INTO users (firstname, lastname, username, email, password_hash, bio) 
 VALUES ('Victor', 'McBernick', 'Le V', 'vivipirate06@gmail.com', 'allezvivi.com', 'je suis le roi des pirates')
