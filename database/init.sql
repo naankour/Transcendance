@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (user_id) REFERENCES users(id) 
-    -- FOREIGN KEY (movie_id) REFERENCES movies(id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id),
     ON DELETE CASCADE
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE favorites (
     UNIQUE(user_id, movie_id),
 
     FOREIGN KEY (user_id) REFERENCES users(id)
-    -- FOREIGN KEY (movie_id) REFERENCES movies(id)
+    FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
 CREATE TABLE watchlist (
@@ -61,7 +61,7 @@ CREATE TABLE watchlist (
     UNIQUE(user_id, movie_id),
 
     FOREIGN KEY (user_id) REFERENCES users(id)
-    -- FOREIGN KEY (movie_id) REFERENCES movies(id)
+    FOREIGN KEY (movie_id) REFERENCES movies(id)
 );
 
 CREATE TABLE IF NOT EXISTS actors (
@@ -91,10 +91,12 @@ CREATE TABLE IF NOT EXISTS movie_actors (
     credit_id VARCHAR(100) UNIQUE NOT NULL,
     cast_order INTEGER,
 
-    FOREIGN KEY (actor_id) REFERENCES actors(id)
+    FOREIGN KEY (actor_id) REFERENCES actors(id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
     ON DELETE CASCADE
+);
 
-CREATE TABLE IF NOT EXISTS genre (
+CREATE TABLE IF NOT EXISTS genres (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL
 );
@@ -105,12 +107,10 @@ CREATE TABLE IF NOT EXISTS movie_genre (
     movie_id BIGINT NOT NULL,
     genre_id BIGINT NOT NULL,
 
-    FOREIGN KEY (genre_id) REFERENCES genre(id)
-    ON DELETE CASCADE,
-    FOREIGN KEY (movie_id) REFERENCES movie(id)
-    ON DELETE CASCADE
+   FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE, 
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
 
-    -- UNIQUE (movie_id, genre_id)
+    UNIQUE (movie_id, genre_id)
 );
 
 -- ajout du bon vieux victor mcbernick pour voir si l'automatisation marche bien
