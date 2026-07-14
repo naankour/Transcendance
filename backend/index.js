@@ -1,14 +1,52 @@
-const express = require('express')
+const express = require('express');
 const { initializeDatabase } = require('./config/db');
 require('dotenv').config();
 
-const app = express()
+const app = express();
 
-initializeDatabase();
+app.use(express.json());
+
+const PORT = 3000;
+
+async function startServer() {
+  console.log("1");
+
+  try {
+    console.log("2");
+    await initializeDatabase();
+    console.log("3");
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log("4");
+      console.log(`Server running on port ${PORT}`);
+    });
+
+    console.log("5");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+startServer();
+
+app.use(logger)
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  console.log('Home Page')
+  res.send('new Home Page')
 })
+
+app.get('/users', (req, res) => {
+  console.log('Users Page')
+  res.send('Users page');
+});
+
+
+
+function logger(req, res, next){
+  console.log('log')
+  next()
+}
 
 // Route pour récupérer un film depuis TMDB
 app.get('/movies/search/:name', async (req, res) => {

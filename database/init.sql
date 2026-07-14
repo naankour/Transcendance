@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS actors (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS movie_actor (
+CREATE TABLE IF NOT EXISTS movie_actor (npx prisma generate
     id SERIAL PRIMARY KEY,
 
     movie_id INT NOT NULL,
