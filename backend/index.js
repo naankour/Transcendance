@@ -48,6 +48,13 @@ function logger(req, res, next){
   next()
 }
 
+app.post('api/movies/:id/reviews', async (req, res) => {
+  //recup id du film depuis url
+  //recup rating eet contenu depuis le body
+  //creer review avec prisma
+  //renvoyer la review
+})
+
 // Route pour récupérer un film depuis TMDB
 app.get('/movies/search/:name', async (req, res) => {
   try {
