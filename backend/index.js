@@ -29,31 +29,7 @@ async function startServer() {
 
 startServer();
 
-app.use(logger)
 
-app.get('/', (req, res) => {
-  console.log('Home Page')
-  res.send('new Home Page')
-})
-
-app.get('/users', (req, res) => {
-  console.log('Users Page')
-  res.send('Users page');
-});
-
-
-
-function logger(req, res, next){
-  console.log('log')
-  next()
-}
-
-app.post('api/movies/:id/reviews', async (req, res) => {
-  //recup id du film depuis url
-  //recup rating eet contenu depuis le body
-  //creer review avec prisma
-  //renvoyer la review
-})
 
 // Route pour récupérer un film depuis TMDB
 app.get('/movies/search/:name', async (req, res) => {
