@@ -8,6 +8,9 @@ app.use(express.json());
 
 const PORT = 3000;
 
+const actorsRoutes = require('./api/actors');
+app.use('/api', actorsRoutes);
+
 async function startServer() {
   console.log("1");
 
