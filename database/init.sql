@@ -104,6 +104,11 @@ CREATE TABLE IF NOT EXISTS movie_actor (
     UNIQUE (movie_id, actor_id, character_name)
 );
 
+CREATE TABLE IF NOT EXISTS genres (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS movie_genre (
     id SERIAL PRIMARY KEY,
 
