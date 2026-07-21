@@ -160,7 +160,7 @@ const changePassword = async (req, res) => {
       [newPasswordHash, userId]
     );
 
-    return res.json({ message: 'Password updated successfully' });
+    return res.json({ message: 'Password updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡' });
   } catch (error) {
     console.error('Error changing password:', error);
     return res.status(500).json({ error: 'Internal server error' });
