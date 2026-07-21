@@ -1,7 +1,7 @@
 
 
-const db = require('../config/db');
-const bcrypt = require('bcrypt');
+const { pool } = require('../config/db');
+const bcrypt = require('bcryptjs');
 
 // récupère le profil du user connecté
 const getMyProfile = async (req, res) => {
@@ -9,7 +9,7 @@ const getMyProfile = async (req, res) => {
     const userId = req.user.id;
 
     // récupère toutes les infos du user
-    const result = await db.query(
+    const result = await pool.query(
       `SELECT id, firstname, lastname, username, email, avatar_url, bio, created_at 
        FROM users 
        WHERE id = $1`,
@@ -38,7 +38,7 @@ const updateMyProfile = async (req, res) => {
       return res.status(400).json({ error: 'Username and email are required fields (ง •̀_•́)ง' });
     }
 
-    const result = await db.query(
+    const result = await pool.query(
       `UPDATE users 
        SET firstname = $1, 
            lastname = $2, 
@@ -70,12 +70,32 @@ const updateMyProfile = async (req, res) => {
 const deleteMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
+    const { password } = req.body || {};
 
-    const result = await db.query('DELETE FROM users WHERE id = $1', [userId]);
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required to delete your account (ง •̀_•́)ง' });
+    }
 
-    if (result.rowCount === 0) {
+    // récupère le password_hash dans la bdd
+    const userResult = await pool.query('SELECT password_hash FROM users WHERE id = $1', [userId]);
+
+    if (userResult.rows.length === 0) {
       return res.status(404).json({ error: 'User not found (╥﹏╥)' });
     }
+
+    const currentHashedPassword = userResult.rows[0].password_hash;
+
+    if (!currentHashedPassword) {
+      return res.status(500).json({ error: 'Password hash missing in database' });
+    }
+
+    // vérifie le mdp
+    const isMatch = await bcrypt.compare(password, currentHashedPassword);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Incorrect password (╥﹏╥)' });
+    }
+
+    await pool.query('DELETE FROM users WHERE id = $1', [userId]);
 
     return res.json({ message: 'Account deleted successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡' });
   } catch (error) {
@@ -89,7 +109,7 @@ const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await db.query(
+    const result = await pool.query(
       `SELECT id, firstname, lastname, username, avatar_url, bio, created_at 
        FROM users 
        WHERE id = $1`,
@@ -122,7 +142,7 @@ const getUsers = async (req, res) => {
 
     query += ' LIMIT 20';
 
-    const result = await db.query(query, values);
+    const result = await pool.query(query, values);
     return res.json(result.rows);
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -139,7 +159,7 @@ const changePassword = async (req, res) => {
       return res.status(400).json({ error: 'Both current and new passwords are required (ง •̀_•́)ง' });
     }
 
-    const userResult = await db.query('SELECT password_hash FROM users WHERE id = $1', [userId]);
+    const userResult = await pool.query('SELECT password_hash FROM users WHERE id = $1', [userId]);
     if (userResult.rows.length === 0) {
       return res.status(404).json({ error: 'User not found (╥﹏╥)' });
     }
@@ -155,7 +175,7 @@ const changePassword = async (req, res) => {
     const saltRounds = 10;
     const newPasswordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    await db.query(
+    await pool.query(
       'UPDATE users SET password_hash = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
       [newPasswordHash, userId]
     );

@@ -1,6 +1,6 @@
 
-const db = require('../config/db');
-const bcrypt = require('bcrypt');
+const { pool } = require('../config/db');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
@@ -12,7 +12,7 @@ const register = async (req, res) => {
     }
 
     // check si le user existe
-    const userCheck = await db.query(
+    const userCheck = await pool.query(
       'SELECT id FROM users WHERE email = $1 OR username = $2',
       [email, username]
     );
@@ -26,11 +26,11 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // insertion bdd
-    const newUser = await db.query(
-      `INSERT INTO users (username, email, password_hash, firstname, lastname)
+    const newUser = await pool.query(
+      `INSERT INTO users (firstname, lastname, username, email, password_hash)
        VALUES ($1, $2, $3, $4, $5)
        RETURNING id, username, email, created_at`,
-      [username, email, passwordHash, firstname || null, lastname || null]
+      [firstname || null,  lastname || null, username, email, passwordHash ]
     );
 
     return res.status(201).json({
@@ -39,7 +39,8 @@ const register = async (req, res) => {
     });
   } catch (error) {
     console.error('Error during registration:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error("REGISTER ERROR:", error);
+    return res.status(500).json({ error: "Internal server error", message: error.message });
   }
 };
 
@@ -52,7 +53,7 @@ const login = async (req, res) => {
     }
 
     // cherche le user par email
-    const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
     if (result.rows.length === 0) {
       return res.status(401).json({ error: 'Invalid email or password (≖_≖ )' });
