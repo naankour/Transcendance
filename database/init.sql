@@ -67,6 +67,7 @@ CREATE TABLE watchlist (
 
 CREATE TABLE IF NOT EXISTS actors (
     id SERIAL PRIMARY KEY,
+    tmdb_id BIGINT UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
     biography TEXT,
     birthday DATE,
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS actors (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS movie_actor (npx prisma generate
+CREATE TABLE IF NOT EXISTS movie_actor (
     id SERIAL PRIMARY KEY,
 
     movie_id INT NOT NULL,
@@ -92,8 +93,14 @@ CREATE TABLE IF NOT EXISTS movie_actor (npx prisma generate
     credit_id VARCHAR(100) UNIQUE NOT NULL,
     cast_order INTEGER,
 
-    FOREIGN KEY (actor_id) REFERENCES actors(id) ON DELETE CASCADE,
-    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
+    FOREIGN KEY (actor_id)
+        REFERENCES actors(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (movie_id)
+        REFERENCES movies(id)
+        ON DELETE CASCADE,
+
     UNIQUE (movie_id, actor_id, character_name)
 );
 
