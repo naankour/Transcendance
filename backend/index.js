@@ -8,6 +8,9 @@ app.use(express.json());
 
 const PORT = 3000;
 
+const actorsRoutes = require('./api/actors');
+app.use('/api', actorsRoutes);
+
 async function startServer() {
   console.log("1");
 
@@ -29,24 +32,7 @@ async function startServer() {
 
 startServer();
 
-app.use(logger)
 
-app.get('/', (req, res) => {
-  console.log('Home Page')
-  res.send('new Home Page')
-})
-
-app.get('/users', (req, res) => {
-  console.log('Users Page')
-  res.send('Users page');
-});
-
-
-
-function logger(req, res, next){
-  console.log('log')
-  next()
-}
 
 // Route pour récupérer un film depuis TMDB
 app.get('/movies/search/:name', async (req, res) => {
