@@ -39,7 +39,7 @@ const createReview = async(req, res) =>
     const movie_id = parseInt(req.params.movie_id);
     const rating = parseFloat(req.body.rating);
     const content = req.body.content;
-    const user_id = 1 //req.user.id;
+    const user_id = req.user.id;
 
     if (isNaN(rating) || !content)
     {
@@ -78,7 +78,7 @@ const updateReview = async(req, res) =>
     const review_id = parseInt(req.params.id);
     const rating = parseFloat(req.body.rating);
     const content = req.body.content;
-    const user_id = 1 //req.user.id;
+    const user_id = req.user.id;
 
     if (isNaN(rating) || !content)
     {
@@ -130,7 +130,7 @@ const deleteReview = async(req, res) =>
   try
   {
     const review_id = parseInt(req.params.id);
-    const user_id = 1 //req.user.id
+    const user_id = req.user.id;
 
     const review = await prisma.reviews.findFirst({
       where: {
