@@ -3,7 +3,7 @@ const router = express.Router();
 const reviewsController  = require('../controllers/reviewsController')
 
 router.get('/reviews', reviewsController.getReviews);
-router.get('/movies/:movieId/reviews', reviewsController.getReviews);
+router.get('/movies/:movieId/reviews', reviewsController.getReviewsByMovie);
 router.post('/reviews', reviewsController.createReview);
 router.put('/reviews/:id', reviewsController.updateReview);
 router.delete('/reviews/:id', reviewsController.deleteReview);

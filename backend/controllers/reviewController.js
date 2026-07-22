@@ -13,24 +13,24 @@ const getReviews = async (req, res) =>
   }
 }
 
-module.exports = { getReviews }
-
-const getReviewsbyMovie = async(req, res) =>
+const getReviewsByMovie = async(req, res) =>
 {
     try
     {
-        const movieReviews = await prisma.reviews.findMany 
-        ({
-            where: {movie_id: parseInt (req.params.movie_id)} 
-        })
-        res.json(movieReviews);
+      const movie_id = parseInt(req.params.movie_id);
+
+      const movieReviews = await prisma.reviews.findMany({
+        where: {
+          movie_id
+        }
+      });
+      res.json(movieReviews);
     }
     catch (error)
     {
         res.status(500).json({ error: error.message })
     }
 }
-module.exports = { getReviewsbyMovie }
 
 const createReview = async(req, res) =>
 {
@@ -41,7 +41,7 @@ const createReview = async(req, res) =>
     const content = req.body.content;
     const user_id = 1 //req.user.id;
 
-    if (!rating || !content)
+    if (isNaN(rating) || !content)
     {
       return res.status(400).json({
         error: "rating and content are mandatory"
@@ -70,10 +70,8 @@ const createReview = async(req, res) =>
     return res.status(500).json({ error: error.message })
   }
 };
-module.exports = { createReview }
 
-
-const updatedReview = async(req, res) =>
+const updateReview = async(req, res) =>
 {
   try
   {
@@ -82,7 +80,7 @@ const updatedReview = async(req, res) =>
     const content = req.body.content;
     const user_id = 1 //req.user.id;
 
-    if (!rating || !content)
+    if (isNaN(rating) || !content)
     {
       return res.status(400).json({
         error: "rating and content are mandatory"
@@ -95,11 +93,24 @@ const updatedReview = async(req, res) =>
       });
     }
 
+    const review = await prisma.reviews.findFirst({
+      where: {
+        id: review_id,
+        user_id: user_id
+      }
+    });
+
+    if (!review)
+    {
+      return res.status(404).json({
+        error: "Review not found or unauthorized"
+      });
+    }
+
     const updatedReview = await prisma.reviews.update(
     {
       where: {
         id: review_id,
-        user_id: user_id
       },
       data: {
         rating,
@@ -113,7 +124,6 @@ const updatedReview = async(req, res) =>
     return res.status(500).json({ error: error.message })
   }
 };
-module.exports = { updatedReview }
 
 const deleteReview = async(req, res) =>
 {
@@ -134,12 +144,13 @@ const deleteReview = async(req, res) =>
         error: "Review not found or unauthorized"
       });
     }
-    const deleteReview = await prisma.reviews.delete({
+
+    const deletedReview = await prisma.reviews.delete({
       where: {
         id: review_id
       }
     });
-     return res.status(200).json(deletedReview);
+    return res.status(200).json(deletedReview);
   }
   catch (error)
   {
@@ -149,4 +160,4 @@ const deleteReview = async(req, res) =>
   }
 };
 
-module.exports = { deleteReview };
+module.exports = { getReviews, getReviewsByMovie, createReview, updateReview, deleteReview }
