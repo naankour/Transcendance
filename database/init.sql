@@ -65,6 +65,18 @@ CREATE TABLE watchlist (
     FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS follows (
+    id SERIAL PRIMARY KEY,
+
+    follower_id INT NOT NULL,
+    followed_id INT NOT NULL,
+
+    UNIQUE(follower_id, followed_id),
+
+    FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (followed_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS actors (
     id SERIAL PRIMARY KEY,
     tmdb_id BIGINT UNIQUE NOT NULL,
