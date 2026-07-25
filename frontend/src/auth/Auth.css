@@ -1,10 +1,14 @@
-
-
+/* ==========================================================================
+      GLOBAL & ROOT STYLES
+   ========================================================================== */
 :root {
   background-color: #F0F0F0; 
   font-family: Verdana, Tahoma, sans-serif; 
 }
 
+/* ==========================================================================
+      AUTH PAGE CONTAINER & LAYOUT
+   ========================================================================== */
 /* --- Container centering the box --- */
 .skyblog-container {
   display: flex;
@@ -44,6 +48,10 @@
   padding: 1.5rem;
 }
 
+/* ==========================================================================
+      LOGIN & REGISTER FORMS (Shared .auth-form Styles)
+   ========================================================================== */
+/* Form layout structure */
 /* --- Form Layout --- */
 .auth-form {
   display: flex;
@@ -135,4 +143,57 @@
   font-size: 0.7rem;
   color: #999999;
   font-family: Tahoma, sans-serif;
+}
+
+/* ==========================================================================
+      RETRO TOAST NOTIFICATIONS
+   ========================================================================== */
+/* Retro Toast Notification Container */
+.retro-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.retro-toast {
+  background-color: #ffffcc; /* Classic yellow memo / sticky note style */
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000; /* Flat 90s box shadow */
+  padding: 12px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  /* Slide in and slide out animation */
+  animation: slideInOut 2.5s ease-in-out forwards;
+}
+
+.retro-toast-icon {
+  font-size: 18px;
+}
+
+/* Keyframes: Slide in from Right -> Pause -> Slide out to Right */
+@keyframes slideInOut {
+  0% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  85% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
 }

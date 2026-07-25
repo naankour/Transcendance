@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 
-export function Register({ onSwitchToLogin }) {
+export function Register({ onSwitchToLogin, triggerToast }) {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -23,13 +22,15 @@ export function Register({ onSwitchToLogin }) {
       const data = await response.json();
 
       if (!response.ok) {
-        // Backend sent a 400 or 500 error message (e.g. "Email already exists")
         throw new Error(data.message || 'Registration failed');
       }
 
-      // Success! Auto-switch to login tab so they can sign in
-      console.log('Registration successful:', data);
-      onSwitchToLogin();
+      triggerToast('Account created ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ heehee...');
+
+      setTimeout(() => {
+        onSwitchToLogin();
+      }, 1200);
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -41,7 +42,6 @@ export function Register({ onSwitchToLogin }) {
     <form onSubmit={handleSubmit} className="auth-form">
       <h2>Create Account</h2>
 
-      {/* Render error message banner if backend request failed */}
       {error && <div className="error-badge">{error}</div>}
 
       <input

@@ -1,10 +1,11 @@
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export function Login({ onSwitchToRegister = () => {}, onLoginSuccess = () => {} }) {
+export function Login({ onSwitchToRegister, triggerToast }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,15 +27,16 @@ export function Login({ onSwitchToRegister = () => {}, onLoginSuccess = () => {}
         throw new Error(data.message || 'Login failed');
       }
 
-      console.log('Login successful:', data);
-
-      // If backend returns a token or session, you can save it here
       if (data.token) {
         localStorage.setItem('token', data.token);
       }
 
-      // Trigger redirect or parent auth handler
-      onLoginSuccess(data.user);
+      triggerToast("You're in ◝(ᵔᗜᵔ)◜ heehee...");
+
+      setTimeout(() => {
+        navigate('/');
+      }, 1200);
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -46,7 +48,6 @@ export function Login({ onSwitchToRegister = () => {}, onLoginSuccess = () => {}
     <form onSubmit={handleSubmit} className="auth-form">
       <h2>Welcome Back</h2>
 
-      {/* Render error banner if login fails */}
       {error && <div className="error-badge">{error}</div>}
 
       <input
