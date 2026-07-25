@@ -1,10 +1,10 @@
-const prisma = require('../prismaClient');
+const prisma = require('../prisma/prismaClient');
 
 const getWatchlist = async(req, res) =>
 {
     try
     {
-        const user_id = req.user.id;
+        const user_id = 1 //req.user.id;
 
         const watchlist = await prisma.watchlist.findMany({
             where: {
@@ -27,7 +27,7 @@ const addToWatchlist = async(req, res) =>
 {
     try
     {
-        const user_id = req.user.id;
+        const user_id = 1 //req.user.id;
         const movie_id = parseInt(req.params.movie_id);
 
         const watchlist = await prisma.watchlist.create({
@@ -52,7 +52,7 @@ const removeFromWatchlist = async(req, res) =>
 {
     try
     {
-        const user_id = req.user.id;
+        const user_id = 1 //req.user.id;
         const movie_id = parseInt(req.params.movie_id);
 
         const watchlist = await prisma.watchlist.delete({

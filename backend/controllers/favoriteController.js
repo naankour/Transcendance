@@ -1,9 +1,9 @@
-const prisma = require('../prismaClient');
+const prisma = require('../prisma/prismaClient');
 
 const getFavorites = async(req, res) => 
 {
     try {
-        const user_id = req.user.id; 
+        const user_id = 1 //req.user.id; 
 
         const favorites = await prisma.favorites.findMany({
         where: {
@@ -21,7 +21,7 @@ const addFavorite = async(req, res) =>
 {
     try 
     {
-        const user_id = req.user.id;
+        const user_id = 1 //req.user.id;
         const movie_id = parseInt(req.params.movie_id);
 
         const favorite = await prisma.favorites.create({
@@ -42,7 +42,7 @@ const removeFavorite = async(req, res) =>
 {
     try 
     {
-        const user_id =req.user.id;
+        const user_id = 1 //req.user.id;
         const movie_id = parseInt(req.params.movie_id);
 
         const favorite = await prisma.favorites.delete({
