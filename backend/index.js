@@ -17,20 +17,20 @@ app.use('/api/users', userRoutes);
 const actorRoutes = require('./api/actors');
 app.use('/api', actorRoutes);
 
-// const reviewRoutes = require('./api/reviews');
-// app.use('/api/reviews', reviewRoutes);
+const reviewRoutes = require('./api/reviews');
+app.use('/api/reviews', reviewRoutes);
 
-// const favoriteRoutes = require('./api/reviews');
-// app.use('/api/favorites', favoriteRoutes);
+const watchlistRoutes = require('./api/watchlist');
+app.use('/api/watchlist', watchlistRoutes);
 
-// const followRoutes = require('./api/follows');
-// app.use('/api/follows', followRoutes);
+const favoriteRoutes = require('./api/favorites');
+app.use('/api/favorites', favoriteRoutes);
+
+const followRoutes = require('./api/follows');
+app.use('/api/follows', followRoutes);
 
 const movieRoutes = require('./api/movies');
 app.use('/api/movies', movieRoutes);
-
-// const watchlistRoutes = require('./api/watchlist');
-// app.use('/api/watchlist', watchlistRoutes);
 
 // const genreRoutes = require('./api/genres');
 // app.use('/api/genres', genreRoutes);

@@ -1,10 +1,10 @@
-const prisma = require('../prismaClient');
+const prisma = require('../prisma/prismaClient');
 
 const getFollows = async(req, res) =>
 {
     try
     {
-        const user_id = req.user.id;
+        const user_id = 1 //req.user.id;
 
         const follows = await prisma.follows.findMany({
             where: {
@@ -23,9 +23,12 @@ const addFollow = async(req, res) =>
 {
     try
     {
-        const follower_id = req.user.id;
+        const follower_id = 1 //req.user.id;
         const followed_id = parseInt(req.params.user_id);
 
+        if (follower_id === followed_id) {
+            return res.status(400).json({ error: "You cannot follow yourself" })
+        }
         const follow = await prisma.follows.create({
             data: {
                 follower_id,
@@ -44,7 +47,7 @@ const removeFollow = async(req, res) =>
 {
     try
     {    
-        const follower_id = req.user.id;
+        const follower_id = 1 // req.user.id;
         const followed_id = parseInt(req.params.user_id);
 
         const follow = await prisma.follows.delete({
