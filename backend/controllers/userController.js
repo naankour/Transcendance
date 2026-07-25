@@ -7,7 +7,7 @@ const getMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     // récupère toutes les infos du user
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: Number(userId) },
       select: {
         id: true,
@@ -43,7 +43,7 @@ const updateMyProfile = async (req, res) => {
       return res.status(400).json({ error: 'Username and email are required fields (ง •̀_•́)ง' });
     }
 
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await prisma.users.update({
       where: { id: Number(userId) },
       data: { firstname, lastname, username, email, avatar_url, bio },
       select: {
@@ -83,7 +83,7 @@ const deleteMyProfile = async (req, res) => {
     }
 
     // récupère le password_hash dans la bdd
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: Number(userId) },
     });
 
@@ -103,7 +103,7 @@ const deleteMyProfile = async (req, res) => {
       return res.status(401).json({ error: 'Incorrect password (╥﹏╥)' });
     }
 
-    await prisma.user.delete({
+    await prisma.users.delete({
       where: { id: Number(userId) },
     });
 
@@ -119,7 +119,7 @@ const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: Number(id) },
       select: {
         id: true,
@@ -148,7 +148,7 @@ const getUsers = async (req, res) => {
   try {
     const { search } = req.query;
 
-    const users = await prisma.user.findMany({
+    const users = await prisma.users.findMany({
       where: search
         ? {
             username: {
@@ -182,7 +182,7 @@ const changePassword = async (req, res) => {
       return res.status(400).json({ error: 'Both current and new passwords are required (ง •̀_•́)ง' });
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { id: Number(userId) },
     });
 
@@ -199,7 +199,7 @@ const changePassword = async (req, res) => {
     const saltRounds = 10;
     const newPasswordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    await prisma.user.update({
+    await prisma.users.update({
       where: { id: Number(userId) },
       data: { password_hash: newPasswordHash },
     });

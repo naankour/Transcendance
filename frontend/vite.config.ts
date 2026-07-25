@@ -13,7 +13,7 @@ export default defineConfig({
     allowedHosts: ['frontend', 'localhost'],
     proxy: {
       '/api': {
-        target: 'http://backend:3000', // Points directly to your backend service on port 3000
+        target: 'http://backend:3000',
         changeOrigin: true,
       },
     },

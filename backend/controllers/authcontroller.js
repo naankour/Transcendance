@@ -12,7 +12,7 @@ const register = async (req, res) => {
     }
 
     // check si le user existe
-    const existingUser = await prisma.user.findFirst({
+    const existingUser = await prisma.users.findFirst({
       where: {
         OR: [
           { email },
@@ -30,7 +30,7 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // insertion bdd
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.users.create({
       data: {
         firstname: firstname || null,
         lastname: lastname || null,
@@ -66,7 +66,7 @@ const login = async (req, res) => {
     }
 
     // cherche le user par email
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { email }
     });
 
