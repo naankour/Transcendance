@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 interface FilmographyEntry {
 	id: number;
 	title: string;
-	role: 'Acteur' | 'Réalisateur';
+	role: 'Actor' | 'Director';
 	detail: string | null;
 	release_date: string;
 }
@@ -32,7 +32,7 @@ function ActorPage() {
 	fetch(`/api/actors/${id}`)
 		.then(async (res) => {
 		const data = await res.json();
-		if (!res.ok) throw new Error(data.error || 'Erreur');
+		if (!res.ok) throw new Error(data.error || 'Error');
 		setActor(data);
 		})
 		.catch((err) => setError(err.message))
@@ -41,9 +41,9 @@ function ActorPage() {
 
 	return (
 	<div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
-		<Link to="/actors">← Retour à la recherche</Link>
+		<Link to="/actors">← Back to search</Link>
 
-		{loading && <p>Chargement...</p>}
+		{loading && <p>Loading...</p>}
 		{error && <p style={{ color: 'red' }}>{error}</p>}
 
 		{actor && (
@@ -56,10 +56,10 @@ function ActorPage() {
 			/>
 			)}
 			<h2>{actor.name}</h2>
-			{actor.birthday && <p><strong>Né(e) le :</strong> {actor.birthday}</p>}
+			{actor.birthday && <p><strong>Born:</strong> {actor.birthday}</p>}
 			<p>{actor.biography || 'Pas de biographie disponible.'}</p>
 
-			<h3 style={{ clear: 'both' }}>Filmographie</h3>
+			<h3 style={{ clear: 'both' }}>Filmography</h3>
 			<ul>
 			{actor.filmography.slice(0, 15).map((movie, index) => (
 			<li key={`${movie.id}-${movie.role}-${index}`}>
