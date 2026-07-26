@@ -32,8 +32,8 @@ app.use('/api/follows', followRoutes);
 const movieRoutes = require('./api/movies');
 app.use('/api/movies', movieRoutes);
 
-// const genreRoutes = require('./api/genres');
-// app.use('/api/genres', genreRoutes);
+const genreRoutes = require('./api/genres');
+app.use('/api/genres', genreRoutes);
 
 async function startServer() {
   console.log("1");

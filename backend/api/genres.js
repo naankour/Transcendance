@@ -4,6 +4,8 @@ const router = express.Router();
 
 const modules = require('../controllers/genreController.js');
 
-router.get('/genres', modules.getGenre);
+router.get('/', modules.getGenre);
 
-router.get('/genres/:id', modules.getMoviesFromGenre);
+router.get('/:id', modules.getMoviesFromGenre);
+
+module.exports = router;

@@ -8,6 +8,9 @@ import Follows from './pages/Follows';
 import Reviews from './pages/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
+import Genres from './pages/Genres'
+import GenreMovies from './pages/GenreMovies'
+
 
 function App() {
   return (
@@ -22,6 +25,8 @@ function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/reviews/create" element={<CreateReview />} />
         <Route path="/reviews/:id/edit" element={<EditReview />} />
+        <Route path="/genres" element={<Genres />} />
+        <Route path="/genres/:id" element={<GenreMovies />} />
       </Routes>
     </BrowserRouter>
   );
