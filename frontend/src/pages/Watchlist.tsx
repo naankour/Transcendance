@@ -4,11 +4,16 @@ import axios from 'axios'
 const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([])
 
-  useEffect(() => {
-    axios.get('/api/watchlist')
-      .then(res => setWatchlist(res.data))
-      .catch(err => console.error(err))
-  }, [])
+useEffect(() => {
+  const token = localStorage.getItem('token')
+  axios.get('/api/watchlist', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(res => setWatchlist(res.data))
+  .catch(err => console.error(err))
+}, [])
 
   return (
     <div>
