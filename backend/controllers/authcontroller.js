@@ -1,5 +1,5 @@
 
-const { pool } = require('../config/db');
+const prisma = require('../prisma/prismaClient.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -12,12 +12,16 @@ const register = async (req, res) => {
     }
 
     // check si le user existe
-    const userCheck = await pool.query(
-      'SELECT id FROM users WHERE email = $1 OR username = $2',
-      [email, username]
-    );
+    const existingUser = await prisma.users.findFirst({
+      where: {
+        OR: [
+          { email },
+          { username }
+        ]
+      }
+    });
 
-    if (userCheck.rows.length > 0) {
+    if (existingUser) {
       return res.status(409).json({ error: 'Username or email already exists  ( •̀ ᴖ •́ )' });
     }
 
@@ -26,16 +30,25 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // insertion bdd
-    const newUser = await pool.query(
-      `INSERT INTO users (firstname, lastname, username, email, password_hash)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, username, email, created_at`,
-      [firstname || null,  lastname || null, username, email, passwordHash ]
-    );
+    const newUser = await prisma.users.create({
+      data: {
+        firstname: firstname || null,
+        lastname: lastname || null,
+        username,
+        email,
+        password_hash: passwordHash
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        created_at: true
+      }
+    });
 
     return res.status(201).json({
       message: 'User registered successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡',
-      user: newUser.rows[0]
+      user: newUser
     });
   } catch (error) {
     console.error('Error during registration:', error);
@@ -53,13 +66,13 @@ const login = async (req, res) => {
     }
 
     // cherche le user par email
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const user = await prisma.users.findUnique({
+      where: { email }
+    });
 
-    if (result.rows.length === 0) {
+    if (!user) {
       return res.status(401).json({ error: 'Invalid email or password (≖_≖ )' });
     }
-
-    const user = result.rows[0];
 
     // vérifie le mot de passe
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);

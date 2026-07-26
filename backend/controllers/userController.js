@@ -1,27 +1,32 @@
 
-
-const { pool } = require('../config/db');
+const prisma = require('../prisma/prismaClient.js');
 const bcrypt = require('bcryptjs');
 
 // récupère le profil du user connecté
 const getMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-
     // récupère toutes les infos du user
-    const result = await pool.query(
-      `SELECT id, firstname, lastname, username, email, avatar_url, bio, created_at 
-       FROM users 
-       WHERE id = $1`,
-      [userId]
-    );
+    const user = await prisma.users.findUnique({
+      where: { id: Number(userId) },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        username: true,
+        email: true,
+        avatar_url: true,
+        bio: true,
+        created_at: true,
+      },
+    });
 
-    if (result.rows.length === 0) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found (╥﹏╥)' });
     }
 
     // on renvoie l'objet du user en format json
-    return res.json(result.rows[0]);
+    return res.json(user);
   } catch (error) {
     console.error('Error fetching profile:', error);
     return res.status(500).json({ error: 'Internal server error' });
@@ -38,30 +43,31 @@ const updateMyProfile = async (req, res) => {
       return res.status(400).json({ error: 'Username and email are required fields (ง •̀_•́)ง' });
     }
 
-    const result = await pool.query(
-      `UPDATE users 
-       SET firstname = $1, 
-           lastname = $2, 
-           username = $3, 
-           email = $4, 
-           avatar_url = $5, 
-           bio = $6, 
-           updated_at = CURRENT_TIMESTAMP 
-       WHERE id = $7 
-       RETURNING id, firstname, lastname, username, email, avatar_url, bio, updated_at`,
-      [firstname, lastname, username, email, avatar_url, bio, userId]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
-    }
+    const updatedUser = await prisma.users.update({
+      where: { id: Number(userId) },
+      data: { firstname, lastname, username, email, avatar_url, bio },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        username: true,
+        email: true,
+        avatar_url: true,
+        bio: true,
+        updated_at: true,
+      },
+    });
 
     return res.json({
       message: 'Profile updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡',
-      user: result.rows[0],
+      user: updatedUser,
     });
   } catch (error) {
     console.error('Error updating profile:', error);
+    
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
+    }
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -77,13 +83,15 @@ const deleteMyProfile = async (req, res) => {
     }
 
     // récupère le password_hash dans la bdd
-    const userResult = await pool.query('SELECT password_hash FROM users WHERE id = $1', [userId]);
+    const user = await prisma.users.findUnique({
+      where: { id: Number(userId) },
+    });
 
-    if (userResult.rows.length === 0) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found (╥﹏╥)' });
     }
 
-    const currentHashedPassword = userResult.rows[0].password_hash;
+    const currentHashedPassword = user.password_hash;
 
     if (!currentHashedPassword) {
       return res.status(500).json({ error: 'Password hash missing in database' });
@@ -95,7 +103,9 @@ const deleteMyProfile = async (req, res) => {
       return res.status(401).json({ error: 'Incorrect password (╥﹏╥)' });
     }
 
-    await pool.query('DELETE FROM users WHERE id = $1', [userId]);
+    await prisma.users.delete({
+      where: { id: Number(userId) },
+    });
 
     return res.json({ message: 'Account deleted successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡' });
   } catch (error) {
@@ -109,18 +119,24 @@ const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await pool.query(
-      `SELECT id, firstname, lastname, username, avatar_url, bio, created_at 
-       FROM users 
-       WHERE id = $1`,
-      [id]
-    );
+    const user = await prisma.users.findUnique({
+      where: { id: Number(id) },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        username: true,
+        avatar_url: true,
+        bio: true,
+        created_at: true,
+      },
+    });
 
-    if (result.rows.length === 0) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found (╥﹏╥)' });
     }
 
-    return res.json(result.rows[0]);
+    return res.json(user);
   } catch (error) {
     console.error('Error fetching public profile:', error);
     return res.status(500).json({ error: 'Internal server error' });
@@ -132,18 +148,25 @@ const getUsers = async (req, res) => {
   try {
     const { search } = req.query;
 
-    let query = 'SELECT id, username, avatar_url, bio FROM users';
-    let values = [];
+    const users = await prisma.users.findMany({
+      where: search
+        ? {
+            username: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          }
+        : {},
+      take: 20,
+      select: {
+        id: true,
+        username: true,
+        avatar_url: true,
+        bio: true,
+      },
+    });
 
-    if (search) {
-      query += ' WHERE username ILIKE $1'; 
-      values.push(`%${search}%`);
-    }
-
-    query += ' LIMIT 20';
-
-    const result = await pool.query(query, values);
-    return res.json(result.rows);
+    return res.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
     return res.status(500).json({ error: 'Internal server error' });
@@ -159,12 +182,13 @@ const changePassword = async (req, res) => {
       return res.status(400).json({ error: 'Both current and new passwords are required (ง •̀_•́)ง' });
     }
 
-    const userResult = await pool.query('SELECT password_hash FROM users WHERE id = $1', [userId]);
-    if (userResult.rows.length === 0) {
+    const user = await prisma.users.findUnique({
+      where: { id: Number(userId) },
+    });
+
+    if (!user) {
       return res.status(404).json({ error: 'User not found (╥﹏╥)' });
     }
-
-    const user = userResult.rows[0];
 
     // vérifie l'ancien mdp
     const isMatch = await bcrypt.compare(currentPassword, user.password_hash);
@@ -175,10 +199,10 @@ const changePassword = async (req, res) => {
     const saltRounds = 10;
     const newPasswordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    await pool.query(
-      'UPDATE users SET password_hash = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
-      [newPasswordHash, userId]
-    );
+    await prisma.users.update({
+      where: { id: Number(userId) },
+      data: { password_hash: newPasswordHash },
+    });
 
     return res.json({ message: 'Password updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡' });
   } catch (error) {
