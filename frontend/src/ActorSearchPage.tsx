@@ -21,7 +21,7 @@ function ActorSearchPage() {
 	fetch(`/api/actors/search/${encodeURIComponent(query.trim())}`)
 		.then(async (res) => {
 		const data = await res.json();
-		if (!res.ok) throw new Error(data.error || 'Erreur');
+		if (!res.ok) throw new Error(data.error || 'Error');
 		setResults(data);
 		})
 		.catch((err) => {
@@ -32,17 +32,17 @@ function ActorSearchPage() {
 
 	return (
 	<div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
-		<h1>Recherche d'acteur</h1>
+		<h1>Actor Search</h1>
 		<input
 		type="text"
 		value={query}
 		onChange={(e) => setQuery(e.target.value)}
 		onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-		placeholder="Nom de l'acteur (ex: Tom Hanks)..."
+		placeholder="Actor name (e.g. Tom Hanks)..."
 		style={{ padding: 8, width: '70%', fontSize: 16 }}
 		/>
 		<button onClick={handleSearch} style={{ padding: '8px 16px', fontSize: 16, marginLeft: 8 }}>
-		Rechercher
+		Search
 		</button>
 
 		{error && <p style={{ color: 'red' }}>{error}</p>}

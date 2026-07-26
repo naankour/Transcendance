@@ -7,11 +7,11 @@ const searchActor = async (req, res) => {
 		name = name.trim();
 
 	if (!name)
-		return res.status(400).json({ error: "Le nom de l'acteur est requis"});
+		return res.status(400).json({ error: "Actor name is required"});
 
 	try {
 		const searchResponse = await fetch(
-			`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(name)}&language=fr-FR`,
+			`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(name)}&language=en-US`,
 			{
 				headers: {
 					Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
@@ -21,7 +21,7 @@ const searchActor = async (req, res) => {
 		);
 
 		if (!searchResponse.ok)
-			return res.status(502).json({ error: "Erreur lors de la communication avec TMDB" });
+			return res.status(502).json({ error: "Error communicating with TMDB" });
 
 		const searchData = await searchResponse.json();
 
@@ -38,13 +38,13 @@ const searchActor = async (req, res) => {
 		results.sort((a, b) => b.popularity - a.popularity);
 
 		if (results.length === 0)
-			return res.status(404).json({ error: "Aucun acteur trouvé" });
+			return res.status(404).json({ error: "No actor found" });
 
 		return res.status(200).json(results);
 
 	} catch (error) {
-		console.error("Erreur recherche acteur :", error);
-		return res.status(500).json({ error: "Erreur serveur" });
+		console.error("Actor search error:", error);
+		return res.status(500).json({ error: "Server error" });
 	}
 };
 
@@ -55,17 +55,17 @@ const getActorById = async (req, res) => {
 	const tmdbId = Number(req.params.tmdbId);
 
 	if (!Number.isInteger(tmdbId) || tmdbId <= 0)
-		return res.status(400).json({ error: "Identifiant TMDB invalide" });
+		return res.status(400).json({ error: "Invalid TMDB id" });
 
 	try {
 		const responses = await Promise.all([
-			fetch(`https://api.themoviedb.org/3/person/${tmdbId}?language=fr-FR`, {
+			fetch(`https://api.themoviedb.org/3/person/${tmdbId}?language=en-US`, {
 				headers: {
 					Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
 					Accept: "application/json",
 				},
 			}),
-			fetch(`https://api.themoviedb.org/3/person/${tmdbId}/movie_credits?language=fr-FR`, {
+			fetch(`https://api.themoviedb.org/3/person/${tmdbId}/movie_credits?language=en-US`, {
 				headers: {
 					Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
 					Accept: "application/json",
@@ -77,10 +77,10 @@ const getActorById = async (req, res) => {
 		const creditsResponse = responses[1];
 
 		if (detailsResponse.status === 404)
-			return res.status(404).json({ error: "Acteur introuvable sur TMDB" });
+			return res.status(404).json({ error: "Actor not found on TMDB" });
 
 		if (!detailsResponse.ok || !creditsResponse.ok) 
-			return res.status(502).json({ error: "Erreur lors de la communication avec TMDB" });
+			return res.status(502).json({ error: "Error communicating with TMDB" });
 
 		const details = await detailsResponse.json();
 		const credits = await creditsResponse.json();
@@ -94,7 +94,7 @@ const getActorById = async (req, res) => {
 			id: movie.id,
 			title: movie.title,
 			release_date: movie.release_date,
-			role: "Acteur",
+			role: "Actor",
 			detail: movie.character || null,
 		}));
 		 
@@ -104,7 +104,7 @@ const getActorById = async (req, res) => {
 				id: movie.id,
 				title: movie.title,
 				release_date: movie.release_date,
-				role: "Réalisateur",
+				role: "Director",
 				detail: null,
 			}));
 		 
@@ -119,8 +119,8 @@ const getActorById = async (req, res) => {
 			return res.status(200).json(details);
 
 	} catch (error) {
-		console.error("Erreur récupération acteur :", error);
-		return res.status(500).json({error: "Erreur serveur"});
+		console.error("Actor fetch error:", error);
+		return res.status(500).json({error: "Server error"});
 	}
 };
 
