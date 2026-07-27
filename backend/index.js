@@ -1,5 +1,6 @@
 const express = require('express');
 const { initializeDatabase } = require('./config/db');
+const { test_seed } = require('./prisma/seed')
 require('dotenv').config();
 
 const app = express();
@@ -41,6 +42,7 @@ async function startServer() {
   try {
     console.log("2");
     await initializeDatabase();
+    await test_seed()
     console.log("3");
 
     app.listen(PORT, '0.0.0.0', () => {
