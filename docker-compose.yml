@@ -27,6 +27,8 @@ services:
 
   backend:
     build: ./backend
+    ports:
+    - "5555:5555"
     expose: 
       - "3000"
     volumes:
