@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS movies (
     id             SERIAL PRIMARY KEY,
+    tmdb_id        INTEGER UNIQUE,
     imdb_id        VARCHAR(20) UNIQUE,
     title          VARCHAR(255) NOT NULL,
     synopsis       TEXT,

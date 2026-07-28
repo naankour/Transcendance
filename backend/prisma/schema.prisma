@@ -67,6 +67,7 @@ model movie_genre {
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model movies {
   id             Int           @id @default(autoincrement())
+  tmdb_id        Int?          @unique
   imdb_id        String?       @unique @db.VarChar(20)
   title          String        @db.VarChar(255)
   synopsis       String?
