@@ -46,7 +46,6 @@ const register = async (req, res) => {
       return res.status(409).json({ error: 'Username or email already exists  ( •̀ ᴖ •́ )' });
     }
 
-    // hash le mdp
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
