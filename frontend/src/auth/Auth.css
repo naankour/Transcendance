@@ -155,13 +155,15 @@
   right: 20px;
   z-index: 9999;
   pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .retro-toast {
-  background-color: #ffffcc; /* Classic yellow memo / sticky note style */
+  background-color: #ffffcc;
   color: #000000;
   border: 2px solid #000000;
-  box-shadow: 4px 4px 0px #000000; /* Flat 90s box shadow */
+  box-shadow: 4px 4px 0px #000000;
   padding: 12px 20px;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
@@ -169,31 +171,84 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  
-  /* Slide in and slide out animation */
-  animation: slideInOut 2.5s ease-in-out forwards;
+  white-space: nowrap;
 }
 
 .retro-toast-icon {
   font-size: 18px;
+  flex-shrink: 0;
 }
 
-/* Keyframes: Slide in from Right -> Pause -> Slide out to Right */
-@keyframes slideInOut {
-  0% {
+.toast-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.toast-out {
+  animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideIn {
+  from {
     transform: translateX(120%);
     opacity: 0;
   }
-  15% {
+  to {
     transform: translateX(0);
     opacity: 1;
   }
-  85% {
+}
+
+@keyframes slideOut {
+  from {
     transform: translateX(0);
     opacity: 1;
   }
-  100% {
+  to {
     transform: translateX(120%);
     opacity: 0;
   }
+}
+
+/* --- Social OAuth Buttons --- */
+.oauth-section {
+  margin-top: 20px;
+  border-top: 1px dashed #ccc;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.oauth-title {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.oauth-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.oauth-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.oauth-btn-github {
+  background-color: #24292e;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.oauth-btn-google {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
 }
