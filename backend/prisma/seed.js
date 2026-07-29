@@ -3,6 +3,7 @@ require("dotenv").config({
 });
 
 const prisma = require("./prismaClient");
+const bcrypt = require("bcryptjs");
 
 const movies = [
     {
@@ -252,145 +253,150 @@ const users = [
     {
         username: "nazihakun",
         email: "aankour.naziha@gmail.com",
+        password: "Password123.",
     },
     {
         username: "NainPosteur",
         email: "chloe.montaigut@gmail.com",
+        password: "Password123.",
     },
     {
         username: "Zainab",
         email: "zeinab0695@gmail.com",
+        password: "Password123.",
     },
     {
         username: "macedoine",
         email: "maceopinguet@gmail.com",
+        password: "Password123.",
     },
     {
-        username: "test",
-        email: "test@student.fr",
+        username: "hasnawww",
+        email: "iliane.hsn@outlookfr",
+        password: "Password123.",
     }
 ];
 
 const reviews = [
     // Inception
-    { user_id: 1, movie_id: 1, rating: 5, comment: "A masterpiece with an incredible story and amazing visuals." },
-    { user_id: 2, movie_id: 1, rating: 4, comment: "Very creative movie but it requires a lot of attention." },
+    { user_id: 1, movie_id: 1, rating: 5, content: "A masterpiece with an incredible story and amazing visuals." },
+    { user_id: 2, movie_id: 1, rating: 4, content: "Very creative movie but it requires a lot of attention." },
 
     // Titanic
-    { user_id: 3, movie_id: 2, rating: 5, comment: "A timeless love story with unforgettable emotions." },
-    { user_id: 4, movie_id: 2, rating: 4, comment: "Beautiful movie with great acting and music." },
+    { user_id: 3, movie_id: 2, rating: 5, content: "A timeless love story with unforgettable emotions." },
+    { user_id: 4, movie_id: 2, rating: 4, content: "Beautiful movie with great acting and music." },
 
     // The Matrix
-    { user_id: 5, movie_id: 3, rating: 5, comment: "A revolutionary science fiction movie." },
-    { user_id: 1, movie_id: 3, rating: 4, comment: "Great action scenes and interesting ideas about reality." },
+    { user_id: 5, movie_id: 3, rating: 5, content: "A revolutionary science fiction movie." },
+    { user_id: 1, movie_id: 3, rating: 4, content: "Great action scenes and interesting ideas about reality." },
 
     // LOTR Fellowship
-    { user_id: 2, movie_id: 4, rating: 5, comment: "An amazing beginning to one of the greatest fantasy adventures." },
-    { user_id: 3, movie_id: 4, rating: 5, comment: "Fantastic world building and unforgettable characters." },
+    { user_id: 2, movie_id: 4, rating: 5, content: "An amazing beginning to one of the greatest fantasy adventures." },
+    { user_id: 3, movie_id: 4, rating: 5, content: "Fantastic world building and unforgettable characters." },
 
     // LOTR Two Towers
-    { user_id: 4, movie_id: 5, rating: 5, comment: "The battle scenes are legendary and very impressive." },
-    { user_id: 5, movie_id: 5, rating: 4, comment: "A great sequel with an epic atmosphere." },
+    { user_id: 4, movie_id: 5, rating: 5, content: "The battle scenes are legendary and very impressive." },
+    { user_id: 5, movie_id: 5, rating: 4, content: "A great sequel with an epic atmosphere." },
 
     // LOTR Return of the King
-    { user_id: 1, movie_id: 6, rating: 5, comment: "A perfect ending for an incredible trilogy." },
-    { user_id: 2, movie_id: 6, rating: 5, comment: "Emotional, epic and beautifully made." },
+    { user_id: 1, movie_id: 6, rating: 5, content: "A perfect ending for an incredible trilogy." },
+    { user_id: 2, movie_id: 6, rating: 5, content: "Emotional, epic and beautifully made." },
 
     // Harry Potter 1
-    { user_id: 3, movie_id: 7, rating: 5, comment: "A magical movie that started an amazing saga." },
-    { user_id: 4, movie_id: 7, rating: 4, comment: "A nostalgic and charming fantasy movie." },
+    { user_id: 3, movie_id: 7, rating: 5, content: "A magical movie that started an amazing saga." },
+    { user_id: 4, movie_id: 7, rating: 4, content: "A nostalgic and charming fantasy movie." },
 
     // Harry Potter 2
-    { user_id: 5, movie_id: 8, rating: 4, comment: "A darker Hogwarts adventure with great moments." },
-    { user_id: 1, movie_id: 8, rating: 4, comment: "A fun continuation of Harry's story." },
+    { user_id: 5, movie_id: 8, rating: 4, content: "A darker Hogwarts adventure with great moments." },
+    { user_id: 1, movie_id: 8, rating: 4, content: "A fun continuation of Harry's story." },
 
     // Harry Potter 3
-    { user_id: 2, movie_id: 9, rating: 5, comment: "One of the best Harry Potter movies." },
-    { user_id: 3, movie_id: 9, rating: 5, comment: "Great atmosphere and excellent direction." },
+    { user_id: 2, movie_id: 9, rating: 5, content: "One of the best Harry Potter movies." },
+    { user_id: 3, movie_id: 9, rating: 5, content: "Great atmosphere and excellent direction." },
 
     // Spider-Man
-    { user_id: 4, movie_id: 10, rating: 4, comment: "A classic superhero movie with a great story." },
-    { user_id: 5, movie_id: 10, rating: 4, comment: "Very nostalgic and entertaining." },
+    { user_id: 4, movie_id: 10, rating: 4, content: "A classic superhero movie with a great story." },
+    { user_id: 5, movie_id: 10, rating: 4, content: "Very nostalgic and entertaining." },
 
     // Men in Black
-    { user_id: 1, movie_id: 11, rating: 4, comment: "Funny and original sci-fi comedy." },
-    { user_id: 2, movie_id: 11, rating: 4, comment: "Great chemistry between the main characters." },
+    { user_id: 1, movie_id: 11, rating: 4, content: "Funny and original sci-fi comedy." },
+    { user_id: 2, movie_id: 11, rating: 4, content: "Great chemistry between the main characters." },
 
     // Hancock
-    { user_id: 3, movie_id: 12, rating: 3, comment: "Good concept but the story could be improved." },
-    { user_id: 4, movie_id: 12, rating: 4, comment: "An enjoyable superhero movie with a different style." },
+    { user_id: 3, movie_id: 12, rating: 3, content: "Good concept but the story could be improved." },
+    { user_id: 4, movie_id: 12, rating: 4, content: "An enjoyable superhero movie with a different style." },
 
     // Seven Pounds
-    { user_id: 5, movie_id: 13, rating: 4, comment: "A touching and emotional movie." },
-    { user_id: 1, movie_id: 13, rating: 4, comment: "Great performance and powerful message." },
+    { user_id: 5, movie_id: 13, rating: 4, content: "A touching and emotional movie." },
+    { user_id: 1, movie_id: 13, rating: 4, content: "Great performance and powerful message." },
 
     // Charlie and the Chocolate Factory
-    { user_id: 2, movie_id: 14, rating: 4, comment: "A colorful and creative fantasy movie." },
-    { user_id: 3, movie_id: 14, rating: 3, comment: "Fun movie but not as good as the original." },
+    { user_id: 2, movie_id: 14, rating: 4, content: "A colorful and creative fantasy movie." },
+    { user_id: 3, movie_id: 14, rating: 3, content: "Fun movie but not as good as the original." },
 
     // The Dark Knight
-    { user_id: 4, movie_id: 15, rating: 5, comment: "One of the greatest superhero movies ever made." },
-    { user_id: 5, movie_id: 15, rating: 5, comment: "Amazing acting and an unforgettable villain." },
+    { user_id: 4, movie_id: 15, rating: 5, content: "One of the greatest superhero movies ever made." },
+    { user_id: 5, movie_id: 15, rating: 5, content: "Amazing acting and an unforgettable villain." },
 
     // Pirates 1
-    { user_id: 1, movie_id: 16, rating: 5, comment: "A fantastic adventure with an iconic character." },
-    { user_id: 2, movie_id: 16, rating: 4, comment: "Funny, exciting and very entertaining." },
+    { user_id: 1, movie_id: 16, rating: 5, content: "A fantastic adventure with an iconic character." },
+    { user_id: 2, movie_id: 16, rating: 4, content: "Funny, exciting and very entertaining." },
 
     // Pirates 2
-    { user_id: 3, movie_id: 17, rating: 4, comment: "Great action and another fun pirate adventure." },
-    { user_id: 4, movie_id: 17, rating: 4, comment: "Jack Sparrow makes this movie enjoyable." },
+    { user_id: 3, movie_id: 17, rating: 4, content: "Great action and another fun pirate adventure." },
+    { user_id: 4, movie_id: 17, rating: 4, content: "Jack Sparrow makes this movie enjoyable." },
 
     // Mr & Mrs Smith
-    { user_id: 5, movie_id: 18, rating: 4, comment: "A fun action movie with great chemistry." },
-    { user_id: 1, movie_id: 18, rating: 4, comment: "Entertaining from beginning to end." },
+    { user_id: 5, movie_id: 18, rating: 4, content: "A fun action movie with great chemistry." },
+    { user_id: 1, movie_id: 18, rating: 4, content: "Entertaining from beginning to end." },
 
     // Benjamin Button
-    { user_id: 2, movie_id: 19, rating: 5, comment: "A beautiful story about life and time." },
-    { user_id: 3, movie_id: 19, rating: 4, comment: "Emotional and very well acted." },
+    { user_id: 2, movie_id: 19, rating: 5, content: "A beautiful story about life and time." },
+    { user_id: 3, movie_id: 19, rating: 4, content: "Emotional and very well acted." },
 
     // Twilight
-    { user_id: 4, movie_id: 20, rating: 3, comment: "A romantic fantasy movie for its fans." },
-    { user_id: 5, movie_id: 20, rating: 3, comment: "Interesting atmosphere but not perfect." },
+    { user_id: 4, movie_id: 20, rating: 3, content: "A romantic fantasy movie for its fans." },
+    { user_id: 5, movie_id: 20, rating: 3, content: "Interesting atmosphere but not perfect." },
 
     // High School Musical
-    { user_id: 1, movie_id: 21, rating: 4, comment: "A fun musical with memorable songs." },
-    { user_id: 2, movie_id: 21, rating: 4, comment: "A nostalgic Disney classic." },
+    { user_id: 1, movie_id: 21, rating: 4, content: "A fun musical with memorable songs." },
+    { user_id: 2, movie_id: 21, rating: 4, content: "A nostalgic Disney classic." },
 
     // Camp Rock
-    { user_id: 3, movie_id: 22, rating: 3, comment: "A nice movie with good music." },
-    { user_id: 4, movie_id: 22, rating: 3, comment: "Fun but mainly for younger audiences." },
+    { user_id: 3, movie_id: 22, rating: 3, content: "A nice movie with good music." },
+    { user_id: 4, movie_id: 22, rating: 3, content: "Fun but mainly for younger audiences." },
 
     // Devil Wears Prada
-    { user_id: 5, movie_id: 23, rating: 5, comment: "Funny, stylish and brilliantly acted." },
-    { user_id: 1, movie_id: 23, rating: 4, comment: "A very entertaining fashion movie." },
+    { user_id: 5, movie_id: 23, rating: 5, content: "Funny, stylish and brilliantly acted." },
+    { user_id: 1, movie_id: 23, rating: 4, content: "A very entertaining fashion movie." },
 
     // Fight Club
-    { user_id: 2, movie_id: 24, rating: 5, comment: "A unique movie that stays in your mind." },
-    { user_id: 3, movie_id: 24, rating: 5, comment: "Excellent story with a powerful message." },
+    { user_id: 2, movie_id: 24, rating: 5, content: "A unique movie that stays in your mind." },
+    { user_id: 3, movie_id: 24, rating: 5, content: "Excellent story with a powerful message." },
 
     // Avatar
-    { user_id: 4, movie_id: 25, rating: 5, comment: "Amazing visuals and incredible world building." },
-    { user_id: 5, movie_id: 25, rating: 4, comment: "A beautiful cinematic experience." },
+    { user_id: 4, movie_id: 25, rating: 5, content: "Amazing visuals and incredible world building." },
+    { user_id: 5, movie_id: 25, rating: 4, content: "A beautiful cinematic experience." },
 
     // Shutter Island
-    { user_id: 1, movie_id: 26, rating: 5, comment: "A brilliant psychological thriller." },
-    { user_id: 2, movie_id: 26, rating: 5, comment: "Great atmosphere and amazing ending." },
+    { user_id: 1, movie_id: 26, rating: 5, content: "A brilliant psychological thriller." },
+    { user_id: 2, movie_id: 26, rating: 5, content: "Great atmosphere and amazing ending." },
 
     // Alice in Wonderland
-    { user_id: 3, movie_id: 27, rating: 4, comment: "A strange but beautiful fantasy adventure." },
-    { user_id: 4, movie_id: 27, rating: 3, comment: "Visually impressive but confusing sometimes." },
+    { user_id: 3, movie_id: 27, rating: 4, content: "A strange but beautiful fantasy adventure." },
+    { user_id: 4, movie_id: 27, rating: 3, content: "Visually impressive but confusing sometimes." },
 
     // Amazing Spider-Man
-    { user_id: 5, movie_id: 28, rating: 4, comment: "A good reboot with great action scenes." },
-    { user_id: 1, movie_id: 28, rating: 3, comment: "Interesting but not the best Spider-Man movie." },
+    { user_id: 5, movie_id: 28, rating: 4, content: "A good reboot with great action scenes." },
+    { user_id: 1, movie_id: 28, rating: 3, content: "Interesting but not the best Spider-Man movie." },
 
     // Batman Begins
-    { user_id: 2, movie_id: 29, rating: 5, comment: "A great origin story for Batman." },
-    { user_id: 3, movie_id: 29, rating: 4, comment: "Dark atmosphere and excellent acting." },
+    { user_id: 2, movie_id: 29, rating: 5, content: "A great origin story for Batman." },
+    { user_id: 3, movie_id: 29, rating: 4, content: "Dark atmosphere and excellent acting." },
 
     // King Kong
-    { user_id: 4, movie_id: 30, rating: 4, comment: "A spectacular adventure with impressive effects." },
-    { user_id: 5, movie_id: 30, rating: 4, comment: "A fun remake with great visuals." }
+    { user_id: 4, movie_id: 30, rating: 4, content: "A spectacular adventure with impressive effects." },
+    { user_id: 5, movie_id: 30, rating: 4, content: "A fun remake with great visuals." }
 ];
 
 async function test_seed() {
@@ -414,9 +420,15 @@ async function test_seed() {
 
         for (const user of users)
         {
+            const hashedPassword = await bcrypt.hash(user.password, 10);
+            
             const newUser = await prisma.users.create(
             {
-                data: user,
+                data: {
+                    username: user.username,
+                    email: user.email,
+                    password_hash: hashedPassword,
+                },
             });
 
             createdUsers.push(newUser);
