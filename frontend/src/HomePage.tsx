@@ -13,7 +13,6 @@ function HomePage() {
   return (
     <div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
       
-      {/* En-tête avec bouton Profil */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <h1>Recherche de film</h1>
         <button 
