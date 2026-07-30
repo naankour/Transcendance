@@ -402,10 +402,6 @@ const reviews = [
 async function test_seed() {
     try 
     {
-        await prisma.reviews.deleteMany();
-        await prisma.movies.deleteMany();
-        await prisma.users.deleteMany();
-
         const createdMovies = [];
 
         for (const movie of movies)
