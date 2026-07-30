@@ -1,22 +1,43 @@
-
 import { useState, useEffect } from 'react';
-import { ProfileHeader } from './ProfileHeader';     
+import { useParams, useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
+import { ProfileHeader } from './ProfileHeader'; 
 import { ProfileEditForm } from './ProfileEditForm'; 
 
-export function ProfilePage({ triggerToast }) {
+export function ProfilePage({ triggerToast }) 
+{
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
+  const { id: userIdFromParams } = useParams();
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem('token');
+  let currentUserId = null;
+
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      currentUserId = decoded.id;
+    } catch (e) {
+      console.error('Token invalide :', e);
+    }
+  }
+
+  const isOwnProfile = !userIdFromParams || Number(userIdFromParams) === Number(currentUserId);
+
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [userIdFromParams]);
 
   const fetchProfile = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/users/me', {
+      const endpoint = isOwnProfile ? '/api/users/me' : `/api/users/${userIdFromParams}`;
+
+      const response = await fetch(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,11 +51,37 @@ export function ProfilePage({ triggerToast }) {
 
       setUser(data);
     } catch (err) {
+      if (triggerToast) 
+        triggerToast(err.message || 'Something went wrong', '⚠️');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleStartChat = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ otherUserId: user.id }),
+      });
+
+      const conversation = await response.json();
+
+      if (!response.ok) {
+        throw new Error(conversation.error || 'Failed to start conversation');
+      }
+
+      // redirige vers le chat
+      navigate(`/chat?id=${conversation.id}`);
+    } catch (err) {
       if (triggerToast) {
         triggerToast(err.message || 'Something went wrong', '⚠️');
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -46,20 +93,23 @@ export function ProfilePage({ triggerToast }) {
     }
   };
 
-  if (loading) {
+  if (loading) 
     return <div className="profile-container">Loading profile...</div>;
-  }
 
-  if (!user) {
+  if (!user) 
     return <div className="profile-container">Could not load profile.</div>;
-  }
 
   return (
     <div className="profile-container">
       <div className="profile-box">
 
         <div className="profile-header-section">
-          <ProfileHeader user={user} isOwnProfile={true} onEditClick={() => setIsEditing(true)} />
+          <ProfileHeader 
+            user={user} 
+            isOwnProfile={isOwnProfile} 
+            onEditClick={() => setIsEditing(true)} 
+            onStartChat={handleStartChat}
+          />
         </div>
 
         <div className="profile-info-section">

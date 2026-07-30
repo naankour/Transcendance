@@ -272,7 +272,7 @@ const users = [
     },
     {
         username: "hasnawww",
-        email: "iliane.hsn@outlookfr",
+        email: "iliane.hsn@outlook.fr",
         password: "Password123.",
     }
 ];
@@ -402,6 +402,10 @@ const reviews = [
 async function test_seed() {
     try 
     {
+        await prisma.reviews.deleteMany();
+        await prisma.movies.deleteMany();
+        await prisma.users.deleteMany();
+
         const createdMovies = [];
 
         for (const movie of movies)
@@ -462,7 +466,14 @@ async function test_seed() {
 
 module.exports = { test_seed };
 
-
+if (require.main === module) {
+  test_seed()
+    .then(() => console.log("✅ Seed terminé avec succès !"))
+    .catch((e) => {
+      console.error("❌ Erreur pendant le seed :", e);
+      process.exit(1);
+    });
+}
 
 
 

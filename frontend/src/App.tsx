@@ -5,6 +5,7 @@ import MoviePage from './MoviePage';
 import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
+// import ConversationPage from './conversations/ConversationPage';
 import Watchlist from './pages/Watchlist';
 import Favorites from './pages/Favorites';
 import Follows from './pages/Follows';
@@ -34,7 +35,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/movie/:id" element={<MoviePage />} />
         <Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
-        <Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} /> 
+        <Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
+        <Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />
+        {/* <Route path="/chat" element={<ConversationPage triggerToast={triggerToast} />} /> */}
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/follows" element={<Follows />} />

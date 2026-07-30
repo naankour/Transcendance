@@ -2,38 +2,40 @@
 const prisma = require('../prisma/prismaClient.js');
 
 // récup ou crée la conv
-const getOrCreateConversation = async (req, res) => 
-{
-  try 
-  {
-    const myId = req.user.id;
-    const { otherUserId } = req.body;
+const getOrCreateConversation = async (req, res) => {
+  try {
+    const { otherUserId } = req.body; 
 
-    if (!otherUserId) 
+    if (!otherUserId) {
       return res.status(400).json({ error: 'otherUserId is required' });
+    }
 
-    if (Number(otherUserId) === myId) 
+    const myId = Number(req.user.id);
+    const otherId = Number(otherUserId);
+
+    if (isNaN(otherId)) {
+      return res.status(400).json({ error: 'Invalid user ID' });
+    }
+
+    if (otherId === myId) {
       return res.status(400).json({ error: "You can't start a conversation with yourself (≖_≖ )" });
+    }
 
-    const userOneId = Math.min(myId, Number(otherUserId));
-    const userTwoId = Math.max(myId, Number(otherUserId));
+    const userOneId = Math.min(myId, otherId);
+    const userTwoId = Math.max(myId, otherId);
 
     let conversation = await prisma.conversations.findUnique({
-      where: 
-      {
-        user_one_id_user_two_id: 
-        {
+      where: {
+        user_one_id_user_two_id: {
           user_one_id: userOneId,
           user_two_id: userTwoId,
         },
       },
     });
 
-    if (!conversation) 
-    {
+    if (!conversation) {
       conversation = await prisma.conversations.create({
-        data: 
-        {
+        data: {
           user_one_id: userOneId,
           user_two_id: userTwoId,
         },
@@ -41,8 +43,7 @@ const getOrCreateConversation = async (req, res) =>
     }
 
     return res.json(conversation);
-  } catch (error) 
-  {
+  } catch (error) {
     console.error('Error getting/creating conversation:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
@@ -101,7 +102,7 @@ const getMyConversations = async (req, res) =>
 const getMessages = async (req, res) => 
 {
   try 
-  {
+  { 
     const myId = req.user.id;
     const { conversationId } = req.params;
 

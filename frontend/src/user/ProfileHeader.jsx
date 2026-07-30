@@ -1,5 +1,4 @@
-
-export function ProfileHeader({ user, isOwnProfile, onEditClick }) {
+export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat }) {
   return (
     <div className="profile-header">
       <img
@@ -17,13 +16,23 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick }) {
         )}
       </div>
 
-      {isOwnProfile && (
+      {/* mon profil -> bouton edit */}
+      {isOwnProfile ? (
         <button
           type="button"
           onClick={onEditClick}
           className="edit-profile-btn"
         >
           Edit Profile
+        </button>
+      ) : (
+        /* profil de quelq'un d'autre -> bouton message */
+        <button
+          type="button"
+          onClick={onStartChat}
+          className="message-btn"
+        >
+          Message 💬
         </button>
       )}
     </div>
