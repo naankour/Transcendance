@@ -8,8 +8,8 @@ import Follows from './pages/Follows';
 import Reviews from './pages/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
-import ActorSearchPage from './ActorSearchPage';
-import ActorPage from './ActorPage';
+import ActorSearchPage from './pages/ActorSearchPage';
+import ActorPage from './pages/ActorPage';
 
 function App() {
   return (
