@@ -5,7 +5,12 @@ const Favorites = () => {
   const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
-    axios.get('/api/favorites')
+    const token = localStorage.getItem('token')
+    axios.get('/api/favorites', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
       .then(res => setFavorites(res.data))
       .catch(err => console.error(err))
   }, [])

@@ -12,7 +12,17 @@ function HomePage() {
 
   return (
     <div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
-      <h1>Recherche de film par ID</h1>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <h1>Recherche de film</h1>
+        <button 
+          onClick={() => navigate('/profile')} 
+          style={{ padding: '8px 16px', fontSize: 16, cursor: 'pointer' }}
+        >
+          Mon Profil
+        </button>
+      </div>
+
       <input
         type="text"
         value={id}
