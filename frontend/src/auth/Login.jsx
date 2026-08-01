@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 export function Login({ onSwitchToRegister, triggerToast }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
@@ -24,7 +22,8 @@ export function Login({ onSwitchToRegister, triggerToast }) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        const errorMessage = data.error || data.message || 'Login failed';
+        throw new Error(errorMessage);
       }
 
       if (data.token) {
@@ -38,7 +37,9 @@ export function Login({ onSwitchToRegister, triggerToast }) {
       }, 1200);
 
     } catch (err) {
-      setError(err.message);
+      if (triggerToast) {
+        triggerToast(err.message || 'Something went wrong', '⚠️');
+      }
     } finally {
       setLoading(false);
     }
@@ -47,8 +48,6 @@ export function Login({ onSwitchToRegister, triggerToast }) {
   return (
     <form onSubmit={handleSubmit} className="auth-form">
       <h2>Welcome Back</h2>
-
-      {error && <div className="error-badge">{error}</div>}
 
       <input
         type="email"

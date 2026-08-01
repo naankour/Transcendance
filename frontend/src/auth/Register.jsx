@@ -1,20 +1,22 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export function Register({ onSwitchToLogin, triggerToast }) {
-  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -22,17 +24,21 @@ export function Register({ onSwitchToLogin, triggerToast }) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
+        const errorMessage =
+          data.error || data.message || "Registration failed";
+        throw new Error(errorMessage);
       }
 
-      triggerToast('Account created ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ heehee...');
-
+      if (triggerToast) {
+        triggerToast("Account created ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ heehee...", "✨");
+      }
       setTimeout(() => {
         onSwitchToLogin();
       }, 1200);
-
     } catch (err) {
-      setError(err.message);
+      if (triggerToast) {
+        triggerToast(err.message || "Something went wrong", "⚠️");
+      }
     } finally {
       setLoading(false);
     }
@@ -41,9 +47,7 @@ export function Register({ onSwitchToLogin, triggerToast }) {
   return (
     <form onSubmit={handleSubmit} className="auth-form">
       <h2>Create Account</h2>
-
-      {error && <div className="error-badge">{error}</div>}
-
+      
       <input
         type="text"
         placeholder="Username"
@@ -72,12 +76,17 @@ export function Register({ onSwitchToLogin, triggerToast }) {
       />
 
       <button type="submit" disabled={loading}>
-        {loading ? 'Creating Account...' : 'Sign Up'}
+        {loading ? "Creating Account..." : "Sign Up"}
       </button>
 
       <p>
-        Already have an account?{' '}
-        <button type="button" onClick={onSwitchToLogin} className="link-btn" disabled={loading}>
+        Already have an account?{" "}
+        <button
+          type="button"
+          onClick={onSwitchToLogin}
+          className="link-btn"
+          disabled={loading}
+        >
           Login
         </button>
       </p>

@@ -15,6 +15,10 @@ services:
     build: ./frontend
     ports:
       - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
     depends_on:
       - backend
     networks:
@@ -23,6 +27,8 @@ services:
 
   backend:
     build: ./backend
+    ports:
+    - "5555:5555"
     expose: 
       - "3000"
     volumes:

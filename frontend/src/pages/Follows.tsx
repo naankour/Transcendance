@@ -5,7 +5,12 @@ const Follows = () => {
   const [follows, setFollows] = useState([])
 
   useEffect(() => {
-    axios.get('/api/follows')
+    const token = localStorage.getItem('token')
+    axios.get('/api/follows', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
       .then(res => setFollows(res.data))
       .catch(err => console.error(err))
   }, [])

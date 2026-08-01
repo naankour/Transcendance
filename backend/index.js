@@ -1,5 +1,6 @@
 const express = require('express');
 const { initializeDatabase } = require('./config/db');
+const { test_seed } = require('./prisma/seed')
 require('dotenv').config();
 
 const app = express();
@@ -32,8 +33,12 @@ app.use('/api/follows', followRoutes);
 const movieRoutes = require('./api/movies');
 app.use('/api/movies', movieRoutes);
 
-const genreRoutes = require('./api/genres');
-app.use('/api/genres', genreRoutes);
+const conversationRoute = require('./api/conversations');
+app.use('/api/conversations', conversationRoute);
+
+const discoverRoutes = require('./api/discover');
+app.use('/api/discover', discoverRoutes);
+
 
 async function startServer() {
   console.log("1");
@@ -41,6 +46,7 @@ async function startServer() {
   try {
     console.log("2");
     await initializeDatabase();
+    await test_seed()
     console.log("3");
 
     app.listen(PORT, '0.0.0.0', () => {

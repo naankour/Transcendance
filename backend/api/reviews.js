@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const reviewsController  = require('../controllers/reviewController')
-// const authenticateToken = require('../middleware/authMiddleware');
+const authenticateToken = require('../middleware/authMiddleware');
 
-// router.get('/', authenticateToken, reviewsController.getReviews);
-// router.get('/movies/:movieId/reviews', authenticateToken, reviewsController.getReviewsByMovie);
-// router.post('/', authenticateToken, reviewsController.createReview);
-// router.put('/:id', authenticateToken,reviewsController.updateReview);
-// router.delete('/:id', authenticateToken, reviewsController.deleteReview);
+router.get('/', authenticateToken, reviewsController.getReviews);
+router.get('/movies/:movieId/reviews', authenticateToken, reviewsController.getReviewsByMovie);
+router.post('/', authenticateToken, reviewsController.createReview);
+router.put('/:id', authenticateToken,reviewsController.updateReview);
+router.delete('/:id', authenticateToken, reviewsController.deleteReview);
 
 
-router.get('/', reviewsController.getReviews)
-router.get('/movies/:movieId/reviews', reviewsController.getReviewsByMovie)
-router.post('/', reviewsController.createReview)
-router.put('/:id', reviewsController.updateReview)
-router.delete('/:id', reviewsController.deleteReview)
+// router.get('/', reviewsController.getReviews)
+// router.get('/movies/:movieId/reviews', reviewsController.getReviewsByMovie)
+// router.post('/', reviewsController.createReview)
+// router.put('/:id', reviewsController.updateReview)
+// router.delete('/:id', reviewsController.deleteReview)
 
 module.exports = router;
 
