@@ -25,7 +25,7 @@ function MoviePage() {
     setError(null);
     setMovie(null);
 
-    fetch(`/movies/${id}`)
+    fetch(`/api/movies/${id}`)
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Erreur');
@@ -50,9 +50,10 @@ function MoviePage() {
             style={{ maxWidth: 150, float: 'left', marginRight: 15 }}
           />
           <h2>{movie.title} ({movie.release_date?.slice(0, 4)})</h2>
-          <p><strong>Réalisateur :</strong> {movie.director || 'Inconnu'}</p>
+          <p><strong>Director :</strong> {movie.director || 'Inconnu'}</p>
           <p><strong>Genres :</strong> {movie.genres.join(', ')}</p>
-          <p><strong>Note :</strong> {movie.vote_average} / 10</p>
+          <p><strong>Runtime :</strong> {movie.runtime} min</p>
+          <p><strong>Rating :</strong> {movie.vote_average} / 10</p>
           <p>{movie.overview}</p>
           <p><strong>Casting :</strong> {movie.cast.map((a) => a.name).join(', ')}</p>
         </div>

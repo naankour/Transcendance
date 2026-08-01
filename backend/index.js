@@ -1,61 +1,58 @@
-const express = require('express')
+const express = require('express');
 const { initializeDatabase } = require('./config/db');
 require('dotenv').config();
 
-const app = express()
+const app = express();
 
-initializeDatabase();
+app.use(express.json());
 
-// Route pour récupérer un film depuis TMDB par son ID
-app.get('/movies/:id', async (req, res) => {
+const PORT = 3000;
+
+const authRoutes = require('./api/auth');
+app.use('/api/auth', authRoutes);
+
+const userRoutes = require('./api/users');
+app.use('/api/users', userRoutes);
+
+const actorRoutes = require('./api/actors');
+app.use('/api', actorRoutes);
+
+// const reviewRoutes = require('./api/reviews');
+// app.use('/api/reviews', reviewRoutes);
+
+// const favoriteRoutes = require('./api/reviews');
+// app.use('/api/favorites', favoriteRoutes);
+
+// const followRoutes = require('./api/follows');
+// app.use('/api/follows', followRoutes);
+
+const movieRoutes = require('./api/movies');
+app.use('/api/movies', movieRoutes);
+
+// const watchlistRoutes = require('./api/watchlist');
+// app.use('/api/watchlist', watchlistRoutes);
+
+// const genreRoutes = require('./api/genres');
+// app.use('/api/genres', genreRoutes);
+
+async function startServer() {
+  console.log("1");
+
   try {
-    const id = req.params.id;
+    console.log("2");
+    await initializeDatabase();
+    console.log("3");
 
-    const movieResponse = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
-        },
-      }
-    );
-
-    if (!movieResponse.ok) {
-      return res.status(404).json({
-        error: "Film introuvable"
-      });
-    }
-
-    const movie = await movieResponse.json();
-
-    const director = movie.credits.crew.find(person => person.job === "Director");
-    const cast = movie.credits.cast.slice(0, 10).map(actor => ({
-      name: actor.name,
-      character: actor.character,
-    }));
-
-    res.json({
-      id: movie.id,
-      title: movie.title,
-      overview: movie.overview,
-      release_date: movie.release_date,
-      runtime: movie.runtime,
-      genres: movie.genres.map(g => g.name),
-      vote_average: movie.vote_average,
-      poster_path: movie.poster_path,
-      director: director ? director.name : null,
-      cast,
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log("4");
+      console.log(`Server running on port ${PORT}`);
     });
 
+    console.log("5");
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      error: "Erreur serveur"
-    });
   }
-});
+}
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
-});
+
+startServer();
