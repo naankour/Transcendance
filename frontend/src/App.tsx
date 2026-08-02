@@ -12,8 +12,10 @@ import Follows from './pages/Follows';
 import Reviews from './pages/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
-import ActorSearchPage from './pages/ActorSearchPage';
+// import ActorSearchPage from './pages/ActorSearchPage';
 import ActorPage from './pages/ActorPage';
+import Header from './layout/Header';
+import SearchResultsPage from './pages/SearchResultsPage';
 
 function App() {
 
@@ -31,6 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <Toast message={toastMessage} icon={toastIcon} />
+	  <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movie/:id" element={<MoviePage />} />
@@ -44,8 +47,10 @@ function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/reviews/create" element={<CreateReview />} />
         <Route path="/reviews/:id/edit" element={<EditReview />} />
-		    <Route path="/actors" element={<ActorSearchPage />} />
-		    <Route path="/actor/:id" element={<ActorPage />} />
+		<Route path="/search/:query" element={<SearchResultsPage />} />
+
+		    {/* <Route path="/actors" element={<ActorSearchPage />} /> */}
+		<Route path="/actor/:id" element={<ActorPage />} />
       </Routes>
     </BrowserRouter>
   );

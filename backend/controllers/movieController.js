@@ -57,9 +57,15 @@ async function getMovieById(req, res) {
     const movie = await movieResponse.json();
 
     const director = movie.credits.crew.find(person => person.job === "Director");
+	let directorData = null;
+	if (director)
+		directorData = { id: director.id, name: director.name };
+
     const cast = movie.credits.cast.slice(0, 10).map(actor => ({
+	  id: actor.id,
       name: actor.name,
       character: actor.character,
+	  profile_path: actor.profile_path,
     }));
 
     res.json({
@@ -71,7 +77,7 @@ async function getMovieById(req, res) {
       genres: movie.genres.map(g => g.name),
       vote_average: movie.vote_average,
       poster_path: movie.poster_path,
-      director: director ? director.name : null,
+      director: directorData,
       cast,
     });
 
