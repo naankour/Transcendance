@@ -1,0 +1,22 @@
+{
+	"header": {
+		"searchPlaceholder": "Buscar una película, un actor...",
+		"movies": "Películas",
+		"actorsDirectors": "Actores / directores"
+	},
+	"actorPage": {
+		"back": "← Volver",
+		"loading": "Cargando...",
+		"born": "Nacido/a el:",
+		"noBiography": "No hay biografía disponible.",
+		"filmography": "Filmografía",
+		"biographyFallbackNotice": "(Biografía solo disponible en inglés)"
+	},
+	"searchPage": {
+		"resultsFor": "Resultados para \"{{query}}\"",
+		"loading": "Cargando...",
+		"noResults": "Sin resultados.",
+		"movies": "Películas",
+		"actorsDirectors": "Actores / directores"
+	}
+}

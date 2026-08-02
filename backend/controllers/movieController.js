@@ -1,9 +1,12 @@
+const { getTmdbLanguage } = require('../utils/tmdbLang');
+
 async function searchMovie(req, res) {
   try {
     const name = req.params.name;
+    const tmdbLanguage = getTmdbLanguage(req.query.lang);
 
     const searchResponse = await fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(name)}`,
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(name)}&language=${tmdbLanguage}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
@@ -20,7 +23,7 @@ async function searchMovie(req, res) {
     const movieId = searchData.results[0].id;
 
     const movieResponse = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}`,
+      `https://api.themoviedb.org/3/movie/${movieId}?language=${tmdbLanguage}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
@@ -38,11 +41,14 @@ async function searchMovie(req, res) {
 }
 
 async function getMovieById(req, res) {
+
+	const tmdbLanguage = getTmdbLanguage(req.query.lang);
+
   try {
     const id = req.params.id;
 
     const movieResponse = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits`,
+      `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits&language=${tmdbLanguage}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_API_KEY}`,

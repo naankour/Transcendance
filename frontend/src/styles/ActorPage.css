@@ -50,3 +50,9 @@
 	text-decoration: underline;
 	color: var(--color-accent);
 }
+
+.biography-fallback-notice {
+	color: var(--color-text-muted);
+	font-style: italic;
+	font-size: 0.85em;
+}

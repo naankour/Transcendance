@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/SearchResultsPage.css';
-
 
 interface MovieResult {
 	id: number;
@@ -19,6 +19,7 @@ interface PersonResult {
 function SearchResultsPage() {
 	const { query } = useParams();
 	const navigate = useNavigate();
+	const { t, i18n } = useTranslation();
 	const [movies, setMovies] = useState<MovieResult[]>([]);
 	const [people, setPeople] = useState<PersonResult[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ function SearchResultsPage() {
 		setLoading(true);
 		setError(null);
 
-		fetch(`/api/search/${encodeURIComponent(query || '')}?movieLimit=20&personLimit=10`)
+		fetch(`/api/search/${encodeURIComponent(query || '')}?movieLimit=20&personLimit=20&lang=${i18n.language}`)
 			.then(async (res) => {
 				const data = await res.json();
 				if (!res.ok) throw new Error(data.error || 'Error');
@@ -37,22 +38,22 @@ function SearchResultsPage() {
 			})
 			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
-	}, [query]);
+	}, [query, i18n.language]);
 
 	return (
 		<div className="search-page">
-			<h1 className="search-page-title">Results for "{query}"</h1>
+			<h1 className="search-page-title">{t('searchPage.resultsFor', { query })}</h1>
 
-			{loading && <p className="search-page-status">Loading...</p>}
+			{loading && <p className="search-page-status">{t('searchPage.loading')}</p>}
 			{error && <p className="search-page-status">{error}</p>}
 
 			{!loading && !error && movies.length === 0 && people.length === 0 && (
-				<p className="search-page-status">No results.</p>
+				<p className="search-page-status">{t('searchPage.noResults')}</p>
 			)}
 
 			{movies.length > 0 && (
 				<div className="search-page-section">
-					<h2 className="search-page-section-title">Movies</h2>
+					<h2 className="search-page-section-title">{t('searchPage.movies')}</h2>
 					<div className="search-page-grid">
 						{movies.map((movie) => (
 							<div
@@ -78,7 +79,7 @@ function SearchResultsPage() {
 
 			{people.length > 0 && (
 				<div className="search-page-section">
-					<h2 className="search-page-section-title">Actors / directors</h2>
+					<h2 className="search-page-section-title">{t('searchPage.actorsDirectors')}</h2>
 					<div className="search-page-grid">
 						{people.map((person) => (
 							<div

@@ -1,3 +1,5 @@
+const { getTmdbLanguage } = require('../utils/tmdbLang');
+
 const searchAll = async (req, res) => {
 	let query = req.params.query;
 
@@ -15,12 +17,14 @@ const searchAll = async (req, res) => {
 	if (!Number.isInteger(personLimit) || personLimit <= 0)
 		personLimit = 2;
 
+    const tmdbLanguage = getTmdbLanguage(req.query.lang);
+
 	try {
 		const responses = await Promise.all([
-			fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=en-US`, {
+			fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=${tmdbLanguage}`, {
 				headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`, Accept: "application/json" },
 			}),
-			fetch(`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(query)}&language=en-US`, {
+			fetch(`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(query)}&language=${tmdbLanguage}`, {
 				headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`, Accept: "application/json" },
 			}),
 		]);

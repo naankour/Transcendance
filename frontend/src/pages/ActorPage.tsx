@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/ActorPage.css';
 
 interface FilmographyEntry {
@@ -14,6 +15,7 @@ interface Actor {
 	id: number;
 	name: string;
 	biography: string;
+	biographyIsFallback: boolean;
 	profile_path: string | null;
 	birthday: string | null;
 	filmography: FilmographyEntry[];
@@ -22,6 +24,7 @@ interface Actor {
 function ActorPage() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { t, i18n } = useTranslation();
 	const [actor, setActor] = useState<Actor | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
@@ -31,7 +34,7 @@ function ActorPage() {
 	setError(null);
 	setActor(null);
 
-	fetch(`/api/actors/${id}`)
+	fetch(`/api/actors/${id}?lang=${i18n.language}`)
 		.then(async (res) => {
 		const data = await res.json();
 		if (!res.ok) throw new Error(data.error || 'Error');
@@ -39,15 +42,15 @@ function ActorPage() {
 		})
 		.catch((err) => setError(err.message))
 		.finally(() => setLoading(false));
-	}, [id]);
+	}, [id, i18n.language]);
 
 	return (
 	<div className="actor-page">
 		<button onClick={() => navigate(-1)} className="back-button">
-		← Back
+		{t('actorPage.back')}
 		</button>
 
-		{loading && <p>Loading...</p>}
+		{loading && <p>{t('actorPage.loading')}</p>}
 		{error && <p className="error-text">{error}</p>}
 
 		{actor && (
@@ -60,10 +63,15 @@ function ActorPage() {
 			/>
 			)}
 			<h2>{actor.name}</h2>
-			{actor.birthday && <p><strong>Born:</strong> {actor.birthday}</p>}
-			<p className='actor-biography'>{actor.biography || 'Pas de biographie disponible.'}</p>
+			{actor.birthday && <p><strong>{t('actorPage.born')}</strong> {actor.birthday}</p>}
+			<p>
+				{actor.biography || t('actorPage.noBiography')}
+				{actor.biographyIsFallback && (
+					<span className="biography-fallback-notice"> {t('actorPage.biographyFallbackNotice')}</span>
+				)}
+			</p>
 
-			<h3 className="filmography-title">Filmography</h3>
+			<h3 className="filmography-title">{t('actorPage.filmography')}</h3>
 			<p>
 			{actor.filmography.slice(0, 15).map((movie, index) => (
 				<span key={`${movie.id}-${movie.role}-${index}`}>

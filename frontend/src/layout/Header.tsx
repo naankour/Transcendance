@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import './Header.css';
-
-//Header temporaire avec barre de recherche pour movies et actors.
 
 interface MovieResult {
 	id: number;
@@ -18,17 +18,17 @@ interface PersonResult {
 }
 
 function Header() {
+	const { t, i18n } = useTranslation();
 	const [query, setQuery] = useState('');
-	const navigate = useNavigate();
 	const [movies, setMovies] = useState<MovieResult[]>([]);
 	const [people, setPeople] = useState<PersonResult[]>([]);
 	const [showResults, setShowResults] = useState(false);
+	const navigate = useNavigate();
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const trimmed = query.trim();
 
-        //on lance les suggestions qu'avec min 2 caracteres
 		if (trimmed.length < 2) {
 			setMovies([]);
 			setPeople([]);
@@ -36,9 +36,8 @@ function Header() {
 			return;
 		}
 
-        //relance pas a chaque lettre mais apres un certain delai
 		const timeoutId = setTimeout(() => {
-			fetch(`/api/search/${encodeURIComponent(trimmed)}`)
+			fetch(`/api/search/${encodeURIComponent(trimmed)}?lang=${i18n.language}`)
 				.then(async (res) => {
 					const data = await res.json();
 					if (!res.ok) throw new Error(data.error || 'Error');
@@ -55,7 +54,6 @@ function Header() {
 		return () => clearTimeout(timeoutId);
 	}, [query]);
 
-    //ecoute les clics en dehors de la div de recherche
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -66,8 +64,7 @@ function Header() {
 		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, []);
 
-    //on clean et on redirige vers la page choisie
-	const handleSelectMovie = (id: number) =>{
+	const handleSelectMovie = (id: number) => {
 		setQuery('');
 		setShowResults(false);
 		navigate(`/movie/${id}`);
@@ -100,7 +97,7 @@ function Header() {
 						if (movies.length > 0 || people.length > 0)
 							setShowResults(true);
 					}}
-					placeholder="Search for a movie, an actor..."
+					placeholder={t('header.searchPlaceholder')}
 					className="search-input"
 				/>
 
@@ -108,7 +105,7 @@ function Header() {
 					<div className="search-results">
 						{movies.length > 0 && (
 							<div className="search-section">
-								<p className="search-section-title">Movies</p>
+								<p className="search-section-title">{t('header.movies')}</p>
 								{movies.map((movie) => (
 									<div
 										key={movie.id}
@@ -130,7 +127,7 @@ function Header() {
 
 						{people.length > 0 && (
 							<div className="search-section">
-								<p className="search-section-title">Actors / directors</p>
+								<p className="search-section-title">{t('header.actorsDirectors')}</p>
 								{people.map((person) => (
 									<div
 										key={person.id}
@@ -152,6 +149,8 @@ function Header() {
 					</div>
 				)}
 			</div>
+
+			<LanguageSwitcher />
 		</header>
 	);
 }
