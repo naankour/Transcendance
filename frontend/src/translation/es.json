@@ -2,7 +2,8 @@
 	"header": {
 		"searchPlaceholder": "Buscar una película, un actor...",
 		"movies": "Películas",
-		"actorsDirectors": "Actores / directores"
+		"actorsDirectors": "Actores / directores",
+        "users": "Usuarios"
 	},
 	"actorPage": {
 		"back": "← Volver",
@@ -17,6 +18,7 @@
 		"loading": "Cargando...",
 		"noResults": "Sin resultados.",
 		"movies": "Películas",
-		"actorsDirectors": "Actores / directores"
+		"actorsDirectors": "Actores / directores",
+        "users": "Usuarios"
 	}
 }

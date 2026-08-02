@@ -17,11 +17,18 @@ interface PersonResult {
 	profile_path: string | null;
 }
 
+interface UserResult {
+	id: number;
+	username: string;
+	avatar_url: string | null;
+}
+
 function Header() {
 	const { t, i18n } = useTranslation();
 	const [query, setQuery] = useState('');
 	const [movies, setMovies] = useState<MovieResult[]>([]);
 	const [people, setPeople] = useState<PersonResult[]>([]);
+	const [users, setUsers] = useState<UserResult[]>([]);
 	const [showResults, setShowResults] = useState(false);
 	const navigate = useNavigate();
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -32,6 +39,7 @@ function Header() {
 		if (trimmed.length < 2) {
 			setMovies([]);
 			setPeople([]);
+			setUsers([]);
 			setShowResults(false);
 			return;
 		}
@@ -43,11 +51,13 @@ function Header() {
 					if (!res.ok) throw new Error(data.error || 'Error');
 					setMovies(data.movies || []);
 					setPeople(data.people || []);
+					setUsers(data.users || []);
 					setShowResults(true);
 				})
 				.catch(() => {
 					setMovies([]);
 					setPeople([]);
+					setUsers([]);
 				});
 		}, 300);
 
@@ -76,6 +86,12 @@ function Header() {
 		navigate(`/actor/${id}`);
 	};
 
+	const handleSelectUser = (id: number) => {
+		setQuery('');
+		setShowResults(false);
+		navigate(`/profile/${id}`);
+	};
+
 	const handleFullSearch = () => {
 		const trimmed = query.trim();
 		if (!trimmed) return;
@@ -83,9 +99,11 @@ function Header() {
 		navigate(`/search/${encodeURIComponent(trimmed)}`);
 	};
 
+	const hasResults = movies.length > 0 || people.length > 0 || users.length > 0;
+
 	return (
 		<header className="header">
-			<Link to="/" className="header-logo">★ LetterBlog ★</Link>
+			<Link to="/" className="header-logo">★ Transcendance ★</Link>
 
 			<div ref={containerRef} className="search-container">
 				<input
@@ -94,14 +112,14 @@ function Header() {
 					onChange={(e) => setQuery(e.target.value)}
 					onKeyDown={(e) => e.key === 'Enter' && handleFullSearch()}
 					onFocus={() => {
-						if (movies.length > 0 || people.length > 0)
+						if (hasResults)
 							setShowResults(true);
 					}}
 					placeholder={t('header.searchPlaceholder')}
 					className="search-input"
 				/>
 
-				{showResults && (movies.length > 0 || people.length > 0) && (
+				{showResults && hasResults && (
 					<div className="search-results">
 						{movies.length > 0 && (
 							<div className="search-section">
@@ -142,6 +160,28 @@ function Header() {
 											/>
 										)}
 										<span>{person.name}</span>
+									</div>
+								))}
+							</div>
+						)}
+
+						{users.length > 0 && (
+							<div className="search-section">
+								<p className="search-section-title">{t('header.users')}</p>
+								{users.map((user) => (
+									<div
+										key={user.id}
+										onClick={() => handleSelectUser(user.id)}
+										className="search-result-item"
+									>
+										{user.avatar_url && (
+											<img
+												src={user.avatar_url}
+												alt={user.username}
+												className="search-result-avatar"
+											/>
+										)}
+										<span>{user.username}</span>
 									</div>
 								))}
 							</div>
