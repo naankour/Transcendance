@@ -47,7 +47,7 @@ const createReview = async(req, res) =>
         error: "rating and content are mandatory"
       });
     }
-
+  
     if (rating < 0.5 || rating > 5) {
       return res.status(400).json({
         error: "Rating must be between 0,5 and 5"
@@ -62,7 +62,18 @@ const createReview = async(req, res) =>
         rating,
         content,
       },
+      include: {
+        users: true,
+      },
     });
+    const io = req.app.get("io");
+
+    io.emit("reviewCreated", {
+      reviewId: newReview.id,
+      movieId: newReview.movie_id,
+      author: newReview.users.username,
+    });
+
     return res.status(201).json(newReview);
   }
   catch (error)

@@ -1,4 +1,23 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { io } from 'socket.io-client';
+
+const socket = io("https://localhost", {
+  transports: ["websocket"]
+});
+
+// const3 socket = io("http://localhost:3000", {
+//   transports: ["websocket"]
+// });
+
+// socket.on("connect", () => {
+//   console.log("Socket connecté :", socket.id);
+// });
+
+// socket.on("connect_error", (error) => {
+//   console.log("Erreur socket :", error.message);
+// });
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import MoviePage from './MoviePage';
@@ -29,6 +48,16 @@ function App() {
       setToastMessage('');
     }, 4000);
   };
+
+  useEffect(() => {
+
+    socket.on("reviewCreated", (data) => {
+      triggerToast(`${data.author} published a new review !`, "⭐"); });
+    
+    return () => 
+      {socket.off("reviewCreated");}; 
+    
+    }, []);
 
   return (
     <BrowserRouter>
