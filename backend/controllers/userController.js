@@ -1,6 +1,21 @@
 
 const prisma = require('../prisma/prismaClient.js');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/avatars');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    cb(null, `avatar-${req.user.id}-${uniqueSuffix}${ext}`);
+  },
+});
+
+const upload = multer({ storage });
 
 // récupère le profil du user connecté
 const getMyProfile = async (req, res) => {
@@ -37,15 +52,28 @@ const getMyProfile = async (req, res) => {
 const updateMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { firstname, lastname, username, email, avatar_url, bio } = req.body;
+    const { firstname, lastname, username, email, bio } = req.body;
 
     if (!username || !email) {
       return res.status(400).json({ error: 'Username and email are required fields (ง •̀_•́)ง' });
     }
 
+
+    let avatar_url = req.body.avatar_url;
+    if (req.file) {
+      avatar_url = `/avatars/${req.file.filename}`;
+    }
+
     const updatedUser = await prisma.users.update({
       where: { id: Number(userId) },
-      data: { firstname, lastname, username, email, avatar_url, bio },
+      data: {
+        firstname,
+        lastname,
+        username,
+        email,
+        bio,
+        ...(avatar_url && { avatar_url: avatar_url }), // Met à jour seulement si newAvatarUrl est défini
+      },
       select: {
         id: true,
         firstname: true,
@@ -218,4 +246,5 @@ module.exports = {
   getUserById,
   getUsers,
   changePassword,
+  upload
 };
