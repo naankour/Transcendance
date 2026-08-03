@@ -8,10 +8,13 @@ const getFollows = async(req, res) =>
 
         const follows = await prisma.follows.findMany({
             where: {
-                follower_id:user_id
+                follower_id: user_id
+            },
+            include: {
+                users_follows_followed_idTousers: true
             }
         });
-        res.json(follows);
+        res.status(200).json(follows);
     }
     catch (error)
     {

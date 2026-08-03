@@ -6,9 +6,9 @@ import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
 // import ConversationPage from './conversations/ConversationPage';
-import Watchlist from './pages/Watchlist';
-import Favorites from './pages/Favorites';
-import Follows from './pages/Follows';
+import Watchlist from './Watchlist/Watchlist';
+import Favorites from './Favorites/Favorites';
+import Follows from './Follows/Follows';
 import Reviews from './pages/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
