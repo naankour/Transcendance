@@ -43,15 +43,15 @@ body,
 
 body {
 	min-width: 320px;
-	/* background-color: var(--color-accent); */
-	/* background-image:
+	background-color: var(--color-accent);
+	background-image: 
 		linear-gradient(rgba(10, 10, 10, 0.75), rgba(10, 10, 10, 0.55)),
-		url('./assets/neon-retro.png'); */
-	/* background-blend-mode: multiply, luminosity;
+		url('./assets/neon-retro.png');
+	background-blend-mode: multiply, luminosity;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-attachment: fixed; */
+	background-attachment: fixed;
 }
 
 #root {
