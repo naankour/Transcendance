@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Honk:MORF@15&family=Rubik+Puddles&display=swap');
+
 .header {
 	border-bottom: 3px solid var(--color-accent);
 	padding: 12px 24px;
@@ -5,23 +7,91 @@
 	align-items: center;
 	justify-content: space-between;
 	position: sticky;
+    width: 100%;
 	top: 0;
-	z-index: 100;
     background-color: black;
 }
 
+.research-and-language-switcher {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+
+}
 .header-logo {
-	color: var(--color-accent);
-	font-size: 22px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 30px;
 	font-weight: bold;
 	text-decoration: none;
 	font-family: var(--font-title);
-	text-shadow: 0 0 6px var(--color-accent);
+	letter-spacing: 0.5px;
+	transition: transform 0.2s ease;
 }
+
+.header-logo:hover {
+	transform: scale(1.03) rotate(-1deg);
+}
+
+.header-logo-letter {
+	color: var(--color-text);
+	text-shadow: 0 0 6px var(--color-accent-soft);
+}
+
+
+.header-logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 38px;
+	text-decoration: none;
+    font-family: "Rubik Puddles", system-ui;
+    /* font-family: "Honk", system-ui; */
+    font-weight: 400;
+    font-style: normal;
+	transition: transform 0.2s ease;
+}
+
+.header-logo:hover {
+	transform: scale(1.04) rotate(-2deg);
+}
+
+.header-logo-letter {
+	color: var(--color-accent-soft);
+	text-shadow: 0 0 8px rgba(255, 159, 209, 0.5);
+}
+
+.header-logo-blog {
+	color: var(--color-accent);
+	text-shadow:
+		0 0 8px var(--color-accent),
+		0 0 18px var(--color-accent),
+		0 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.header-logo-star {
+	color: var(--color-accent-soft);
+	font-size: 30px;
+	text-shadow: 0 0 12px var(--color-accent-soft), 0 0 24px var(--color-accent);
+	animation: star-twinkle 2.5s ease-in-out infinite;
+}
+
+.header-logo-star:last-child {
+	animation-delay: 1.2s;
+}
+
+@keyframes star-twinkle {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50% { opacity: 0.4; transform: scale(0.85); }
+}
+
 
 .search-container {
 	position: relative;
-	width: 320px;
+	width: 350px;
 }
 
 .search-input {

@@ -1,6 +1,6 @@
 {
 	"header": {
-		"searchPlaceholder": "Rechercher un film, un acteur...",
+		"searchPlaceholder": "Rechercher un film, un acteur, un utilisateur...",
 		"movies": "Films",
 		"actorsDirectors": "Acteurs / réalisateurs",
         "users": "Utilisateurs"
@@ -20,5 +20,159 @@
 		"movies": "Films",
 		"actorsDirectors": "Acteurs / réalisateurs",
         "users": "Utilisateurs"
-	}
+	},
+    "watchlistPage": {
+        "watchlist": "Ma Watchlist",
+        "movieID": "Film ID :"
+    },
+
+
+    "terms": {
+        "title": "Conditions d'utilisation",
+        "lastUpdated": "Dernière mise à jour : 2 août 2026",
+        "s1": {
+            "heading": "1. Acceptation des conditions",
+            "p1": "En créant un compte ou en utilisant LetterBlog, vous acceptez de respecter ces Conditions d'utilisation. Si vous n'êtes pas d'accord avec ces conditions, vous ne devez pas utiliser l'application."
+        },
+        "s2": {
+            "heading": "2. Description du service",
+            "p1": "LetterBlog permet aux utilisateurs de découvrir des films, de consulter des informations sur les acteurs et réalisateurs, de publier des avis, de noter des films, de créer des listes de favoris et des watchlists, de suivre d'autres utilisateurs et d'utiliser les fonctionnalités sociales proposées par l'application."
+        },
+        "s3": {
+            "heading": "3. Comptes utilisateurs",
+            "p1": "Les utilisateurs doivent fournir des informations exactes lors de la création d'un compte et doivent garder leurs identifiants de connexion confidentiels.",
+            "p2": "Vous êtes responsable de l'activité effectuée via votre compte. Si vous pensez que votre compte a été compromis, vous devez en informer les administrateurs du projet dès que possible."
+        },
+        "s4": {
+            "heading": "4. Utilisation acceptable",
+            "intro": "Les utilisateurs ne doivent pas :",
+            "items": [
+                "Harceler, menacer ou maltraiter d'autres utilisateurs.",
+                "Publier du contenu illégal, haineux ou discriminatoire.",
+                "Usurper l'identité d'une autre personne ou créer des comptes trompeurs.",
+                "Spammer les utilisateurs ou détourner l'usage de la messagerie et des fonctionnalités sociales.",
+                "Tenter d'accéder au compte d'un autre utilisateur.",
+                "Nuire à la sécurité ou au fonctionnement du service.",
+                "Utiliser des outils automatisés pour surcharger ou aspirer (scraper) l'application.",
+                "Collecter les informations personnelles d'autres utilisateurs (nom d'utilisateur, avatar, activité, etc.) à des fins non liées à l'usage normal de l'application.",
+                "Publier du contenu portant atteinte à des droits de propriété intellectuelle."
+            ]
+        },
+        "s5": {
+            "heading": "5. Contenu généré par les utilisateurs",
+            "p1": "Les utilisateurs restent responsables des avis, informations de profil, messages et autres contenus qu'ils publient via LetterBlog.",
+            "p2": "En publiant du contenu, vous autorisez LetterBlog à le stocker, l'afficher et le traiter uniquement dans la mesure nécessaire au fonctionnement des fonctionnalités de l'application.",
+            "p3": "Un contenu peut être supprimé s'il enfreint ces conditions, la loi applicable, ou les droits et la sécurité d'autres utilisateurs."
+        },
+        "s6": {
+            "heading": "6. Informations sur les films et contenu tiers",
+            "p1": "Les informations sur les films, affiches, détails des acteurs et métadonnées associées peuvent être fournies par The Movie Database (TMDB).",
+            "p2": "LetterBlog ne revendique aucune propriété sur les données de films provenant de tiers et ne peut garantir que toutes les informations sont complètes, exactes ou disponibles de façon permanente."
+        },
+        "s7": {
+            "heading": "7. Avis et notes",
+            "p1": "Les avis et notes reflètent les opinions individuelles des utilisateurs. LetterBlog ne cautionne pas nécessairement chaque opinion publiée via le service.",
+            "p2": "Les utilisateurs doivent publier des avis honnêtes et éviter les notes volontairement trompeuses, le contenu dupliqué ou le harcèlement ciblé."
+        },
+        "s8": {
+            "heading": "8. Suspension et résiliation",
+            "p1": "L'accès à un compte peut être restreint ou résilié lorsqu'un utilisateur enfreint ces conditions, menace la sécurité de l'application ou porte atteinte de façon répétée à d'autres utilisateurs.",
+            "p2": "Les utilisateurs peuvent cesser d'utiliser le service et demander la suppression de leur compte à tout moment."
+        },
+        "s9": {
+            "heading": "9. Disponibilité du service",
+            "p1": "LetterBlog est fourni « en l'état » selon sa disponibilité. Certaines fonctionnalités peuvent occasionnellement être indisponibles en raison de maintenance, de problèmes techniques ou d'interruptions de services tiers.",
+            "p2": "L'équipe du projet ne garantit pas un accès ininterrompu ou sans erreur à l'application."
+        },
+        "s10": {
+            "heading": "10. Limitation de responsabilité",
+            "p1": "Dans la mesure permise par la loi applicable, l'équipe du projet n'est pas responsable des pertes indirectes causées par des fonctionnalités indisponibles, des données tierces inexactes, du contenu généré par les utilisateurs, ou un accès non autorisé au compte résultant du manquement d'un utilisateur à protéger ses identifiants."
+        },
+        "s11": {
+            "heading": "11. Modifications de ces conditions",
+            "p1": "Ces Conditions d'utilisation peuvent être mises à jour lorsque les fonctionnalités, les exigences de sécurité ou les règles applicables évoluent. Continuer à utiliser l'application après une mise à jour signifie que les conditions révisées sont acceptées."
+        },
+        "s12": {
+            "heading": "12. Contact",
+            "p1": "Les questions concernant ces conditions peuvent être adressées aux administrateurs du projet LetterBlog via le canal de contact officiel de l'application."
+        }
+    },
+    "privacy": {
+        "title": "Politique de confidentialité",
+        "lastUpdated": "Dernière mise à jour : 2 août 2026",
+        "s1": {
+            "heading": "1. Introduction",
+            "p1": "LetterBlog est une application sociale centrée sur le cinéma, permettant aux utilisateurs de découvrir des films, de gérer des listes personnelles, de publier des avis et d'interagir avec d'autres utilisateurs.",
+            "p2": "Cette Politique de confidentialité explique quelles informations peuvent être collectées, pourquoi elles sont utilisées, et quels choix les utilisateurs ont concernant leurs données."
+        },
+        "s2": {
+            "heading": "2. Informations que nous collectons",
+            "p1": "Lorsque vous créez et utilisez un compte, l'application peut stocker des informations telles que votre nom d'utilisateur, votre adresse email, vos informations de profil et vos données d'authentification.",
+            "p2": "L'application peut également stocker le contenu et l'activité associés à votre compte, y compris les avis, notes, films favoris, watchlists, abonnements et messages envoyés via l'application."
+        },
+        "s3": {
+            "heading": "3. Informations collectées automatiquement",
+            "p1": "Lorsque vous utilisez LetterBlog, le serveur peut enregistrer automatiquement des informations techniques telles que votre adresse IP, le type de navigateur, des informations sur votre appareil et la date et l'heure de vos requêtes. Ces données sont utilisées à des fins de sécurité, de débogage et de prévention des abus, et ne sont pas utilisées à des fins marketing."
+        },
+        "s4": {
+            "heading": "4. Comment les informations sont utilisées",
+            "intro": "Vos informations sont utilisées pour :",
+            "items": [
+                "Créer et gérer votre compte.",
+                "Vous authentifier de façon sécurisée.",
+                "Afficher votre profil et votre activité publique.",
+                "Sauvegarder vos avis, notes, favoris et votre watchlist.",
+                "Fournir les fonctionnalités sociales et de messagerie.",
+                "Maintenir la sécurité et le bon fonctionnement du service."
+            ]
+        },
+        "s5": {
+            "heading": "5. Informations publiques",
+            "p1": "Certaines informations peuvent être visibles par d'autres utilisateurs, notamment votre nom d'utilisateur, votre photo de profil, votre biographie, vos avis, vos notes et vos listes de films publiques.",
+            "p2": "Les utilisateurs doivent éviter de publier des informations personnelles ou sensibles dans les champs de profil public, les avis ou les messages."
+        },
+        "s6": {
+            "heading": "6. Données de films provenant de tiers",
+            "p1": "LetterBlog utilise The Movie Database (TMDB) pour récupérer des informations sur les films, acteurs, réalisateurs, images et contenus liés au divertissement.",
+            "p2": "Les requêtes impliquant du contenu TMDB peuvent être traitées selon les propres conditions et pratiques de confidentialité de TMDB. LetterBlog ne contrôle pas les informations gérées directement par TMDB."
+        },
+        "s7": {
+            "heading": "7. Cookies et authentification",
+            "p1": "L'application peut utiliser des cookies, jetons ou mécanismes techniques similaires pour maintenir les utilisateurs connectés, protéger les comptes et maintenir les sessions actives.",
+            "p2": "Ces mécanismes sont utilisés pour des fonctions essentielles de l'application et ne sont pas destinés à des fins publicitaires."
+        },
+        "s8": {
+            "heading": "8. Liens vers d'autres sites",
+            "p1": "LetterBlog peut afficher des liens vers des sites ou contenus tiers, notamment des pages liées à The Movie Database (TMDB) ou d'autres sources référencées.",
+            "p2": "Ces sites externes ne sont pas exploités par l'équipe du projet. L'équipe du projet n'a aucun contrôle sur le contenu ou les pratiques de confidentialité de ces sites tiers et n'en assume aucune responsabilité."
+        },
+        "s9": {
+            "heading": "9. Confidentialité des mineurs",
+            "p1": "LetterBlog ne s'adresse pas et n'est pas destiné à être utilisé par des enfants de moins de 13 ans. L'équipe du projet ne collecte pas sciemment d'informations personnelles auprès d'enfants de moins de 13 ans.",
+            "p2": "Si un parent ou tuteur pense qu'un enfant de moins de 13 ans a fourni des informations personnelles via l'application, il doit contacter les administrateurs du projet afin que ces informations puissent être supprimées."
+        },
+        "s10": {
+            "heading": "10. Partage des données",
+            "p1": "LetterBlog ne vend pas d'informations personnelles. Les informations ne sont partagées que lorsque cela est nécessaire au fonctionnement du service, requis par la loi, ou nécessaire pour protéger l'application et ses utilisateurs."
+        },
+        "s11": {
+            "heading": "11. Sécurité des données",
+            "p1": "Des mesures techniques et organisationnelles raisonnables sont mises en œuvre pour protéger les informations personnelles contre tout accès, modification ou divulgation non autorisés.",
+            "p2": "Cependant, aucun service en ligne ne peut garantir une sécurité totale. Les utilisateurs sont responsables de la protection de leurs mots de passe et de l'accès à leur compte."
+        },
+        "s12": {
+            "heading": "12. Conservation des données et suppression de compte",
+            "p1": "Les informations de compte sont conservées tant que le compte reste actif ou tant que cela est nécessaire au fonctionnement et à la sécurité du service.",
+            "p2": "Les utilisateurs peuvent demander la suppression de leur compte et des informations personnelles associées. Certaines informations limitées peuvent être conservées lorsque cela est requis pour des raisons de sécurité, légales ou techniques."
+        },
+        "s13": {
+            "heading": "13. Vos droits",
+            "p1": "Selon la loi applicable, les utilisateurs peuvent demander l'accès, la correction ou la suppression de leurs informations personnelles. Les utilisateurs peuvent également s'opposer à certains traitements ou en demander la limitation.",
+            "p2": "Les demandes liées à la confidentialité peuvent être adressées aux administrateurs du projet LetterBlog via le canal de contact officiel de l'application."
+        },
+        "s14": {
+            "heading": "14. Modifications de cette politique",
+            "p1": "Cette Politique de confidentialité peut être mise à jour lorsque les fonctionnalités de l'application ou les exigences légales évoluent. La date affichée en haut de cette page indique la dernière révision."
+        }
+    }
 }

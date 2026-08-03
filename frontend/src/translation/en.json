@@ -1,6 +1,6 @@
 {
 	"header": {
-		"searchPlaceholder": "Search for a movie, an actor...",
+		"searchPlaceholder": "Search for a movie, an actor, a user...",
 		"movies": "Movies",
 		"actorsDirectors": "Actors / directors",
 		"users": "Users"
@@ -20,5 +20,159 @@
 		"movies": "Movies",
 		"actorsDirectors": "Actors / directors",
         "users": "Users"
-	}
+	},
+    "watchlistPage": {
+        "watchlist": "My Watchlist",
+        "movieID": "Movie ID:"
+    },
+
+
+    "terms": {
+        "title": "Terms of Service",
+        "lastUpdated": "Last updated: August 2, 2026",
+        "s1": {
+            "heading": "1. Acceptance of the terms",
+            "p1": "By creating an account or using LetterBlog, you agree to follow these Terms of Service. If you do not agree with these terms, you should not use the application."
+        },
+        "s2": {
+            "heading": "2. Description of the service",
+            "p1": "LetterBlog allows users to discover movies, view information about actors and directors, publish reviews, rate films, create favorite lists and watchlists, follow users and use social features provided by the application."
+        },
+        "s3": {
+            "heading": "3. User accounts",
+            "p1": "Users must provide accurate information when creating an account and must keep their login credentials confidential.",
+            "p2": "You are responsible for activity performed through your account. If you believe that your account has been compromised, you should notify the project administrators as soon as possible."
+        },
+        "s4": {
+            "heading": "4. Acceptable use",
+            "intro": "Users must not:",
+            "items": [
+                "Harass, threaten or abuse other users.",
+                "Publish illegal, hateful or discriminatory content.",
+                "Impersonate another person or create misleading accounts.",
+                "Spam users or misuse messaging and social features.",
+                "Attempt to access another user's account.",
+                "Interfere with the security or operation of the service.",
+                "Use automated tools to overload or scrape the application.",
+                "Collect or harvest other users' personal information (usernames, avatars, activity, etc.) for purposes unrelated to the normal use of the application.",
+                "Publish content that infringes intellectual property rights."
+            ]
+        },
+        "s5": {
+            "heading": "5. User-generated content",
+            "p1": "Users remain responsible for reviews, profile information, messages and other content they publish through LetterBlog.",
+            "p2": "By publishing content, you allow LetterBlog to store, display and process that content only as necessary to provide the application's features.",
+            "p3": "Content may be removed when it violates these terms, applicable law or the rights and safety of other users."
+        },
+        "s6": {
+            "heading": "6. Movie information and third-party content",
+            "p1": "Movie information, posters, actor details and related metadata may be supplied by The Movie Database (TMDB).",
+            "p2": "LetterBlog does not claim ownership of third-party movie data and cannot guarantee that all information is complete, accurate or permanently available."
+        },
+        "s7": {
+            "heading": "7. Reviews and ratings",
+            "p1": "Reviews and ratings represent the opinions of individual users. LetterBlog does not endorse every opinion published through the service.",
+            "p2": "Users should publish honest reviews and avoid intentionally misleading ratings, duplicated content or targeted harassment."
+        },
+        "s8": {
+            "heading": "8. Suspension and termination",
+            "p1": "Access to an account may be restricted or terminated when a user violates these terms, threatens the security of the application or repeatedly harms other users.",
+            "p2": "Users may stop using the service and request deletion of their account at any time."
+        },
+        "s9": {
+            "heading": "9. Availability of the service",
+            "p1": "LetterBlog is provided on an as-available basis. Features may occasionally be unavailable because of maintenance, technical problems or third-party service interruptions.",
+            "p2": "The project team does not guarantee uninterrupted or error-free access to the application."
+        },
+        "s10": {
+            "heading": "10. Limitation of liability",
+            "p1": "To the extent permitted by applicable law, the project team is not responsible for indirect losses caused by unavailable features, inaccurate third-party data, user-generated content or unauthorized account access resulting from a user's failure to protect their credentials."
+        },
+        "s11": {
+            "heading": "11. Changes to these terms",
+            "p1": "These Terms of Service may be updated when features, security requirements or applicable rules change. Continued use of the application after an update means that the revised terms are accepted."
+        },
+        "s12": {
+            "heading": "12. Contact",
+            "p1": "Questions about these terms can be submitted to the LetterBlog project administrators through the application's official contact channel."
+        }
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last updated: August 2, 2026",
+        "s1": {
+            "heading": "1. Introduction",
+            "p1": "LetterBlog is a movie-focused social application that allows users to discover films, manage personal movie lists, publish reviews and interact with other users.",
+            "p2": "This Privacy Policy explains what information may be collected, why it is used and what choices users have regarding their data."
+        },
+        "s2": {
+            "heading": "2. Information we collect",
+            "p1": "When you create and use an account, the application may store information such as your username, email address, profile information and authentication data.",
+            "p2": "The application may also store content and activity associated with your account, including reviews, ratings, favorite films, watchlists, follows and messages sent through the application."
+        },
+        "s3": {
+            "heading": "3. Automatically collected information",
+            "p1": "When you use LetterBlog, the server may automatically record technical information such as your IP address, browser type, device information and the date and time of your requests. This data is used for security, debugging and abuse-prevention purposes, and is not used for marketing."
+        },
+        "s4": {
+            "heading": "4. How information is used",
+            "intro": "Your information is used to:",
+            "items": [
+                "Create and manage your account.",
+                "Authenticate you securely.",
+                "Display your profile and public activity.",
+                "Save your reviews, ratings, favorites and watchlist.",
+                "Provide social and messaging features.",
+                "Maintain the security and proper operation of the service."
+            ]
+        },
+        "s5": {
+            "heading": "5. Public information",
+            "p1": "Some information may be visible to other users, including your username, profile picture, biography, reviews, ratings and public movie lists.",
+            "p2": "Users should avoid publishing personal or sensitive information in public profile fields, reviews or messages."
+        },
+        "s6": {
+            "heading": "6. Third-party movie data",
+            "p1": "LetterBlog uses The Movie Database (TMDB) to retrieve movie, actor, director, image and related entertainment information.",
+            "p2": "Requests involving TMDB content may be processed according to TMDB's own terms and privacy practices. LetterBlog does not control the information managed directly by TMDB."
+        },
+        "s7": {
+            "heading": "7. Cookies and authentication",
+            "p1": "The application may use cookies, tokens or similar technical mechanisms to keep users signed in, protect accounts and maintain active sessions.",
+            "p2": "These mechanisms are used for essential application functions and are not intended for advertising purposes."
+        },
+        "s8": {
+            "heading": "8. Links to other sites",
+            "p1": "LetterBlog may display links to third-party sites or content, including pages related to The Movie Database (TMDB) or other referenced sources.",
+            "p2": "These external sites are not operated by the project team. The project team has no control over and assumes no responsibility for the content or privacy practices of any third-party site."
+        },
+        "s9": {
+            "heading": "9. Children's privacy",
+            "p1": "LetterBlog is not directed at, and is not intended for use by, children under the age of 13. The project team does not knowingly collect personal information from children under 13.",
+            "p2": "If a parent or guardian believes that a child under 13 has provided personal information through the application, they should contact the project administrators so that the information can be removed."
+        },
+        "s10": {
+            "heading": "10. Data sharing",
+            "p1": "LetterBlog does not sell personal information. Information is only shared when required for the operation of the service, required by law or necessary to protect the application and its users."
+        },
+        "s11": {
+            "heading": "11. Data security",
+            "p1": "Reasonable technical and organizational measures are used to protect personal information against unauthorized access, modification or disclosure.",
+            "p2": "However, no online service can guarantee complete security. Users are responsible for protecting their passwords and account access."
+        },
+        "s12": {
+            "heading": "12. Data retention and account deletion",
+            "p1": "Account information is retained while the account remains active or while it is necessary for the operation and security of the service.",
+            "p2": "Users may request deletion of their account and associated personal information. Some limited information may be retained when required for security, legal or technical reasons."
+        },
+        "s13": {
+            "heading": "13. Your rights",
+            "p1": "Depending on applicable law, users may request access, correction or deletion of their personal information. Users may also object to or restrict certain processing activities.",
+            "p2": "Privacy-related requests can be submitted to the LetterBlog project administrators through the application's official contact channel."
+        },
+        "s14": {
+            "heading": "14. Changes to this policy",
+            "p1": "This Privacy Policy may be updated when application features or legal requirements change. The date displayed at the top of this page indicates the latest revision."
+        }
+    }
 }
