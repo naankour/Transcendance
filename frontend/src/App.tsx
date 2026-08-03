@@ -9,6 +9,7 @@ import { ProfilePage } from './user/ProfilePage';
 import Watchlist from './Watchlist/Watchlist';
 import Favorites from './Favorites/Favorites';
 import Follows from './Follows/Follows';
+import Followers from './Followers/Followers';
 import Reviews from './pages/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
@@ -44,6 +45,7 @@ function App() {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/follows" element={<Follows />} />
+        <Route path="/follows/followers" element={<Followers />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/reviews/create" element={<CreateReview />} />
         <Route path="/reviews/:id/edit" element={<EditReview />} />

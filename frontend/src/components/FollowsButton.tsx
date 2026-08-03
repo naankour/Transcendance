@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./FollowsButton.css";
 
 interface Props 
@@ -11,10 +10,17 @@ const FollowsButton = ({ userId, action }: Props) =>
 {
     const handleClick = async () => 
     {
+        console.log("BOUTON FOLLOW CLIQUE");
+
         const token = localStorage.getItem("token");
         const method = action === "follow" ? "POST" : "DELETE";
+
+        console.log("URL :", `/api/follows/${userId}`);
+        console.log("METHOD :", method);
+
         try 
         {
+            console.log("ENVOI FOLLOW :", `/api/follows/${userId}`);
             const res = await fetch(`/api/follows/${userId}`, 
         {
             method,

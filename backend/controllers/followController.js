@@ -22,6 +22,28 @@ const getFollows = async(req, res) =>
     }
 }
 
+const getFollowers = async(req, res) =>
+{
+    try
+    {
+        const user_id = req.user.id;
+
+        const followers = await prisma.follows.findMany({
+            where: {
+                followed_id: user_id
+            },
+            include: {
+                users_follows_follower_idTousers: true
+            }
+        });
+        res.status(200).json(followers);
+    }
+    catch (error)
+    {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 const addFollow = async(req, res) =>
 {
     try
@@ -30,19 +52,43 @@ const addFollow = async(req, res) =>
         const followed_id = parseInt(req.params.user_id);
 
         if (follower_id === followed_id) {
-            return res.status(400).json({ error: "You cannot follow yourself" })
+            return res.status(400).json({
+                error: "You cannot follow yourself"
+            });
         }
+
+        const existingFollow = await prisma.follows.findUnique({
+            where: {
+                follower_id_followed_id: {
+                    follower_id,
+                    followed_id
+                }
+            }
+        });
+
+        if (existingFollow) {
+            return res.status(400).json({
+                error: "Already following this user"
+            });
+        }
+
+        console.log("follower_id :", follower_id);
+        console.log("followed_id :", followed_id);
         const follow = await prisma.follows.create({
             data: {
                 follower_id,
                 followed_id
             }
         });
-        res.json(follow);
+
+        res.status(201).json(follow);
     }
-    catch (error)
+    catch(error)
     {
-        res.status(500).json({ error: error.message });
+        console.log(error);
+        res.status(500).json({
+            error: error.message
+        });
     }
 }
 
@@ -69,4 +115,4 @@ const removeFollow = async(req, res) =>
     }
 }
 
-module.exports = { getFollows, addFollow, removeFollow };
+module.exports = { getFollows, getFollowers, addFollow, removeFollow };

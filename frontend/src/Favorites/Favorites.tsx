@@ -47,29 +47,6 @@ useEffect(() =>
 
 }, []);
 
-    const handleRemove = (movie_id: number) => 
-    {
-        const token = localStorage.getItem('token')
-
-    fetch(`/api/Favorites/${movie_id}`, 
-    {
-      method: 'DELETE',
-      headers: 
-      {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(res => 
-    {
-        if (!res.ok) 
-        {
-        throw new Error(`Erreur ${res.status}`)
-        }
-        setFavorites(prev => prev.filter(item => item.movie_id !== movie_id))
-    })
-    .catch(err => console.error(err))
-  }
-
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error : {error}</p>
 
@@ -101,7 +78,7 @@ useEffect(() =>
             <MovieListButton
             movieId={item.movie_id}
             type="favorites"
-            action="Remove"
+            action="remove"
           />
 
           </div>

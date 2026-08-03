@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import "./Follows.css"
+import "./Followers.css"
 import FollowsButton from "../components/FollowsButton";
 
-const Follows = () => {
-    const [follows, setFollows] = useState([])
+const Followers = () => {
+    const [followers, setFollowers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -11,7 +11,7 @@ const Follows = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('/api/follows', {
+        fetch('/api/follows/followers', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -25,7 +25,7 @@ const Follows = () => {
         .then(data => {
             console.log(data);
 
-            setFollows(data);
+            setFollowers(data);
             setLoading(false);
         })
         .catch(err => {
@@ -40,32 +40,32 @@ const Follows = () => {
     if (error) return <p>Error : {error}</p>
 
     return (
-        <div className="follows-page">
+        <div className="followers-page">
 
-            <h1 className="follows_title">
-                My Follows
+            <h1 className="followers_title">
+                My Followers
             </h1>
 
-            {follows.length === 0 ? (
+            {followers.length === 0 ? (
                 <p className="followers-empty">
-                    You don't have any followers yet.
+                    Your followers list is empty
                 </p>
             ) : (
 
-                <div className="follows-list">
-                    {follows.map((item: any) => (
+                <div className="followers-list">
+                    {followers.map((item: any) => (
                         <div 
                             key={item.id} 
-                            className="follow-card">
+                            className="followers-card">
 
                                 <h2>
-                                    {item.users_follows_followed_idTousers.username}
+                                    {item.users_follows_follower_idTousers.username}
                                 </h2>
-                            
-                            <FollowsButton
-                                userId={item.followed_id}
-                                action="unfollow"
-                            />
+                                
+                                <FollowsButton 
+                                    userId={item.follower_id}
+                                    action="follow" 
+                                />
                         </div>
                     ))}
                 </div>
@@ -74,4 +74,4 @@ const Follows = () => {
     )
 }
 
-export default Follows;
+export default Followers;

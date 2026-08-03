@@ -10,7 +10,7 @@ const Watchlist = () => {
 
 useEffect(() => {
   const token = localStorage.getItem('token');
-
+  console.log("TOKEN :", token);
   fetch('/api/watchlist', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -39,25 +39,6 @@ useEffect(() => {
     });
 
 }, []);
-
-  const handleRemove = (movie_id: number) => {
-    const token = localStorage.getItem('token')
-
-    fetch(`/api/watchlist/${movie_id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Erreur ${res.status}`)
-        }
-        setWatchlist(prev => prev.filter(item => item.movie_id !== movie_id))
-      })
-      .catch(err => console.error(err))
-  }
-
   if (loading) return <p>LOading...</p>
   if (error) return <p>Error : {error}</p>
 
@@ -89,7 +70,7 @@ useEffect(() => {
           <MovieListButton
             movieId={item.movie_id}
             type="watchlist"
-            action="Remove"
+            action="remove"
           />
 
           </div>
