@@ -16,6 +16,9 @@ export default defineConfig({
         target: 'http://backend:3000',
         changeOrigin: true,
       },
+      '/avatars': {
+        target: 'http://backend:3000', 
+        changeOrigin: true },
     },
   }
 })

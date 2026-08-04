@@ -9,7 +9,6 @@ router.get('/', userController.getUsers);
 
 router.get('/me', authenticateToken, userController.getMyProfile);
 router.put('/me', authenticateToken, upload.single('avatar'), updateMyProfile);
-router.put('/me/password', authenticateToken, userController.changePassword);
 router.delete('/me', authenticateToken, userController.deleteMyProfile);
 
 router.get('/:id', userController.getUserById);

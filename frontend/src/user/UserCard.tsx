@@ -1,9 +1,10 @@
+import { getAvatarUrl } from '../utils/avatar';
 
 export function UserCard({ user }) {
   return (
     <div className="user-card">
       <img
-        src={user.avatar_url || '/avatars/default_avatar.jpg'}
+        src={getAvatarUrl(user?.avatar_url)}
         alt={`${user.username}'s avatar`}
         className="user-card-avatar"
       />

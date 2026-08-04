@@ -18,7 +18,7 @@ export function ProfilePage({ triggerToast })
 
   if (token) {
     try {
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode<{ id: number }>(token);
       currentUserId = decoded.id;
     } catch (e) {
       console.error('Token invalide :', e);
