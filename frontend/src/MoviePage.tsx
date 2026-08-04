@@ -19,8 +19,8 @@ interface Movie {
   genres: string[];
   vote_average: number;
   poster_path: string;
-  director: string | null;
-  cast: { name: string; character: string }[];
+  director: { id: number; name: string } | null;
+  cast: { id: number; name: string; character: string }[];
   average_rating: number;
   reviews: Review[];
 }
@@ -66,7 +66,7 @@ function MoviePage() {
     setSubmitting(true);
     setSubmitError(null);
 
-    const token = localStorage.getItem('token'); // adapte si tu stockes le token ailleurs
+    const token = localStorage.getItem('token');
 
     try {
       const res = await fetch(`/api/movies/${id}/review`, {
@@ -82,7 +82,7 @@ function MoviePage() {
       if (!res.ok) throw new Error(data.error || 'Erreur');
 
       setContent('');
-      loadMovie(); // recharge le film pour afficher la nouvelle review et la note à jour
+      loadMovie();
     } catch (err: any) {
       setSubmitError(err.message);
     } finally {
@@ -105,12 +105,27 @@ function MoviePage() {
             style={{ maxWidth: 150, float: 'left', marginRight: 15 }}
           />
           <h2>{movie.title} ({movie.release_date?.slice(0, 4)})</h2>
-          <p><strong>Réalisateur :</strong> {movie.director || 'Inconnu'}</p>
+          <p>
+            <strong>Réalisateur :</strong>{' '}
+            {movie.director ? (
+              <Link to={`/actor/${movie.director.id}`}>{movie.director.name}</Link>
+            ) : (
+              'Inconnu'
+            )}
+          </p>
           <p><strong>Genres :</strong> {movie.genres.join(', ')}</p>
           <p><strong>Durée :</strong> {formatRuntime(movie.runtime)}</p>
           <p><strong>Note moyenne (utilisateurs) :</strong> {Number(movie.average_rating).toFixed(1)} / 5</p>
           <p><strong>Note TMDB :</strong> {movie.vote_average} / 10</p>
-          <p><strong>Casting :</strong> {movie.cast.map((a) => a.name).join(', ')}</p>
+          <p>
+            <strong>Casting :</strong>{' '}
+            {movie.cast.map((actor, index) => (
+              <span key={actor.id}>
+                <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
+                {index < movie.cast.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+          </p>
 
           <h3 style={{ clear: 'both', marginTop: 20 }}>Synopsis</h3>
           <p>{movie.overview}</p>

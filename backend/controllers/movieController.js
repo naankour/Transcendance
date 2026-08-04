@@ -1,8 +1,10 @@
 const prisma = require('../prisma/prismaClient.js');
+const { getTmdbLanguage } = require('../utils/tmdbLang');
 
-async function upsertMovieFromTmdb(tmdbId) {
+// Fonction utilitaire : va chercher un film sur TMDB et l'upsert en base
+async function upsertMovieFromTmdb(tmdbId, tmdbLanguage) {
   const movieResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${tmdbId}?append_to_response=credits`,
+    `https://api.themoviedb.org/3/movie/${tmdbId}?append_to_response=credits&language=${tmdbLanguage}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
@@ -11,22 +13,26 @@ async function upsertMovieFromTmdb(tmdbId) {
   );
 
   if (!movieResponse.ok) {
-    return null; // film introuvable sur TMDB
+    return null;
   }
 
   const movie = await movieResponse.json();
 
   const director = movie.credits.crew.find(person => person.job === "Director");
+  const directorData = director ? { id: director.id, name: director.name } : null;
+
   const cast = movie.credits.cast.slice(0, 10).map(actor => ({
+    id: actor.id,
     name: actor.name,
     character: actor.character,
+    profile_path: actor.profile_path,
   }));
 
   const metadata = {
     genres: movie.genres.map(g => g.name),
     runtime: movie.runtime,
     vote_average: movie.vote_average,
-    director: director ? director.name : null,
+    director: directorData,
     cast: cast,
   };
 
@@ -57,9 +63,10 @@ async function upsertMovieFromTmdb(tmdbId) {
 async function searchMovie(req, res) {
   try {
     const name = req.params.name;
+    const tmdbLanguage = getTmdbLanguage(req.query.lang);
 
     const searchResponse = await fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(name)}`,
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(name)}&language=${tmdbLanguage}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
@@ -90,8 +97,9 @@ async function searchMovie(req, res) {
 async function getMovieById(req, res) {
   try {
     const tmdbId = parseInt(req.params.id);
+    const tmdbLanguage = getTmdbLanguage(req.query.lang);
 
-    const result = await upsertMovieFromTmdb(tmdbId);
+    const result = await upsertMovieFromTmdb(tmdbId, tmdbLanguage);
     if (!result) {
       return res.status(404).json({ error: "Film introuvable" });
     }
@@ -108,8 +116,8 @@ async function getMovieById(req, res) {
     });
 
     res.json({
-      id: savedMovie.id,           // id LOCAL (utile pour poster une review)
-      tmdb_id: savedMovie.tmdb_id, // id TMDB (utile pour l'URL)
+      id: savedMovie.id,
+      tmdb_id: savedMovie.tmdb_id,
       title: savedMovie.title,
       overview: savedMovie.synopsis,
       release_date: savedMovie.release_date,
@@ -138,6 +146,7 @@ async function getMovieById(req, res) {
 async function postReview(req, res) {
   try {
     const tmdbId = parseInt(req.params.id);
+    const tmdbLanguage = getTmdbLanguage(req.query.lang);
     const userId = req.user.id;
     const { rating, content } = req.body;
 
@@ -145,7 +154,7 @@ async function postReview(req, res) {
       return res.status(400).json({ error: "La note doit être entre 0 et 5" });
     }
 
-    const result = await upsertMovieFromTmdb(tmdbId);
+    const result = await upsertMovieFromTmdb(tmdbId, tmdbLanguage);
     if (!result) {
       return res.status(404).json({ error: "Film introuvable" });
     }
