@@ -1,8 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import MoviePage from './MoviePage';
+import { Auth } from './auth/AuthPage';
+import { Toast } from './auth/Toast';
+import { ProfilePage } from './user/ProfilePage'; 
+// import ConversationPage from './conversations/ConversationPage';
+import Watchlist from './pages/Watchlist';
+import Favorites from './pages/Favorites';
+import Follows from './pages/Follows';
+import Reviews from './pages/Reviews'
+import CreateReview from './pages/CreateReview'
+import EditReview from './pages/EditReview'
+// import ActorSearchPage from './pages/ActorSearchPage';
+import ActorPage from './pages/ActorPage';
+import Header from './layout/Header';
+import SearchResultsPage from './pages/SearchResultsPage';
+
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Footer from './layout/Footer';
+import './App.css';
 
 function App() {
 
@@ -18,115 +36,36 @@ function App() {
   };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+	<BrowserRouter>
+		<div className="app">
+			<Toast message={toastMessage} icon={toastIcon} />
 
-      <div className="ticks"></div>
+			<Header />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+			<main className="app-content">
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/movie/:id" element={<MoviePage />} />
+					<Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
+					<Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
+					<Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />
+					<Route path="/watchlist" element={<Watchlist />} />
+					<Route path="/favorites" element={<Favorites />} />
+					<Route path="/follows" element={<Follows />} />
+					<Route path="/reviews" element={<Reviews />} />
+					<Route path="/reviews/create" element={<CreateReview />} />
+					<Route path="/reviews/:id/edit" element={<EditReview />} />
+					<Route path="/search/:query" element={<SearchResultsPage />} />
+					<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+					<Route path="/terms-of-service" element={<TermsOfService />} />
+					<Route path="/actor/:id" element={<ActorPage />} />
+				</Routes>
+			</main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+			<Footer />
+		</div>
+	</BrowserRouter>
+);
 }
 
 export default App;
