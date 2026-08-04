@@ -43,7 +43,7 @@ function HomePage() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-        placeholder="Nom du film (ex: Dune)..."
+        placeholder="Name of movie (ex: Dune)..."
         style={{ padding: 8, width: '70%', fontSize: 16 }}
       />
       <button onClick={handleSearch} style={{ padding: '8px 16px', fontSize: 16, marginLeft: 8 }}>

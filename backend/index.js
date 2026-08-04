@@ -36,6 +36,9 @@ app.use('/api/movies', movieRoutes);
 const conversationRoute = require('./api/conversations');
 app.use('/api/conversations', conversationRoute);
 
+const searchRoutes = require('./api/search');
+app.use('/api', searchRoutes);
+
 // const genreRoutes = require('./api/genres');
 // app.use('/api/genres', genreRoutes);
 

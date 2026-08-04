@@ -1,6 +1,5 @@
 const prisma = require('../prisma/prismaClient.js');
 
-// Fonction utilitaire : va chercher un film sur TMDB et l'upsert en base
 async function upsertMovieFromTmdb(tmdbId) {
   const movieResponse = await fetch(
     `https://api.themoviedb.org/3/movie/${tmdbId}?append_to_response=credits`,
@@ -98,7 +97,6 @@ async function getMovieById(req, res) {
     }
     const { savedMovie, metadata } = result;
 
-    // On va chercher les reviews existantes, avec le nom d'utilisateur associé
     const reviews = await prisma.reviews.findMany({
       where: { movie_id: savedMovie.id },
       include: {
@@ -137,25 +135,22 @@ async function getMovieById(req, res) {
   }
 }
 
-// Poster ou mettre à jour sa propre review sur un film (nécessite d'être connecté)
 async function postReview(req, res) {
   try {
     const tmdbId = parseInt(req.params.id);
-    const userId = req.user.id; // vient du middleware authenticateToken
+    const userId = req.user.id;
     const { rating, content } = req.body;
 
     if (rating === undefined || rating < 0 || rating > 5) {
       return res.status(400).json({ error: "La note doit être entre 0 et 5" });
     }
 
-    // On s'assure que le film existe en base (au cas où l'utilisateur poste sans avoir visité la page)
     const result = await upsertMovieFromTmdb(tmdbId);
     if (!result) {
       return res.status(404).json({ error: "Film introuvable" });
     }
     const { savedMovie } = result;
 
-    // Upsert : crée la review si elle n'existe pas, ou la met à jour si l'utilisateur en avait déjà posté une
     const review = await prisma.reviews.upsert({
       where: {
         user_id_movie_id: {
@@ -175,7 +170,6 @@ async function postReview(req, res) {
       },
     });
 
-    // On recalcule la note moyenne du film
     const agg = await prisma.reviews.aggregate({
       where: { movie_id: savedMovie.id },
       _avg: { rating: true },

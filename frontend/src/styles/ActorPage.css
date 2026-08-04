@@ -1,0 +1,58 @@
+.actor-page {
+	font-family: sans-serif;
+	max-width: 600px;
+	margin: 40px auto;
+	padding: 0 20px;
+}
+
+.actor-biography {
+    margin-top: 10px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.back-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	text-decoration: underline;
+}
+
+.error-text {
+	color: red;
+}
+
+.actor-content {
+	margin-top: 20px;
+}
+
+.actor-photo {
+	max-width: 300px;
+	float: left;
+	margin-right: 15px;
+}
+
+.filmography-title {
+	clear: both;
+}
+
+.filmography-link {
+	color: inherit;
+	text-decoration: none;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.filmography-link:hover {
+	text-decoration: underline;
+	color: var(--color-accent);
+}
+
+.biography-fallback-notice {
+	color: var(--color-text-muted);
+	font-style: italic;
+	font-size: 0.85em;
+}
