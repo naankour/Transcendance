@@ -1,0 +1,52 @@
+.follows-page {
+  min-height: 100vh;
+  padding: 40px;
+  overflow: visible;
+}
+.follows_title {
+  color: var(--color-accent);
+  font-family: var(--font-title);
+  text-shadow: 0 0 6px var(--color-accent);
+}
+
+.follows-list {
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  gap: 30px;
+  justify-content: center;
+  width: 100%;
+}
+
+.follow-card {
+    width: 200px;
+    padding: 20px;
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-accent);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.follows-empty {
+  color: var(--color-accent-soft);
+  font-family: var(--font-title);
+  font-size: 20px;
+  text-align: center;
+  margin-top: 50px;
+  text-shadow: 0 0 8px var(--color-accent);
+}
+
+
+.follow-card h2 {
+    color: var(--color-accent);
+    font-family: var(--font-title);
+    font-size: 22px;
+    margin: 10px 0;
+    text-align: center;
+    text-shadow: 0 0 6px var(--color-accent);
+}
+
+.follows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+}
