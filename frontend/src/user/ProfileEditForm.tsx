@@ -140,7 +140,7 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       </label>
 
       <hr className="form-divider" />
-      <p className="password-section-title">Chaaaaaaange Paaaaaaaasswoooooooooooord</p>
+      <p className="password-section-title">Chaaaaaaange Paaaaaaaaaaasswoooooooooooord</p>
 
       <label>
         Current Password
