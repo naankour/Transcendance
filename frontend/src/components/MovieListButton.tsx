@@ -43,7 +43,7 @@ const MovieListButton = ({ movieId, type, action }: Props) =>
         className="movie-list-button"
         onClick={handleClick}
         >
-            {action=== "add" ? "Add" : "Remove"}
+            {action=== "add" ? `Add to ${type}` : `Remove from ${type}`}
         </button>
     );
 };

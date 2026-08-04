@@ -10,7 +10,8 @@ import Watchlist from './Watchlist/Watchlist';
 import Favorites from './Favorites/Favorites';
 import Follows from './Follows/Follows';
 import Followers from './Followers/Followers';
-import Reviews from './pages/Reviews'
+import MyReviews from './MyReviews/MyReviews'
+import Reviews from './Reviews/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
 // import ActorSearchPage from './pages/ActorSearchPage';
@@ -54,6 +55,7 @@ return (
           <Route path="/follows" element={<Follows />} />
           <Route path="/follows/followers" element={<Followers />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviews/me" element={<MyReviews />} />
           <Route path="/reviews/create" element={<CreateReview />} />
           <Route path="/reviews/:id/edit" element={<EditReview />} />
           <Route path="/search/:query" element={<SearchResultsPage />} />

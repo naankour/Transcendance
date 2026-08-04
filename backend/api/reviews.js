@@ -4,6 +4,7 @@ const reviewsController  = require('../controllers/reviewController')
 const authenticateToken = require('../middleware/authMiddleware');
 
 router.get('/', authenticateToken, reviewsController.getReviews);
+router.get('/me', authenticateToken, reviewsController.getMyReviews);
 router.get('/movies/:movieId/reviews', authenticateToken, reviewsController.getReviewsByMovie);
 router.post('/', authenticateToken, reviewsController.createReview);
 router.put('/:id', authenticateToken,reviewsController.updateReview);

@@ -10,7 +10,7 @@ const Watchlist = () => {
 
 useEffect(() => {
   const token = localStorage.getItem('token');
-  console.log("TOKEN :", token);
+
   fetch('/api/watchlist', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -39,7 +39,7 @@ useEffect(() => {
     });
 
 }, []);
-  if (loading) return <p>LOading...</p>
+  if (loading) return <p>Loading...</p>
   if (error) return <p>Error : {error}</p>
 
     return (
