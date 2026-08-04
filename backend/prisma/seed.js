@@ -254,26 +254,31 @@ const users = [
         username: "nazihakun",
         email: "aankour.naziha@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar1.jpg"
     },
     {
         username: "NainPosteur",
         email: "chloe.montaigut@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar9.jpg"
     },
     {
-        username: "Zainab",
+        username: "zswaggyyy",
         email: "zeinab0695@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar2.jpg"
     },
     {
         username: "macedoine",
         email: "maceopinguet@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar3.jpg"
     },
     {
         username: "hasnawww",
         email: "iliane.hsn@outlook.fr",
         password: "Password123.",
+        avatar_url: "/avatars/avatar10.jpg"
     }
 ];
 
@@ -428,6 +433,7 @@ async function test_seed() {
                     username: user.username,
                     email: user.email,
                     password_hash: hashedPassword,
+                    avatar_url: user.avatar_url,
                 },
             });
 
