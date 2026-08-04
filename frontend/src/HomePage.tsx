@@ -19,7 +19,7 @@ function HomePage() {
         return;
       }
 
-      navigate(`/movie/${data.id}`);
+      navigate(`/movie/${data.tmdb_id}`); // 👈 tmdb_id, pas id
     } catch (err) {
       setError('Erreur serveur');
     }
@@ -27,7 +27,17 @@ function HomePage() {
 
   return (
     <div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
-      <h1>Recherche de film par nom</h1>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <h1>Recherche de film</h1>
+        <button 
+          onClick={() => navigate('/profile')} 
+          style={{ padding: '8px 16px', fontSize: 16, cursor: 'pointer' }}
+        >
+          Mon Profil
+        </button>
+      </div>
+
       <input
         type="text"
         value={name}
@@ -39,7 +49,8 @@ function HomePage() {
       <button onClick={handleSearch} style={{ padding: '8px 16px', fontSize: 16, marginLeft: 8 }}>
         Rechercher
       </button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {error && <p style={{ color: 'red', marginTop: 10 }}>{error}</p>}
     </div>
   );
 }
