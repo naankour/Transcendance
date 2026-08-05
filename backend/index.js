@@ -40,7 +40,11 @@ app.use('/api/conversations', conversationRoute);
 const searchRoutes = require('./api/search');
 app.use('/api', searchRoutes);
 
+const recommendationRoutes = require('./api/recommendation');
+app.use('/api', recommendationRoutes);
+
 app.use('/avatars', express.static(path.join(__dirname, 'public/avatars')));
+
 
 // const genreRoutes = require('./api/genres');
 // app.use('/api/genres', genreRoutes);

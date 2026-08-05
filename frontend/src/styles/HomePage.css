@@ -1,0 +1,28 @@
+.home-grid {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 10px;
+	gap: 15px;
+}
+
+.right-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 25%;
+}
+
+.middle-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 50%;
+}
+
+.left-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 25%;
+}

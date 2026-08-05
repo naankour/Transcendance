@@ -182,5 +182,18 @@
 			"heading": "14. Cambios en esta política",
 			"p1": "Esta Política de privacidad puede actualizarse cuando cambien las funciones de la aplicación o los requisitos legales. La fecha mostrada en la parte superior de esta página indica la última revisión."
 		}
+	},
+
+	"home": {
+		"dailyPick": "Recomendación del día",
+		"latestReviews": "Últimas reseñas",
+		"visitorCount": "Visitantes",
+		"friendsActivity": "Actividad de amigos",
+		"loading": "Cargando...",
+		"noRecommendation": "No hay recomendación disponible en este momento."
+	},
+
+	"errors": {
+		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
 	}
 }

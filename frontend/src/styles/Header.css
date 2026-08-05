@@ -172,7 +172,7 @@
 	left: 0;
 	right: 0;
 	background-color: var(--color-surface);
-	border: 2px solid var(--color-accent);
+	border: 2px solid var(--color-accent-soft);
 	border-radius: 12px;
 	box-shadow: 0 0 10px var(--color-accent);
 	padding: 10px;

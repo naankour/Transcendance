@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-import './Header.css';
+import '../styles/Header.css';
+
 
 interface MovieResult {
 	id: number;
@@ -227,7 +228,7 @@ function Header() {
 				<NavLink to="/" end className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navMovies')}</span>
 				</NavLink>
-				<NavLink to="/reviews/me" className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
+				<NavLink to={isLoggedIn ? '/reviews/me' : '/reviews'} className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navReviews')}</span>
 				</NavLink>
 				<NavLink to="/watchlist" className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
