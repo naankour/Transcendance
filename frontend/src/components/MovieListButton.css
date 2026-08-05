@@ -1,0 +1,26 @@
+.movie-list-button {
+	margin-top: 10px;
+	padding: 10px 12px;
+
+	background-color: var(--color-accent);
+	color: var(--color-text);
+
+	border: 2px solid var(--color-accent-soft);
+	border-radius: 15px;
+
+	cursor: pointer;
+	font-family: var(--font-title);
+	font-weight: bold;
+	font-size: 14px;
+
+	box-shadow: 0 0 8px var(--color-accent);
+	transition: all 0.2s ease;
+}
+
+.movie-list-button:hover {
+	background-color: var(--color-accent-soft);
+	color: var(--color-bg);
+
+	box-shadow: 0 0 15px var(--color-accent);
+	transform: scale(1.05);
+}

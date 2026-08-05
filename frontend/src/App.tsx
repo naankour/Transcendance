@@ -6,10 +6,12 @@ import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
 // import ConversationPage from './conversations/ConversationPage';
-import Watchlist from './pages/Watchlist';
-import Favorites from './pages/Favorites';
-import Follows from './pages/Follows';
-import Reviews from './pages/Reviews'
+import Watchlist from './Watchlist/Watchlist';
+import Favorites from './Favorites/Favorites';
+import Follows from './Follows/Follows';
+import Followers from './Followers/Followers';
+import MyReviews from './MyReviews/MyReviews'
+import Reviews from './Reviews/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
 // import ActorSearchPage from './pages/ActorSearchPage';
@@ -34,38 +36,40 @@ function App() {
       setToastMessage('');
     }, 4000);
   };
+return (
+  <BrowserRouter>
+    <div className="app">
+      <Toast message={toastMessage} icon={toastIcon} />
 
-  return (
-	<BrowserRouter>
-		<div className="app">
-			<Toast message={toastMessage} icon={toastIcon} />
+      <Header />
 
-			<Header />
+      <main className="app-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movie/:id" element={<MoviePage />} />
+          <Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
+          <Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
+          <Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/follows" element={<Follows />} />
+          <Route path="/follows/followers" element={<Followers />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviews/me" element={<MyReviews />} />
+          <Route path="/reviews/create" element={<CreateReview />} />
+          <Route path="/reviews/:id/edit" element={<EditReview />} />
+          <Route path="/search/:query" element={<SearchResultsPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/actor/:id" element={<ActorPage />} />
+        </Routes>
+      </main>
 
-			<main className="app-content">
-				<Routes>
-					<Route path="/" element={<HomePage />} />
-					<Route path="/movie/:id" element={<MoviePage />} />
-					<Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
-					<Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
-					<Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />
-					<Route path="/watchlist" element={<Watchlist />} />
-					<Route path="/favorites" element={<Favorites />} />
-					<Route path="/follows" element={<Follows />} />
-					<Route path="/reviews" element={<Reviews />} />
-					<Route path="/reviews/create" element={<CreateReview />} />
-					<Route path="/reviews/:id/edit" element={<EditReview />} />
-					<Route path="/search/:query" element={<SearchResultsPage />} />
-					<Route path="/privacy-policy" element={<PrivacyPolicy />} />
-					<Route path="/terms-of-service" element={<TermsOfService />} />
-					<Route path="/actor/:id" element={<ActorPage />} />
-				</Routes>
-			</main>
-
-			<Footer />
-		</div>
-	</BrowserRouter>
+      <Footer />
+    </div>
+  </BrowserRouter>
 );
+
 }
 
 export default App;
