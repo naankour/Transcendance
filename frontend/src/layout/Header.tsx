@@ -228,7 +228,7 @@ function Header() {
 				<NavLink to="/" end className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navMovies')}</span>
 				</NavLink>
-				<NavLink to="/reviews/me" className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
+				<NavLink to={isLoggedIn ? '/reviews/me' : '/reviews'} className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navReviews')}</span>
 				</NavLink>
 				<NavLink to="/watchlist" className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
