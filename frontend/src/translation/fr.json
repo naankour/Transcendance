@@ -182,5 +182,18 @@
 			"heading": "14. Modifications de cette politique",
 			"p1": "Cette Politique de confidentialité peut être mise à jour lorsque les fonctionnalités de l'application ou les exigences légales évoluent. La date affichée en haut de cette page indique la dernière révision."
 		}
+	},
+
+	"home": {
+		"dailyPick": "Recommandation du jour",
+		"latestReviews": "Derniers avis",
+		"visitorCount": "Visiteurs",
+		"friendsActivity": "Activité des amis",
+		"loading": "Chargement...",
+		"noRecommendation": "Aucune recommandation disponible pour le moment."
+	},
+
+	"errors": {
+		"generic": "Une erreur est survenue. Veuillez réessayer."
 	}
 }

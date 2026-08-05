@@ -182,5 +182,19 @@
 			"heading": "14. Changes to this policy",
 			"p1": "This Privacy Policy may be updated when application features or legal requirements change. The date displayed at the top of this page indicates the latest revision."
 		}
+	},
+
+	
+	"home": {
+		"dailyPick": "Daily Pick",
+		"latestReviews": "Latest Reviews",
+		"visitorCount": "Visitors",
+		"friendsActivity": "Friends Activity",
+		"loading": "Loading...",
+		"noRecommendation": "No recommendation available right now."
+	},
+
+	"errors": {
+		"generic": "Something went wrong. Please try again."
 	}
 }

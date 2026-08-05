@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-import './Header.css';
+import '../styles/Header.css';
+
 
 interface MovieResult {
 	id: number;

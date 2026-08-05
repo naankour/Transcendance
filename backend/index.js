@@ -39,6 +39,9 @@ app.use('/api/conversations', conversationRoute);
 const searchRoutes = require('./api/search');
 app.use('/api', searchRoutes);
 
+const recommendationRoutes = require('./api/recommendation');
+app.use('/api', recommendationRoutes);
+
 // const genreRoutes = require('./api/genres');
 // app.use('/api/genres', genreRoutes);
 
