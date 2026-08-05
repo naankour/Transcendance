@@ -6,11 +6,15 @@ const getFavorites = async(req, res) =>
         const user_id = req.user.id; 
 
         const favorites = await prisma.favorites.findMany({
-        where: {
-            user_id
+            where: {
+                user_id: user_id
+        },
+        include: {
+            movies: true
         }
     });
-    res.json(favorites);
+
+        res.status(200).json(favorites);
     } 
     catch (error) {
         res.status(500).json({ error: error.message });

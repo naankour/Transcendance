@@ -1,6 +1,21 @@
 
 const prisma = require('../prisma/prismaClient.js');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/avatars');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    cb(null, `avatar-${req.user.id}-${uniqueSuffix}${ext}`);
+  },
+});
+
+const upload = multer({ storage });
 
 // récupère le profil du user connecté
 const getMyProfile = async (req, res) => {
@@ -37,15 +52,53 @@ const getMyProfile = async (req, res) => {
 const updateMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { firstname, lastname, username, email, avatar_url, bio } = req.body;
+    const { firstname, lastname, username, email, bio, currentPassword, newPassword } = req.body;
 
     if (!username || !email) {
       return res.status(400).json({ error: 'Username and email are required fields (ง •̀_•́)ง' });
     }
 
+    // Récupère l'utilisateur actuel pour vérifier le mdp si besoin
+    const currentUser = await prisma.users.findUnique({
+      where: { id: Number(userId) },
+    });
+
+    if (!currentUser) {
+      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
+    }
+
+    let password_hash = currentUser.password_hash;
+
+    // Si l'utilisateur demande à changer son mot de passe
+    if (newPassword) {
+      if (!currentPassword) {
+        return res.status(400).json({ error: 'Current password is required to set a new password (ง •̀_•́)ง' });
+      }
+
+      const isMatch = await bcrypt.compare(currentPassword, currentUser.password_hash);
+      if (!isMatch) {
+        return res.status(401).json({ error: 'Incorrect current password ( ｡ •̀ ᴖ •́ ｡)💢' });
+      }
+
+      password_hash = await bcrypt.hash(newPassword, 10);
+    }
+
+    let avatar_url = req.body.avatar_url;
+    if (req.file) {
+      avatar_url = `/avatars/${req.file.filename}`;
+    }
+
     const updatedUser = await prisma.users.update({
       where: { id: Number(userId) },
-      data: { firstname, lastname, username, email, avatar_url, bio },
+      data: {
+        firstname,
+        lastname,
+        username,
+        email,
+        bio,
+        password_hash, // Met à jour le mdp (soit le nouveau, soit l'ancien inchangé)
+        ...(avatar_url && { avatar_url }),
+      },
       select: {
         id: true,
         firstname: true,
@@ -64,10 +117,6 @@ const updateMyProfile = async (req, res) => {
     });
   } catch (error) {
     console.error('Error updating profile:', error);
-    
-    if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
-    }
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -173,49 +222,11 @@ const getUsers = async (req, res) => {
   }
 };
 
-const changePassword = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const { currentPassword, newPassword } = req.body;
-
-    if (!currentPassword || !newPassword) {
-      return res.status(400).json({ error: 'Both current and new passwords are required (ง •̀_•́)ง' });
-    }
-
-    const user = await prisma.users.findUnique({
-      where: { id: Number(userId) },
-    });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
-    }
-
-    // vérifie l'ancien mdp
-    const isMatch = await bcrypt.compare(currentPassword, user.password_hash);
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Incorrect current password ( ｡ •̀ ᴖ •́ ｡)💢' });
-    }
-
-    const saltRounds = 10;
-    const newPasswordHash = await bcrypt.hash(newPassword, saltRounds);
-
-    await prisma.users.update({
-      where: { id: Number(userId) },
-      data: { password_hash: newPasswordHash },
-    });
-
-    return res.json({ message: 'Password updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡' });
-  } catch (error) {
-    console.error('Error changing password:', error);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
 module.exports = {
   getMyProfile,
   updateMyProfile,
   deleteMyProfile,
   getUserById,
   getUsers,
-  changePassword,
+  upload
 };

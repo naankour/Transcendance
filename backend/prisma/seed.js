@@ -89,7 +89,7 @@ const movies = [
     {
         title: "Men in Black",
         synopsis: "A police officer joins a secret organization that monitors extraterrestrial activity on Earth and must help stop a dangerous alien threat.",
-        poster: "https://image.tmdb.org/t/p/w1280/f24UVKq3UiQWLqGWdqjwkzgB8j8.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/rd0VCTHFFIE7BbZfy0aEIkOYxGA.jpg",
         release_date: new Date("1997-07-02"),
         tmdb_id: 607,
         average_rating: 0
@@ -97,7 +97,7 @@ const movies = [
     {
         title: "Hancock",
         synopsis: "A superhero with a bad reputation is convinced by a public relations expert to change his image and become a better hero.",
-        poster: "https://image.tmdb.org/t/p/w1280/7DyuV2G0hLEqHeuefOQ3ZJbZ9a1.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/e2eeuY0FOeOhKNJ9TeTvpDjmUdi.jpg",
         release_date: new Date("2008-07-02"),
         tmdb_id: 8960,
         average_rating: 0
@@ -105,7 +105,7 @@ const movies = [
     {
         title: "Seven Pounds",
         synopsis: "A man with a mysterious plan tries to change the lives of seven strangers while carrying a heavy secret from his past.",
-        poster: "https://image.tmdb.org/t/p/w1280/9j5Lx1L0g8L9kY2V2pG5dY2kJ.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/1DgXntoMnVaybSPomeC57v5qYqO.jpg",
         release_date: new Date("2008-12-19"),
         tmdb_id: 15357,
         average_rating: 0
@@ -113,7 +113,7 @@ const movies = [
     {
         title: "Charlie and the Chocolate Factory",
         synopsis: "A young boy wins a golden ticket to visit Willy Wonka's mysterious chocolate factory and discovers its incredible secrets.",
-        poster: "https://image.tmdb.org/t/p/w1280/wfGfxtu4O2mZf2tG7m7ZtYfQmX.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/tR4PU2wRPzGKmF665lE5wULGb3X.jpg",
         release_date: new Date("2005-07-13"),
         tmdb_id: 118,
         average_rating: 0
@@ -129,7 +129,7 @@ const movies = [
     {
         title: "Pirates of the Caribbean: The Curse of the Black Pearl",
         synopsis: "A pirate captain, a blacksmith and a governor's daughter become involved in a quest to rescue her from cursed pirates.",
-        poster: "https://image.tmdb.org/t/p/w1280/8V6s8jZ5s8K4Z5M8q4Yw1Q8QZ8.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/jFmc6zbnx6mSoxejECYvdi3IHIs.jpg",
         release_date: new Date("2003-07-09"),
         tmdb_id: 22,
         average_rating: 0
@@ -137,7 +137,7 @@ const movies = [
     {
         title: "Pirates of the Caribbean: Dead Man's Chest",
         synopsis: "Captain Jack Sparrow owes a debt to the legendary Davy Jones and must find a way to escape his terrible fate.",
-        poster: "https://image.tmdb.org/t/p/w1280/uXEqmloGyP7UXAiphJUu2v2H.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/bzOlMYEfNmgCDnFHj3zL3RBqwau.jpg",
         release_date: new Date("2006-07-07"),
         tmdb_id: 58,
         average_rating: 0
@@ -145,7 +145,7 @@ const movies = [
     {
         title: "Mr. & Mrs. Smith",
         synopsis: "A married couple discovers they are both secretly professional assassins working for competing organizations.",
-        poster: "https://image.tmdb.org/t/p/w1280/dPrUPFcgLfNbmDL8V69vcrTyEfb.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/jBForKpzcUBTRBdPJs8IEyBjeir.jpg",
         release_date: new Date("2005-06-10"),
         tmdb_id: 787,
         average_rating: 0
@@ -169,7 +169,7 @@ const movies = [
     {
         title: "High School Musical",
         synopsis: "A popular high school athlete and an academically focused girl discover their shared love for singing and must overcome social expectations.",
-        poster: "https://image.tmdb.org/t/p/w1280/8mW0xYxY6Y9QZ6Y6Y6Y6Y6Y6.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/pIsgiOQ7G9tRwCCXFgmUTzPuZtu.jpg",
         release_date: new Date("2006-01-20"),
         tmdb_id: 10947,
         average_rating: 0
@@ -177,7 +177,7 @@ const movies = [
     {
         title: "Camp Rock",
         synopsis: "A talented young singer attends a summer music camp where she discovers friendship, confidence and her own voice.",
-        poster: "https://image.tmdb.org/t/p/w1280/7f5v5J5Y5Y5Y5Y5Y5Y5Y5Y5.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/5pHyzKGPn7oWGPSq6q17aavJjM3.jpg",
         release_date: new Date("2008-06-20"),
         tmdb_id: 13655,
         average_rating: 0
@@ -185,7 +185,7 @@ const movies = [
     {
         title: "The Devil Wears Prada",
         synopsis: "A young woman lands a job as an assistant to a powerful fashion magazine editor and discovers the demanding world of fashion.",
-        poster: "https://image.tmdb.org/t/p/w1280/8912AsVuS7Sj915apArUFbv6.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/vTIBjWMWx1p5Wv2J3IRhEW13lrj.jpg",
         release_date: new Date("2006-06-30"),
         tmdb_id: 350,
         average_rating: 0
@@ -193,7 +193,7 @@ const movies = [
     {
         title: "Fight Club",
         synopsis: "An insomniac office worker and a mysterious soap maker create an underground fight club that evolves into something much bigger.",
-        poster: "https://image.tmdb.org/t/p/w1280/pB9L0jAnEQLMKgexqCEocEW8TA.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/t1i10ptOivG4hV7erkX3tmKpiqm.jpg",
         release_date: new Date("1999-10-15"),
         tmdb_id: 550,
         average_rating: 0
@@ -209,7 +209,7 @@ const movies = [
     {
         title: "Shutter Island",
         synopsis: "A U.S. marshal investigates the disappearance of a patient from a mysterious psychiatric facility located on an isolated island.",
-        poster: "https://image.tmdb.org/t/p/w1280/nrmXQ0zcZUL8jFLrakWc90IR8z9.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/fQ0vGVTtxjCdAJnxwPZ88O3Wzrh.jpg",
         release_date: new Date("2010-02-19"),
         tmdb_id: 11324,
         average_rating: 0
@@ -218,7 +218,7 @@ const movies = [
     {
         title: "Alice in Wonderland",
         synopsis: "A young woman follows a strange rabbit into a magical world where she encounters unusual creatures and characters.",
-        poster: "https://image.tmdb.org/t/p/w1280/9g0s9Q3z9Q3z9Q3z9Q3z9Q3z.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/w2FB25izMMWDoVckloSej0ctDJ2.jpg",
         release_date: new Date("2010-03-05"),
         tmdb_id: 12155,
         average_rating: 0
@@ -226,7 +226,7 @@ const movies = [
     {
         title: "The Amazing Spider-Man",
         synopsis: "After Peter Parker is bitten by a genetically altered spider, he gains extraordinary abilities and begins to uncover the truth about his parents while facing a dangerous new enemy.",
-        poster: "https://image.tmdb.org/t/p/w1280/fSbqPbqXa7ePo8bcnZYN9BDx0m.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/gsIkMf1VErbF0xtrgXEZXqLgsBG.jpg",
         release_date: new Date("2012-07-03"),
         tmdb_id: 1930,
         average_rating: 0
@@ -234,7 +234,7 @@ const movies = [
     {
         title: "Batman Begins",
         synopsis: "After witnessing his parents' murder as a child, Bruce Wayne travels the world and trains to become Batman, fighting crime and corruption in Gotham City.",
-        poster: "https://image.tmdb.org/t/p/w1280/8RW2runSEc34IwKN2D1aPcJd2UL.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/taKcn26BMWnsUcMFSlr5RfGDtFB.jpg",
         release_date: new Date("2005-06-15"),
         tmdb_id: 272,
         average_rating: 0
@@ -242,7 +242,7 @@ const movies = [
     {
         title: "King Kong",
         synopsis: "A filmmaker and his crew travel to a mysterious island where they discover a giant gorilla and a lost world filled with dangerous creatures.",
-        poster: "https://image.tmdb.org/t/p/w1280/iQ7qjHqzqQqQqQqQqQqQqQqQ.jpg",
+        poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/bCuu3UWja1Ni6uWZeav4rEIDVYM.jpg",
         release_date: new Date("2005-12-14"),
         tmdb_id: 254,
         average_rating: 0
@@ -254,26 +254,31 @@ const users = [
         username: "nazihakun",
         email: "aankour.naziha@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar1.jpg"
     },
     {
         username: "NainPosteur",
         email: "chloe.montaigut@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar9.jpg"
     },
     {
-        username: "Zainab",
+        username: "zswaggyyy",
         email: "zeinab0695@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar2.jpg"
     },
     {
         username: "macedoine",
         email: "maceopinguet@gmail.com",
         password: "Password123.",
+        avatar_url: "/avatars/avatar3.jpg"
     },
     {
         username: "hasnawww",
         email: "iliane.hsn@outlook.fr",
         password: "Password123.",
+        avatar_url: "/avatars/avatar10.jpg"
     }
 ];
 
@@ -428,6 +433,7 @@ async function test_seed() {
                     username: user.username,
                     email: user.email,
                     password_hash: hashedPassword,
+                    avatar_url: user.avatar_url,
                 },
             });
 
