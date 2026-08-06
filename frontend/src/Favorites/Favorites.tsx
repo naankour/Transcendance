@@ -3,10 +3,16 @@ import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
 import { Link } from "react-router-dom";
 
-const Favorites = () => {
+const Favorites = ({ triggerToast }) => {
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const removeFavorite = (movieId:number) => 
+  {
+    setFavorites(prev =>
+        prev.filter(item => item.movie_id !== movieId)
+    );
+  };
 
 
 useEffect(() => 
@@ -84,6 +90,8 @@ useEffect(() =>
             movieId={item.movie_id}
             type="favorites"
             action="remove"
+            triggerToast={triggerToast}
+            onSuccess={() => removeFavorite(item.movie_id)}
           />
 
           </div>

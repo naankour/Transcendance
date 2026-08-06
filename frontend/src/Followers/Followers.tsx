@@ -8,6 +8,12 @@ const Followers = ({ triggerToast }) => {
     const [myFollows, setMyFollows] = useState([]);
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const removeFollower = (userId:number) => 
+    {
+        setFollowers(prev =>
+            prev.filter(item => item.follower_id !== userId)
+        );
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -81,14 +87,37 @@ const Followers = ({ triggerToast }) => {
                                     </div>
                                 </Link>
 
-                                <h2 className="followers-user-username">
-                                    {item.users_follows_follower_idTousers.username}
-                                </h2>
+                                <Link
+                                    to={`/profile/${item.users_follows_follower_idTousers.id}`}
+                                    className="link"
+                                >
+                                    <h2 className="followers-user-username">
+                                        {item.users_follows_follower_idTousers.username}
+                                    </h2>
+
+                                </Link>
 
                                 <FollowsButton
                                     userId={item.follower_id}
                                     action={alreadyFollowing ? "unfollow" : "follow"}
                                     triggerToast={triggerToast}
+                                    onSuccess={() => {
+                                        if (alreadyFollowing) 
+                                        {
+                                            setMyFollows(prev =>
+                                                prev.filter(
+                                                    follow => follow.followed_id !== item.follower_id
+                                                )
+                                            );
+                                        } 
+                                        else 
+                                        {
+                                            setMyFollows(prev => [
+                                                ...prev,
+                                                { followed_id: item.follower_id }
+                                            ]);
+                                        }
+                                    }}
                                 />
 
                             </div>

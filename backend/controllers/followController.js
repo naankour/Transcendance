@@ -44,29 +44,6 @@ const getFollowers = async(req, res) =>
     }
 }
 
-const checkFollow = async(req, res) =>
-{
-    try
-    {
-        const follower_id = req.user.id;
-        const followed_id = parseInt(req.params.user_id);
-
-        const follow = await prisma.follows.findUnique({
-            where: {
-                follower_id_followed_id: {
-                    follower_id,
-                    followed_id,
-                }
-            }
-        });
-        res.status(200).json({following: !!follow});
-    }
-    catch (error)
-    {
-        res.status(500).json({ error: error.message });
-    }
-}
-
 const addFollow = async(req, res) =>
 {
     try
@@ -90,7 +67,7 @@ const addFollow = async(req, res) =>
         });
 
         if (existingFollow) {
-            return res.status(400).json({
+            return res.status(409).json({
                 error: "Already following this user"
             });
         }
@@ -138,4 +115,4 @@ const removeFollow = async(req, res) =>
     }
 }
 
-module.exports = { getFollows, getFollowers, checkFollow, addFollow, removeFollow };
+module.exports = { getFollows, getFollowers, addFollow, removeFollow };

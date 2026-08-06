@@ -50,11 +50,14 @@ const Reviews = () => {
 
                         <div key={review.id} className="reviews-card">
 
-                            <img
-                                src={review.movies.poster}
-                                alt={review.movies.title}
-                                className="reviews-poster"
-                            />
+                            <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
+                                <img
+                                    src={review.movies.poster}
+                                    alt={review.movies.title}
+                                    className="reviews-poster"
+                                />
+                            </Link>
+
                             <Link to={`/profile/${review.users.id}`} className="link">
                                 <UserCard 
                                     user={review.users}
@@ -64,10 +67,11 @@ const Reviews = () => {
 
                             <div className="reviews-info">
 
-                                <h2 className="reviews-movie-title">
-                                    {review.movies.title}
-                                </h2>
-
+                                <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
+                                    <h2 className="reviews-movie-title">
+                                        {review.movies.title}
+                                    </h2>
+                                </Link>
                                 <p className="reviews-content">
                                     {review.content}
                                 </p>

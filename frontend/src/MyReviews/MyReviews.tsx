@@ -45,7 +45,8 @@ const MyReviews = () => {
             ) : (
                 <div className="myreviews-list">
                     {myreviews.map((review: any) => (
-                        <div key={review.id} className="myreviews-card">
+
+                    <div key={review.id} className="myreviews-card">
 
                         <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
                             <img
@@ -55,7 +56,7 @@ const MyReviews = () => {
                             />
                         </Link>
 
-                            <div className="myreviews-info">
+                        <div className="myreviews-info">
 
                             <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
                                 <h2 className="myreviews-movie-title">
