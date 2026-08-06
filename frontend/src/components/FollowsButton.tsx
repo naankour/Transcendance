@@ -2,11 +2,13 @@ import "./FollowsButton.css";
 
 interface Props 
 {
-  userId: number;
-  action: "follow" | "unfollow";
+    userId: number;
+    action: "follow" | "unfollow";
+    triggerToast: (message: string, icon?: string) => void;
+    onSuccess?: () => void;
 }
 
-const FollowsButton = ({ userId, action }: Props) => 
+const FollowsButton = ({userId, action, triggerToast, onSuccess}: Props) => 
 {
     const handleClick = async () => 
     {
@@ -25,10 +27,28 @@ const FollowsButton = ({ userId, action }: Props) =>
 
         if (!res.ok) 
         {
+            const data = await res.json();
+            if (res.status === 409)
+            {
+                triggerToast(data.error, "⚠️");
+                return;
+            }
             throw new Error(`Error ${res.status}`);
         }
 
-        window.location.reload();
+        if (action === "follow")
+        {
+            triggerToast("You followed this user", "💖" );
+        }
+        else
+        {
+            triggerToast("You unfollowed this user", "💔" );
+        }
+
+        if ( onSuccess)
+        {
+            onSuccess();
+        }
 
         } 
         catch (error) 
@@ -39,8 +59,8 @@ const FollowsButton = ({ userId, action }: Props) =>
 
     return (
         <button
-        className="follow-button"
-        onClick={handleClick}
+            className="follow-button"
+            onClick={handleClick}
         >
             {action=== "follow" ? "Follow" : "Unfollow"}
         </button>

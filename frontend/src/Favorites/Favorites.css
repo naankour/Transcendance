@@ -4,8 +4,6 @@
   text-shadow: 0 0 6px var(--color-accent);
 }
 
-
-/* grille responsive, prend le dessus sur favorites-list si les deux sont utilisées */
 .favorites-list {
     display: grid;
   grid-template-columns: repeat(3, 250px);
@@ -15,7 +13,6 @@
 
 }
 
-/* carte favori */
 .favorites-card {
   position: relative;
   width: 100%;
@@ -41,7 +38,6 @@
     10px 10px 0 rgba(255,46,154,0.35);
 }
 
-/* petit coeur déco en haut, comme sur les reviews */
 .favorites-card::before {
   content: "♥";
   position: absolute;
@@ -60,7 +56,6 @@
   50% { transform: scale(1.3); }
 }
 
-/* étoile déco en bas, fluo comme le rating des reviews */
 .favorites-card::after {
   content: "★";
   position: absolute;
@@ -78,7 +73,6 @@
   z-index: 2;
 }
 
-/* affiche du film */
 .favorites-poster {
   width: 100%;
   max-width: 180px;
@@ -99,7 +93,6 @@
     0 0 30px rgba(255,46,154,0.6);
 }
 
-/* titre du film */
 .favorites-card h2 {
   color: var(--color-text);
   font-family: var(--font-title);
@@ -111,7 +104,6 @@
   text-shadow: 0 0 6px rgba(255,46,154,0.4);
 }
 
-/* état vide */
 .favorites-empty {
   color: var(--color-accent-soft);
   font-family: var(--font-title);
@@ -128,7 +120,6 @@
   50% { transform: translateY(-8px); }
 }
 
-/* effet apparition, identique aux reviews pour la cohérence */
 @keyframes cardAppear {
   from {
     opacity: 0;
@@ -158,15 +149,15 @@
 
 footer {
   position: relative;
-  z-index: 10; /* toujours au-dessus de tout le contenu qui précède */
-  background-color: var(--color-bg); /* opaque, pour masquer ce qui déborderait quand même */
+  z-index: 10;
+  background-color: var(--color-bg);
 }
 
 .myreviews-list,
 .watchlist-list,
 .favorites-list,
 .favorites-grid {
-  margin-bottom: 50px; /* espace suffisant pour absorber les décos qui dépassent (-16px, -18px, etc.) */
+  margin-bottom: 50px;
 }
 
 
