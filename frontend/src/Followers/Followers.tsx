@@ -3,7 +3,7 @@ import "./Followers.css"
 import FollowsButton from "../components/FollowsButton";
 import { Link } from "react-router-dom";
 
-const Followers = () => {
+const Followers = ({ triggerToast }) => {
     const [followers, setFollowers] = useState([])
     const [myFollows, setMyFollows] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -88,6 +88,7 @@ const Followers = () => {
                                 <FollowsButton
                                     userId={item.follower_id}
                                     action={alreadyFollowing ? "unfollow" : "follow"}
+                                    triggerToast={triggerToast}
                                 />
 
                             </div>

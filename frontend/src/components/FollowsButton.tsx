@@ -4,9 +4,10 @@ interface Props
 {
   userId: number;
   action: "follow" | "unfollow";
+   triggerToast: (message: string, icon?: string) => void;
 }
 
-const FollowsButton = ({ userId, action }: Props) => 
+const FollowsButton = ({userId, action, triggerToast}: Props) => 
 {
     const handleClick = async () => 
     {
@@ -26,6 +27,15 @@ const FollowsButton = ({ userId, action }: Props) =>
         if (!res.ok) 
         {
             throw new Error(`Error ${res.status}`);
+        }
+
+        if (action === "follow")
+        {
+            triggerToast("You followed this user", "💖" );
+        }
+        else
+        {
+            triggerToast("You unfollowed this user", "💔" );
         }
 
         window.location.reload();

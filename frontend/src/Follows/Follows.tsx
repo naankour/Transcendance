@@ -4,7 +4,7 @@ import FollowsButton from "../components/FollowsButton";
 import UserCard from '../components/UserCard';
 import { Link } from "react-router-dom";
 
-const Follows = () => {
+const Follows = ({ triggerToast }) => {
     const [follows, setFollows] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -83,6 +83,7 @@ const Follows = () => {
                             <FollowsButton
                                 userId={item.followed_id}
                                 action="unfollow"
+                                triggerToast ={triggerToast}
                             />
                         </div>
                     ))}
