@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import "./Follows.css"
 import FollowsButton from "../components/FollowsButton";
+import UserCard from '../components/UserCard';
+import { Link } from "react-router-dom";
 
 const Follows = () => {
     const [follows, setFollows] = useState([])
@@ -42,25 +44,41 @@ const Follows = () => {
     return (
         <div className="follows-page">
 
-            <h1 className="follows_title">
+            <h1 className="follows-title">
                 My Follows
             </h1>
 
             {follows.length === 0 ? (
-                <p className="followers-empty">
-                    You don't have any followers yet.
+                <p className="follows-empty">
+                    You are not following anyone yet..
                 </p>
             ) : (
 
                 <div className="follows-list">
                     {follows.map((item: any) => (
+
                         <div 
                             key={item.id} 
-                            className="follow-card">
+                            className="follows-card">
 
-                                <h2>
-                                    {item.users_follows_followed_idTousers.username}
-                                </h2>
+                            <Link 
+                                to={`/profile/${item.users_follows_followed_idTousers.id}`} 
+                                className="link"
+                            >
+                                <div className="heart-avatar-wrapper">
+
+                                    <img
+                                        src={item.users_follows_followed_idTousers.avatar_url}
+                                        alt={item.users_follows_followed_idTousers.username}
+                                        className="follows-user-avatar"
+                                    />
+
+                                </div>
+                            </Link>
+
+                            <h2 className="follows-user-username">
+                                {item.users_follows_followed_idTousers.username}
+                            </h2>
                             
                             <FollowsButton
                                 userId={item.followed_id}

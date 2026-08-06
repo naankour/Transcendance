@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
+import { Link } from "react-router-dom";
 
 const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([])
@@ -59,13 +60,15 @@ useEffect(() => {
         {watchlist.map((item: any) => (
           <div key={item.id} className="watchlist-card">
 
-            <img
-              className="watchlist-poster"
-              src={item.movies.poster}
-              alt={item.movies.title}
-            />
-
+            <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
+              <img
+                className="watchlist-poster"
+                src={item.movies.poster}
+                alt={item.movies.title}
+              />
+          
             <h2>{item.movies.title}</h2>
+            </Link>  
 
           <MovieListButton
             movieId={item.movie_id}

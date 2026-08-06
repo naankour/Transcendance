@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
+import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([])
@@ -67,6 +68,8 @@ useEffect(() =>
         {favorites.map((item: any) => (
           <div key={item.id} className="favorites-card">
 
+          <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
+          
             <img
               className="favorites-poster"
               src={item.movies.poster}
@@ -74,6 +77,8 @@ useEffect(() =>
             />
 
             <h2>{item.movies.title}</h2>
+
+          </Link> 
 
             <MovieListButton
             movieId={item.movie_id}
