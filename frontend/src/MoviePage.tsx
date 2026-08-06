@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Review {
   id: number;
@@ -25,15 +26,9 @@ interface Movie {
   reviews: Review[];
 }
 
-function formatRuntime(minutes: number) {
-  if (!minutes) return 'Inconnue';
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
-  return `${h}h ${m}min`;
-}
-
 function MoviePage() {
   const { id } = useParams();
+  const { t, i18n } = useTranslation();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -43,14 +38,21 @@ function MoviePage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  function formatRuntime(minutes: number) {
+    if (!minutes) return t('moviePage.unknown');
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return `${h}h ${m}min`;
+  }
+
   const loadMovie = () => {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/movies/${id}`)
+    fetch(`/api/movies/${id}?lang=${i18n.language}`)
       .then(async (res) => {
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Erreur');
+        if (!res.ok) throw new Error(data.error || t('moviePage.notFound'));
         setMovie(data);
       })
       .catch((err) => setError(err.message))
@@ -60,7 +62,7 @@ function MoviePage() {
   useEffect(() => {
     setMovie(null);
     loadMovie();
-  }, [id]);
+  }, [id, i18n.language]);
 
   const handleSubmitReview = async () => {
     setSubmitting(true);
@@ -79,7 +81,7 @@ function MoviePage() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Erreur');
+      if (!res.ok) throw new Error(data.error || t('errors.generic'));
 
       setContent('');
       loadMovie();
@@ -92,9 +94,9 @@ function MoviePage() {
 
   return (
     <div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
-      <Link to="/">← Retour à la recherche</Link>
+      <Link to="/">← {t('moviePage.backToSearch')}</Link>
 
-      {loading && <p>Chargement...</p>}
+      {loading && <p>{t('moviePage.loading')}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {movie && (
@@ -106,19 +108,19 @@ function MoviePage() {
           />
           <h2>{movie.title} ({movie.release_date?.slice(0, 4)})</h2>
           <p>
-            <strong>Réalisateur :</strong>{' '}
+            <strong>{t('moviePage.director')} :</strong>{' '}
             {movie.director ? (
               <Link to={`/actor/${movie.director.id}`}>{movie.director.name}</Link>
             ) : (
-              'Inconnu'
+              t('moviePage.unknown')
             )}
           </p>
-          <p><strong>Genres :</strong> {movie.genres.join(', ')}</p>
-          <p><strong>Durée :</strong> {formatRuntime(movie.runtime)}</p>
-          <p><strong>Note moyenne (utilisateurs) :</strong> {Number(movie.average_rating).toFixed(1)} / 5</p>
-          <p><strong>Note TMDB :</strong> {movie.vote_average} / 10</p>
+          <p><strong>{t('moviePage.genres')} :</strong> {movie.genres.join(', ')}</p>
+          <p><strong>{t('moviePage.duration')} :</strong> {formatRuntime(movie.runtime)}</p>
+          <p><strong>{t('moviePage.userRating')} :</strong> {Number(movie.average_rating).toFixed(1)} / 5</p>
+          <p><strong>{t('moviePage.rating')} (TMDB) :</strong> {movie.vote_average} / 10</p>
           <p>
-            <strong>Casting :</strong>{' '}
+            <strong>{t('moviePage.cast')} :</strong>{' '}
             {movie.cast.map((actor, index) => (
               <span key={actor.id}>
                 <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
@@ -127,12 +129,12 @@ function MoviePage() {
             ))}
           </p>
 
-          <h3 style={{ clear: 'both', marginTop: 20 }}>Synopsis</h3>
+          <h3 style={{ clear: 'both', marginTop: 20 }}>{t('moviePage.synopsis')}</h3>
           <p>{movie.overview}</p>
 
-          <h3>Laisser une review</h3>
+          <h3>{t('moviePage.leaveReview')}</h3>
           <div style={{ marginBottom: 10 }}>
-            <label>Note : </label>
+            <label>{t('moviePage.rating')} : </label>
             <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
               {[0, 1, 2, 3, 4, 5].map((n) => (
                 <option key={n} value={n}>{n} / 5</option>
@@ -142,16 +144,16 @@ function MoviePage() {
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Votre avis sur le film..."
+            placeholder={t('moviePage.reviewPlaceholder')}
             style={{ width: '100%', minHeight: 80, padding: 8 }}
           />
           <button onClick={handleSubmitReview} disabled={submitting} style={{ marginTop: 8, padding: '8px 16px' }}>
-            {submitting ? 'Envoi...' : 'Publier ma review'}
+            {submitting ? t('moviePage.submitting') : t('moviePage.publishReview')}
           </button>
           {submitError && <p style={{ color: 'red' }}>{submitError}</p>}
 
-          <h3 style={{ marginTop: 30 }}>Reviews ({movie.reviews.length})</h3>
-          {movie.reviews.length === 0 && <p>Aucune review pour le moment.</p>}
+          <h3 style={{ marginTop: 30 }}>{t('moviePage.reviewsCount', { count: movie.reviews.length })}</h3>
+          {movie.reviews.length === 0 && <p>{t('moviePage.noReviews')}</p>}
           {movie.reviews.map((r) => (
             <div key={r.id} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
               <strong>{r.user.username}</strong> — {r.rating} / 5
