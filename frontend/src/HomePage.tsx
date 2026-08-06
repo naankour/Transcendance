@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import HomeModule from './components/HomeModule';
 import DailyRecommendation from './components/DailyRecommendation';
+import VisitorCounter from './components/VisitorCounter';
 import './styles/HomePage.css';
 
 // import { useState } from 'react';
@@ -51,14 +52,17 @@ function HomePage() {
 				<HomeModule title={t('home.dailyPick')}>
 					<DailyRecommendation />
 				</HomeModule>
+				<HomeModule title={t('home.visitorCount')}>
+					<VisitorCounter />
+				</HomeModule>
 			</div>
 			<div className='middle-column'>
-				<HomeModule title="Reviews">
+				<HomeModule title={t('home.latestReviews')}>
 					<p>test</p>
 				</HomeModule>
 			</div>
 			<div className='left-column'>
-				<HomeModule title="Friends activity">
+				<HomeModule title={t('home.friendsActivity')}>
 					<p>test</p>
 				</HomeModule>
 			</div>

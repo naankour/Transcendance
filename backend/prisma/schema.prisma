@@ -165,3 +165,8 @@ model messages {
   conversation    conversations @relation(fields: [conversation_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   sender          users         @relation(fields: [sender_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
+
+model visitor_stats {
+	id			Int @id @default(1)
+	count		Int @default(0)
+}
