@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import './MoviePage.css';
 
 interface Review {
   id: number;
@@ -93,48 +94,52 @@ function MoviePage() {
   };
 
   return (
-    <div style={{ fontFamily: 'sans-serif', maxWidth: 600, margin: '40px auto', padding: '0 20px' }}>
-      <Link to="/">← {t('moviePage.backToSearch')}</Link>
+    <div className="movie-page">
+      <Link to="/" className="movie-page__back">← {t('moviePage.backToSearch')}</Link>
 
-      {loading && <p>{t('moviePage.loading')}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <p className="movie-page__state">{t('moviePage.loading')}</p>}
+      {error && <p className="movie-page__state movie-page__state--error">{error}</p>}
 
       {movie && (
-        <div style={{ marginTop: 20 }}>
-          <img
-            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-            alt={movie.title}
-            style={{ maxWidth: 150, float: 'left', marginRight: 15 }}
-          />
-          <h2>{movie.title} ({movie.release_date?.slice(0, 4)})</h2>
-          <p>
-            <strong>{t('moviePage.director')} :</strong>{' '}
-            {movie.director ? (
-              <Link to={`/actor/${movie.director.id}`}>{movie.director.name}</Link>
-            ) : (
-              t('moviePage.unknown')
-            )}
-          </p>
-          <p><strong>{t('moviePage.genres')} :</strong> {movie.genres.join(', ')}</p>
-          <p><strong>{t('moviePage.duration')} :</strong> {formatRuntime(movie.runtime)}</p>
-          <p><strong>{t('moviePage.userRating')} :</strong> {Number(movie.average_rating).toFixed(1)} / 5</p>
-          <p><strong>{t('moviePage.rating')} (TMDB) :</strong> {movie.vote_average} / 10</p>
-          <p>
-            <strong>{t('moviePage.cast')} :</strong>{' '}
-            {movie.cast.map((actor, index) => (
-              <span key={actor.id}>
-                <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
-                {index < movie.cast.length - 1 ? ', ' : ''}
-              </span>
-            ))}
-          </p>
+        <div>
+          <div className="movie-page__header">
+            <img
+              src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+              alt={movie.title}
+              className="movie-page__poster"
+            />
+            <div className="movie-page__info">
+              <h2 className="movie-page__title">{movie.title} ({movie.release_date?.slice(0, 4)})</h2>
+              <p>
+                <strong>{t('moviePage.director')} :</strong>{' '}
+                {movie.director ? (
+                  <Link to={`/actor/${movie.director.id}`}>{movie.director.name}</Link>
+                ) : (
+                  t('moviePage.unknown')
+                )}
+              </p>
+              <p><strong>{t('moviePage.genres')} :</strong> {movie.genres.join(', ')}</p>
+              <p><strong>{t('moviePage.duration')} :</strong> {formatRuntime(movie.runtime)}</p>
+              <p><strong>{t('moviePage.userRating')} :</strong> {Number(movie.average_rating).toFixed(1)} / 5</p>
+              <p><strong>{t('moviePage.rating')} (TMDB) :</strong> {movie.vote_average} / 10</p>
+              <p>
+                <strong>{t('moviePage.cast')} :</strong>{' '}
+                {movie.cast.map((actor, index) => (
+                  <span key={actor.id}>
+                    <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
+                    {index < movie.cast.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+              </p>
+            </div>
+          </div>
 
-          <h3 style={{ clear: 'both', marginTop: 20 }}>{t('moviePage.synopsis')}</h3>
-          <p>{movie.overview}</p>
+          <h3 className="movie-page__section-title">{t('moviePage.synopsis')}</h3>
+          <p className="movie-page__synopsis">{movie.overview}</p>
 
-          <h3>{t('moviePage.leaveReview')}</h3>
-          <div style={{ marginBottom: 10 }}>
-            <label>{t('moviePage.rating')} : </label>
+          <h3 className="movie-page__section-title">{t('moviePage.leaveReview')}</h3>
+          <div className="movie-page__rating-select">
+            <label>{t('moviePage.rating')} :</label>
             <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
               {[0, 1, 2, 3, 4, 5].map((n) => (
                 <option key={n} value={n}>{n} / 5</option>
@@ -145,19 +150,20 @@ function MoviePage() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={t('moviePage.reviewPlaceholder')}
-            style={{ width: '100%', minHeight: 80, padding: 8 }}
+            className="movie-page__textarea"
           />
-          <button onClick={handleSubmitReview} disabled={submitting} style={{ marginTop: 8, padding: '8px 16px' }}>
+          <button onClick={handleSubmitReview} disabled={submitting} className="movie-page__submit-btn">
             {submitting ? t('moviePage.submitting') : t('moviePage.publishReview')}
           </button>
-          {submitError && <p style={{ color: 'red' }}>{submitError}</p>}
+          {submitError && <p className="movie-page__submit-error">{submitError}</p>}
 
-          <h3 style={{ marginTop: 30 }}>{t('moviePage.reviewsCount', { count: movie.reviews.length })}</h3>
-          {movie.reviews.length === 0 && <p>{t('moviePage.noReviews')}</p>}
+          <h3 className="movie-page__section-title">{t('moviePage.reviewsCount', { count: movie.reviews.length })}</h3>
+          {movie.reviews.length === 0 && <p className="movie-page__state">{t('moviePage.noReviews')}</p>}
           {movie.reviews.map((r) => (
-            <div key={r.id} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
-              <strong>{r.user.username}</strong> — {r.rating} / 5
-              <p style={{ margin: '4px 0' }}>{r.content}</p>
+            <div key={r.id} className="movie-page__review">
+              <span className="movie-page__review-author"><strong>{r.user.username}</strong></span>
+              <span className="movie-page__review-rating">{r.rating} / 5</span>
+              <p className="movie-page__review-content">{r.content}</p>
             </div>
           ))}
         </div>
