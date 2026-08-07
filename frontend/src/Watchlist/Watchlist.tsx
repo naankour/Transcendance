@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
 import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
+import { Link } from "react-router-dom";
 
-const Watchlist = () => {
+const Watchlist = ({ triggerToast }) => {
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const removeWatchlist = (movieId:number) => 
+  {
+    setWatchlist(prev =>
+        prev.filter(item => item.movie_id !== movieId)
+    );
+  };
 
 
 useEffect(() => {
@@ -59,18 +66,22 @@ useEffect(() => {
         {watchlist.map((item: any) => (
           <div key={item.id} className="watchlist-card">
 
-            <img
-              className="watchlist-poster"
-              src={item.movies.poster}
-              alt={item.movies.title}
-            />
-
+            <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
+              <img
+                className="watchlist-poster"
+                src={item.movies.poster}
+                alt={item.movies.title}
+              />
+          
             <h2>{item.movies.title}</h2>
+            </Link>  
 
           <MovieListButton
             movieId={item.movie_id}
             type="watchlist"
             action="remove"
+            triggerToast={triggerToast}
+            onSuccess={() => removeWatchlist(item.movie_id)}
           />
 
           </div>

@@ -145,3 +145,7 @@
     height: 220px;
   }
 }
+
+.link {
+    text-decoration: none;
+}

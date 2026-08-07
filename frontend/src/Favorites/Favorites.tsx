@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
 import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
+import { Link } from "react-router-dom";
 
-const Favorites = () => {
+const Favorites = ({ triggerToast }) => {
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const removeFavorite = (movieId:number) => 
+  {
+    setFavorites(prev =>
+        prev.filter(item => item.movie_id !== movieId)
+    );
+  };
 
 
 useEffect(() => 
@@ -67,6 +74,8 @@ useEffect(() =>
         {favorites.map((item: any) => (
           <div key={item.id} className="favorites-card">
 
+          <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
+          
             <img
               className="favorites-poster"
               src={item.movies.poster}
@@ -75,10 +84,14 @@ useEffect(() =>
 
             <h2>{item.movies.title}</h2>
 
+          </Link> 
+
             <MovieListButton
             movieId={item.movie_id}
             type="favorites"
             action="remove"
+            triggerToast={triggerToast}
+            onSuccess={() => removeFavorite(item.movie_id)}
           />
 
           </div>

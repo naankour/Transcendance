@@ -50,14 +50,14 @@ return (
           <Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
           <Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
           <Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />
-          <Route path="/watchlist" element={<Watchlist />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/follows" element={<Follows />} />
-          <Route path="/follows/followers" element={<Followers />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/reviews/me" element={<MyReviews />} />
-          <Route path="/reviews/create" element={<CreateReview />} />
-          <Route path="/reviews/:id/edit" element={<EditReview />} />
+          <Route path="/watchlist" element={<Watchlist triggerToast={triggerToast} />} />
+          <Route path="/favorites" element={<Favorites triggerToast={triggerToast} />} />
+          <Route path="/follows" element={<Follows triggerToast={triggerToast} />} />
+          <Route path="/follows/followers" element={<Followers triggerToast={triggerToast} />} />
+          <Route path="/reviews" element={<Reviews triggerToast={triggerToast} />} />
+          <Route path="/reviews/me" element={<MyReviews triggerToast={triggerToast} />} />
+          <Route path="/reviews/create" element={<CreateReview triggerToast={triggerToast} />} />
+          <Route path="/reviews/:id/edit" element={<EditReview triggerToast={triggerToast} />} />
           <Route path="/search/:query" element={<SearchResultsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
