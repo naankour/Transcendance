@@ -193,6 +193,27 @@
 		"noRecommendation": "No hay recomendación disponible en este momento."
 	},
 
+
+	"moviePage": {
+		"backToSearch": "Volver a la búsqueda",
+		"loading": "Cargando...",
+		"director": "Director",
+		"genres": "Géneros",
+		"rating": "Nota",
+		"userRating": "Nota media (usuarios)",
+		"duration": "Duración",
+		"cast": "Reparto",
+		"unknown": "Desconocido",
+		"notFound": "Película no encontrada",
+		"synopsis": "Sinopsis",
+		"leaveReview": "Dejar una reseña",
+		"reviewPlaceholder": "Tu opinión sobre la película...",
+		"submitting": "Enviando...",
+		"publishReview": "Publicar mi reseña",
+		"reviewsCount": "Reseñas ({{count}})",
+		"noReviews": "Aún no hay reseñas."
+	},
+
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
 	}

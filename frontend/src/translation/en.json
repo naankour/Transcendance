@@ -194,6 +194,26 @@
 		"noRecommendation": "No recommendation available right now."
 	},
 
+	"moviePage": {
+		"backToSearch": "Back to search",
+		"loading": "Loading...",
+		"director": "Director",
+		"genres": "Genres",
+		"rating": "Rating",
+		"userRating": "Average rating (users)",
+		"duration": "Duration",
+		"cast": "Cast",
+		"unknown": "Unknown",
+		"notFound": "Movie not found",
+		"synopsis": "Synopsis",
+		"leaveReview": "Leave a review",
+		"reviewPlaceholder": "Your thoughts on the movie...",
+		"submitting": "Submitting...",
+		"publishReview": "Publish my review",
+		"reviewsCount": "Reviews ({{count}})",
+		"noReviews": "No reviews yet."
+	},
+
 	"errors": {
 		"generic": "Something went wrong. Please try again."
 	}

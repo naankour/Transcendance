@@ -193,6 +193,26 @@
 		"noRecommendation": "Aucune recommandation disponible pour le moment."
 	},
 
+	"moviePage": {
+		"backToSearch": "Retour à la recherche",
+		"loading": "Chargement...",
+		"director": "Réalisateur",
+		"genres": "Genres",
+		"rating": "Note",
+		"userRating": "Note moyenne (utilisateurs)",
+		"duration": "Durée",
+		"cast": "Casting",
+		"unknown": "Inconnu",
+		"notFound": "Film introuvable",
+		"synopsis": "Synopsis",
+		"leaveReview": "Laisser une review",
+		"reviewPlaceholder": "Votre avis sur le film...",
+		"submitting": "Envoi...",
+		"publishReview": "Publier ma review",
+		"reviewsCount": "Reviews ({{count}})",
+		"noReviews": "Aucune review pour le moment."
+	},
+
 	"errors": {
 		"generic": "Une erreur est survenue. Veuillez réessayer."
 	}
