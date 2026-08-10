@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import HomeModule from './components/HomeModule';
 import DailyRecommendation from './components/DailyRecommendation';
 import VisitorCounter from './components/VisitorCounter';
+import FriendsActivity from './components/FriendsActivity';
 import './styles/HomePage.css';
 
 function HomePage() {
@@ -23,9 +24,9 @@ function HomePage() {
 				</HomeModule>
 			</div>
 			<div className='left-column'>
-				<HomeModule title={t('home.friendsActivity')}>
-					<p>test</p>
-				</HomeModule>
+			<HomeModule title={t('home.friendsActivity')}>
+				<FriendsActivity />
+			</HomeModule>
 			</div>
 		</div>
 	);

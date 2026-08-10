@@ -190,7 +190,13 @@
 		"visitorCount": "Visiteurs",
 		"friendsActivity": "Activité des amis",
 		"loading": "Chargement...",
-		"noRecommendation": "Aucune recommandation disponible pour le moment."
+		"noRecommendation": "Aucune recommandation disponible pour le moment.",
+		"friendsActivityLoginPrompt": "Connectez-vous pour voir l'activité de vos amis.",
+		"friendsActivityEmpty": "Aucune activité récente des personnes que vous suivez.",
+		"activityReviews": "Avis",
+		"activityWatchlist": "Ajouts à la watchlist",
+		"activityFavorites": "Ajouts aux favoris",
+		"activityFollow": "a commencé à suivre"
 	},
 
 	"moviePage": {

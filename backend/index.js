@@ -48,6 +48,9 @@ app.use('/avatars', express.static(path.join(__dirname, 'public/avatars')));
 const visitorRoutes = require('./api/visitors');
 app.use('/api', visitorRoutes);
 
+const activityRoutes = require('./api/activity');
+app.use('/api', activityRoutes);
+
 // const genreRoutes = require('./api/genres');
 // app.use('/api/genres', genreRoutes);
 
