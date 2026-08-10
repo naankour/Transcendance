@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import "./Reviews.css";
+import UserCard from '../components/UserCard';
+import { Link } from "react-router-dom";
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -45,16 +47,40 @@ const Reviews = () => {
             ) : (
                 <div className="reviews-list">
                     {reviews.map((review: any) => (
-                        <div key={review.id} className="review-card">
-                            <h2 className="review-movie-title">
-                                {review.movies.title}
-                            </h2>
-                            <p className="review-content">
-                                {review.content}
-                            </p>
-                            <p className="review-rating">
-                                Rating : {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
-                            </p>
+
+                        <div key={review.id} className="reviews-card">
+
+                            <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
+                                <img
+                                    src={review.movies.poster}
+                                    alt={review.movies.title}
+                                    className="reviews-poster"
+                                />
+                            </Link>
+
+                            <Link to={`/profile/${review.users.id}`} className="link">
+                                <UserCard 
+                                    user={review.users}
+                                    className="reviews-user"
+                                />
+                            </Link>
+
+                            <div className="reviews-info">
+
+                                <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
+                                    <h2 className="reviews-movie-title">
+                                        {review.movies.title}
+                                    </h2>
+                                </Link>
+                                <p className="reviews-content">
+                                    {review.content}
+                                </p>
+
+                                <p className="reviews-rating">
+                                    Rating : {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                                </p>
+
+                            </div>
                         </div>
                     ))}
                 </div>

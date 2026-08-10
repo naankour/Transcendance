@@ -5,7 +5,6 @@
   text-shadow: 0 0 6px var(--color-accent);
 }
 
-
 .myreviews-list {
   width: 70%;
   margin: auto;
@@ -18,22 +17,27 @@
   overflow: visible; 
 }
 
-.review-card {
+.myreviews-card {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
   background-color: var(--color-surface);
   border: 3px dashed var(--color-accent);
   border-radius: 18px;
   padding: 30px;
+
   box-shadow:
     0 0 0 5px var(--color-surface-alt),
     0 0 0 8px var(--color-accent-soft),
     8px 8px 0 rgba(255,46,154,0.25);
+
   animation: cardAppear 0.5s ease;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  z-index: 1;
 }
 
-.review-card:hover {
+.myreviews-card:hover {
   transform: translateY(-6px) rotate(-0.5deg);
   box-shadow:
     0 0 0 5px var(--color-surface-alt),
@@ -41,7 +45,7 @@
     12px 12px 0 rgba(255,46,154,0.35);
 }
 
-.review-card::before {
+.myreviews-card::before {
   content: "♥";
   position: absolute;
   top: -18px;
@@ -59,7 +63,7 @@
   50% { transform: scale(1.3); }
 }
 
-.review-card::after {
+.myreviews-card::after {
   content: "★";
   position: absolute;
   bottom: -18px;
@@ -72,7 +76,7 @@
   z-index: 2;
 }
 
-.review-movie-title {
+.myreviews-movie-title {
   font-family: var(--font-title);
   color: var(--color-accent);
   text-align: center;
@@ -85,7 +89,7 @@
   animation: titlePulse 3s infinite;
 }
 
-.review-card p {
+.myreviews-card p {
   color: var(--color-text);
   font-size: 17px;
   text-align: center;
@@ -94,7 +98,7 @@
 }
 
 
-.review-content {
+.myreviews-content {
   color: var(--color-text-muted);
   font-size: 17px;
   text-align: center;
@@ -109,7 +113,7 @@
   border-radius: 8px;
 }
 
-.review-content::before {
+.myreviews-content::before {
   content: "\201C";
   position: absolute;
   top: -10px;
@@ -120,7 +124,7 @@
   opacity: 0.7;
 }
 
-.review-content::after {
+.myreviews-content::after {
   content: "\201D";
   position: absolute;
   bottom: -32px;
@@ -131,11 +135,14 @@
   opacity: 0.7;
 }
 
-.review-rating {
+.myreviews-rating {
   color: var(--color-accent-soft) !important;
   font-family: var(--font-title);
   font-size: 20px !important;
-  display: inline-block;
+
+  display: block;
+  text-align: center;
+
   letter-spacing: 3px;
   animation: ratingTwinkle 1.8s ease-in-out infinite;
   text-shadow:
@@ -198,5 +205,24 @@
   50% { transform: translateY(-8px); }
 }
 
+.myreviews-poster {
+  width: 140px;
+  height: 210px;
+  object-fit: cover;
+
+  border-radius: 10px;
+
+  border: 2px solid var(--color-accent);
+
+  box-shadow:
+    0 0 10px var(--color-accent);
+
+  flex-shrink: 0;
+}
+
+.myreviews-info {
+  flex: 1;
+  padding-left: 15px;
+}
 
 

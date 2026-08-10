@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import "./MyReviews.css";
+import { Link } from "react-router-dom";
 
 const MyReviews = () => {
     const [myreviews, setMyReviews] = useState([]);
@@ -44,16 +45,34 @@ const MyReviews = () => {
             ) : (
                 <div className="myreviews-list">
                     {myreviews.map((review: any) => (
-                        <div key={review.id} className="review-card">
-                            <h2 className="review-movie-title">
-                                {review.movies.title}
-                            </h2>
-                            <p className="review-content">
-                                {review.content}
-                            </p>
-                            <p className="review-rating">
-                                Rating : {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
-                            </p>
+
+                    <div key={review.id} className="myreviews-card">
+
+                        <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
+                            <img
+                                src={review.movies.poster}
+                                alt={review.movies.title}
+                                className="myreviews-poster"
+                            />
+                        </Link>
+
+                        <div className="myreviews-info">
+
+                            <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
+                                <h2 className="myreviews-movie-title">
+                                    {review.movies.title}
+                                </h2>
+                            </Link>
+
+                                <p className="myreviews-content">
+                                    {review.content}
+                                </p>
+
+                                <p className="myreviews-rating">
+                                    Rating : {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                                </p>
+
+                            </div>
                         </div>
                     ))}
                 </div>

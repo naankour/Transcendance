@@ -28,6 +28,22 @@ const addFavorite = async(req, res) =>
         const user_id = req.user.id;
         const movie_id = parseInt(req.params.movie_id);
 
+        const existingFavorite = await prisma.favorites.findUnique({
+            where: {
+                user_id_movie_id: {
+                    user_id,
+                    movie_id
+                }
+            }
+        });
+
+        if (existingFavorite)
+        {
+            return res.status(409).json({
+                error: "Movie already in favorites"
+            });
+        }
+
         const favorite = await prisma.favorites.create({
             data: {
                 user_id,
