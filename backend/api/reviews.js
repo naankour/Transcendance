@@ -7,6 +7,7 @@ const authenticateToken = require('../middleware/authMiddleware');
 router.get('/', reviewsController.getReviews);
 router.get('/me', authenticateToken, reviewsController.getMyReviews);
 router.get('/movies/:movieId/reviews', authenticateToken, reviewsController.getReviewsByMovie);
+router.get("/:id", authenticateToken, reviewsController.getReviewById);
 router.post('/', authenticateToken, reviewsController.createReview);
 router.put('/:id', authenticateToken,reviewsController.updateReview);
 router.delete('/:id', authenticateToken, reviewsController.deleteReview);

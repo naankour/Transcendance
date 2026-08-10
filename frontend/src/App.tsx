@@ -12,8 +12,8 @@ import Follows from './Follows/Follows';
 import Followers from './Followers/Followers';
 import MyReviews from './MyReviews/MyReviews'
 import Reviews from './Reviews/Reviews'
-import CreateReview from './pages/CreateReview'
-import EditReview from './pages/EditReview'
+import CreateReview from "./CreateReview/CreateReview";
+import EditReview from './EditReview/EditReview'
 // import ActorSearchPage from './pages/ActorSearchPage';
 import ActorPage from './pages/ActorPage';
 import Header from './layout/Header';
@@ -56,8 +56,8 @@ return (
           <Route path="/follows/followers" element={<Followers triggerToast={triggerToast} />} />
           <Route path="/reviews" element={<Reviews triggerToast={triggerToast} />} />
           <Route path="/reviews/me" element={<MyReviews triggerToast={triggerToast} />} />
-          <Route path="/reviews/create" element={<CreateReview triggerToast={triggerToast} />} />
-          <Route path="/reviews/:id/edit" element={<EditReview triggerToast={triggerToast} />} />
+          <Route path="/create-review/:movieId" element={<CreateReview triggerToast={triggerToast} />} />
+          <Route path="/edit-review/:id" element={<EditReview triggerToast={triggerToast} />} />
           <Route path="/search/:query" element={<SearchResultsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />

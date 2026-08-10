@@ -60,43 +60,90 @@ const getReviewsByMovie = async(req, res) =>
     }
 }
 
-const createReview = async(req, res) =>
+const getReviewById = async (req, res) =>
 {
-  try
-  {
-    const movie_id = parseInt(req.body.movie_id);
-    const rating = parseFloat(req.body.rating);
-    const content = req.body.content;
-    const user_id = req.user.id;
-
-    if (isNaN(rating) || !content)
+    try
     {
-      return res.status(400).json({
-        error: "rating and content are mandatory"
-      });
-    }
+        const review_id = parseInt(req.params.id);
 
-    if (rating < 0.5 || rating > 5) {
-      return res.status(400).json({
-        error: "Rating must be between 0,5 and 5"
-      });
-    }
+        const review = await prisma.reviews.findUnique({
+            where: {
+                id: review_id
+            },
+            include: {
+                users: true,
+                movies: true
+            }
+        });
 
-    const newReview = await prisma.reviews.create(
+        if (!review)
+        {
+            return res.status(404).json({ error: "Review not found"});
+        }
+        res.status(200).json(review);
+    }
+    catch (error)
     {
-      data: {
-        movie_id,
-        user_id,
-        rating,
-        content,
-      },
-    });
-    return res.status(201).json(newReview);
-  }
-  catch (error)
-  {
-    return res.status(500).json({ error: error.message })
-  }
+        res.status(500).json({ error: error.message});
+    }
+};
+
+const createReview = async (req, res) =>
+{
+    try
+    {
+        const movie_id = parseInt(req.body.movie_id);
+        const rating = parseFloat(req.body.rating);
+        const content = req.body.content;
+        const user_id = req.user.id;
+
+        if (isNaN(rating) || !content)
+        {
+            return res.status(400).json({
+                error: "rating and content are mandatory"
+            });
+        }
+
+        if (rating < 0.5 || rating > 5)
+        {
+            return res.status(400).json({
+                error: "Rating must be between 0,5 and 5"
+            });
+        }
+
+        const existingReview = await prisma.reviews.findUnique({
+            where: {
+                user_id_movie_id: {
+                    user_id,
+                    movie_id
+                }
+            }
+        });
+
+        if (existingReview)
+        {
+            return res.status(409).json({
+                error: "You already reviewed this movie"
+            });
+        }
+
+        const newReview = await prisma.reviews.create({
+            data: {
+                movie_id,
+                user_id,
+                rating,
+                content
+            }
+        });
+
+        return res.status(201).json(newReview);
+    }
+    catch (error)
+    {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
 };
 
 const updateReview = async(req, res) =>
@@ -188,4 +235,4 @@ const deleteReview = async(req, res) =>
   }
 };
 
-module.exports = { getReviews, getMyReviews, getReviewsByMovie, createReview, updateReview, deleteReview }
+module.exports = { getReviews, getMyReviews, getReviewsByMovie, getReviewById, createReview, updateReview, deleteReview }
