@@ -20,6 +20,11 @@
 	margin: 0 0 6px;
 }
 
+.daily-pick-title:hover {
+    color: var(--color-accent-soft);
+	text-shadow: 0 0 5px var(--color-accent);
+}
+
 .daily-pick-overview {
 	font-size: 13px;
 	color: var(--color-text-muted);
@@ -28,6 +33,10 @@
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+.daily-pick-overview:hover {
+    color: var(--color-accent-softer);
 }
 
 .daily-pick-status {

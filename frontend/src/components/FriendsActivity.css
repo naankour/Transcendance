@@ -1,0 +1,55 @@
+.friends-activity {
+	display: flex;
+	flex-direction: column;
+}
+
+.friends-activity-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 7px 0;
+}
+
+.friends-activity-item:not(:last-child) {
+	border-bottom: 1px solid var(--border);
+}
+
+.friends-activity-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	flex-shrink: 0;
+    border: 1px solid var(--color-accent-soft);
+}
+
+.friends-activity-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.friends-activity-line {
+	font-size: 18px;
+}
+
+.friends-activity-user,
+.friends-activity-movie {
+	color: inherit;
+	text-decoration: none;
+}
+
+.friends-activity-user:hover,
+.friends-activity-movie:hover {
+	color: var(--color-accent-soft);
+	text-shadow: 0 0 5px var(--color-accent);
+}
+
+.friends-activity-meta {
+	font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.friends-activity-status {
+	margin: 0;
+	color: var(--color-text-muted);
+}
