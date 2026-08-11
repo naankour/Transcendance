@@ -3,6 +3,8 @@ import HomeModule from './components/HomeModule';
 import DailyRecommendation from './components/DailyRecommendation';
 import VisitorCounter from './components/VisitorCounter';
 import FriendsActivity from './components/FriendsActivity';
+import ProfilePreview from './components/ProfilePreview';
+import LatestReviews from './components/LatestReviews';
 import './styles/HomePage.css';
 
 function HomePage() {
@@ -11,6 +13,9 @@ function HomePage() {
 	return (
 		<div className="home-grid">
 			<div className='right-column'>
+				<HomeModule title={t('home.aboutMe')}>
+					<ProfilePreview />
+				</HomeModule>
 				<HomeModule title={t('home.dailyPick')}>
 					<DailyRecommendation />
 				</HomeModule>
@@ -20,7 +25,7 @@ function HomePage() {
 			</div>
 			<div className='middle-column'>
 				<HomeModule title={t('home.latestReviews')}>
-					<p>test</p>
+					<LatestReviews />
 				</HomeModule>
 			</div>
 			<div className='left-column'>

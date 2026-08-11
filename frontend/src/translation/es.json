@@ -196,9 +196,16 @@
 		"activityReviews": "Reseñas",
 		"activityWatchlist": "Añadidos a la watchlist",
 		"activityFavorites": "Añadidos a favoritos",
-		"activityFollow": "empezó a seguir a"
+		"activityFollow": "empezó a seguir a",
+		"visitorCounterText" : "Cinéfilos han pasado por aquí!",
+		"aboutMe": "Sobre mí",
+		"viewProfile": "Ver mi perfil",
+		"noBio": "Todavía no hay biografía.",
+		"latestReviewsError": "No se pueden cargar las últimas reseñas.",
+		"latestReviewsEmpty": "Todavía no se ha publicado ninguna reseña.",
+		"reviewed": "ha reseñado",
+		"rating": "Puntuación"
 	},
-
 
 	"moviePage": {
 		"backToSearch": "Volver a la búsqueda",
