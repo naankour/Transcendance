@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Genre {
   id: number;
@@ -19,8 +19,13 @@ export default function Discover() {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [genreArray, setGenreArray] = useState<Genre[]>([]);
     const [page, setPage] = useState(1);
+    const navigate = useNavigate();
 
     // const sortArray = ["Popularity", "Highest First", "Lowest First", "Year", "Newest First", "Earliest First"];
+
+    const handleSearch = (movies: Movie) => {
+        navigate(`/movie/${movies.id}`);
+    };
 
     async function fetchGenres() {
         const request = await fetch(`/api/discover/genres`);
@@ -89,6 +94,8 @@ export default function Discover() {
                     key={movie.id}
                     src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                     alt={movie.title}
+                    onClick={() => handleSearch(movie)}
+                    style={{ cursor: 'pointer', padding: 3}}
                     />
 
                 )) }

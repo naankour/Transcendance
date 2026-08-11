@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "favorites" ADD COLUMN     "created_at" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "follows" ADD COLUMN     "created_at" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "watchlist" ADD COLUMN     "created_at" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP;

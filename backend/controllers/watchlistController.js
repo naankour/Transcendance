@@ -1,24 +1,25 @@
 const prisma = require('../prisma/prismaClient');
 
-const getWatchlist = async(req, res) =>
+const getWatchlist = async (req, res) => 
 {
-    try
+    try 
     {
         const user_id = req.user.id;
 
         const watchlist = await prisma.watchlist.findMany({
             where: {
-                user_id
+                user_id: user_id
+            },
+            include: {
+                movies: true
             }
         });
 
         res.status(200).json(watchlist);
     }
-    catch (error)
+    catch (error) 
     {
-        res.status(500).json({
-            error: error.message
-        });
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -30,6 +31,22 @@ const addToWatchlist = async(req, res) =>
         const user_id = req.user.id;
         const movie_id = parseInt(req.params.movie_id);
 
+        const existingWatchlist = await prisma.watchlist.findUnique({
+            where: {
+                user_id_movie_id: {
+                    user_id,
+                    movie_id
+                }
+            }
+        });
+
+        if (existingWatchlist)
+        {
+            return res.status(409).json({
+                error: "Movie already in watchlist"
+            });
+        }
+        
         const watchlist = await prisma.watchlist.create({
             data: {
                 user_id,

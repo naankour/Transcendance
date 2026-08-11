@@ -1,0 +1,152 @@
+
+.followers-title {
+    color: var(--color-accent);
+  font-family: var(--font-title);
+  text-shadow: 0 0 6px var(--color-accent);
+}
+
+.followers-list {
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  gap: 35px;
+  justify-content: center;
+  width: 100%;
+}
+
+.followers-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(
+        145deg,
+        var(--color-surface),
+        var(--color-surface-alt)watchlist
+    );
+    border: 2px solid var(--color-accent-soft);
+    border-radius: 25px;
+    padding: 30px 20px;
+    box-shadow:
+        0 0 15px rgba(255,46,154,0.25),
+        inset 0 0 20px rgba(255,46,154,0.1);
+    transition: all 0.3s ease;
+}
+
+.followers-card:hover {
+    transform: translateY(-8px) scale(1.03);
+
+    box-shadow:
+        0 0 25px var(--color-accent),
+        0 0 45px rgba(255,46,154,0.4);
+}
+
+.heart-avatar-wrapper {
+    width: 130px;
+    height: 130px;
+    position: relative;
+    padding: 5px;
+    background: linear-gradient(
+        45deg,
+        #fff,
+        var(--color-accent),
+        #fff,
+        var(--color-accent-soft)
+    );
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px white,
+        0 0 25px var(--color-accent),
+        0 0 40px var(--color-accent-soft);
+    animation: avatarGlow 2s infinite ease-in-out;
+}
+
+.followers-user-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+@keyframes avatarGlow {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+.followers-user-username {
+    margin-top: 20px;
+    color: var(--color-accent);
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
+    text-align: center;
+    text-shadow:
+        0 0 8px var(--color-accent),
+        0 0 15px var(--color-accent-soft);
+}
+
+.followers-card::before {
+    content: "✦";
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    color:white;
+    font-size:20px;
+    text-shadow:
+        0 0 10px white,
+        0 0 20px var(--color-accent);
+    animation: sparkle 1.5s infinite;
+}
+
+.followers-card::after {
+    content:"♥";
+    position:absolute;
+    bottom:10px;
+    left:15px;
+    color:var(--color-accent);
+    font-size:22px;
+    animation: heartBeat 1.5s infinite;
+
+}
+
+@keyframes sparkle {
+    0%,100% {
+        opacity:1;
+        transform:rotate(0deg);
+    }
+    50% {
+        opacity:.4;
+        transform:rotate(180deg);
+    }
+}
+
+@keyframes heartBeat {
+    0%,100% {
+        transform:scale(1);
+    }
+    50% {
+        transform:scale(1.3);
+    }
+}
+
+.followers-empty {
+  color: var(--color-accent-soft);
+  font-family: var(--font-title);
+  font-size: 22px;
+  text-align: center;
+  margin-top: 50px;
+  padding: 60px 20px;
+  text-shadow: 0 0 8px var(--color-accent);
+  animation: emptyFloat 3s ease-in-out infinite;
+}
+
+@keyframes emptyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.link {
+    text-decoration:none;
+}

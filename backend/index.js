@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { initializeDatabase } = require('./config/db');
 const { test_seed } = require('./prisma/seed')
 require('dotenv').config();
@@ -67,6 +68,17 @@ app.use('/api/discover', discoverRoutes);
 
 const searchRoutes = require('./api/search');
 app.use('/api', searchRoutes);
+
+const recommendationRoutes = require('./api/recommendation');
+app.use('/api', recommendationRoutes);
+
+app.use('/avatars', express.static(path.join(__dirname, 'public/avatars')));
+
+const visitorRoutes = require('./api/visitors');
+app.use('/api', visitorRoutes);
+
+const activityRoutes = require('./api/activity');
+app.use('/api', activityRoutes);
 
 // const genreRoutes = require('./api/genres');
 // app.use('/api/genres', genreRoutes);

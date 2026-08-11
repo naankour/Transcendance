@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Dancing+Script:wght@700&family=Press+Start+2P&family=Caveat:wght@700&display=swap');
+
+.movie-list-button {
+	margin-top: 8px;
+	padding: 8px 12px;
+
+	background-color: var(--color-accent);
+	color: var(--color-text);
+
+	border: 2px solid var(--color-accent-soft);
+	border-radius: 15px;
+
+	cursor: pointer;
+	font-family: 'Press Start 2P', cursive ;
+	font-weight: bold;
+	font-size: 8px;
+
+	box-shadow: 0 0 8px var(--color-accent);
+	transition: all 0.2s ease;
+}
+
+.movie-list-button:hover {
+	background-color: var(--color-accent-soft);
+	color: var(--color-bg);
+
+	box-shadow: 0 0 15px var(--color-accent);
+	transform: scale(1.05);
+}
+/* 
+'Baloo 2', cursive
+'Dancing Script', cursive 
+'Press Start 2P', cursive 
+'Caveat', cursive  */

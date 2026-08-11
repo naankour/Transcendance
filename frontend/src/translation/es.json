@@ -1,9 +1,17 @@
 {
 	"header": {
-		"searchPlaceholder": "Buscar una película, un actor...",
+		"searchPlaceholder": "Buscar una película, un actor, un usuario...",
 		"movies": "Películas",
 		"actorsDirectors": "Actores / directores",
-        "users": "Usuarios"
+		"users": "Usuarios",
+		"navLabel": "INICIO",
+		"navMovies": "PELÍCULAS",
+		"navReviews": "RESEÑAS",
+		"navWatchlist": "POR VER",
+		"navFavorites": "FAVORITOS",
+		"navProfile": "PERFIL",
+		"login": "Iniciar sesión",
+		"logout": "Cerrar sesión"
 	},
 	"actorPage": {
 		"back": "← Volver",
@@ -19,6 +27,200 @@
 		"noResults": "Sin resultados.",
 		"movies": "Películas",
 		"actorsDirectors": "Actores / directores",
-        "users": "Usuarios"
+		"users": "Usuarios"
+	},
+	"watchlistPage": {
+		"watchlist": "Mi Lista de Seguimiento",
+		"movieID": "ID de la película:"
+	},
+
+
+	"terms": {
+		"title": "Términos de servicio",
+		"lastUpdated": "Última actualización: 2 de agosto de 2026",
+		"s1": {
+			"heading": "1. Aceptación de los términos",
+			"p1": "Al crear una cuenta o utilizar LetterBlog, aceptas cumplir estos Términos de servicio. Si no estás de acuerdo con estos términos, no debes utilizar la aplicación."
+		},
+		"s2": {
+			"heading": "2. Descripción del servicio",
+			"p1": "LetterBlog permite a los usuarios descubrir películas, ver información sobre actores y directores, publicar reseñas, calificar películas, crear listas de favoritos y watchlists, seguir a otros usuarios y utilizar las funciones sociales que ofrece la aplicación."
+		},
+		"s3": {
+			"heading": "3. Cuentas de usuario",
+			"p1": "Los usuarios deben proporcionar información precisa al crear una cuenta y deben mantener la confidencialidad de sus credenciales de acceso.",
+			"p2": "Eres responsable de la actividad realizada a través de tu cuenta. Si crees que tu cuenta ha sido comprometida, debes notificarlo a los administradores del proyecto lo antes posible."
+		},
+		"s4": {
+			"heading": "4. Uso aceptable",
+			"intro": "Los usuarios no deben:",
+			"items": [
+				"Acosar, amenazar o maltratar a otros usuarios.",
+				"Publicar contenido ilegal, de odio o discriminatorio.",
+				"Suplantar a otra persona o crear cuentas engañosas.",
+				"Enviar spam a los usuarios o hacer un mal uso de la mensajería y las funciones sociales.",
+				"Intentar acceder a la cuenta de otro usuario.",
+				"Interferir con la seguridad o el funcionamiento del servicio.",
+				"Usar herramientas automatizadas para sobrecargar o extraer datos (scraping) de la aplicación.",
+				"Recopilar información personal de otros usuarios (nombre de usuario, avatar, actividad, etc.) con fines no relacionados con el uso normal de la aplicación.",
+				"Publicar contenido que infrinja derechos de propiedad intelectual."
+			]
+		},
+		"s5": {
+			"heading": "5. Contenido generado por los usuarios",
+			"p1": "Los usuarios siguen siendo responsables de las reseñas, la información de perfil, los mensajes y demás contenido que publiquen a través de LetterBlog.",
+			"p2": "Al publicar contenido, autorizas a LetterBlog a almacenarlo, mostrarlo y procesarlo únicamente en la medida necesaria para prestar las funciones de la aplicación.",
+			"p3": "El contenido puede eliminarse cuando infrinja estos términos, la legislación aplicable, o los derechos y la seguridad de otros usuarios."
+		},
+		"s6": {
+			"heading": "6. Información de películas y contenido de terceros",
+			"p1": "La información de películas, carteles, detalles de actores y metadatos relacionados puede ser proporcionada por The Movie Database (TMDB).",
+			"p2": "LetterBlog no reclama la propiedad de los datos de películas de terceros y no puede garantizar que toda la información esté completa, sea precisa o esté disponible de forma permanente."
+		},
+		"s7": {
+			"heading": "7. Reseñas y calificaciones",
+			"p1": "Las reseñas y calificaciones representan las opiniones de usuarios individuales. LetterBlog no respalda necesariamente cada opinión publicada a través del servicio.",
+			"p2": "Los usuarios deben publicar reseñas honestas y evitar calificaciones intencionalmente engañosas, contenido duplicado o acoso dirigido."
+		},
+		"s8": {
+			"heading": "8. Suspensión y terminación",
+			"p1": "El acceso a una cuenta puede restringirse o cancelarse cuando un usuario infrinja estos términos, amenace la seguridad de la aplicación o perjudique repetidamente a otros usuarios.",
+			"p2": "Los usuarios pueden dejar de utilizar el servicio y solicitar la eliminación de su cuenta en cualquier momento."
+		},
+		"s9": {
+			"heading": "9. Disponibilidad del servicio",
+			"p1": "LetterBlog se proporciona según su disponibilidad. Las funciones pueden no estar disponibles ocasionalmente debido a mantenimiento, problemas técnicos o interrupciones de servicios de terceros.",
+			"p2": "El equipo del proyecto no garantiza un acceso ininterrumpido o sin errores a la aplicación."
+		},
+		"s10": {
+			"heading": "10. Limitación de responsabilidad",
+			"p1": "En la medida permitida por la ley aplicable, el equipo del proyecto no es responsable de pérdidas indirectas causadas por funciones no disponibles, datos inexactos de terceros, contenido generado por los usuarios o accesos no autorizados a la cuenta derivados de que un usuario no haya protegido sus credenciales."
+		},
+		"s11": {
+			"heading": "11. Cambios en estos términos",
+			"p1": "Estos Términos de servicio pueden actualizarse cuando cambien las funciones, los requisitos de seguridad o las normas aplicables. El uso continuado de la aplicación tras una actualización implica la aceptación de los términos revisados."
+		},
+		"s12": {
+			"heading": "12. Contacto",
+			"p1": "Las preguntas sobre estos términos pueden enviarse a los administradores del proyecto LetterBlog a través del canal de contacto oficial de la aplicación."
+		}
+	},
+	"privacy": {
+		"title": "Política de privacidad",
+		"lastUpdated": "Última actualización: 2 de agosto de 2026",
+		"s1": {
+			"heading": "1. Introducción",
+			"p1": "LetterBlog es una aplicación social centrada en el cine que permite a los usuarios descubrir películas, gestionar listas personales, publicar reseñas e interactuar con otros usuarios.",
+			"p2": "Esta Política de privacidad explica qué información puede recopilarse, por qué se utiliza y qué opciones tienen los usuarios respecto a sus datos."
+		},
+		"s2": {
+			"heading": "2. Información que recopilamos",
+			"p1": "Al crear y utilizar una cuenta, la aplicación puede almacenar información como tu nombre de usuario, dirección de correo electrónico, información de perfil y datos de autenticación.",
+			"p2": "La aplicación también puede almacenar contenido y actividad asociados a tu cuenta, incluidas reseñas, calificaciones, películas favoritas, watchlists, seguidores y mensajes enviados a través de la aplicación."
+		},
+		"s3": {
+			"heading": "3. Información recopilada automáticamente",
+			"p1": "Cuando utilizas LetterBlog, el servidor puede registrar automáticamente información técnica como tu dirección IP, el tipo de navegador, información del dispositivo y la fecha y hora de tus solicitudes. Estos datos se utilizan con fines de seguridad, depuración y prevención de abusos, y no se utilizan con fines de marketing."
+		},
+		"s4": {
+			"heading": "4. Cómo se utiliza la información",
+			"intro": "Tu información se utiliza para:",
+			"items": [
+				"Crear y gestionar tu cuenta.",
+				"Autenticarte de forma segura.",
+				"Mostrar tu perfil y tu actividad pública.",
+				"Guardar tus reseñas, calificaciones, favoritos y watchlist.",
+				"Ofrecer funciones sociales y de mensajería.",
+				"Mantener la seguridad y el correcto funcionamiento del servicio."
+			]
+		},
+		"s5": {
+			"heading": "5. Información pública",
+			"p1": "Parte de tu información puede ser visible para otros usuarios, incluyendo tu nombre de usuario, foto de perfil, biografía, reseñas, calificaciones y listas de películas públicas.",
+			"p2": "Los usuarios deben evitar publicar información personal o sensible en los campos de perfil público, reseñas o mensajes."
+		},
+		"s6": {
+			"heading": "6. Datos de películas de terceros",
+			"p1": "LetterBlog utiliza The Movie Database (TMDB) para obtener información sobre películas, actores, directores, imágenes y contenido relacionado con el entretenimiento.",
+			"p2": "Las solicitudes relacionadas con contenido de TMDB pueden procesarse conforme a los propios términos y prácticas de privacidad de TMDB. LetterBlog no controla la información gestionada directamente por TMDB."
+		},
+		"s7": {
+			"heading": "7. Cookies y autenticación",
+			"p1": "La aplicación puede utilizar cookies, tokens u otros mecanismos técnicos similares para mantener a los usuarios conectados, proteger las cuentas y mantener las sesiones activas.",
+			"p2": "Estos mecanismos se utilizan para funciones esenciales de la aplicación y no están destinados a fines publicitarios."
+		},
+		"s8": {
+			"heading": "8. Enlaces a otros sitios",
+			"p1": "LetterBlog puede mostrar enlaces a sitios o contenido de terceros, incluidas páginas relacionadas con The Movie Database (TMDB) u otras fuentes referenciadas.",
+			"p2": "Estos sitios externos no son gestionados por el equipo del proyecto. El equipo del proyecto no tiene control sobre el contenido o las prácticas de privacidad de dichos sitios de terceros y no asume ninguna responsabilidad al respecto."
+		},
+		"s9": {
+			"heading": "9. Privacidad de los menores",
+			"p1": "LetterBlog no está dirigido a menores de 13 años ni destinado a su uso. El equipo del proyecto no recopila conscientemente información personal de menores de 13 años.",
+			"p2": "Si un padre, madre o tutor cree que un menor de 13 años ha proporcionado información personal a través de la aplicación, debe ponerse en contacto con los administradores del proyecto para que dicha información pueda eliminarse."
+		},
+		"s10": {
+			"heading": "10. Compartición de datos",
+			"p1": "LetterBlog no vende información personal. La información solo se comparte cuando es necesario para el funcionamiento del servicio, cuando lo exige la ley, o cuando es necesario para proteger la aplicación y a sus usuarios."
+		},
+		"s11": {
+			"heading": "11. Seguridad de los datos",
+			"p1": "Se utilizan medidas técnicas y organizativas razonables para proteger la información personal frente a accesos, modificaciones o divulgaciones no autorizados.",
+			"p2": "Sin embargo, ningún servicio en línea puede garantizar una seguridad absoluta. Los usuarios son responsables de proteger sus contraseñas y el acceso a su cuenta."
+		},
+		"s12": {
+			"heading": "12. Conservación de datos y eliminación de cuenta",
+			"p1": "La información de la cuenta se conserva mientras esta permanezca activa o mientras sea necesaria para el funcionamiento y la seguridad del servicio.",
+			"p2": "Los usuarios pueden solicitar la eliminación de su cuenta y de la información personal asociada. Cierta información limitada puede conservarse cuando así lo exijan motivos de seguridad, legales o técnicos."
+		},
+		"s13": {
+			"heading": "13. Tus derechos",
+			"p1": "Según la legislación aplicable, los usuarios pueden solicitar el acceso, la corrección o la eliminación de su información personal. Los usuarios también pueden oponerse o solicitar la limitación de ciertos tratamientos.",
+			"p2": "Las solicitudes relacionadas con la privacidad pueden enviarse a los administradores del proyecto LetterBlog a través del canal de contacto oficial de la aplicación."
+		},
+		"s14": {
+			"heading": "14. Cambios en esta política",
+			"p1": "Esta Política de privacidad puede actualizarse cuando cambien las funciones de la aplicación o los requisitos legales. La fecha mostrada en la parte superior de esta página indica la última revisión."
+		}
+	},
+
+	"home": {
+		"dailyPick": "Recomendación del día",
+		"latestReviews": "Últimas reseñas",
+		"visitorCount": "Visitantes",
+		"friendsActivity": "Actividad de amigos",
+		"loading": "Cargando...",
+		"noRecommendation": "No hay recomendación disponible en este momento.",
+		"friendsActivityLoginPrompt": "Inicia sesión para ver la actividad de tus amigos.",
+		"friendsActivityEmpty": "Ninguna actividad reciente de las personas que sigues.",
+		"activityReviews": "Reseñas",
+		"activityWatchlist": "Añadidos a la watchlist",
+		"activityFavorites": "Añadidos a favoritos",
+		"activityFollow": "empezó a seguir a"
+	},
+
+
+	"moviePage": {
+		"backToSearch": "Volver a la búsqueda",
+		"loading": "Cargando...",
+		"director": "Director",
+		"genres": "Géneros",
+		"rating": "Nota",
+		"userRating": "Nota media (usuarios)",
+		"duration": "Duración",
+		"cast": "Reparto",
+		"unknown": "Desconocido",
+		"notFound": "Película no encontrada",
+		"synopsis": "Sinopsis",
+		"leaveReview": "Dejar una reseña",
+		"reviewPlaceholder": "Tu opinión sobre la película...",
+		"submitting": "Enviando...",
+		"publishReview": "Publicar mi reseña",
+		"reviewsCount": "Reseñas ({{count}})",
+		"noReviews": "Aún no hay reseñas."
+	},
+
+	"errors": {
+		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
 	}
 }
