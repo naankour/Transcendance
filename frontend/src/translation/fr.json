@@ -1,0 +1,24 @@
+{
+	"header": {
+		"searchPlaceholder": "Rechercher un film, un acteur...",
+		"movies": "Films",
+		"actorsDirectors": "Acteurs / réalisateurs",
+        "users": "Utilisateurs"
+	},
+	"actorPage": {
+		"back": "← Retour",
+		"loading": "Chargement...",
+		"born": "Né(e) le :",
+		"noBiography": "Aucune biographie disponible.",
+		"filmography": "Filmographie",
+		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)"
+	},
+	"searchPage": {
+		"resultsFor": "Résultats pour « {{query}} »",
+		"loading": "Chargement...",
+		"noResults": "Aucun résultat.",
+		"movies": "Films",
+		"actorsDirectors": "Acteurs / réalisateurs",
+        "users": "Utilisateurs"
+	}
+}

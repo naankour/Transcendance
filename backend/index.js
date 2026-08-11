@@ -65,6 +65,11 @@ app.use('/api/conversations', conversationRoute);
 const discoverRoutes = require('./api/discover');
 app.use('/api/discover', discoverRoutes);
 
+const searchRoutes = require('./api/search');
+app.use('/api', searchRoutes);
+
+// const genreRoutes = require('./api/genres');
+// app.use('/api/genres', genreRoutes);
 
 async function startServer() {
   console.log("1");
