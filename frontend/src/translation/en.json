@@ -193,7 +193,15 @@
 		"activityReviews": "Reviews",
 		"activityWatchlist": "Added to watchlist",
 		"activityFavorites": "Added to favorites",
-		"activityFollow": "started following"
+		"activityFollow": "started following",
+		"visitorCounterText" : "Movie lovers have stopped by!",
+		"aboutMe": "About Me",
+		"viewProfile": "View my profile",
+		"noBio": "No bio yet.",
+		"latestReviewsError": "Unable to load the latest reviews.",
+		"latestReviewsEmpty": "No reviews have been posted yet.",
+		"reviewed": "reviewed",
+		"rating": "Rating"
 	},
 	"moviePage": {
 		"backToSearch": "Back to search",

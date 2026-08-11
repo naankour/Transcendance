@@ -196,7 +196,15 @@
 		"activityReviews": "Avis",
 		"activityWatchlist": "Ajouts à la watchlist",
 		"activityFavorites": "Ajouts aux favoris",
-		"activityFollow": "a commencé à suivre"
+		"activityFollow": "a commencé à suivre",
+		"visitorCounterText" : "Cinéphiles sont passés par ici !",
+		"aboutMe": "À propos de moi",
+		"viewProfile": "Voir mon profil",
+		"noBio": "Aucune bio pour le moment.",
+		"latestReviewsError": "Impossible de charger les derniers avis.",
+		"latestReviewsEmpty": "Aucun avis n'a encore été publié.",
+		"reviewed": "a donné son avis sur",
+		"rating": "Note"
 	},
 
 	"moviePage": {
