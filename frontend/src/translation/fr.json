@@ -190,7 +190,21 @@
 		"visitorCount": "Visiteurs",
 		"friendsActivity": "Activité des amis",
 		"loading": "Chargement...",
-		"noRecommendation": "Aucune recommandation disponible pour le moment."
+		"noRecommendation": "Aucune recommandation disponible pour le moment.",
+		"friendsActivityLoginPrompt": "Connectez-vous pour voir l'activité de vos amis.",
+		"friendsActivityEmpty": "Aucune activité récente des personnes que vous suivez.",
+		"activityReviews": "Avis",
+		"activityWatchlist": "Ajouts à la watchlist",
+		"activityFavorites": "Ajouts aux favoris",
+		"activityFollow": "a commencé à suivre",
+		"visitorCounterText" : "Cinéphiles sont passés par ici !",
+		"aboutMe": "À propos de moi",
+		"viewProfile": "Voir mon profil",
+		"noBio": "Aucune bio pour le moment.",
+		"latestReviewsError": "Impossible de charger les derniers avis.",
+		"latestReviewsEmpty": "Aucun avis n'a encore été publié.",
+		"reviewed": "a donné son avis sur",
+		"rating": "Note"
 	},
 
 	"moviePage": {

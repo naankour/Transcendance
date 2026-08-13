@@ -190,9 +190,22 @@
 		"visitorCount": "Visitantes",
 		"friendsActivity": "Actividad de amigos",
 		"loading": "Cargando...",
-		"noRecommendation": "No hay recomendación disponible en este momento."
+		"noRecommendation": "No hay recomendación disponible en este momento.",
+		"friendsActivityLoginPrompt": "Inicia sesión para ver la actividad de tus amigos.",
+		"friendsActivityEmpty": "Ninguna actividad reciente de las personas que sigues.",
+		"activityReviews": "Reseñas",
+		"activityWatchlist": "Añadidos a la watchlist",
+		"activityFavorites": "Añadidos a favoritos",
+		"activityFollow": "empezó a seguir a",
+		"visitorCounterText" : "Cinéfilos han pasado por aquí!",
+		"aboutMe": "Sobre mí",
+		"viewProfile": "Ver mi perfil",
+		"noBio": "Todavía no hay biografía.",
+		"latestReviewsError": "No se pueden cargar las últimas reseñas.",
+		"latestReviewsEmpty": "Todavía no se ha publicado ninguna reseña.",
+		"reviewed": "ha reseñado",
+		"rating": "Puntuación"
 	},
-
 
 	"moviePage": {
 		"backToSearch": "Volver a la búsqueda",

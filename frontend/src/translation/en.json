@@ -33,8 +33,6 @@
 		"watchlist": "My Watchlist",
 		"movieID": "Movie ID:"
 	},
-
-
 	"terms": {
 		"title": "Terms of Service",
 		"lastUpdated": "Last updated: August 2, 2026",
@@ -183,17 +181,28 @@
 			"p1": "This Privacy Policy may be updated when application features or legal requirements change. The date displayed at the top of this page indicates the latest revision."
 		}
 	},
-
-	
 	"home": {
 		"dailyPick": "Daily Pick",
 		"latestReviews": "Latest Reviews",
 		"visitorCount": "Visitors",
 		"friendsActivity": "Friends Activity",
 		"loading": "Loading...",
-		"noRecommendation": "No recommendation available right now."
+		"noRecommendation": "No recommendation available right now.",
+		"friendsActivityLoginPrompt": "Log in to see your friends' activity.",
+		"friendsActivityEmpty": "No recent activity from people you follow.",
+		"activityReviews": "Reviews",
+		"activityWatchlist": "Added to watchlist",
+		"activityFavorites": "Added to favorites",
+		"activityFollow": "started following",
+		"visitorCounterText" : "Movie lovers have stopped by!",
+		"aboutMe": "About Me",
+		"viewProfile": "View my profile",
+		"noBio": "No bio yet.",
+		"latestReviewsError": "Unable to load the latest reviews.",
+		"latestReviewsEmpty": "No reviews have been posted yet.",
+		"reviewed": "reviewed",
+		"rating": "Rating"
 	},
-
 	"moviePage": {
 		"backToSearch": "Back to search",
 		"loading": "Loading...",
@@ -213,7 +222,6 @@
 		"reviewsCount": "Reviews ({{count}})",
 		"noReviews": "No reviews yet."
 	},
-
 	"errors": {
 		"generic": "Something went wrong. Please try again."
 	}

@@ -194,3 +194,9 @@
   color: var(--text-muted);
   line-height: 1.5;
 }
+
+.movie-page__list-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}

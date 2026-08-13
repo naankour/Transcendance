@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import MovieListButton from './components/MovieListButton';
 import './MoviePage.css';
 
 interface Review {
@@ -27,7 +28,11 @@ interface Movie {
   reviews: Review[];
 }
 
-function MoviePage() {
+interface Props {
+  triggerToast: (message: string, icon?: string) => void;
+}
+
+function MoviePage({ triggerToast }: Props) {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -39,12 +44,33 @@ function MoviePage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
+  const isLoggedIn = !!localStorage.getItem('token');
+
   function formatRuntime(minutes: number) {
     if (!minutes) return t('moviePage.unknown');
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
     return `${h}h ${m}min`;
   }
+
+  const checkListsStatus = (movieId: number) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    Promise.all([
+      fetch('/api/favorites', { headers: { Authorization: `Bearer ${token}` } }).then((res) =>
+        res.ok ? res.json() : []
+      ),
+      fetch('/api/watchlist', { headers: { Authorization: `Bearer ${token}` } }).then((res) =>
+        res.ok ? res.json() : []
+      ),
+    ]).then(([favorites, watchlist]) => {
+      setIsFavorite(favorites.some((item: any) => item.movie_id === movieId));
+      setIsInWatchlist(watchlist.some((item: any) => item.movie_id === movieId));
+    });
+  };
 
   const loadMovie = () => {
     setLoading(true);
@@ -55,6 +81,7 @@ function MoviePage() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || t('moviePage.notFound'));
         setMovie(data);
+        checkListsStatus(data.id);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -131,6 +158,25 @@ function MoviePage() {
                   </span>
                 ))}
               </p>
+
+              {isLoggedIn && (
+                <div className="movie-page__list-buttons">
+                  <MovieListButton
+                    movieId={movie.id}
+                    type="favorites"
+                    action={isFavorite ? 'remove' : 'add'}
+                    triggerToast={triggerToast}
+                    onSuccess={() => setIsFavorite(!isFavorite)}
+                  />
+                  <MovieListButton
+                    movieId={movie.id}
+                    type="watchlist"
+                    action={isInWatchlist ? 'remove' : 'add'}
+                    triggerToast={triggerToast}
+                    onSuccess={() => setIsInWatchlist(!isInWatchlist)}
+                  />
+                </div>
+              )}
             </div>
           </div>
 

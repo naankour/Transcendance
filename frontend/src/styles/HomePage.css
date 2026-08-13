@@ -9,8 +9,8 @@
 .right-column {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	width: 25%;
+	gap: 20px;
 }
 
 .middle-column {
