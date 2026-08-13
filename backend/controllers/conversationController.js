@@ -94,7 +94,13 @@ const getMyConversations = async (req, res) =>
     return res.json(formatted);
   } catch (error) {
     console.error('Error fetching conversations:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error('MESSAGE:', error.message);
+    console.error('STACK:', error.stack);
+
+    return res.status(500).json({
+    error: 'Internal server error',
+    message: error.message
+  });
   }
 };
 

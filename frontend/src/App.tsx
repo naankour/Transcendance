@@ -24,7 +24,7 @@ import MoviePage from './MoviePage';
 import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
-// import ConversationPage from './conversations/ConversationPage';
+import ConversationPage from './conversations/ConversationPage';
 import Watchlist from './Watchlist/Watchlist';
 import Favorites from './Favorites/Favorites';
 import Follows from './Follows/Follows';
@@ -45,6 +45,9 @@ import SearchResultsPage from './pages/SearchResultsPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import Footer from './layout/Footer';
+
+// import ConversationList from './conversations/ConversationList';
+
 import './App.css';
 
 function App() {
@@ -97,6 +100,7 @@ return (
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/actor/:id" element={<ActorPage />} />
           <Route path="/discover" element={<Discover />} />
+          <Route path="/conversations" element={<ConversationPage />} />
         </Routes>
       </main>
 
