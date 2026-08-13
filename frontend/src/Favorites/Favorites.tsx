@@ -3,6 +3,12 @@ import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
 import { Link } from "react-router-dom";
 
+function getPosterUrl(poster: string | null) {
+  if (!poster) return '';
+  if (poster.startsWith('http')) return poster;
+  return `https://image.tmdb.org/t/p/w200${poster}`;
+}
+
 const Favorites = ({ triggerToast }) => {
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
@@ -78,7 +84,7 @@ useEffect(() =>
           
             <img
               className="favorites-poster"
-              src={item.movies.poster}
+              src={getPosterUrl(item.movies.poster)}
               alt={item.movies.title}
             />
 
