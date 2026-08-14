@@ -60,7 +60,6 @@ function ActorPage() {
 			{actor && (
 				<div className="actor-content">
 					<div className="actor-photo-frame">
-						<span className="actor-stars">★</span>
 
 						{actor.profile_path && (
 							<img
@@ -74,7 +73,7 @@ function ActorPage() {
 					</div>
 
 					<div className="actor-info">
-						<h2>★ {actor.name} ★</h2>
+						<h2>{actor.name}</h2>
 
 						{actor.birthday && (
 							<p className="actor-birthday">
@@ -98,7 +97,7 @@ function ActorPage() {
 
 					<div className="filmography-section">
 						<h3 className="filmography-title">
-							★ {t('actorPage.filmography')} ★
+							 {t('actorPage.filmography')} 
 						</h3>
 
 						<div className="filmography-list">
