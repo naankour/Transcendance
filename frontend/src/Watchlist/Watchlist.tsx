@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
+import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
 function getPosterUrl(poster: string | null) {
@@ -13,6 +14,7 @@ const Watchlist = ({ triggerToast }) => {
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isAuthError, setIsAuthError] = useState(false)
   const removeWatchlist = (movieId:number) => 
   {
     setWatchlist(prev =>
@@ -30,6 +32,10 @@ useEffect(() => {
     }
   })
     .then(res => {
+      if (res.status === 403) {
+        setIsAuthError(true);
+        throw new Error('Forbidden');
+      }
       if (!res.ok) {
         throw new Error(`Error ${res.status}`);
       }
@@ -53,6 +59,7 @@ useEffect(() => {
 
 }, []);
   if (loading) return <p>Loading...</p>
+  if (isAuthError) return <AuthRequired />
   if (error) return <p>Error : {error}</p>
 
     return (

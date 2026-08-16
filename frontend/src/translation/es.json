@@ -204,7 +204,9 @@
 		"latestReviewsError": "No se pueden cargar las últimas reseñas.",
 		"latestReviewsEmpty": "Todavía no se ha publicado ninguna reseña.",
 		"reviewed": "ha reseñado",
-		"rating": "Puntuación"
+		"rating": "Puntuación",
+		"aboutMeLoginPrompt": "Inicia sesión para ver tu sección sobre mí.",
+		"login": "Iniciar sesión"
 	},
 
 	"moviePage": {
@@ -229,5 +231,9 @@
 
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
+	},
+	"auth": {
+		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
+		"requiredButton": "Iniciar sesión"
 	}
 }

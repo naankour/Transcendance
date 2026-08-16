@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import "./Follows.css"
 import FollowsButton from "../components/FollowsButton";
 import UserCard from '../components/UserCard';
+import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
 
@@ -9,6 +10,7 @@ const Follows = ({ triggerToast }) => {
     const [follows, setFollows] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [isAuthError, setIsAuthError] = useState(false)
     const removeFollow = (userId:number) => 
     {
         setFollows(prev =>
@@ -26,6 +28,10 @@ const Follows = ({ triggerToast }) => {
             }
         })
         .then(res => {
+            if (res.status === 403) {
+                setIsAuthError(true);
+                throw new Error('Forbidden');
+            }
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
             }
@@ -46,6 +52,7 @@ const Follows = ({ triggerToast }) => {
     }, []);
 
     if (loading) return <p>Loading...</p>
+    if (isAuthError) return <AuthRequired />
     if (error) return <p>Error : {error}</p>
 
     return (
