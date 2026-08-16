@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
+import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
 const Favorites = ({ triggerToast }) => {
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isAuthError, setIsAuthError] = useState(false)
   const removeFavorite = (movieId:number) => 
   {
     setFavorites(prev =>
@@ -28,6 +30,10 @@ useEffect(() =>
     })
     .then(res => 
     {
+      if (res.status === 403) {
+        setIsAuthError(true);
+        throw new Error('Forbidden');
+      }
       if (!res.ok) 
         {
             throw new Error(`Erreur ${res.status}`);
@@ -38,7 +44,7 @@ useEffect(() =>
     {
       console.log(data);
 
-      if (data.lemgth > 0)
+      if (data.length > 0)
       {
         console.log(data[0].movies);
       }
@@ -55,6 +61,7 @@ useEffect(() =>
 }, []);
 
   if (loading) return <p>Loading...</p>
+  if (isAuthError) return <AuthRequired />
   if (error) return <p>Error : {error}</p>
 
     return (

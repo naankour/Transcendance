@@ -204,7 +204,9 @@
 		"latestReviewsError": "Impossible de charger les derniers avis.",
 		"latestReviewsEmpty": "Aucun avis n'a encore été publié.",
 		"reviewed": "a donné son avis sur",
-		"rating": "Note"
+		"rating": "Note",
+		"aboutMeLoginPrompt": "Connectez-vous pour voir votre section à propos de moi.",
+		"login": "Se connecter"
 	},
 
 	"moviePage": {
@@ -229,5 +231,9 @@
 
 	"errors": {
 		"generic": "Une erreur est survenue. Veuillez réessayer."
+	},
+	"auth": {
+		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
+		"requiredButton": "Se connecter"
 	}
 }
