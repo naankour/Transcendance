@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import { ProfileHeader } from './ProfileHeader'; 
 import { ProfileEditForm } from './ProfileEditForm'; 
+// import { Followers } from '../user/Followers.tsx'
+import Follows from '../Follows/Follows';
 
 export function ProfilePage({ triggerToast }) 
 {
@@ -77,7 +79,8 @@ export function ProfilePage({ triggerToast })
       }
 
       // redirige vers le chat
-      navigate(`/chat?id=${conversation.id}`);
+      // navigate(`/chat?id=${conversation.id}`);
+      navigate(`/conversations?id=${conversation.id}`);
     } catch (err) {
       if (triggerToast) {
         triggerToast(err.message || 'Something went wrong', '⚠️');
@@ -129,6 +132,11 @@ export function ProfilePage({ triggerToast })
         </div>
 
         <div className="profile-follow-section">
+            <Follows
+              userId={user.id}
+              isOwnProfile={isOwnProfile}
+              triggerToast={triggerToast}
+              />
           {/* <Followers userId={user.id} /> */}
           {/* <Following userId={user.id} /> */}
         </div>

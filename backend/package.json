@@ -7,9 +7,10 @@
     "seed": "node prisma/seed.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon -L index.js"
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node index.js",
+  "predev": "sh ./scripts/deploy-migrations.sh",
+  "dev": "nodemon -L index.js"
   },
   "keywords": [],
   "author": "",
