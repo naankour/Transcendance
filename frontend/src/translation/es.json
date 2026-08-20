@@ -204,7 +204,9 @@
 		"latestReviewsError": "No se pueden cargar las últimas reseñas.",
 		"latestReviewsEmpty": "Todavía no se ha publicado ninguna reseña.",
 		"reviewed": "ha reseñado",
-		"rating": "Puntuación"
+		"rating": "Puntuación",
+		"aboutMeLoginPrompt": "Inicia sesión para ver tu sección sobre mí.",
+		"login": "Iniciar sesión"
 	},
 
 	"moviePage": {
@@ -224,10 +226,17 @@
 		"submitting": "Enviando...",
 		"publishReview": "Publicar mi reseña",
 		"reviewsCount": "Reseñas ({{count}})",
-		"noReviews": "Aún no hay reseñas."
+		"noReviews": "Aún no hay reseñas.",
+		"editReview": "Editar mi reseña",
+		"updateReview": "Actualizar mi reseña",
+		"you": "tú"
 	},
 
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
+	},
+	"auth": {
+		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
+		"requiredButton": "Iniciar sesión"
 	}
 }

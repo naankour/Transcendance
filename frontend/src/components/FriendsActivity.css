@@ -10,7 +10,7 @@
 }
 
 .friends-activity-item:not(:last-child) {
-	border-bottom: 2px solid var(--border);
+    border-bottom: 2px dotted var(--color-accent);
 }
 
 .friends-activity-avatar {

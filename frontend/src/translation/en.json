@@ -201,7 +201,9 @@
 		"latestReviewsError": "Unable to load the latest reviews.",
 		"latestReviewsEmpty": "No reviews have been posted yet.",
 		"reviewed": "reviewed",
-		"rating": "Rating"
+		"rating": "Rating",
+		"aboutMeLoginPrompt": "Log in to view your about me section.",
+		"login": "Log in"
 	},
 	"moviePage": {
 		"backToSearch": "Back to search",
@@ -220,9 +222,16 @@
 		"submitting": "Submitting...",
 		"publishReview": "Publish my review",
 		"reviewsCount": "Reviews ({{count}})",
-		"noReviews": "No reviews yet."
+		"noReviews": "No reviews yet.",
+		"editReview": "Edit my review",
+		"updateReview": "Update my review",
+		"you": "you"
 	},
 	"errors": {
 		"generic": "Something went wrong. Please try again."
+	},
+	"auth": {
+		"requiredDefault": "You need to be logged in to access this page.",
+		"requiredButton": "Log in"
 	}
 }

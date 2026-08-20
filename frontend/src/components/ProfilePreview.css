@@ -86,9 +86,11 @@
 		text-shadow 0.2s ease;
 }
 
+
 .profile-preview-link:hover {
 	color: var(--color-text);
 	text-shadow: 0 0 8px var(--color-accent);
+    font-size: 14px;
 }
 
 .profile-preview-status {

@@ -32,6 +32,17 @@ interface Props {
   triggerToast: (message: string, icon?: string) => void;
 }
 
+function getCurrentUserId(): number | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
 function MoviePage({ triggerToast }: Props) {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
@@ -43,10 +54,12 @@ function MoviePage({ triggerToast }: Props) {
   const [content, setContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [myReviewId, setMyReviewId] = useState<number | null>(null);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
   const isLoggedIn = !!localStorage.getItem('token');
+  const currentUserId = getCurrentUserId();
 
   function formatRuntime(minutes: number) {
     if (!minutes) return t('moviePage.unknown');
@@ -82,6 +95,20 @@ function MoviePage({ triggerToast }: Props) {
         if (!res.ok) throw new Error(data.error || t('moviePage.notFound'));
         setMovie(data);
         checkListsStatus(data.id);
+
+        // Pré-remplit le formulaire si l'utilisateur a déjà une review sur ce film
+        if (currentUserId) {
+          const existing = data.reviews.find((r: Review) => r.user.id === currentUserId);
+          if (existing) {
+            setMyReviewId(existing.id);
+            setRating(existing.rating);
+            setContent(existing.content || '');
+          } else {
+            setMyReviewId(null);
+            setRating(5);
+            setContent('');
+          }
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -111,7 +138,6 @@ function MoviePage({ triggerToast }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || t('errors.generic'));
 
-      setContent('');
       loadMovie();
     } catch (err: any) {
       setSubmitError(err.message);
@@ -183,31 +209,44 @@ function MoviePage({ triggerToast }: Props) {
           <h3 className="movie-page__section-title">{t('moviePage.synopsis')}</h3>
           <p className="movie-page__synopsis">{movie.overview}</p>
 
-          <h3 className="movie-page__section-title">{t('moviePage.leaveReview')}</h3>
-          <div className="movie-page__rating-select">
-            <label>{t('moviePage.rating')} :</label>
-            <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-              {[0, 1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>{n} / 5</option>
-              ))}
-            </select>
-          </div>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder={t('moviePage.reviewPlaceholder')}
-            className="movie-page__textarea"
-          />
-          <button onClick={handleSubmitReview} disabled={submitting} className="movie-page__submit-btn">
-            {submitting ? t('moviePage.submitting') : t('moviePage.publishReview')}
-          </button>
-          {submitError && <p className="movie-page__submit-error">{submitError}</p>}
+          {isLoggedIn && (
+            <>
+              <h3 className="movie-page__section-title">
+                {myReviewId ? t('moviePage.editReview') : t('moviePage.leaveReview')}
+              </h3>
+              <div className="movie-page__rating-select">
+                <label>{t('moviePage.rating')} :</label>
+                <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                  {[0, 1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>{n} / 5</option>
+                  ))}
+                </select>
+              </div>
+              <textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder={t('moviePage.reviewPlaceholder')}
+                className="movie-page__textarea"
+              />
+              <button onClick={handleSubmitReview} disabled={submitting} className="movie-page__submit-btn">
+                {submitting
+                  ? t('moviePage.submitting')
+                  : myReviewId
+                  ? t('moviePage.updateReview')
+                  : t('moviePage.publishReview')}
+              </button>
+              {submitError && <p className="movie-page__submit-error">{submitError}</p>}
+            </>
+          )}
 
           <h3 className="movie-page__section-title">{t('moviePage.reviewsCount', { count: movie.reviews.length })}</h3>
           {movie.reviews.length === 0 && <p className="movie-page__state">{t('moviePage.noReviews')}</p>}
           {movie.reviews.map((r) => (
             <div key={r.id} className="movie-page__review">
-              <span className="movie-page__review-author"><strong>{r.user.username}</strong></span>
+              <span className="movie-page__review-author">
+                <strong>{r.user.username}</strong>
+                {r.user.id === currentUserId && ` (${t('moviePage.you')})`}
+              </span>
               <span className="movie-page__review-rating">{r.rating} / 5</span>
               <p className="movie-page__review-content">{r.content}</p>
             </div>

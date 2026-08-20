@@ -11,7 +11,7 @@
 }
 
 .latest-review-item:not(:last-child) {
-	border-bottom: 2px solid var(--border);
+	border-bottom: 2px dotted var(--color-accent);
 }
 
 .latest-review-poster-link {
@@ -87,6 +87,15 @@
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+.latest-review-text::before,
+.latest-review-text::after {
+	content: "“";
+	color: var(--color-accent);
+	font-size: 15px;
+	font-weight: bold;
+	margin: 0px 3px;
 }
 
 .latest-review-meta {
