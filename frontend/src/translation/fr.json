@@ -226,7 +226,10 @@
 		"submitting": "Envoi...",
 		"publishReview": "Publier ma review",
 		"reviewsCount": "Reviews ({{count}})",
-		"noReviews": "Aucune review pour le moment."
+		"noReviews": "Aucune review pour le moment.",
+		"editReview": "Modifier ma review",
+		"updateReview": "Mettre à jour ma review",
+		"you": "vous"
 	},
 
 	"errors": {

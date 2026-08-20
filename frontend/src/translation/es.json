@@ -226,7 +226,10 @@
 		"submitting": "Enviando...",
 		"publishReview": "Publicar mi reseña",
 		"reviewsCount": "Reseñas ({{count}})",
-		"noReviews": "Aún no hay reseñas."
+		"noReviews": "Aún no hay reseñas.",
+		"editReview": "Editar mi reseña",
+		"updateReview": "Actualizar mi reseña",
+		"you": "tú"
 	},
 
 	"errors": {

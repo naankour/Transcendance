@@ -222,7 +222,10 @@
 		"submitting": "Submitting...",
 		"publishReview": "Publish my review",
 		"reviewsCount": "Reviews ({{count}})",
-		"noReviews": "No reviews yet."
+		"noReviews": "No reviews yet.",
+		"editReview": "Edit my review",
+		"updateReview": "Update my review",
+		"you": "you"
 	},
 	"errors": {
 		"generic": "Something went wrong. Please try again."
