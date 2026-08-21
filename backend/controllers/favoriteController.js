@@ -81,4 +81,30 @@ const removeFavorite = async(req, res) =>
     }
 };
 
-module.exports = { getFavorites, addFavorite, removeFavorite };
+const getFavoritesByUserId = async(req, res) => {
+    try {
+        const user_id = parseInt(req.params.userId);
+
+        const favorites = await prisma.favorites.findMany({
+            where: {
+                user_id: user_id 
+            },
+            include: {
+                movies: true 
+            }
+        });
+        res.status(200).json(favorites);
+    }
+    catch(error)
+    {
+        console.error('Error in getFavoritesByUserId:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = 
+{ getFavorites, 
+    addFavorite, 
+    removeFavorite, 
+    getFavoritesByUserId 
+};

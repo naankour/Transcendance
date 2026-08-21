@@ -3,7 +3,12 @@ import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
 import { Link } from "react-router-dom";
 
-const Watchlist = ({ triggerToast }) => {
+interface WatchlistProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+}
+
+const Watchlist = ({ triggerToast, userId }: WatchlistProps) => {
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -18,7 +23,9 @@ const Watchlist = ({ triggerToast }) => {
 useEffect(() => {
   const token = localStorage.getItem('token');
 
-  fetch('/api/watchlist', {
+  const endpoint = userId ? `/api/watchlist/user/${userId}` : 'api/watchlist';
+
+  fetch(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -45,7 +52,7 @@ useEffect(() => {
       setLoading(false);
     });
 
-}, []);
+}, [userId]);
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error : {error}</p>
 

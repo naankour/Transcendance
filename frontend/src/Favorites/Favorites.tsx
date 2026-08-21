@@ -3,7 +3,12 @@ import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
 import { Link } from "react-router-dom";
 
-const Favorites = ({ triggerToast }) => {
+interface FavoritesProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+}
+
+const Favorites = ({ triggerToast, userId }: FavoritesProps) => {
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -19,7 +24,9 @@ useEffect(() =>
     {
     const token = localStorage.getItem('token');
 
-    fetch('/api/Favorites', 
+    const endpoint = userId ? `/api/favorites/user/${userId}` : '/api/favorites';
+
+    fetch(endpoint, 
     {
         headers: 
         {
@@ -52,7 +59,7 @@ useEffect(() =>
       setLoading(false);
     });
 
-}, []);
+}, [userId]);
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error : {error}</p>

@@ -3,7 +3,13 @@ import "./Followers.css"
 import FollowsButton from "../components/FollowsButton";
 import { Link } from "react-router-dom";
 
-const Followers = ({ triggerToast }) => {
+interface FollowersProps {
+    triggerToast?: (msg: string, icon?: string) => void;
+    userId?: number;
+    isOwnProfile?: boolean;
+}
+
+const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps) => {
     const [followers, setFollowers] = useState([])
     const [myFollows, setMyFollows] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -18,6 +24,8 @@ const Followers = ({ triggerToast }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
+        const followersEndpoint= userId ? `/api/follows/followers/user/${userId}` : '/api/follows/followers';
+
         Promise.all([
             fetch('/api/follows', {
                 headers: {
@@ -28,7 +36,7 @@ const Followers = ({ triggerToast }) => {
                 return res.json();
             }),
 
-            fetch('/api/follows/followers', {
+            fetch(followersEndpoint, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -47,7 +55,7 @@ const Followers = ({ triggerToast }) => {
             setError(err.message);
             setLoading(false);
         });
-    }, []);
+    }, [userId]);
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error : {error}</p>
@@ -97,6 +105,7 @@ const Followers = ({ triggerToast }) => {
 
                                 </Link>
 
+                                {isOwnProfile && (
                                 <FollowsButton
                                     userId={item.follower_id}
                                     action={alreadyFollowing ? "unfollow" : "follow"}
@@ -117,9 +126,9 @@ const Followers = ({ triggerToast }) => {
                                                 { followed_id: item.follower_id }
                                             ]);
                                         }
-                                    }}
+                                }}
                                 />
-
+                            )}
                             </div>
                         );
                     })}
