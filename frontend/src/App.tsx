@@ -46,7 +46,6 @@ return (
       <main className="app-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/movie/:id" element={<MoviePage />} />
           <Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
           <Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
           <Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />

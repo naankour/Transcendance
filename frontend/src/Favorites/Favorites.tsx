@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
 import AuthRequired from "../components/AuthRequired";
@@ -11,6 +12,7 @@ function getPosterUrl(poster: string | null) {
 }
 
 const Favorites = ({ triggerToast }) => {
+  const { t } = useTranslation();
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -66,20 +68,20 @@ useEffect(() =>
 
 }, []);
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p>{t('favorites.loading')}</p>
   if (isAuthError) return <AuthRequired />
-  if (error) return <p>Error : {error}</p>
+  if (error) return <p>{t('favorites.error', { message: error })}</p>
 
     return (
   <div className="favorites-page">
 
     <h1 className="favorites_title">
-      My Favorites
+      {t('favorites.title')}
     </h1>
 
     {favorites.length === 0 ? (
       <p className="favorites-empty">
-        Your Favorites list is empty
+        {t('favorites.empty')}
       </p>
     ) : (
 
