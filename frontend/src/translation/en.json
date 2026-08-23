@@ -29,10 +29,32 @@
 		"actorsDirectors": "Actors / directors",
 		"users": "Users"
 	},
-	"watchlistPage": {
-		"watchlist": "My Watchlist",
-		"movieID": "Movie ID:"
+	"watchlist": {
+		"loading": "Loading...",
+		"title": "My Watchlist",
+		"empty": "Your watchlist is empty",
+		"error": "Error: {{message}}"
 	},
+	"favorites": {
+		"loading": "Loading...",
+		"title": "My Favorites",
+		"empty": "Your favorites list is empty",
+		"error": "Error: {{message}}"
+	},
+	"reviews": {
+		"loading": "Loading...",
+		"title": "All Reviews",
+		"empty": "You don't have any reviews yet",
+		"error": "Error: {{message}}",
+		"rating": "Rating"
+	  },
+	  "myReviews": {
+		"loading": "Loading...",
+		"title": "My Reviews",
+		"empty": "You don't have any reviews yet",
+		"error": "Error: {{message}}",
+		"rating": "Rating"
+	  },
 	"terms": {
 		"title": "Terms of Service",
 		"lastUpdated": "Last updated: August 2, 2026",
