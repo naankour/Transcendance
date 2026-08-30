@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Follows.css"
 import FollowsButton from "../components/FollowsButton";
 import UserCard from '../components/UserCard';
@@ -7,6 +8,7 @@ import { Link } from "react-router-dom";
 
 
 const Follows = ({ triggerToast }) => {
+    const { t } = useTranslation();
     const [follows, setFollows] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -51,20 +53,20 @@ const Follows = ({ triggerToast }) => {
 
     }, []);
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return <p>{t('follows.loading')}</p>
     if (isAuthError) return <AuthRequired />
-    if (error) return <p>Error : {error}</p>
+    if (error) return <p>{t('follows.error', { message: error })}</p>
 
     return (
         <div className="follows-page">
 
             <h1 className="follows-title">
-                My Follows
+                {t('follows.title')}
             </h1>
 
             {follows.length === 0 ? (
                 <p className="follows-empty">
-                    You are not following anyone yet..
+                    {t('follows.empty')}
                 </p>
             ) : (
 

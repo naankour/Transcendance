@@ -21,6 +21,7 @@
 		"filmography": "Filmographie",
 		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)"
 	},
+	
 	"searchPage": {
 		"resultsFor": "Résultats pour « {{query}} »",
 		"loading": "Chargement...",
@@ -54,6 +55,55 @@
 		"empty": "Tu n'as pas encore de review",
 		"error": "Erreur : {{message}}",
 		"rating": "Note"
+	  },
+	  "followers": {
+		"loading": "Chargement...",
+		"title": "Mes Followers",
+		"empty": "Tu n'as pas encore de followers.",
+		"error": "Erreur : {{message}}"
+	  },
+	  "follows": {
+		"loading": "Chargement...",
+		"title": "Mes Follows",
+		"empty": "Tu ne suis personne pour le moment...",
+		"error": "Erreur : {{message}}"
+	  },
+	  "editReview": {
+		"title": "Modifier la Review",
+		"ratingPlaceholder": "Note (0.5 - 5)",
+		"contentPlaceholder": "Votre review...",
+		"update": "Modifier",
+		"delete": "Supprimer",
+		"updated": "Review modifiée !",
+		"deleted": "Review supprimée !",
+		"error": "Erreur : {{message}}"
+	  },
+	  "reviewsSimple": {
+		"title": "Mes Review",
+		"movieId": "Film ID",
+		"rating": "Note",
+		"content": "Contenu",
+		"edit": "Modifier"
+	  },
+	  "profileEdit": {
+		"changePhoto": "Changer la photo 📷",
+		"newPhoto": "Nouvelle photo : {{name}}",
+		"username": "Nom d'utilisateur",
+		"firstname": "Prénom",
+		"lastname": "Nom",
+		"email": "Email",
+		"bio": "Bio",
+		"changePassword": "Chaaaaaaange le mot de paaaaaaaaaaasse",
+		"currentPassword": "Mot de passe actuel",
+		"currentPasswordPlaceholder": "Entre ton mot de passe actuel",
+		"newPassword": "Nouveau mot de passe",
+		"newPasswordPlaceholder": "Entre ton nouveau mot de passe",
+		"save": "Enregistrer",
+		"saving": "Enregistrement...",
+		"cancel": "Annuler",
+		"updateSuccess": "Profil mis à jour avec succès !",
+		"updateFailed": "Échec de la mise à jour du profil",
+		"somethingWrong": "Une erreur est survenue"
 	  },
 	"terms": {
 		"title": "Conditions d'utilisation",

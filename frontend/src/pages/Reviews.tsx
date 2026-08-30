@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useTranslation } from 'react-i18next'
 
 const Reviews = () => {
+  const { t } = useTranslation()
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
@@ -18,13 +20,13 @@ const Reviews = () => {
   console.log("here")
   return (
     <div>
-      <h1>Mes Review</h1>
+      <h1>{t('reviewsSimple.title')}</h1>
       {reviews.map((item: any) => (
         <div key={item.id}>
-          <p>Film ID : {item.movie_id}</p>
-          <p>Note : {item.rating}/5</p>
-          <p>Contenu : {item.content}</p>
-          <a href={`/reviews/${item.id}/edit`}>Modifier</a>
+          <p>{t('reviewsSimple.movieId')} : {item.movie_id}</p>
+          <p>{t('reviewsSimple.rating')} : {item.rating}/5</p>
+          <p>{t('reviewsSimple.content')} : {item.content}</p>
+          <a href={`/reviews/${item.id}/edit`}>{t('reviewsSimple.edit')}</a>
         </div>
       ))}
     </div>

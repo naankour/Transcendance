@@ -44,7 +44,7 @@ function LatestReviews() {
 							new Date(b.created_at).getTime() -
 							new Date(a.created_at).getTime()
 					)
-					.slice(0, 5);
+					.slice(0, 7);
 
 				setReviews(latestReviews);
 			})

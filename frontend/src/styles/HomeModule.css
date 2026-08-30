@@ -3,6 +3,9 @@
 	border: 2px solid var(--color-text-muted);
 	border-radius: 14px;
 	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 .home-module-banner {
@@ -40,6 +43,6 @@
 }
 
 .home-module-content {
-	padding: 5px 16px 16px 16px;
+	padding: 15px 15px 10px 10px;
 	color: var(--color-text);
 }

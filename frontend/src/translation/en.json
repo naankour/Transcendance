@@ -55,6 +55,56 @@
 		"error": "Error: {{message}}",
 		"rating": "Rating"
 	  },
+	  "followers": {
+		"loading": "Loading...",
+		"title": "My Followers",
+		"empty": "You don't have any followers yet.",
+		"error": "Error: {{message}}"
+	  },
+	  "follows": {
+		"loading": "Loading...",
+		"title": "My Follows",
+		"empty": "You are not following anyone yet..",
+		"error": "Error: {{message}}"
+	  },
+	  "editReview": {
+		"title": "Edit Review",
+		"ratingPlaceholder": "Rating (0.5 - 5)",
+		"contentPlaceholder": "Your review...",
+		"update": "Update",
+		"delete": "Delete",
+		"updated": "Review updated!",
+		"deleted": "Review deleted!",
+		"error": "Error: {{message}}"
+	  },
+	  "reviewsSimple": {
+		"title": "My Reviews",
+		"movieId": "Movie ID",
+		"rating": "Rating",
+		"content": "Content",
+		"edit": "Edit"
+	  },
+	  "profileEdit": {
+		"changePhoto": "Change Photo 📷",
+		"newPhoto": "New photo: {{name}}",
+		"username": "Username",
+		"firstname": "First Name",
+		"lastname": "Last Name",
+		"email": "Email",
+		"bio": "Bio",
+		"changePassword": "Chaaaaaaange Paaaaaaaaaaasswoooooooooooord",
+		"currentPassword": "Current Password",
+		"currentPasswordPlaceholder": "Enter current password",
+		"newPassword": "New Password",
+		"newPasswordPlaceholder": "Enter new password",
+		"save": "Save",
+		"saving": "Saving...",
+		"cancel": "Cancel",
+		"updateSuccess": "Profile updated successfully!",
+		"updateFailed": "Failed to update profile",
+		"somethingWrong": "Something went wrong"
+	  },
+	  
 	"terms": {
 		"title": "Terms of Service",
 		"lastUpdated": "Last updated: August 2, 2026",

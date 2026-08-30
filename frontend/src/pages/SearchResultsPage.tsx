@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import defaultActor from '../assets/default-actor.png';
 import '../styles/SearchResultsPage.css';
 
 interface MovieResult {
@@ -98,6 +99,13 @@ function SearchResultsPage() {
 								{person.profile_path && (
 									<img
 										src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
+										alt={person.name}
+										className="search-page-avatar"
+									/>
+								)}
+								{!person.profile_path && (
+									<img
+										src={defaultActor}
 										alt={person.name}
 										className="search-page-avatar"
 									/>

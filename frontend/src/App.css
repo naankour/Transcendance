@@ -8,12 +8,10 @@
 .app-content {
 	width: 100%;
 	flex: 1;
+	padding-bottom: 10px;
+
 }
 
 .footer {
 	width: 100%;
-}
-
-.app-content {
-    padding-bottom: 60px;
 }

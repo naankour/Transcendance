@@ -14,7 +14,6 @@ import MyReviews from './MyReviews/MyReviews'
 import Reviews from './Reviews/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
-// import ActorSearchPage from './pages/ActorSearchPage';
 import ActorPage from './pages/ActorPage';
 import Header from './layout/Header';
 import SearchResultsPage from './pages/SearchResultsPage';
