@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Stickers from '../assets/pixel-art-thank-you.png';
 import './VisitorCounter.css';
 
 function VisitorCounter() {
@@ -7,7 +8,7 @@ function VisitorCounter() {
 	const { t } = useTranslation();
 	const [count, setCount] = useState<number | null>(null);
 	const [loading, setLoading] = useState(true);
-	const hasFetched = useRef(false); //evite le probleme de +2 a chaque visite a cause de StrictMode
+	const hasFetched = useRef(false);
 
 	useEffect(() => {
 		if (hasFetched.current)
@@ -46,7 +47,6 @@ function VisitorCounter() {
 	if (count === null)
 		return (<p className="visitor-counter-status">{t('home.noRecommendation')}</p>);
 
-    //cree le compteur mecanique des visites
 	const paddedCount = String(count).padStart(6, '0');
 	const digits = paddedCount.split('');
 
@@ -61,7 +61,11 @@ function VisitorCounter() {
             <p className="visitor-counter-text">
                 {t('home.visitorCounterText')}
             </p>
+			<div className="visitor-counter-stickers">
+				<img src={Stickers} alt="thank-you" className="visitor-counter-sticker" />
+			</div>
         </div>
+
     );
 }
 

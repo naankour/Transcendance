@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import HomeModule from './components/HomeModule';
-import DailyRecommendation from './components/DailyRecommendation';
-import VisitorCounter from './components/VisitorCounter';
-import FriendsActivity from './components/FriendsActivity';
-import ProfilePreview from './components/ProfilePreview';
-import LatestReviews from './components/LatestReviews';
-import './styles/HomePage.css';
+import HomeModule from './HomeModule';
+import DailyRecommendation from './DailyRecommendation';
+import VisitorCounter from './VisitorCounter';
+import FriendsActivity from './FriendsActivity';
+import ProfilePreview from './ProfilePreview';
+import LatestReviews from './LatestReviews';
+import './HomePage.css';
 
 function HomePage() {
 	const { t } = useTranslation();

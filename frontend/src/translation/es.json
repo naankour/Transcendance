@@ -276,7 +276,9 @@
 		"reviewed": "ha reseñado",
 		"rating": "Puntuación",
 		"aboutMeLoginPrompt": "Inicia sesión para ver tu sección sobre mí.",
-		"login": "Iniciar sesión"
+		"login": "Iniciar sesión",
+		"memberSince": "Miembro desde {{date}}",
+		"dateLocale": "es-ES"
 	},
 
 	"moviePage": {

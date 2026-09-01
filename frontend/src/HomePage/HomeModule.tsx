@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import '../styles/HomeModule.css';
+import './HomeModule.css';
 
 interface HomeModuleProps {
 	title: string;

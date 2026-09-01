@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getAvatarUrl } from '../utils/avatar.js';
+import HelloKitty from '../assets/sticker-hello-kitty.png';
 import './ProfilePreview.css';
 
 interface UserProfile {
@@ -9,6 +10,22 @@ interface UserProfile {
 	username: string;
 	avatar_url: string | null;
 	bio: string | null;
+	created_at: string | null;
+}
+
+function formatMemberSince(dateString: string | null, locale: string): string | null {
+	if (!dateString)
+		return null;
+ 
+	const date = new Date(dateString);
+ 
+	if (Number.isNaN(date.getTime()))
+		return null;
+ 
+	return date.toLocaleDateString(locale, {
+		year: 'numeric',
+		month: 'long',
+	});
 }
 
 function ProfilePreview() {
@@ -68,12 +85,22 @@ function ProfilePreview() {
 
 	if (loggedOut) {
 		return (
-			<div className="profile-preview-status">
-				<p>{t('home.aboutMeLoginPrompt')}</p>
-
-				<Link to="/auth" className="profile-preview-link">
-					{t('home.login')}
-				</Link>
+			<div className="profile-preview">
+				<div className="profile-preview-status">
+					<p>{t('home.aboutMeLoginPrompt')}</p>
+	
+					<Link to="/auth" className="profile-preview-link">
+						{t('home.login')} →
+					</Link>
+				</div>
+	
+				<div className="profile-preview-sticker-area">
+					<img
+						src={HelloKitty}
+						alt="hello"
+						className="profile-preview-sticker"
+					/>
+				</div>
 			</div>
 		);
 	}
@@ -86,28 +113,41 @@ function ProfilePreview() {
 		);
 	}
 
+	const memberSince = formatMemberSince(user.created_at, t('home.dateLocale', { defaultValue: 'en-US' }));
+
 	return (
 		<div className="profile-preview">
-			<Link to="/profile">
-				<img
-					src={getAvatarUrl(user.avatar_url)}
-					alt={user.username}
-					className="profile-preview-avatar"
-				/>
-			</Link>
-
-			<div className="profile-preview-content">
-				<Link to="/profile" className="profile-preview-username">
-					<strong>{user.username}</strong>
+			<div className="profile-preview-main">
+				<Link to="/profile">
+					<img
+						src={getAvatarUrl(user.avatar_url)}
+						alt={user.username}
+						className="profile-preview-avatar"
+					/>
 				</Link>
-
-				<p className="profile-preview-bio">
-					{user.bio || t('home.noBio')}
-				</p>
-
-				<Link to="/profile" className="profile-preview-link">
-					{t('home.viewProfile')} →
-				</Link>
+ 
+				<div className="profile-preview-content">
+					<Link to="/profile" className="profile-preview-username">
+						<strong>{user.username}</strong>
+					</Link>
+ 
+					<p className="profile-preview-bio">
+						{user.bio || t('home.noBio')}
+					</p>
+ 
+					<Link to="/profile" className="profile-preview-link">
+						{t('home.viewProfile')} →
+					</Link>
+				</div>
+			</div>
+ 
+			<div className="profile-preview-footer">
+				{memberSince && (
+					<span className="profile-preview-meta">
+						{t('home.memberSince', { date: memberSince })}
+					</span>
+				)}
+				<img src={HelloKitty} alt="hello" className="profile-preview-sticker" />
 			</div>
 		</div>
 	);

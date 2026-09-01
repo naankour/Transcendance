@@ -275,7 +275,9 @@
 		"reviewed": "reviewed",
 		"rating": "Rating",
 		"aboutMeLoginPrompt": "Log in to view your about me section.",
-		"login": "Log in"
+		"login": "Log in",
+		"memberSince": "Member since {{date}}",
+		"dateLocale": "en-US"
 	},
 	"moviePage": {
 		"backToSearch": "Back to search",

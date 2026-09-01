@@ -276,7 +276,9 @@
 		"reviewed": "a donné son avis sur",
 		"rating": "Note",
 		"aboutMeLoginPrompt": "Connectez-vous pour voir votre section à propos de moi.",
-		"login": "Se connecter"
+		"login": "Se connecter",
+		"memberSince": "Membre depuis {{date}}",
+		"dateLocale": "fr-FR"
 	},
 
 	"moviePage": {
