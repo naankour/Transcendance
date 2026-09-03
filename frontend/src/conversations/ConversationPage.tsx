@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import ConversationList from './ConversationList';
 import ChatWindow from './ChatWindow';
 import NewMessageList from './NewMessageList';
+import './ConversationPage.css';
 
 export default function ConversationPage() {
     const [searchParams] = useSearchParams();
@@ -16,16 +17,17 @@ export default function ConversationPage() {
     const [showNewMessage, setShowNewMessage] = useState(false);
 
     return (
-        <div style={{ display: 'flex' }}>
-            <div style={{ width: '300px', borderRight: '1px solid #ccc'}}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px'}}>
-                    <button onClick={() => setShowNewMessage(false)}>My conversations</button>
-                    <button onClick={() => setShowNewMessage(true)}>Follows</button>
+        <div className="conversation-page">
+            <div className="conversation-page-sidebar">
+                <div className="conversation-page-tabs">
+                    <button onClick={() => setShowNewMessage(false)}className={`conversation-page-tab ${!showNewMessage ? 'active' : ''}`}>My conversations</button>
+                    <button className={`conversation-page-tab ${showNewMessage ? 'active' : ''}`}
+                    onClick={() => setShowNewMessage(true)}>Follows</button>
                 </div>
                 {/* <ConversationList 
                 selectedConversationId={selectedConversationId}
                 onSelect={(id) => setSelectedConversationId(id)} /> */}
-
+                <div className="conversation-page-list">
                 {showNewMessage ? (
                     <NewMessageList
                     onConversationStarted={(id) => {
@@ -39,13 +41,14 @@ export default function ConversationPage() {
                         onSelect={(id) => setSelectedConversationId(id)}
                     />
                 )}
+                </div>
             </div>
 
-            <div style={{ flex: 1 }}>
+            <div className="conversation-page-main">
                 {selectedConversationId ? (
                     <ChatWindow conversationId={selectedConversationId} />
                 ) : (
-                    <p>Select a conversation to start discussing.</p>
+                    <p className="conversation-page-empty">Select a conversation to start discussing.</p>
                 )}
             </div>
         </div>

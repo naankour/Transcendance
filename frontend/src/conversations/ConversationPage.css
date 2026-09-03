@@ -1,0 +1,87 @@
+.conversation-page {
+  display: flex;
+  height: calc(100vh - 120px); /* ajuste selon la hauteur de ton Header/Footer */
+  background: #0a0a0a;
+  color: #f5f5f5;
+  font-family: 'Caveat', cursive;
+  border-top: 3px solid #ff2e9a;
+}
+
+.conversation-page-sidebar {
+  width: 320px;
+  border-right: 3px solid #ff2e9a;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0a0a0a, #1c1c1c);
+}
+
+.conversation-page-tabs {
+  display: flex;
+  border-bottom: 2px solid #ff2e9a;
+}
+
+.conversation-page-tab {
+  flex: 1;
+  padding: 12px;
+  background: #1c1c1c;
+  color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  transition: background 0.2s ease;
+}
+
+.conversation-page-tab.active {
+  background: linear-gradient(90deg, #ff9fd1, #ff2e9a);
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.conversation-page-tab:not(.active):hover {
+  background: rgba(255, 46, 154, 0.2);
+}
+
+.conversation-page-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.conversation-page-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.conversation-page-list::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.conversation-page-list::-webkit-scrollbar-thumb {
+  background: #ff9fd1;
+  border-radius: 4px;
+}
+
+.conversation-page-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-page-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff9fd1;
+  font-size: 26px;
+  text-shadow: 0 0 8px rgba(255, 46, 154, 0.6);
+  text-align: center;
+  padding: 20px;
+}
+
+.conversation-page-empty::before {
+  content: "✦ ";
+}
+
+.conversation-page-empty::after {
+  content: " ✦";
+}
