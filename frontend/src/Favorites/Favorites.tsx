@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Favorites.css";
 import MovieListButton from "../components/MovieListButton";
+import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
 interface FavoritesProps {
@@ -8,10 +10,18 @@ interface FavoritesProps {
   userId?: number;
 }
 
+function getPosterUrl(poster: string | null) {
+  if (!poster) return '';
+  if (poster.startsWith('http')) return poster;
+  return `https://image.tmdb.org/t/p/w200${poster}`;
+}
+
 const Favorites = ({ triggerToast, userId }: FavoritesProps) => {
+  const { t } = useTranslation();
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isAuthError, setIsAuthError] = useState(false)
   const removeFavorite = (movieId:number) => 
   {
     setFavorites(prev =>
@@ -35,6 +45,10 @@ useEffect(() =>
     })
     .then(res => 
     {
+      if (res.status === 403) {
+        setIsAuthError(true);
+        throw new Error('Forbidden');
+      }
       if (!res.ok) 
         {
             throw new Error(`Erreur ${res.status}`);
@@ -45,7 +59,7 @@ useEffect(() =>
     {
       console.log(data);
 
-      if (data.lemgth > 0)
+      if (data.length > 0)
       {
         console.log(data[0].movies);
       }
@@ -61,19 +75,20 @@ useEffect(() =>
 
 }, [userId]);
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error : {error}</p>
+  if (loading) return <p>{t('favorites.loading')}</p>
+  if (isAuthError) return <AuthRequired />
+  if (error) return <p>{t('favorites.error', { message: error })}</p>
 
     return (
   <div className="favorites-page">
 
     <h1 className="favorites_title">
-      My Favorites
+      {t('favorites.title')}
     </h1>
 
     {favorites.length === 0 ? (
       <p className="favorites-empty">
-        Your Favorites list is empty
+        {t('favorites.empty')}
       </p>
     ) : (
 
@@ -85,7 +100,7 @@ useEffect(() =>
           
             <img
               className="favorites-poster"
-              src={item.movies.poster}
+              src={getPosterUrl(item.movies.poster)}
               alt={item.movies.title}
             />
 

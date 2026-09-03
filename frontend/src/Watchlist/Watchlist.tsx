@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
+import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
 interface WatchlistProps {
@@ -8,10 +10,18 @@ interface WatchlistProps {
   userId?: number;
 }
 
+function getPosterUrl(poster: string | null) {
+  if (!poster) return '';
+  if (poster.startsWith('http')) return poster;
+  return `https://image.tmdb.org/t/p/w200${poster}`;
+}
+
 const Watchlist = ({ triggerToast, userId }: WatchlistProps) => {
+  const { t } = useTranslation();
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isAuthError, setIsAuthError] = useState(false)
   const removeWatchlist = (movieId:number) => 
   {
     setWatchlist(prev =>
@@ -23,7 +33,7 @@ const Watchlist = ({ triggerToast, userId }: WatchlistProps) => {
 useEffect(() => {
   const token = localStorage.getItem('token');
 
-  const endpoint = userId ? `/api/watchlist/user/${userId}` : 'api/watchlist';
+  const endpoint = userId ? `/api/watchlist/user/${userId}` : '/api/watchlist';
 
   fetch(endpoint, {
     headers: {
@@ -31,6 +41,10 @@ useEffect(() => {
     }
   })
     .then(res => {
+      if (res.status === 403) {
+        setIsAuthError(true);
+        throw new Error('Forbidden');
+      }
       if (!res.ok) {
         throw new Error(`Error ${res.status}`);
       }
@@ -53,19 +67,20 @@ useEffect(() => {
     });
 
 }, [userId]);
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error : {error}</p>
+if (loading) return <p>{t('watchlist.loading')}</p>
+if (isAuthError) return <AuthRequired />
+if (error) return <p>{t('watchlist.error', { message: error })}</p>
 
     return (
   <div className="watchlist-page">
 
     <h1 className="watchlist_title">
-      My Watchlist
+      {t('watchlist.title')}
     </h1>
 
     {watchlist.length === 0 ? (
       <p className="watchlist-empty">
-        Your watchlist is empty
+        {t('watchlist.empty')}
       </p>
     ) : (
 
@@ -76,7 +91,7 @@ useEffect(() => {
             <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
               <img
                 className="watchlist-poster"
-                src={item.movies.poster}
+                src={getPosterUrl(item.movies.poster)}
                 alt={item.movies.title}
               />
           

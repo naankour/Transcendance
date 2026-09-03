@@ -7,7 +7,7 @@
 		"navLabel": "INICIO",
 		"navMovies": "PELÍCULAS",
 		"navReviews": "RESEÑAS",
-		"navWatchlist": "POR VER",
+		"navWatchlist": "WATCHLIST",
 		"navFavorites": "FAVORITOS",
 		"navProfile": "PERFIL",
 		"login": "Iniciar sesión",
@@ -29,12 +29,32 @@
 		"actorsDirectors": "Actores / directores",
 		"users": "Usuarios"
 	},
-	"watchlistPage": {
-		"watchlist": "Mi Lista de Seguimiento",
-		"movieID": "ID de la película:"
+	"watchlist": {
+		"loading": "Cargando...",
+		"title": "Mi Watchlist",
+		"empty": "Tu watchlist está vacía",
+		"error": "Error: {{message}}"
+	  },
+	  "favorites": {
+		"loading": "Cargando...",
+		"title": "Mis Favoritos",
+		"empty": "Tu lista de favoritos está vacía",
+		"error": "Error: {{message}}"
 	},
-
-
+	"reviews": {
+		"loading": "Cargando...",
+		"title": "Todas las Reviews",
+		"empty": "Todavía no tienes ninguna review",
+		"error": "Error: {{message}}",
+		"rating": "Puntuación"
+	  },
+	  "myReviews": {
+		"loading": "Cargando...",
+		"title": "Mis Reviews",
+		"empty": "Todavía no tienes ninguna review",
+		"error": "Error: {{message}}",
+		"rating": "Puntuación"
+	  },
 	"terms": {
 		"title": "Términos de servicio",
 		"lastUpdated": "Última actualización: 2 de agosto de 2026",
@@ -196,9 +216,18 @@
 		"activityReviews": "Reseñas",
 		"activityWatchlist": "Añadidos a la watchlist",
 		"activityFavorites": "Añadidos a favoritos",
-		"activityFollow": "empezó a seguir a"
+		"activityFollow": "empezó a seguir a",
+		"visitorCounterText" : "Cinéfilos han pasado por aquí!",
+		"aboutMe": "Sobre mí",
+		"viewProfile": "Ver mi perfil",
+		"noBio": "Todavía no hay biografía.",
+		"latestReviewsError": "No se pueden cargar las últimas reseñas.",
+		"latestReviewsEmpty": "Todavía no se ha publicado ninguna reseña.",
+		"reviewed": "ha reseñado",
+		"rating": "Puntuación",
+		"aboutMeLoginPrompt": "Inicia sesión para ver tu sección sobre mí.",
+		"login": "Iniciar sesión"
 	},
-
 
 	"moviePage": {
 		"backToSearch": "Volver a la búsqueda",
@@ -217,10 +246,17 @@
 		"submitting": "Enviando...",
 		"publishReview": "Publicar mi reseña",
 		"reviewsCount": "Reseñas ({{count}})",
-		"noReviews": "Aún no hay reseñas."
+		"noReviews": "Aún no hay reseñas.",
+		"editReview": "Editar mi reseña",
+		"updateReview": "Actualizar mi reseña",
+		"you": "tú"
 	},
 
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
+	},
+	"auth": {
+		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
+		"requiredButton": "Iniciar sesión"
 	}
 }

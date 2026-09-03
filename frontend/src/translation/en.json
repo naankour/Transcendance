@@ -29,10 +29,32 @@
 		"actorsDirectors": "Actors / directors",
 		"users": "Users"
 	},
-	"watchlistPage": {
-		"watchlist": "My Watchlist",
-		"movieID": "Movie ID:"
+	"watchlist": {
+		"loading": "Loading...",
+		"title": "My Watchlist",
+		"empty": "Your watchlist is empty",
+		"error": "Error: {{message}}"
 	},
+	"favorites": {
+		"loading": "Loading...",
+		"title": "My Favorites",
+		"empty": "Your favorites list is empty",
+		"error": "Error: {{message}}"
+	},
+	"reviews": {
+		"loading": "Loading...",
+		"title": "All Reviews",
+		"empty": "You don't have any reviews yet",
+		"error": "Error: {{message}}",
+		"rating": "Rating"
+	  },
+	  "myReviews": {
+		"loading": "Loading...",
+		"title": "My Reviews",
+		"empty": "You don't have any reviews yet",
+		"error": "Error: {{message}}",
+		"rating": "Rating"
+	  },
 	"terms": {
 		"title": "Terms of Service",
 		"lastUpdated": "Last updated: August 2, 2026",
@@ -193,7 +215,17 @@
 		"activityReviews": "Reviews",
 		"activityWatchlist": "Added to watchlist",
 		"activityFavorites": "Added to favorites",
-		"activityFollow": "started following"
+		"activityFollow": "started following",
+		"visitorCounterText" : "Movie lovers have stopped by!",
+		"aboutMe": "About Me",
+		"viewProfile": "View my profile",
+		"noBio": "No bio yet.",
+		"latestReviewsError": "Unable to load the latest reviews.",
+		"latestReviewsEmpty": "No reviews have been posted yet.",
+		"reviewed": "reviewed",
+		"rating": "Rating",
+		"aboutMeLoginPrompt": "Log in to view your about me section.",
+		"login": "Log in"
 	},
 	"moviePage": {
 		"backToSearch": "Back to search",
@@ -212,9 +244,16 @@
 		"submitting": "Submitting...",
 		"publishReview": "Publish my review",
 		"reviewsCount": "Reviews ({{count}})",
-		"noReviews": "No reviews yet."
+		"noReviews": "No reviews yet.",
+		"editReview": "Edit my review",
+		"updateReview": "Update my review",
+		"you": "you"
 	},
 	"errors": {
 		"generic": "Something went wrong. Please try again."
+	},
+	"auth": {
+		"requiredDefault": "You need to be logged in to access this page.",
+		"requiredButton": "Log in"
 	}
 }

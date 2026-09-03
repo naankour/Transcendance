@@ -51,13 +51,18 @@ function VisitorCounter() {
 	const digits = paddedCount.split('');
 
 	return (
-        //chaque chiffre un span 
-		<div className="visitor-counter">
-			{digits.map((digit, index) => (
-				<span key={index} className="visitor-counter-digit">{digit}</span>
-			))}
-		</div>
-	);
+        <div className="visitor-counter-wrapper">
+            <div className="visitor-counter">
+                {digits.map((digit, index) => (
+                    <span key={index} className="visitor-counter-digit">{digit}</span>
+                ))}
+            </div>
+
+            <p className="visitor-counter-text">
+                {t('home.visitorCounterText')}
+            </p>
+        </div>
+    );
 }
 
 export default VisitorCounter;

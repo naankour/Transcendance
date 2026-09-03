@@ -7,7 +7,7 @@
 		"navLabel": "ACCUEIL",
 		"navMovies": "FILMS",
 		"navReviews": "AVIS",
-		"navWatchlist": "À VOIR",
+		"navWatchlist": "WATCHLIST",
 		"navFavorites": "FAVORIS",
 		"navProfile": "PROFIL",
 		"login": "Connexion",
@@ -29,12 +29,32 @@
 		"actorsDirectors": "Acteurs / réalisateurs",
 		"users": "Utilisateurs"
 	},
-	"watchlistPage": {
-		"watchlist": "Ma Watchlist",
-		"movieID": "Film ID :"
+	"watchlist": {
+		"loading": "Chargement...",
+		"title": "Ma Watchlist",
+		"empty": "Ta watchlist est vide",
+		"error": "Erreur : {{message}}"
 	},
-
-
+	"favorites": {
+		"loading": "Chargement...",
+		"title": "Mes Favoris",
+		"empty": "Ta liste de favoris est vide",
+		"error": "Erreur : {{message}}"
+	},
+	"reviews": {
+		"loading": "Chargement...",
+		"title": "Toutes les Reviews",
+		"empty": "Tu n'as pas encore de review",
+		"error": "Erreur : {{message}}",
+		"rating": "Note"
+	  },
+	  "myReviews": {
+		"loading": "Chargement...",
+		"title": "Mes Reviews",
+		"empty": "Tu n'as pas encore de review",
+		"error": "Erreur : {{message}}",
+		"rating": "Note"
+	  },
 	"terms": {
 		"title": "Conditions d'utilisation",
 		"lastUpdated": "Dernière mise à jour : 2 août 2026",
@@ -196,7 +216,17 @@
 		"activityReviews": "Avis",
 		"activityWatchlist": "Ajouts à la watchlist",
 		"activityFavorites": "Ajouts aux favoris",
-		"activityFollow": "a commencé à suivre"
+		"activityFollow": "a commencé à suivre",
+		"visitorCounterText" : "Cinéphiles sont passés par ici !",
+		"aboutMe": "À propos de moi",
+		"viewProfile": "Voir mon profil",
+		"noBio": "Aucune bio pour le moment.",
+		"latestReviewsError": "Impossible de charger les derniers avis.",
+		"latestReviewsEmpty": "Aucun avis n'a encore été publié.",
+		"reviewed": "a donné son avis sur",
+		"rating": "Note",
+		"aboutMeLoginPrompt": "Connectez-vous pour voir votre section à propos de moi.",
+		"login": "Se connecter"
 	},
 
 	"moviePage": {
@@ -216,10 +246,19 @@
 		"submitting": "Envoi...",
 		"publishReview": "Publier ma review",
 		"reviewsCount": "Reviews ({{count}})",
-		"noReviews": "Aucune review pour le moment."
+		"noReviews": "Aucune review pour le moment.",
+		"editReview": "Modifier ma review",
+		"updateReview": "Mettre à jour ma review",
+		"you": "vous"
 	},
 
 	"errors": {
 		"generic": "Une erreur est survenue. Veuillez réessayer."
+	},
+	"auth": {
+		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
+		"requiredButton": "Se connecter"
 	}
+
+
 }
