@@ -139,8 +139,126 @@ const getMessages = async (req, res) =>
   }
 };
 
+const sendMessage = async (req, res) => {
+  try {
+    const myId = req.user.id;
+    const { conversationId } = req.params;
+    const { content } = req.body;
+
+    if (!content || !content.trim()) {
+      return res.status(400).json({ error: 'Message content is required' });
+    }
+    const conversation = await prisma.conversations.findUnique({
+      where: { id: Number(conversationId) },
+    });
+    
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+
+    if (conversation.user_one_id !== myId && conversation.user_two_id !== myId) {
+      return res.status(403).json({ error: "You don't have access to this conversation" });
+    } 
+
+    const message = await prisma.messages.create({
+      data: {
+        conversation_id: Number(conversationId),
+        sender_id: myId,
+        content: content.trim(),
+      },
+      include: {
+        sender: {
+          select: { id:true, username: true, avatar_url: true },
+        },
+      },
+    });
+
+    await prisma.conversations.update({
+      where: { id: Number(conversationId) },
+      data: { updated_at: new Date() },
+    });
+
+    const io = req.app.get('io');
+    const recipientId = conversation.user_one_id === myId ? conversation.user_two_id : conversation.user_one_id;
+
+    io.to(`conversation_${conversationId}`).emit('newMessage', message);
+
+    io.to(`user_${myId}`).to(`user_${recipientId}`).emit('conversationUpdated', {
+      conversationId: Number(conversationId),
+    });
+
+    return res.status(201).json(message);
+  }
+  catch (error)
+  {
+    console.error('Error sending message:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+const getUnreadCount = async (req, res) => {
+  try {
+    const myId = req.user.id;
+
+    const count = await prisma.messages.count({
+      where: {
+        sender_id: { not: myId },
+        read_at: null,
+        conversation: {
+          OR: [{ user_one_id: myId }, { user_two_id: myId }],
+        },
+      },
+    });
+
+    return res.json({ count });
+  }
+  catch (error) {
+    console.error('Error getting unread count:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const markAsRead = async (req, res) => {
+  try {
+    const myId = req.user.id;
+    const { conversationId } = req.params;
+
+    const conversation = await prisma.conversations.findUnique({
+      where: { id: Number(conversationId) },
+    });
+    
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+
+    if (conversation.user_one_id !== myId && conversation.user_two_id !== myId)
+    {
+      return res.status(403).json({ error: "You don't have access to this conversation" });
+    }
+
+    await prisma.messages.updateMany({
+      where: {
+        conversation_id: Number(conversationId),
+        sender_id: { not: myId },
+        read_at: null,
+      },
+      data: { read_at: new Date() },
+    });
+
+    return res.json({ success: true });
+  }
+  catch (error)
+  {
+    console.error('Error marking messages as read:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getOrCreateConversation,
   getMyConversations,
   getMessages,
+  sendMessage,
+  getUnreadCount,
+  markAsRead,
 };

@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { io } from 'socket.io-client';
-
-const socket = io("https://localhost", {
-  transports: ["websocket"]
-});
+import { socket } from '../socket';
 
 // const3 socket = io("http://localhost:3000", {
 //   transports: ["websocket"]
@@ -45,6 +41,7 @@ import SearchResultsPage from './pages/SearchResultsPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import Footer from './layout/Footer';
+import ChatBubble from './conversations/ChatBubble';
 
 // import ConversationList from './conversations/ConversationList';
 
@@ -105,6 +102,7 @@ return (
       </main>
 
       <Footer />
+      <ChatBubble />
     </div>
   </BrowserRouter>
 );

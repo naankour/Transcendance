@@ -2,6 +2,8 @@
 // utilise GET /api/conversations (getMyConversations)
 
 import {useState, useEffect} from 'react';
+import { socket } from '../../socket';
+import './ChatBubble.css'
 
 interface User {
   id: number;
@@ -62,6 +64,12 @@ export default function ConversationList({ selectedConversationId, onSelect }: C
 
     useEffect(() =>{
     fetchConversations();
+
+    socket.on('conversationUpdated', fetchConversations);
+
+      return () => {
+        socket.off('conversationUdpdated', fetchConversations);
+      };
     }, []);
 
     return (
@@ -70,14 +78,16 @@ export default function ConversationList({ selectedConversationId, onSelect }: C
         <div
           key={conv.id}
           onClick={() => onSelect(conv.id)}
-          style={{
-            cursor: 'pointer',
-            fontWeight: conv.id === selectedConversationId ? 'bold' : 'normal',
-          }}
+          className={`chat-bubble-list-item ${conv.id === selectedConversationId ? 'active' : ''}`}
         >
-          <p>{conv.otherUser.username}</p>
+          <img
+            src={conv.otherUser.avatar_url || '/avatars/default_avatar.png'}
+            alt={conv.otherUser.username}
+            className="chat-bubble-avatar"
+          />
+          <p className="chat-bubble-list-name">{conv.otherUser.username}</p>
 
-          {conv.lastMessage && <p>{conv.lastMessage.content}</p>}
+          {conv.lastMessage && ( <p className="chat-bubble-list-preview">{conv.lastMessage.content}</p>)}
         </div>
       ))}
     </div>

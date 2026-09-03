@@ -27,6 +27,21 @@ app.set("io", io);
 io.on("connection", (socket) => {
   console.log("User connected :", socket.id);
 
+  socket.on("identify", (userId) => {
+    socket.join(`user_${userId}`);
+    console.log(`Socket ${socket.id} identified as user_${userId}`);
+  });
+
+  socket.on("joinConversation", (conversationId) => {
+    socket.join(`conversation_${conversationId}`);
+    console.log(`Socket ${socket.id} joined conversation_${conversationId}`);
+  });
+
+  socket.on("leaveConversation", (conversationId) => {
+    socket.leave(`conversation_${conversationId}`);
+    console.log(`Socket ${socket.id} left conversation_${conversationId}`);
+  });
+
   socket.on("disconnect", () => {
     console.log("User disconnected :", socket.id);
   });
