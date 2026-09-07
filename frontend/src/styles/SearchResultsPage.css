@@ -161,6 +161,23 @@
 	text-overflow: ellipsis;
 }
 
+.search-page-load-more {
+    color: var(--color-accent-soft);
+    text-decoration: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+	border: none;
+	background: none;
+	padding:15px 5px;
+}
+
+.search-page-load-more:hover {
+	color: var(--color-text);
+	text-shadow: 0 0 8px var(--color-accent);
+    font-size: 19px;
+}
 
 @media (max-width: 750px) {
 	.search-page {

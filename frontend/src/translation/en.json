@@ -27,7 +27,8 @@
 		"noResults": "No results.",
 		"movies": "Movies",
 		"actorsDirectors": "Actors / directors",
-		"users": "Users"
+		"users": "Users",
+		"loadMore": "Load more"
 	},
 	"watchlist": {
 		"loading": "Loading...",
