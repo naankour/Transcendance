@@ -24,6 +24,12 @@ interface Review {
 	movies: ReviewMovie;
 }
 
+const colors = {
+	lightPink: '#e7d1dc',
+	hardPink: '#ff2e9a',
+};
+
+
 function LatestReviews() {
 	const { t, i18n } = useTranslation();
 	const [reviews, setReviews] = useState<Review[]>([]);
@@ -87,6 +93,8 @@ function LatestReviews() {
 						: `https://image.tmdb.org/t/p/w200${review.movies.poster}`
 					: null;
 
+					const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+
 				return (
 					<div key={review.id} className="latest-review-item">
 						{review.movies.tmdb_id && posterUrl && (
@@ -128,13 +136,11 @@ function LatestReviews() {
 							<p className="latest-review-text">
 								{review.content}
 							</p>
-
+							
 							<div className="latest-review-meta">
-								<span>
-									{t('home.rating')} : {review.rating}/5
-								</span>
-
-								<span> · {date}</span>
+								<span className="latest-review-stars">{stars}</span>
+								<span> {review.rating}/5 </span>
+								<span> - {date}</span>
 							</div>
 						</div>
 					</div>

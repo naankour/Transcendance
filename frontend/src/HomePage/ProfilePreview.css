@@ -74,33 +74,46 @@
 	width: fit-content;
 	color: var(--color-accent-soft);
 	text-decoration: none;
-	font-size: 13px;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-weight: 600;
 
 	transition:
 		color 0.2s ease,
 		text-shadow 0.2s ease;
 }
 
-
 .profile-preview-link:hover {
 	color: var(--color-text);
 	text-shadow: 0 0 8px var(--color-accent);
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .profile-preview-status {
 	margin: 0;
 	color: var(--color-text-muted);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .profile-preview-footer {
 	margin-top: 10px;
-	padding-top: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 50px;
 	border-top: 1px dashed var(--color-accent);
+}
+
+.profile-preview-sticker-footer {
+	width: 90px;
+	transform: rotate(-6deg) translateY(-10px);
+	pointer-events: none;
+	align-self: flex-end;
+	padding-top: 8px;
+	animation: moving-sticker-profile 6s ease-in-out infinite;
+
 }
 
 .profile-preview-meta {
@@ -109,15 +122,21 @@
 	text-transform: uppercase;
 }
 
-.profile-preview-status {
-    margin: 0;
-    color: var(--color-text-muted);
-}
-
 .profile-preview-sticker {
-	width: 150px;
+	width: 130px;
 	transform: rotate(-6deg) translateY(-10px);
 	pointer-events: none;
+	animation: moving-sticker-profile 6s ease-in-out infinite;
+}
+
+@keyframes moving-sticker-profile {
+	0%, 100% {
+		transform: rotate(-6deg) ;
+	}
+	50% {
+		transform: rotate(+6deg);
+	}
+	
 }
 
 .profile-preview-sticker-logout {
@@ -135,4 +154,13 @@
 	align-items: center;
 	min-height: 0;
 	padding-bottom: 15px;
+}
+
+@media (max-width: 450px) {
+	.profile-preview-sticker-area {
+		padding: 0;
+	}
+	.profile-preview-sticker{
+		width: 80px;
+	}
 }

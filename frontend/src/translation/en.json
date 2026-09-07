@@ -260,7 +260,7 @@
 		"friendsActivity": "Friends Activity",
 		"loading": "Loading...",
 		"noRecommendation": "No recommendation available right now.",
-		"friendsActivityLoginPrompt": "Log in to see your friends' activity.",
+		"friendsActivityLoginPrompt": "Log in or register to see your friends' activity.",
 		"friendsActivityEmpty": "No recent activity from people you follow.",
 		"activityReviews": "Reviews",
 		"activityWatchlist": "Added to watchlist",
@@ -277,7 +277,8 @@
 		"aboutMeLoginPrompt": "Log in to view your about me section.",
 		"login": "Log in",
 		"memberSince": "Member since {{date}}",
-		"dateLocale": "en-US"
+		"dateLocale": "en-US",
+		"seeAllReviews": "See more"
 	},
 	"moviePage": {
 		"backToSearch": "Back to search",

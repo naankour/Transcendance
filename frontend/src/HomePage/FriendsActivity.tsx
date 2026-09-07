@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getAvatarUrl } from '../utils/avatar.js';
+import StickerInsect from '../assets/sticker-insect.png';
+import StickerArrow from '../assets/sticker-arrow.png';
 import './FriendsActivity.css';
 
 interface MovieRef {
@@ -83,9 +85,20 @@ function FriendsActivity() {
 
 	if (loggedOut) {
 		return (
-			<p className="friends-activity-status">
-				{t('home.friendsActivityLoginPrompt')}
-			</p>
+			<div className="loggedOut-activity">
+				<p className="friends-activity-status">
+					{t('home.friendsActivityLoginPrompt')}
+				</p>
+				<Link to="/auth" className="login-link">
+						{t('home.login')} →
+				</Link>
+				<div className="friends-activity-arrow">
+					<img src={StickerArrow} alt="Arrow" className="sticker-login" />
+				</div>
+				<div className="friends-activity-footer">
+					<img src={StickerInsect} alt="Insect" className="friends-activity-sticker" />
+				</div>
+			</div>
 		);
 	}
 
@@ -107,7 +120,7 @@ function FriendsActivity() {
 
 	return (
 		<div className="friends-activity">
-			{feed.map((item, index) => {
+			{feed.slice(0, 6).map((item, index) => {
 				const date = new Date(item.created_at).toLocaleDateString(i18n.language);
 
 				if (item.type === 'follow' && item.targetUser) {
@@ -201,6 +214,18 @@ function FriendsActivity() {
 					</div>
 				);
 			})}
+			<div className="friends-activity-divider" >
+			
+				<div className="friends-activity-all">
+					<Link to="/reviews" className="friends-activity-see-all">
+						{t('home.seeAllReviews')} →
+					</Link>
+				</div>
+				<div className="friends-activity-footer">
+					<img src={StickerInsect} alt="Insect" className="friends-activity-sticker" />
+				</div>
+
+			</div>
 		</div>
 	);
 }

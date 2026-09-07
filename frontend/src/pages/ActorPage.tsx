@@ -102,7 +102,7 @@ function ActorPage() {
 						</h3>
 
 						<div className="filmography-list">
-							{actor.filmography.slice(0, 15).map((movie, index) => (
+							{actor.filmography.map((movie, index) => (
 								<Link
 									key={`${movie.id}-${movie.role}-${index}`}
 									to={`/movie/${movie.id}`}

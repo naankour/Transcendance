@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import HomeModule from './HomeModule';
+import HomeModule from '../components/HomeModule';
 import DailyRecommendation from './DailyRecommendation';
 import VisitorCounter from './VisitorCounter';
 import FriendsActivity from './FriendsActivity';

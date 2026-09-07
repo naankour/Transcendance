@@ -147,7 +147,7 @@ function ProfilePreview() {
 						{t('home.memberSince', { date: memberSince })}
 					</span>
 				)}
-				<img src={HelloKitty} alt="hello" className="profile-preview-sticker" />
+				<img src={HelloKitty} alt="hello" className="profile-preview-sticker-footer" />
 			</div>
 		</div>
 	);

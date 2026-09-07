@@ -180,92 +180,7 @@ function Header() {
 					<span className="header-logo-star">★</span>
 				</Link>
 
-				<div className="research-and-language-switcher">
-					<div ref={containerRef} className="search-container">
-						<input
-							type="text"
-							value={query}
-							onChange={(e) => setQuery(e.target.value)}
-							onKeyDown={(e) => e.key === 'Enter' && handleFullSearch()}
-							onFocus={() => {
-								if (hasResults)
-									setShowResults(true);
-							}}
-							placeholder={t('header.searchPlaceholder')}
-							className="search-input"
-						/>
-
-						{showResults && hasResults && (
-							<div className="search-results">
-								{movies.length > 0 && (
-									<div className="search-section">
-										<p className="search-section-title">{t('header.movies')}</p>
-										{movies.map((movie) => (
-											<div
-												key={movie.id}
-												onClick={() => handleSelectMovie(movie.id)}
-												className="search-result-item"
-											>
-												{movie.poster_path && (
-													<img
-														src={`https://image.tmdb.org/t/p/w45${movie.poster_path}`}
-														alt={movie.title}
-														className="search-result-poster"
-													/>
-												)}
-												<span>{movie.title} {movie.release_date ? `(${movie.release_date.slice(0, 4)})` : ''}</span>
-											</div>
-										))}
-									</div>
-								)}
-
-								{people.length > 0 && (
-									<div className="search-section">
-										<p className="search-section-title">{t('header.actorsDirectors')}</p>
-										{people.map((person) => (
-											<div
-												key={person.id}
-												onClick={() => handleSelectPerson(person.id)}
-												className="search-result-item"
-											>
-												{person.profile_path && (
-													<img
-														src={`https://image.tmdb.org/t/p/w45${person.profile_path}`}
-														alt={person.name}
-														className="search-result-avatar"
-													/>
-												)}
-												<span>{person.name}</span>
-											</div>
-										))}
-									</div>
-								)}
-
-								{users.length > 0 && (
-									<div className="search-section">
-										<p className="search-section-title">{t('header.users')}</p>
-										{users.map((user) => (
-											<div
-												key={user.id}
-												onClick={() => handleSelectUser(user.id)}
-												className="search-result-item"
-											>
-												{user.avatar_url && (
-													<img
-														src={user.avatar_url}
-														alt={user.username}
-														className="search-result-avatar"
-													/>
-												)}
-												<span>{user.username}</span>
-											</div>
-										))}
-									</div>
-								)}
-							</div>
-						)}
-					</div>
-
+				<div className="header-actions">
 					<LanguageSwitcher />
 
 					{isLoggedIn ? (
@@ -276,6 +191,91 @@ function Header() {
 						<Link to="/auth" className="header-auth-button">
 							{t('header.login')}
 						</Link>
+					)}
+				</div>
+
+				<div ref={containerRef} className="search-container">
+					<input
+						type="text"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						onKeyDown={(e) => e.key === 'Enter' && handleFullSearch()}
+						onFocus={() => {
+							if (hasResults)
+								setShowResults(true);
+						}}
+						placeholder={t('header.searchPlaceholder')}
+						className="search-input"
+					/>
+
+					{showResults && hasResults && (
+						<div className="search-results">
+							{movies.length > 0 && (
+								<div className="search-section">
+									<p className="search-section-title">{t('header.movies')}</p>
+									{movies.map((movie) => (
+										<div
+											key={movie.id}
+											onClick={() => handleSelectMovie(movie.id)}
+											className="search-result-item"
+										>
+											{movie.poster_path && (
+												<img
+													src={`https://image.tmdb.org/t/p/w45${movie.poster_path}`}
+													alt={movie.title}
+													className="search-result-poster"
+												/>
+											)}
+											<span>{movie.title} {movie.release_date ? `(${movie.release_date.slice(0, 4)})` : ''}</span>
+										</div>
+									))}
+								</div>
+							)}
+
+							{people.length > 0 && (
+								<div className="search-section">
+									<p className="search-section-title">{t('header.actorsDirectors')}</p>
+									{people.map((person) => (
+										<div
+											key={person.id}
+											onClick={() => handleSelectPerson(person.id)}
+											className="search-result-item"
+										>
+											{person.profile_path && (
+												<img
+													src={`https://image.tmdb.org/t/p/w45${person.profile_path}`}
+													alt={person.name}
+													className="search-result-avatar"
+												/>
+											)}
+											<span>{person.name}</span>
+										</div>
+									))}
+								</div>
+							)}
+
+							{users.length > 0 && (
+								<div className="search-section">
+									<p className="search-section-title">{t('header.users')}</p>
+									{users.map((user) => (
+										<div
+											key={user.id}
+											onClick={() => handleSelectUser(user.id)}
+											className="search-result-item"
+										>
+											{user.avatar_url && (
+												<img
+													src={user.avatar_url}
+													alt={user.username}
+													className="search-result-avatar"
+												/>
+											)}
+											<span>{user.username}</span>
+										</div>
+									))}
+								</div>
+							)}
+						</div>
 					)}
 				</div>
 			</div>

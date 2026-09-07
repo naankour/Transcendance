@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import defaultActor from '../assets/default-actor.png';
+import defaultActor from '../assets/sticker-mask.png';
 import '../styles/SearchResultsPage.css';
 
 interface MovieResult {
