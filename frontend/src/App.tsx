@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './HomePage';
+import HomePage from './HomePage/HomePage';
 import MoviePage from './MoviePage';
 import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
@@ -14,7 +14,6 @@ import MyReviews from './MyReviews/MyReviews'
 import Reviews from './Reviews/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
-// import ActorSearchPage from './pages/ActorSearchPage';
 import ActorPage from './pages/ActorPage';
 import Header from './layout/Header';
 import SearchResultsPage from './pages/SearchResultsPage';
@@ -53,9 +52,9 @@ return (
           <Route path="/favorites" element={<Favorites triggerToast={triggerToast} />} />
           <Route path="/follows" element={<Follows triggerToast={triggerToast} />} />
           <Route path="/follows/followers" element={<Followers triggerToast={triggerToast} />} />
-		  <Route path="/reviews" element={<Reviews />} />
-		  <Route path="/reviews/me" element={<MyReviews />} />
-		  <Route path="/reviews/create" element={<CreateReview />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviews/me" element={<MyReviews />} />
+          <Route path="/reviews/create" element={<CreateReview />} />
 		  <Route path="/reviews/:id/edit" element={<EditReview />} />
           <Route path="/search/:query" element={<SearchResultsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

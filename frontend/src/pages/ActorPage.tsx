@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import defaultActor from '../assets/default-actor.png';
 import '../styles/ActorPage.css';
 
 interface FilmographyEntry {
@@ -60,15 +61,15 @@ function ActorPage() {
 			{actor && (
 				<div className="actor-content">
 					<div className="actor-photo-frame">
-
-						{actor.profile_path && (
-							<img
-								src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
-								alt={actor.name}
-								className="actor-photo"
-							/>
-						)}
-
+						<img
+							src={
+								actor.profile_path
+									? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+									: defaultActor
+							}
+							alt={actor.name}
+							className="actor-photo"
+						/>
 						<span className="actor-photo-caption">✦ CINEMA ✦</span>
 					</div>
 
@@ -101,7 +102,7 @@ function ActorPage() {
 						</h3>
 
 						<div className="filmography-list">
-							{actor.filmography.slice(0, 15).map((movie, index) => (
+							{actor.filmography.map((movie, index) => (
 								<Link
 									key={`${movie.id}-${movie.role}-${index}`}
 									to={`/movie/${movie.id}`}
