@@ -2,6 +2,9 @@
 	display: flex;
 	gap: 12px;
 	cursor: pointer;
+	flex: 1;
+    min-height: 0;
+	height: 100%;
 }
 
 .daily-pick-poster {
@@ -26,14 +29,13 @@
 }
 
 .daily-pick-overview {
-	font-size: 15px;
+	font-size: 14px;
 	color: var(--color-text-muted);
 	line-height: 1.4;
-	display: -webkit-box;
-	-webkit-line-clamp: 4;
-	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+
+
 
 .daily-pick-overview:hover {
     color: var(--color-accent-softer);

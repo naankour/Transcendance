@@ -28,7 +28,8 @@
 		"noResults": "Aucun résultat.",
 		"movies": "Films",
 		"actorsDirectors": "Acteurs / réalisateurs",
-		"users": "Utilisateurs"
+		"users": "Utilisateurs",
+		"loadMore": "Charger plus"
 	},
 	"watchlist": {
 		"loading": "Chargement...",
