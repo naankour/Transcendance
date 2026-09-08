@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Discover.css'
 
 interface Genre {
@@ -25,14 +25,16 @@ function buildDecades() {
 }
 
 export default function Discover() {
-	const [genre, setGenre] = useState('');
-	const [year, setYear] = useState('');
-	const [sort, setSort] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+	const [genre, setGenre] = useState(searchParams.get('genre') || '');
+  const [year, setYear] = useState(searchParams.get('year') || '');
+  const [sort, setSort] = useState(searchParams.get('sort') || '');
 //	 const [minRating, setMinRating] = useState('');
-	const [language, setLanguage] = useState('');
-	const [movies, setMovies] = useState<Movie[]>([]);
-	const [genreArray, setGenreArray] = useState<Genre[]>([]);
-	const [page, setPage] = useState(1);
+	const [language, setLanguage] = useState(searchParams.get('language') || '');
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [genreArray, setGenreArray] = useState<Genre[]>([]);
+  const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -40,7 +42,16 @@ export default function Discover() {
 	const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
   	const [openDecade, setOpenDecade] = useState<number | null>(null);
 
+  const PAGE_SIZE = 24;
+
 	const requestIdRef = useRef(0);
+  const seenIdsRef = useRef<Set<number>>(new Set());
+  const movieBufferRef = useRef<Movie[]>([]);
+  const rawPageCursorRef = useRef(0);
+  const rawTotalPagesRef = useRef(1);
+  const exhaustedRef = useRef(false);
+  const isFirstRender = useRef(true);
+  // const pageCacheRef = useRef<Map<number, Movie[]>>(new Map());
 
 	const navigate = useNavigate();
 
@@ -59,21 +70,33 @@ export default function Discover() {
   }
 
   async function fetchMovies() {
-	const currentRequestId = ++requestIdRef.current;
-	
-    setLoading(true);
-    setError(null);
+  const currentRequestId = ++requestIdRef.current;
 
-    try {
+  setLoading(true);
+  setError(null);
+
+  try {
+    const requiredCount = page * PAGE_SIZE;
+
+    while (movieBufferRef.current.length < requiredCount && !exhaustedRef.current) {
+      rawPageCursorRef.current += 1;
+      const rawPage = rawPageCursorRef.current;
+
+      if (rawPage > 500) {
+        exhaustedRef.current = true;
+        break;
+      }
+
       const params = new URLSearchParams();
       if (genre) params.append('genre', genre);
       if (year) params.append('year', year);
       if (sort) params.append('sort_by', sort);
-    //   if (minRating) params.append('min_rating', minRating);
       if (language) params.append('language', language);
-      params.append('page', page.toString());
+      params.append('page', rawPage.toString());
 
       const request = await fetch(`/api/discover?${params.toString()}`);
+
+      if (currentRequestId !== requestIdRef.current) return;
 
       if (!request.ok) {
         throw new Error(`Erreur ${request.status}`);
@@ -81,35 +104,76 @@ export default function Discover() {
 
       const data = await request.json();
 
-	  if (currentRequestId !== requestIdRef.current)
-		return;
+      if (currentRequestId !== requestIdRef.current) return;
 
-      const uniqueMovies = Array.from(
-  	new Map<number, Movie>((data.results || []).map((m: Movie) => [m.id, m])).values()
-	);
-		setMovies(uniqueMovies);
-		setTotalPages(Math.min(data.total_pages || 1, 500));
-    } catch (err: any) {
-		if (currentRequestId !== requestIdRef.current)
-			return;
-      console.error(err);
-      setError(err.message || 'An Error occured');
-      setMovies([]);
-    } finally {
-		if (currentRequestId === requestIdRef.current)
-      		setLoading(false);
+      rawTotalPagesRef.current = Math.min(data.total_pages || 1, 500);
+
+      const rawResults: Movie[] = data.results || [];
+
+      if (rawResults.length === 0 || rawPage >= rawTotalPagesRef.current) {
+        exhaustedRef.current = true;
+      }
+
+      const deduped = rawResults.filter((m) => !seenIdsRef.current.has(m.id));
+      deduped.forEach((m) => seenIdsRef.current.add(m.id));
+
+      movieBufferRef.current = [...movieBufferRef.current, ...deduped];
+    }
+
+    if (currentRequestId !== requestIdRef.current) return;
+
+    const start = (page - 1) * PAGE_SIZE;
+    const pageMovies = movieBufferRef.current.slice(start, start + PAGE_SIZE);
+
+    setMovies(pageMovies);
+    setTotalPages(rawTotalPagesRef.current);
+  } 
+  catch (err: any) {
+    if (currentRequestId !== requestIdRef.current) return;
+    console.error(err);
+    setError(err.message || 'An Error occured');
+    setMovies([]);
+  } 
+  finally {
+    if (currentRequestId === requestIdRef.current) {
+      setLoading(false);
     }
   }
+}
+
 
   useEffect(() => {
     fetchGenres();
   }, []);
 
-  // remet la pagination à 1 dès qu'un filtre change, pour éviter de
-  // rester bloqué sur une page qui n'existe plus pour les nouveaux critères
+  
   useEffect(() => {
-    setPage(1);
-  }, [genre, year, sort, language]);
+    if (isFirstRender.current) {
+    isFirstRender.current = false;
+    return;
+  }
+  setPage(1);
+  seenIdsRef.current = new Set();
+  movieBufferRef.current = [];
+  rawPageCursorRef.current = 0;
+  rawTotalPagesRef.current = 1;
+  exhaustedRef.current = false;
+}, [genre, year, sort, language]);
+
+useEffect(() => {
+    const params: Record<string, string> = {};
+    if (genre) 
+      params.genre = genre;
+    if (year)
+        params.year = year;
+    if (sort)
+      params.sort = sort;
+    if (language)
+      params.language = language;
+    params.page = page.toString();
+
+    setSearchParams(params, { replace: true });
+  }, [genre, year, sort ,language, page]);
 
   useEffect(() => {
     fetchMovies();
@@ -266,7 +330,11 @@ export default function Discover() {
     		/>
   		))}
 	</div>
-
+  {!loading && !error && exhaustedRef.current && movies.length > 0 && page >= Math.ceil(movieBufferRef.current.length / PAGE_SIZE) && (
+  <p className="discover-status">
+    fin des résultats disponibles pour ce tri ✦
+  </p>
+  )}
 	<div className="discover-pagination">
       <button disabled={page === 1} onClick={() => setPage(page - 1)}>
         Previous
@@ -276,7 +344,10 @@ export default function Discover() {
         {page} / {totalPages}
       </span>
 
-      <button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
+      <button
+        disabled={exhaustedRef.current && movieBufferRef.current.length <= page * PAGE_SIZE}
+        onClick={() => setPage(page + 1)}
+        >
         Next
       </button>
 	</div>
