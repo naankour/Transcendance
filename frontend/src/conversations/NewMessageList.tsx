@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import AuthRequired from '../components/AuthRequired';
 import './ChatBubble.css'
 
 interface FollowedUser {
@@ -14,14 +15,29 @@ interface NewMessageListProps {
 export default function NewMessageList({ onConversationStarted }: NewMessageListProps) {
     const [follows, setFollows] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isAuthError, setIsAuthError] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
 
+        if (!token)
+        {
+            setIsAuthError(true);
+            setLoading(false);
+            return; 
+        }
+
         fetch('/api/follows', {
             headers: { Authorization: `Bearer ${token}` },
         })
-            .then((res) => res.json())
+            .then((res) =>
+                {
+                if (res.status === 401 || res.status === 403) {
+                setIsAuthError(true);
+                throw new Error('Unauthorized');
+                }
+                return res.json();
+            })
             .then((data) => {
                 setFollows(data);
                 setLoading(false);
@@ -58,6 +74,10 @@ export default function NewMessageList({ onConversationStarted }: NewMessageList
         {
             console.error(error);
         }
+    }
+    
+    if (isAuthError) {
+    return <AuthRequired />;
     }
     
     if (loading) {

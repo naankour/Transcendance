@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Login } from './Login';
 import { Register } from './Register';
 import './Auth.css'; 
+import { identifySocket } from '../../socket';
 
 export function Auth({ triggerToast }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +14,7 @@ export function Auth({ triggerToast }) {
     const token = searchParams.get('token');
     if (token) {
       localStorage.setItem('token', token);
+      identifySocket();
       if (triggerToast) {
         triggerToast('Logged in successfully! ♡⸜(˶˃ ᵕ ˂˶)⸝♡', '✨');
       }

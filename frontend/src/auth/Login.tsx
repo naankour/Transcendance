@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { identifySocket } from '../../socket';
 
 export function Login({ onSwitchToRegister, triggerToast }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -28,6 +29,7 @@ export function Login({ onSwitchToRegister, triggerToast }) {
 
       if (data.token) {
         localStorage.setItem('token', data.token);
+        identifySocket();
       }
 
       triggerToast("You're in ◝(ᵔᗜᵔ)◜ heehee...");
