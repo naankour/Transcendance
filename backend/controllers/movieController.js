@@ -160,6 +160,15 @@ async function postReview(req, res) {
     }
     const { savedMovie } = result;
 
+    const isNewReview = !(await prisma.reviews.findUnique({
+      where: {
+        user_id_movie_id: {
+          user_id: userId,
+          movie_id: savedMovie.id,
+        },
+      },
+    }));
+
     const review = await prisma.reviews.upsert({
       where: {
         user_id_movie_id: {
@@ -177,6 +186,9 @@ async function postReview(req, res) {
         rating: rating,
         content: content || null,
       },
+      include: {
+        users: true,
+      },
     });
 
     const agg = await prisma.reviews.aggregate({
@@ -188,6 +200,15 @@ async function postReview(req, res) {
       where: { id: savedMovie.id },
       data: { average_rating: agg._avg.rating || 0 },
     });
+
+    if (isNewReview) {
+      const io = req.app.get("io");
+      io.emit("reviewCreated", {
+        reviewId: review.id,
+        movieId: review.movie_id,
+        author: review.users.username,
+      });
+    }
 
     res.json({ message: "Review enregistrée", review });
 
