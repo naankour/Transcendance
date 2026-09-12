@@ -22,16 +22,30 @@ const searchAll = async (req, res) => {
 	if (!Number.isInteger(userLimit) || userLimit <= 0)
 		userLimit = 2;
 
-    const tmdbLanguage = getTmdbLanguage(req.query.lang);
+	let moviePage = Number(req.query.moviePage);
+	if (!Number.isInteger(moviePage) || moviePage <= 0)
+		moviePage = 1;
+
+	let personPage = Number(req.query.personPage);
+	if (!Number.isInteger(personPage) || personPage <= 0)
+		personPage = 1;
+
+	let userPage = Number(req.query.userPage);
+	if (!Number.isInteger(userPage) || userPage <= 0)
+		userPage = 1;
+
+	const tmdbLanguage = getTmdbLanguage(req.query.lang);
 
 	try {
 		const responses = await Promise.all([
-			fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=${tmdbLanguage}`, {
-				headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`, Accept: "application/json" },
-			}),
-			fetch(`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(query)}&language=${tmdbLanguage}`, {
-				headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`, Accept: "application/json" },
-			}),
+			fetch(
+				`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=${tmdbLanguage}&page=${moviePage}`,
+				{ headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`, Accept: "application/json" } }
+			),
+			fetch(
+				`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(query)}&language=${tmdbLanguage}&page=${personPage}`,
+				{ headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}`, Accept: "application/json" } }
+			),
 			prisma.users.findMany({
 				where: {
 					username: {
@@ -39,7 +53,8 @@ const searchAll = async (req, res) => {
 						mode: 'insensitive',
 					},
 				},
-				take: userLimit,
+				skip: (userPage - 1) * userLimit,
+				take: userLimit + 1,
 				select: {
 					id: true,
 					username: true,
@@ -53,19 +68,25 @@ const searchAll = async (req, res) => {
 		const userResults = responses[2];
 
 		let movieResults = [];
+		let movieTotalPages = 0;
 		if (movieResponse.ok) {
 			const movieData = await movieResponse.json();
 			movieResults = movieData.results || [];
+			movieTotalPages = movieData.total_pages || 0;
 		}
 
 		let personResults = [];
+		let personTotalPages = 0;
 		if (personResponse.ok) {
 			const personData = await personResponse.json();
 			personResults = personData.results || [];
+			personTotalPages = personData.total_pages || 0;
 		}
 
 		movieResults = movieResults.filter((movie) => movie.poster_path !== null);
 		movieResults.sort((a, b) => b.popularity - a.popularity);
+
+		const hasMoreMovies = moviePage < movieTotalPages;
 		movieResults = movieResults.slice(0, movieLimit);
 
 		const movies = movieResults.map((movie) => ({
@@ -81,6 +102,8 @@ const searchAll = async (req, res) => {
 			return hasPhoto || hasKnownFor;
 		});
 		personResults.sort((a, b) => b.popularity - a.popularity);
+
+		const hasMorePeople = personPage < personTotalPages;
 		personResults = personResults.slice(0, personLimit);
 
 		const people = personResults.map((person) => ({
@@ -89,13 +112,23 @@ const searchAll = async (req, res) => {
 			profile_path: person.profile_path,
 		}));
 
-		const users = userResults.map((user) => ({
+		const hasMoreUsers = userResults.length > userLimit;
+		const trimmedUsers = userResults.slice(0, userLimit);
+
+		const users = trimmedUsers.map((user) => ({
 			id: user.id,
 			username: user.username,
 			avatar_url: user.avatar_url,
 		}));
 
-		return res.status(200).json({ movies, people, users });
+		return res.status(200).json({
+			movies,
+			people,
+			users,
+			hasMoreMovies,
+			hasMorePeople,
+			hasMoreUsers,
+		});
 
 	} catch (error) {
 		console.error("Combined search error:", error);

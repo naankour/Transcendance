@@ -1,23 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Modak&family=Ranchers&family=Rubik+Puddles&display=swap');
 
 .header {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	z-index: 100;
 }
 
 .header-content {
-    /* border-bottom: 3px solid var(--color-accent); */
-    /* border-color: var(--color-accent-soft);
-    border: 5px; */
 	display: flex;
-    padding: 5px 10px;
+	padding: 10px 20px;
 	align-items: center;
 	justify-content: space-between;
 	position: sticky;
-    width: 100%;
+	width: 100%;
 	top: 0;
-    background-color: black;
+	background-color: black;
+	box-sizing: border-box;
+	z-index: 100;
 }
 
 .header-banner {
@@ -37,7 +38,7 @@
 }
 
 .header-nav-link {
-    font-family: "Modak", system-ui;
+	font-family: "Modak", system-ui;
 	color: #1a0a12;
 	text-decoration: none;
 	font-size: 21px;
@@ -55,6 +56,12 @@
 	text-decoration: none;
 }
 
+.header-nav-link:hover::after {
+	color: whitesmoke;
+	opacity: 1;
+	transition: color 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
+}
+
 .header-nav-link:hover {
 	color: var(--color-text);
 	transform: scale(1.1);
@@ -62,8 +69,7 @@
 }
 
 .header-nav-link.active {
-	color: var(--color-bg);
-	text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+	color: #1a0a12;
 }
 
 .header-nav-link.active .nav-label {
@@ -72,46 +78,15 @@
 	text-underline-offset: 6px;
 }
 
-.research-and-language-switcher {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
-    padding: 10px;
-
-}
-.header-logo {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	font-size: 30px;
-	font-weight: bold;
-	text-decoration: none;
-	font-family: var(--font-title);
-	letter-spacing: 0.5px;
-	transition: transform 0.2s ease;
-}
-
-.header-logo:hover {
-	transform: scale(1.03) rotate(-1deg);
-}
-
-.header-logo-letter {
-	color: var(--color-text);
-	text-shadow: 0 0 6px var(--color-accent-soft);
-}
-
-
 .header-logo {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
-	font-size: 38px;
+	font-size: 42px;
 	text-decoration: none;
-    font-family: "Rubik Puddles", system-ui;
-    /* font-family: "Honk", system-ui; */
-    font-weight: 400;
-    font-style: normal;
+	font-family: "Rubik Puddles", system-ui;
+	font-weight: 400;
+	font-style: normal;
 	transition: transform 0.2s ease;
 }
 
@@ -134,8 +109,10 @@
 
 .header-logo-star {
 	color: var(--color-accent-soft);
-	font-size: 30px;
-	text-shadow: 0 0 12px var(--color-accent-soft), 0 0 24px var(--color-accent);
+	font-size: 32px;
+	text-shadow:
+		0 0 12px var(--color-accent-soft),
+		0 0 24px var(--color-accent);
 	animation: star-twinkle 2.5s ease-in-out infinite;
 }
 
@@ -144,18 +121,40 @@
 }
 
 @keyframes star-twinkle {
-	0%, 100% { opacity: 1; transform: scale(1); }
-	50% { opacity: 0.4; transform: scale(0.85); }
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	50% {
+		opacity: 0.4;
+		transform: scale(0.85);
+	}
 }
 
+.header-actions {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	order: 2;
+	height: 40px;
+}
+
+.header-actions > * {
+	height: 40px;
+	box-sizing: border-box;
+}
 
 .search-container {
 	position: relative;
 	width: 350px;
+	height: 40px;
+	z-index: 1000;
 }
 
 .search-input {
 	width: 100%;
+	height: 40px;
 	padding: 8px 12px;
 	background-color: var(--color-surface-alt);
 	border: 2px solid var(--color-accent-soft);
@@ -163,12 +162,12 @@
 	color: var(--color-text);
 	font-size: 14px;
 	box-sizing: border-box;
-    outline: none;
+	outline: none;
 }
 
 .search-results {
 	position: absolute;
-	top: 110%;
+	top: calc(100% + 8px);
 	left: 0;
 	right: 0;
 	background-color: var(--color-surface);
@@ -178,6 +177,7 @@
 	padding: 10px;
 	max-height: 420px;
 	overflow-y: auto;
+	z-index: 1001;
 }
 
 .search-section {
@@ -220,6 +220,8 @@
 }
 
 .header-auth-button {
+	height: 40px;
+	box-sizing: border-box;
 	background-color: var(--color-surface-alt);
 	border: 2px solid var(--color-accent-soft);
 	color: var(--color-text-muted);
@@ -229,10 +231,141 @@
 	font-size: 13px;
 	font-weight: 700;
 	text-decoration: none;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .header-auth-button:hover {
 	background-color: var(--color-accent);
 	color: var(--color-bg);
 	box-shadow: 0 0 8px var(--color-accent);
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+	.header-logo {
+		font-size: 36px;
+	}
+
+	.header-logo-star {
+		font-size: 26px;
+	}
+
+	.header-actions {
+		gap: 15px;
+	}
+
+	.search-container {
+		width: 280px;
+	}
+
+	.header-nav-link {
+		font-size: 18px;
+		padding: 4px 10px;
+	}
+
+	.header-nav-link::after {
+		margin-left: 10px;
+		font-size: 10px;
+	}
+}
+
+@media (max-width: 700px) {
+	.header-content {
+		flex-wrap: wrap;
+		gap: 14px;
+		row-gap: 14px;
+		justify-content: center;
+	}
+
+	.header-logo {
+		order: 1;
+	}
+
+	.header-actions {
+		order: 2;
+		gap: 10px;
+		justify-content: center;
+	}
+
+	.search-container {
+		order: 3;
+		width: min(350px, 100%);
+		margin: 0 auto;
+	}
+
+	.header-banner {
+		padding: 8px 10px;
+	}
+
+	.header-nav-link {
+		font-size: 16px;
+		padding: 3px 7px;
+	}
+}
+
+@media (max-width: 500px) {
+	.header-content {
+		padding: 6px 8px;
+		gap: 12px;
+		row-gap: 12px;
+		justify-content: center;
+	}
+
+	.header-logo {
+		font-size: 30px;
+	}
+
+	.header-logo-star {
+		font-size: 21px;
+	}
+
+	.header-actions {
+		gap: 8px;
+		justify-content: center;
+	}
+
+	.search-container {
+		width: 100%;
+	}
+
+	.header-auth-button {
+		padding: 6px 12px;
+		font-size: 13px;
+	}
+
+	.header-banner {
+		justify-content: center;
+		gap: 2px;
+		padding: 6px;
+		border-radius: 12px;
+	}
+
+	.header-nav-link {
+		font-size: 15px;
+		padding: 3px 6px;
+	}
+
+	.header-nav-link::after {
+		content: none;
+	}
+}
+
+@media (max-width: 360px) {
+	.header-logo {
+		font-size: 27px;
+	}
+
+	.header-logo-star {
+		font-size: 19px;
+	}
+
+	.header-nav-link {
+		font-size: 13px;
+		padding: 3px 4px;
+	}
 }

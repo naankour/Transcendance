@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Followers.css"
 import FollowsButton from "../components/FollowsButton";
 import { Link } from "react-router-dom";
@@ -10,6 +11,7 @@ interface FollowersProps {
 }
 
 const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps) => {
+    const { t } = useTranslation();
     const [followers, setFollowers] = useState([])
     const [myFollows, setMyFollows] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -57,19 +59,19 @@ const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps
         });
     }, [userId]);
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error : {error}</p>
+    if (loading) return <p>{t('followers.loading')}</p>
+    if (error) return <p>{t('followers.error', { message: error })}</p>
 
     return (
         <div className="followers-page">
 
             <h1 className="followers-title">
-                My Followers
+                {t('followers.title')}
             </h1>
 
             {followers.length === 0 ? (
                 <p className="followers-empty">
-                    You don't have any followers yet.
+                    {t('followers.empty')}
                 </p>
             ) : (
                 <div className="followers-list">

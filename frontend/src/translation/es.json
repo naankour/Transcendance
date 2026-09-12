@@ -27,7 +27,8 @@
 		"noResults": "Sin resultados.",
 		"movies": "Películas",
 		"actorsDirectors": "Actores / directores",
-		"users": "Usuarios"
+		"users": "Usuarios",
+		"loadMore": "Cargar más"
 	},
 	"watchlist": {
 		"loading": "Cargando...",
@@ -55,6 +56,56 @@
 		"error": "Error: {{message}}",
 		"rating": "Puntuación"
 	  },
+	  "followers": {
+		"loading": "Cargando...",
+		"title": "Mis seguidores",
+		"empty": "Todavía no tienes seguidores.",
+		"error": "Error: {{message}}"
+	  },
+	  "follows": {
+		"loading": "Cargando...",
+		"title": "Mis Follows",
+		"empty": "Todavía no sigues a nadie...",
+		"error": "Error: {{message}}"
+	  },
+	  "editReview": {
+		"title": "Editar Review",
+		"ratingPlaceholder": "Puntuación (0.5 - 5)",
+		"contentPlaceholder": "Tu review...",
+		"update": "Modificar",
+		"delete": "Eliminar",
+		"updated": "¡Review modificada!",
+		"deleted": "¡Review eliminada!",
+		"error": "Error: {{message}}"
+	  },
+	  "reviewsSimple": {
+		"title": "Mis Reviews",
+		"movieId": "ID de película",
+		"rating": "Puntuación",
+		"content": "Contenido",
+		"edit": "Modificar"
+	  },
+	  "profileEdit": {
+		"changePhoto": "Cambiar foto 📷",
+		"newPhoto": "Nueva foto: {{name}}",
+		"username": "Nombre de usuario",
+		"firstname": "Nombre",
+		"lastname": "Apellido",
+		"email": "Email",
+		"bio": "Biografía",
+		"changePassword": "Caaaaaaambia la contraaaaaaaseñaaaaaaa",
+		"currentPassword": "Contraseña actual",
+		"currentPasswordPlaceholder": "Introduce tu contraseña actual",
+		"newPassword": "Nueva contraseña",
+		"newPasswordPlaceholder": "Introduce tu nueva contraseña",
+		"save": "Guardar",
+		"saving": "Guardando...",
+		"cancel": "Cancelar",
+		"updateSuccess": "¡Perfil actualizado correctamente!",
+		"updateFailed": "Error al actualizar el perfil",
+		"somethingWrong": "Algo salió mal"
+	  },
+	  
 	"terms": {
 		"title": "Términos de servicio",
 		"lastUpdated": "Última actualización: 2 de agosto de 2026",
@@ -211,7 +262,7 @@
 		"friendsActivity": "Actividad de amigos",
 		"loading": "Cargando...",
 		"noRecommendation": "No hay recomendación disponible en este momento.",
-		"friendsActivityLoginPrompt": "Inicia sesión para ver la actividad de tus amigos.",
+		"friendsActivityLoginPrompt": "Inicia sesión o crea una cuenta para ver la actividad de tus amigos.",
 		"friendsActivityEmpty": "Ninguna actividad reciente de las personas que sigues.",
 		"activityReviews": "Reseñas",
 		"activityWatchlist": "Añadidos a la watchlist",
@@ -226,7 +277,10 @@
 		"reviewed": "ha reseñado",
 		"rating": "Puntuación",
 		"aboutMeLoginPrompt": "Inicia sesión para ver tu sección sobre mí.",
-		"login": "Iniciar sesión"
+		"login": "Iniciar sesión",
+		"memberSince": "Miembro desde {{date}}",
+		"dateLocale": "es-ES",
+		"seeAllReviews": "Ver más"
 	},
 
 	"moviePage": {

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import StickerKuromi from '../assets/sticker-kuromi.png';
 import './AuthRequired.css';
 
 interface AuthRequiredProps {
@@ -22,6 +23,9 @@ function AuthRequired({ message }: AuthRequiredProps) {
                 <Link to="/auth" className="auth-required-button">
                     {t('auth.requiredButton')}
                 </Link>
+            </div>
+            <div className="auth-required-sticker">
+                <img src={StickerKuromi} alt="Kuromi Sticker" />'
             </div>
         </div>
 	);
