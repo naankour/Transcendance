@@ -4,6 +4,7 @@
 // envoie des messages
 
 import {useState, useEffect} from 'react';
+import { useTranslation } from 'react-i18next';
 import { jwtDecode } from 'jwt-decode';
 import { socket } from '../../socket';
 import { refreshUnreadCount } from '../notification'
@@ -27,6 +28,7 @@ interface ChatWindowProps {
 }
 
 export default function ChatWindow({ conversationId }: ChatWindowProps) {
+    const { t } = useTranslation();
     const [messages, setMessages] = useState<Message[]>([]);
     const [loading, setLoading] = useState(true);
     const [newMessage, setNewMessage] = useState('');
@@ -129,7 +131,7 @@ export default function ChatWindow({ conversationId }: ChatWindowProps) {
     }
   }
     if (loading) {
-        return <div className="chat-window-loading">Loading messages...</div>;
+        return <div className="chat-window-loading">{t('chatWindow.loadingMessages')}</div>;
     }
 
     return (
@@ -157,9 +159,9 @@ export default function ChatWindow({ conversationId }: ChatWindowProps) {
           if (e.key == 'Enter') 
             handleSend();
         }}
-        placeholder="Write a Message..."
+        placeholder={t('chatWindow.writeMessagePlaceholder')}
         />
-        <button className="chat-window-send-btn" onClick={handleSend}>Send ✦</button>
+        <button className="chat-window-send-btn" onClick={handleSend}>{t('chatWindow.send')}</button>
       </div>
      </div>
     );
