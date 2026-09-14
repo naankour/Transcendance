@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ConversationList from './ConversationList';
 import ChatWindow from './ChatWindow';
 import { socket } from '../../socket';
@@ -8,6 +9,7 @@ import NewMessageList from './NewMessageList';
 import './ChatBubble.css'
 
 export default function ChatBubble() {
+    const { t } = useTranslation();
     const location = useLocation();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -73,15 +75,15 @@ export default function ChatBubble() {
             {(activeConversationId || showNewMessage) && (
                 <button onClick={handleBackToList} 
                 className="chat-bubble-back-btn">
-                   ← back 
+                   {t('chatBubble.back')}
                 </button>
             )}
-            <h3 className="chat-bubble-header-title">✎ Messages</h3>
+            <h3 className="chat-bubble-header-title">{t('chatBubble.messages')}</h3>
 
             {!activeConversationId && !showNewMessage && (
                 <button onClick={() => setShowNewMessage(true)}
 				 className="chat-bubble-contacts-btn">
-                    + Contacts
+                    {t('chatBubble.contacts')}
                 </button>
             )}
     </div>

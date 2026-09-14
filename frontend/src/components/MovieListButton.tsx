@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import "./MovieListButton.css";
 
 interface Props 
@@ -11,6 +12,8 @@ interface Props
 
 const MovieListButton = ({ movieId, type, action, triggerToast, onSuccess }: Props) => 
 {
+    const { t } = useTranslation();
+
     const handleClick = async () => 
     {
         const token = localStorage.getItem("token");
@@ -45,19 +48,19 @@ const MovieListButton = ({ movieId, type, action, triggerToast, onSuccess }: Pro
 
         if (action === "add" && type === "watchlist")
         {
-            triggerToast("Movie added to watchlist !", "🍿" );
+            triggerToast(t("movieListButton.addedToWatchlist"), "🍿" );
         }
         else if (action === "remove" && type === "watchlist")
         {
-            triggerToast("Movie removed from watchlist !", "🎬" );
+            triggerToast(t("movieListButton.removedFromWatchlist"), "🎬" );
         }
         else if (action === "add" && type === "favorites")
         {
-            triggerToast("Movie added to favorites !", "⭐" );
+            triggerToast(t("movieListButton.addedToFavorites"), "⭐" );
         }
         else if (action === "remove" && type === "favorites")
         {
-            triggerToast("Movie removed from favorites !", "🎞️" );
+            triggerToast(t("movieListButton.removedFromFavorites"), "🎞️" );
         }
         
         if ( onSuccess)
@@ -77,7 +80,9 @@ const MovieListButton = ({ movieId, type, action, triggerToast, onSuccess }: Pro
             className="movie-list-button"
             onClick={handleClick}
         >
-            {action=== "add" ? `Add to ${type}` : `Remove from ${type}`}
+            {action === "add"
+                ? t(`movieListButton.addTo${type === "watchlist" ? "Watchlist" : "Favorites"}`)
+                : t(`movieListButton.removeFrom${type === "watchlist" ? "Watchlist" : "Favorites"}`)}
         </button>
     );
 };

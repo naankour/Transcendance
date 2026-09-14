@@ -312,5 +312,78 @@
 	"auth": {
 		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
 		"requiredButton": "Iniciar sesión"
+	},
+	"discover": {
+		"title": "✦ Descubrir películas ✦",
+		"filters": {
+			"genre": "Elegir un género:",
+			"anyGenre": "Todos los géneros",
+			"sort": "Ordenar",
+			"neutral": "Orden neutro",
+			"popularity": "Popularidad",
+			"highestFirst": "De más populares a menos populares",
+			"lowestFirst": "De menos populares a más populares",
+			"releaseDate": "Fecha de estreno",
+			"newestFirst": "Más recientes",
+			"earliestFirst": "Más antiguos",
+			"rating": "Valoración",
+			"highestRated": "Mejor valorados",
+			"lowestRated": "Peor valorados",
+			"year": "Año",
+			"anyYear": "Todos los años",
+			"language": "Todos los idiomas",
+			"english": "Inglés",
+			"french": "Francés",
+			"spanish": "Español",
+			"japanese": "Japonés",
+			"korean": "Coreano",
+			"german": "Alemán",
+			"italian": "Italiano",
+			"backToDecades": "← volver a las décadas"
+		},
+		"status": {
+			"loading": "Cargando...",
+			"noMovies": "No se encontraron películas con estos filtros.",
+			"noMoreMovies": "✦ No hay más películas disponibles con estos filtros ✦"
+		},
+		"pagination": {
+			"previous": "Anterior",
+			"next": "Siguiente"
+		}
+	},
+	"movieListButton": {
+		"addedToWatchlist": "¡Película añadida a la watchlist!",
+		"removedFromWatchlist": "¡Película eliminada de la watchlist!",
+		"addedToFavorites": "¡Película añadida a favoritos!",
+		"removedFromFavorites": "¡Película eliminada de favoritos!",
+		"addToWatchlist": "Añadir a la watchlist",
+		"removeFromWatchlist": "Quitar de la watchlist",
+		"addToFavorites": "Añadir a favoritos",
+		"removeFromFavorites": "Quitar de favoritos"
+	},
+	"followsButton": {
+		"followed": "Ahora sigues a este usuario",
+		"unfollowed": "Has dejado de seguir a este usuario",
+		"follow": "Seguir",
+		"unfollow": "Dejar de seguir"
+	},
+	"chatBubble": {
+		"back": "← volver",
+		"messages": "✎ Mensajes",
+		"contacts": "+ Contactos"
+	},
+	"chatWindow": {
+		"loadingMessages": "Cargando mensajes...",
+		"writeMessagePlaceholder": "Escribe un mensaje...",
+		"send": "Enviar ✦"
+	},
+	"conversationPage": {
+		"myConversations": "Mis conversaciones",
+		"follows": "Seguidos",
+		"emptyState": "Selecciona una conversación para empezar a hablar."
+	},
+	"newMessageList": {
+		"loading": "Cargando...",
+		"empty": "No sigues a nadie por el momento ✦"
 	}
 }

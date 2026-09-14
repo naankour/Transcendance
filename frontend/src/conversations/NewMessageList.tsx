@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import AuthRequired from '../components/AuthRequired';
 import './ChatBubble.css'
 
@@ -13,6 +14,7 @@ interface NewMessageListProps {
 }
 
 export default function NewMessageList({ onConversationStarted }: NewMessageListProps) {
+    const { t } = useTranslation();
     const [follows, setFollows] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAuthError, setIsAuthError] = useState(false);
@@ -81,11 +83,11 @@ export default function NewMessageList({ onConversationStarted }: NewMessageList
     }
     
     if (loading) {
-        return <p className="chat-bubble-empty">Loading...</p>
+        return <p className="chat-bubble-empty">{t('newMessageList.loading')}</p>
     }
 
     if (follows.length === 0) {
-        return <p className="chat-bubble-empty">You're following nobody at the moment ✦</p>;
+        return <p className="chat-bubble-empty">{t('newMessageList.empty')}</p>;
     }
 
     return (

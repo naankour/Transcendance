@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import "./FollowsButton.css";
 
 interface Props 
@@ -10,6 +11,8 @@ interface Props
 
 const FollowsButton = ({userId, action, triggerToast, onSuccess}: Props) => 
 {
+    const { t } = useTranslation();
+
     const handleClick = async () => 
     {
         const token = localStorage.getItem("token");
@@ -38,11 +41,11 @@ const FollowsButton = ({userId, action, triggerToast, onSuccess}: Props) =>
 
         if (action === "follow")
         {
-            triggerToast("You followed this user", "💖" );
+            triggerToast(t("followsButton.followed"), "💖" );
         }
         else
         {
-            triggerToast("You unfollowed this user", "💔" );
+            triggerToast(t("followsButton.unfollowed"), "💔" );
         }
 
         if ( onSuccess)
@@ -62,7 +65,7 @@ const FollowsButton = ({userId, action, triggerToast, onSuccess}: Props) =>
             className="follow-button"
             onClick={handleClick}
         >
-            {action=== "follow" ? "Follow" : "Unfollow"}
+            {action === "follow" ? t("followsButton.follow") : t("followsButton.unfollow")}
         </button>
     );
 };
