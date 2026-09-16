@@ -72,6 +72,7 @@ useEffect(() =>
 
       <div className="favorites-list">
         {favorites.map((item: any) => (
+          
           <div key={item.id} className="favorites-card">
 
           <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
