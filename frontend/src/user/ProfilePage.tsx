@@ -3,12 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import { ProfileHeader } from './ProfileHeader'; 
 import { ProfileEditForm } from './ProfileEditForm'; 
+import Followers  from '../Followers/Followers';
+import Follows from '../Follows/Follows';
+import Watchlist from '../Watchlist/Watchlist';
+import Favorites from '../Favorites/Favorites';
+
 
 export function ProfilePage({ triggerToast }) 
 {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const[isFollowing, setIsFollowing] = useState(false);
 
   const { id: userIdFromParams } = useParams();
   const navigate = useNavigate();
@@ -28,8 +34,28 @@ export function ProfilePage({ triggerToast })
   const isOwnProfile = !userIdFromParams || Number(userIdFromParams) === Number(currentUserId);
 
   useEffect(() => {
+
     fetchProfile();
   }, [userIdFromParams]);
+
+  useEffect(() => {
+    if (isOwnProfile || !user)
+      return;
+    
+    const token = localStorage.getItem('token');
+
+    fetch('/api/follows', {
+      headers: {
+        Authorization: `Bearer ${token}` },
+      
+    })
+    .then(res => res.json())
+    .then(data => {
+      const alreadyFollowing = data.some((f: any) => f.followed_id === user.id);
+      setIsFollowing(alreadyFollowing);
+    })
+    .catch(err => console.error(err));
+  }, [user, isOwnProfile]);
 
   const fetchProfile = async () => {
     setLoading(true);
@@ -77,7 +103,8 @@ export function ProfilePage({ triggerToast })
       }
 
       // redirige vers le chat
-      navigate(`/chat?id=${conversation.id}`);
+      // navigate(`/chat?id=${conversation.id}`);
+      navigate(`/conversations?id=${conversation.id}`);
     } catch (err) {
       if (triggerToast) {
         triggerToast(err.message || 'Something went wrong', '⚠️');
@@ -104,12 +131,15 @@ export function ProfilePage({ triggerToast })
       <div className="profile-box">
 
         <div className="profile-header-section">
-          <ProfileHeader 
-            user={user} 
-            isOwnProfile={isOwnProfile} 
-            onEditClick={() => setIsEditing(true)} 
+          <ProfileHeader
+            user={user}
+            isOwnProfile={isOwnProfile}
+            onEditClick={() => setIsEditing(true)}
             onStartChat={handleStartChat}
-          />
+            triggerToast={triggerToast}
+            isFollowing={isFollowing}
+            onFollowChange={() => setIsFollowing(prev => !prev)}
+/>
         </div>
 
         <div className="profile-info-section">
@@ -129,16 +159,32 @@ export function ProfilePage({ triggerToast })
         </div>
 
         <div className="profile-follow-section">
+            <Follows
+              userId={user.id}
+              isOwnProfile={isOwnProfile}
+              triggerToast={triggerToast}
+              />
+              <Followers
+              userId={user.id}
+              isOwnProfile={isOwnProfile}
+              triggerToast={triggerToast}
+              />
           {/* <Followers userId={user.id} /> */}
           {/* <Following userId={user.id} /> */}
         </div>
 
         <div className="profile-watchlist-section">
-          {/* <Watchlist userId={user.id} /> */}
+          <Watchlist 
+          userId={user.id}
+          triggerToast={triggerToast} 
+          />
         </div>
 
         <div className="profile-favorites-section">
-          {/* <Favorites userId={user.id} /> */}
+          <Favorites 
+          userId={user.id} 
+          triggerToast={triggerToast}
+          />
         </div>
 
       </div>

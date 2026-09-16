@@ -85,6 +85,12 @@ const getReviewById = async (req, res) =>
     catch (error)
     {
         res.status(500).json({ error: error.message});
+      
+    if (rating < 0.5 || rating > 5) {
+      return res.status(400).json({
+        error: "Rating must be between 0,5 and 5"
+      });
+
     }
 };
 
@@ -144,6 +150,30 @@ const createReview = async (req, res) =>
             error: error.message
         });
     }
+      data: {
+        movie_id,
+        user_id,
+        rating,
+        content,
+      },
+      include: {
+        users: true,
+      },
+    });
+    const io = req.app.get("io");
+
+    io.emit("reviewCreated", {
+      reviewId: newReview.id,
+      movieId: newReview.movie_id,
+      author: newReview.users.username,
+    });
+
+    return res.status(201).json(newReview);
+  }
+  catch (error)
+  {
+    return res.status(500).json({ error: error.message })
+  }
 };
 
 const updateReview = async(req, res) =>

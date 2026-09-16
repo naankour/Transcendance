@@ -8,11 +8,18 @@ const CreateReview = () => {
   const [message, setMessage] = useState('')
 
   const handleSubmit = () => {
+
+    const token = localStorage.getItem('token');
+
     axios.post('/api/reviews', {
-      movie_id: parseInt(movieId),
-      rating: parseFloat(rating),
-      content: content
-    })
+    movie_id: parseInt(movieId),
+    rating: parseFloat(rating),
+    content: content
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
     .then(() => setMessage('Review créée !'))
     .catch(err => setMessage('Erreur : ' + err.message))
   }

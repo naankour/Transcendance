@@ -1,11 +1,26 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { socket } from '../socket';
+
+// const3 socket = io("http://localhost:3000", {
+//   transports: ["websocket"]
+// });
+
+// socket.on("connect", () => {
+//   console.log("Socket connecté :", socket.id);
+// });
+
+// socket.on("connect_error", (error) => {
+//   console.log("Erreur socket :", error.message);
+// });
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './HomePage';
+import HomePage from './HomePage/HomePage';
 import MoviePage from './MoviePage';
 import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
-// import ConversationPage from './conversations/ConversationPage';
+import ConversationPage from './conversations/ConversationPage';
 import Watchlist from './Watchlist/Watchlist';
 import Favorites from './Favorites/Favorites';
 import Follows from './Follows/Follows';
@@ -15,13 +30,18 @@ import Reviews from './Reviews/Reviews'
 import CreateReview from "./CreateReview/CreateReview";
 import EditReview from './EditReview/EditReview'
 // import ActorSearchPage from './pages/ActorSearchPage';
+
 import ActorPage from './pages/ActorPage';
 import Header from './layout/Header';
 import SearchResultsPage from './pages/SearchResultsPage';
-
+import Discover from './pages/Discover'
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import Footer from './layout/Footer';
+import ChatBubble from './conversations/ChatBubble';
+
+// import ConversationList from './conversations/ConversationList';
+
 import './App.css';
 
 function App() {
@@ -36,6 +56,17 @@ function App() {
       setToastMessage('');
     }, 4000);
   };
+
+  useEffect(() => {
+
+    socket.on("reviewCreated", (data) => {
+      triggerToast(`${data.author} published a new review !`, "⭐"); });
+    
+    return () => 
+      {socket.off("reviewCreated");}; 
+    
+    }, []);
+
 return (
   <BrowserRouter>
     <div className="app">
@@ -46,7 +77,6 @@ return (
       <main className="app-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/movie/:id" element={<MoviePage />} />
           <Route path="/auth" element={<Auth triggerToast={triggerToast} />} />
           <Route path="/profile" element={<ProfilePage triggerToast={triggerToast} />} />
           <Route path="/profile/:id" element={<ProfilePage triggerToast={triggerToast} />} />
@@ -58,14 +88,19 @@ return (
           <Route path="/reviews/me" element={<MyReviews triggerToast={triggerToast} />} />
           <Route path="/create-review/:movieId" element={<CreateReview triggerToast={triggerToast} />} />
           <Route path="/edit-review/:id" element={<EditReview triggerToast={triggerToast} />} />
+
           <Route path="/search/:query" element={<SearchResultsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/actor/:id" element={<ActorPage />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/conversations" element={<ConversationPage />} />
+          <Route path="/movie/:id" element={<MoviePage triggerToast={triggerToast} />} />
         </Routes>
       </main>
 
       <Footer />
+      <ChatBubble />
     </div>
   </BrowserRouter>
 );

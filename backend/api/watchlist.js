@@ -7,6 +7,7 @@ router.get('/', authenticateToken, watchlistController.getWatchlist);
 router.post('/:movie_id', authenticateToken,watchlistController.addToWatchlist);
 router.delete('/:movie_id', authenticateToken, watchlistController.removeFromWatchlist);
 
+router.get('/user/:userId', authenticateToken, watchlistController.getWatchlistByUserId);
 // router.get('/', watchlistController.getWatchlist)
 // router.post('/:movie_id', watchlistController.addToWatchlist)
 // router.delete('/:movie_id', watchlistController.removeFromWatchlist)

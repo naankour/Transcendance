@@ -94,9 +94,30 @@ const removeFromWatchlist = async(req, res) =>
     }
 };
 
+const getWatchlistByUserId = async (req, res) => {
+    try {
+        const user_id = parseInt(req.params.userId);
+
+        const watchlist = await prisma.watchlist.findMany({
+            where: {
+                user_id: user_id
+            },
+            include: {
+                movies: true
+            }
+        });
+        res.status(200).json(watchlist);
+    }
+    catch (error)
+    {
+        console.error('Error in getWatchlistByUserId:', error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
 module.exports = {
     getWatchlist,
     addToWatchlist,
-    removeFromWatchlist
+    removeFromWatchlist,
+    getWatchlistByUserId
 };

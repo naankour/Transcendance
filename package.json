@@ -4,5 +4,6 @@
   },
   "dependencies": {
     "socket.io-client": "^4.8.3"
+
   }
 }

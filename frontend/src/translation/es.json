@@ -7,7 +7,7 @@
 		"navLabel": "INICIO",
 		"navMovies": "PELÍCULAS",
 		"navReviews": "RESEÑAS",
-		"navWatchlist": "POR VER",
+		"navWatchlist": "WATCHLIST",
 		"navFavorites": "FAVORITOS",
 		"navProfile": "PERFIL",
 		"login": "Iniciar sesión",
@@ -27,14 +27,85 @@
 		"noResults": "Sin resultados.",
 		"movies": "Películas",
 		"actorsDirectors": "Actores / directores",
-		"users": "Usuarios"
+		"users": "Usuarios",
+		"loadMore": "Cargar más"
 	},
-	"watchlistPage": {
-		"watchlist": "Mi Lista de Seguimiento",
-		"movieID": "ID de la película:"
+	"watchlist": {
+		"loading": "Cargando...",
+		"title": "Mi Watchlist",
+		"empty": "Tu watchlist está vacía",
+		"error": "Error: {{message}}"
+	  },
+	  "favorites": {
+		"loading": "Cargando...",
+		"title": "Mis Favoritos",
+		"empty": "Tu lista de favoritos está vacía",
+		"error": "Error: {{message}}"
 	},
-
-
+	"reviews": {
+		"loading": "Cargando...",
+		"title": "Todas las Reviews",
+		"empty": "Todavía no tienes ninguna review",
+		"error": "Error: {{message}}",
+		"rating": "Puntuación"
+	  },
+	  "myReviews": {
+		"loading": "Cargando...",
+		"title": "Mis Reviews",
+		"empty": "Todavía no tienes ninguna review",
+		"error": "Error: {{message}}",
+		"rating": "Puntuación"
+	  },
+	  "followers": {
+		"loading": "Cargando...",
+		"title": "Mis seguidores",
+		"empty": "Todavía no tienes seguidores.",
+		"error": "Error: {{message}}"
+	  },
+	  "follows": {
+		"loading": "Cargando...",
+		"title": "Mis Follows",
+		"empty": "Todavía no sigues a nadie...",
+		"error": "Error: {{message}}"
+	  },
+	  "editReview": {
+		"title": "Editar Review",
+		"ratingPlaceholder": "Puntuación (0.5 - 5)",
+		"contentPlaceholder": "Tu review...",
+		"update": "Modificar",
+		"delete": "Eliminar",
+		"updated": "¡Review modificada!",
+		"deleted": "¡Review eliminada!",
+		"error": "Error: {{message}}"
+	  },
+	  "reviewsSimple": {
+		"title": "Mis Reviews",
+		"movieId": "ID de película",
+		"rating": "Puntuación",
+		"content": "Contenido",
+		"edit": "Modificar"
+	  },
+	  "profileEdit": {
+		"changePhoto": "Cambiar foto 📷",
+		"newPhoto": "Nueva foto: {{name}}",
+		"username": "Nombre de usuario",
+		"firstname": "Nombre",
+		"lastname": "Apellido",
+		"email": "Email",
+		"bio": "Biografía",
+		"changePassword": "Caaaaaaambia la contraaaaaaaseñaaaaaaa",
+		"currentPassword": "Contraseña actual",
+		"currentPasswordPlaceholder": "Introduce tu contraseña actual",
+		"newPassword": "Nueva contraseña",
+		"newPasswordPlaceholder": "Introduce tu nueva contraseña",
+		"save": "Guardar",
+		"saving": "Guardando...",
+		"cancel": "Cancelar",
+		"updateSuccess": "¡Perfil actualizado correctamente!",
+		"updateFailed": "Error al actualizar el perfil",
+		"somethingWrong": "Algo salió mal"
+	  },
+	  
 	"terms": {
 		"title": "Términos de servicio",
 		"lastUpdated": "Última actualización: 2 de agosto de 2026",
@@ -190,10 +261,129 @@
 		"visitorCount": "Visitantes",
 		"friendsActivity": "Actividad de amigos",
 		"loading": "Cargando...",
-		"noRecommendation": "No hay recomendación disponible en este momento."
+		"noRecommendation": "No hay recomendación disponible en este momento.",
+		"friendsActivityLoginPrompt": "Inicia sesión o crea una cuenta para ver la actividad de tus amigos.",
+		"friendsActivityEmpty": "Ninguna actividad reciente de las personas que sigues.",
+		"activityReviews": "Reseñas",
+		"activityWatchlist": "Añadidos a la watchlist",
+		"activityFavorites": "Añadidos a favoritos",
+		"activityFollow": "empezó a seguir a",
+		"visitorCounterText" : "Cinéfilos han pasado por aquí!",
+		"aboutMe": "Sobre mí",
+		"viewProfile": "Ver mi perfil",
+		"noBio": "Todavía no hay biografía.",
+		"latestReviewsError": "No se pueden cargar las últimas reseñas.",
+		"latestReviewsEmpty": "Todavía no se ha publicado ninguna reseña.",
+		"reviewed": "ha reseñado",
+		"rating": "Puntuación",
+		"aboutMeLoginPrompt": "Inicia sesión para ver tu sección sobre mí.",
+		"login": "Iniciar sesión",
+		"memberSince": "Miembro desde {{date}}",
+		"dateLocale": "es-ES",
+		"seeAllReviews": "Ver más"
+	},
+
+	"moviePage": {
+		"backToSearch": "Volver a la búsqueda",
+		"loading": "Cargando...",
+		"director": "Director",
+		"genres": "Géneros",
+		"rating": "Nota",
+		"userRating": "Nota media (usuarios)",
+		"duration": "Duración",
+		"cast": "Reparto",
+		"unknown": "Desconocido",
+		"notFound": "Película no encontrada",
+		"synopsis": "Sinopsis",
+		"leaveReview": "Dejar una reseña",
+		"reviewPlaceholder": "Tu opinión sobre la película...",
+		"submitting": "Enviando...",
+		"publishReview": "Publicar mi reseña",
+		"reviewsCount": "Reseñas ({{count}})",
+		"noReviews": "Aún no hay reseñas.",
+		"editReview": "Editar mi reseña",
+		"updateReview": "Actualizar mi reseña",
+		"you": "tú"
 	},
 
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
+	},
+	"auth": {
+		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
+		"requiredButton": "Iniciar sesión"
+	},
+	"discover": {
+		"title": "✦ Descubrir películas ✦",
+		"filters": {
+			"genre": "Elegir un género:",
+			"anyGenre": "Todos los géneros",
+			"sort": "Ordenar",
+			"neutral": "Orden neutro",
+			"popularity": "Popularidad",
+			"highestFirst": "De más populares a menos populares",
+			"lowestFirst": "De menos populares a más populares",
+			"releaseDate": "Fecha de estreno",
+			"newestFirst": "Más recientes",
+			"earliestFirst": "Más antiguos",
+			"rating": "Valoración",
+			"highestRated": "Mejor valorados",
+			"lowestRated": "Peor valorados",
+			"year": "Año",
+			"anyYear": "Todos los años",
+			"language": "Todos los idiomas",
+			"english": "Inglés",
+			"french": "Francés",
+			"spanish": "Español",
+			"japanese": "Japonés",
+			"korean": "Coreano",
+			"german": "Alemán",
+			"italian": "Italiano",
+			"backToDecades": "← volver a las décadas"
+		},
+		"status": {
+			"loading": "Cargando...",
+			"noMovies": "No se encontraron películas con estos filtros.",
+			"noMoreMovies": "✦ No hay más películas disponibles con estos filtros ✦"
+		},
+		"pagination": {
+			"previous": "Anterior",
+			"next": "Siguiente"
+		}
+	},
+	"movieListButton": {
+		"addedToWatchlist": "¡Película añadida a la watchlist!",
+		"removedFromWatchlist": "¡Película eliminada de la watchlist!",
+		"addedToFavorites": "¡Película añadida a favoritos!",
+		"removedFromFavorites": "¡Película eliminada de favoritos!",
+		"addToWatchlist": "Añadir a la watchlist",
+		"removeFromWatchlist": "Quitar de la watchlist",
+		"addToFavorites": "Añadir a favoritos",
+		"removeFromFavorites": "Quitar de favoritos"
+	},
+	"followsButton": {
+		"followed": "Ahora sigues a este usuario",
+		"unfollowed": "Has dejado de seguir a este usuario",
+		"follow": "Seguir",
+		"unfollow": "Dejar de seguir"
+	},
+	"chatBubble": {
+		"back": "← volver",
+		"messages": "✎ Mensajes",
+		"contacts": "+ Contactos"
+	},
+	"chatWindow": {
+		"loadingMessages": "Cargando mensajes...",
+		"writeMessagePlaceholder": "Escribe un mensaje...",
+		"send": "Enviar ✦"
+	},
+	"conversationPage": {
+		"myConversations": "Mis conversaciones",
+		"follows": "Seguidos",
+		"emptyState": "Selecciona una conversación para empezar a hablar."
+	},
+	"newMessageList": {
+		"loading": "Cargando...",
+		"empty": "No sigues a nadie por el momento ✦"
 	}
 }
