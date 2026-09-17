@@ -7,6 +7,8 @@ import Followers  from '../Followers/Followers';
 import Follows from '../Follows/Follows';
 import Watchlist from '../Watchlist/Watchlist';
 import Favorites from '../Favorites/Favorites';
+import AuthRequired from "../components/AuthRequired";
+
 
 
 export function ProfilePage({ triggerToast }) 
@@ -124,7 +126,7 @@ export function ProfilePage({ triggerToast })
     return <div className="profile-container">Loading profile...</div>;
 
   if (!user) 
-    return <div className="profile-container">Could not load profile.</div>;
+    return <AuthRequired />
 
   return (
     <div className="profile-container">

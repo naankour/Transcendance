@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import defaultActor from '../assets/sticker-mask.png';
+import { getAvatarUrl } from '../utils/avatar.js';
 import '../styles/SearchResultsPage.css';
 
 interface MovieResult {
@@ -182,26 +183,21 @@ function SearchResultsPage() {
 								className="search-page-card"
 								onClick={() => navigate(`/actor/${person.id}`)}
 							>
-								{person.profile_path && (
-									<img
-										src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
-										alt={person.name}
-										className="search-page-avatar"
-									/>
-								)}
-								{!person.profile_path && (
-									<img
-										src={defaultActor}
-										alt={person.name}
-										className="search-page-avatar"
-									/>
-								)}
+								<img
+									src={
+										person.profile_path
+											? `https://image.tmdb.org/t/p/w200${person.profile_path}`
+											: defaultActor
+									}
+									alt={person.name}
+									className="search-page-avatar"
+								/>
 								<p className="search-page-card-title">{person.name}</p>
 							</div>
 						))}
 					</div>
 					{hasMorePeople && (
-						<button 
+						<button
 							type="button"
 							className="search-page-load-more"
 							disabled={loadingMore}
@@ -223,13 +219,11 @@ function SearchResultsPage() {
 								className="search-page-card"
 								onClick={() => navigate(`/profile/${user.id}`)}
 							>
-								{user.avatar_url && (
-									<img
-										src={user.avatar_url}
-										alt={user.username}
-										className="search-page-avatar"
-									/>
-								)}
+								<img
+									src={getAvatarUrl(user.avatar_url)}
+									alt={user.username}
+									className="search-page-avatar"
+								/>
 								<p className="search-page-card-title">{user.username}</p>
 							</div>
 						))}

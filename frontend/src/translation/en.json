@@ -19,7 +19,9 @@
 		"born": "Born:",
 		"noBiography": "No biography available.",
 		"filmography": "Filmography",
-		"biographyFallbackNotice": "(Biography only available in English)"
+		"biographyFallbackNotice": "(Biography only available in English)",
+		"roleActor": "Actor",
+		"roleDirector": "Director"
 	},
 	"searchPage": {
 		"resultsFor": "Results for \"{{query}}\"",

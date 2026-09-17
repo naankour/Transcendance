@@ -19,7 +19,9 @@
 		"born": "Né(e) le :",
 		"noBiography": "Aucune biographie disponible.",
 		"filmography": "Filmographie",
-		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)"
+		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)",
+		"roleActor": "Acteur",
+		"roleDirector": "Réalisateur"
 	},
 	
 	"searchPage": {

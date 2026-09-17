@@ -105,7 +105,7 @@ function FriendsActivity() {
 	if (!feed) {
 		return (
 			<p className="friends-activity-status">
-				{t('home.noRecommendation')}
+				{t('errors.generic')}
 			</p>
 		);
 	}
