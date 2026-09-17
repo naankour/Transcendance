@@ -24,6 +24,51 @@ interface UserResult {
 	avatar_url: string | null;
 }
 
+function isTokenValid(token: string | null): boolean {
+	if (!token) {
+		return false;
+	}
+
+	const parts = token.split('.');
+	if (parts.length !== 3) {
+		return false;
+	}
+
+	try {
+		const payload = JSON.parse(atob(parts[1]));
+		if (!payload.exp) {
+			return true;
+		}
+		return payload.exp * 1000 > Date.now();
+	} catch {
+		return false;
+	}
+}
+
+let fetchPatched = false;
+
+function patchFetchOnce() {
+	if (fetchPatched) {
+		return;
+	}
+	fetchPatched = true;
+
+	const originalFetch = window.fetch;
+
+	window.fetch = async (...args: Parameters<typeof fetch>) => {
+		const response = await originalFetch(...args);
+
+		if (response.status === 401 || response.status === 403) {
+			if (localStorage.getItem('token')) {
+				localStorage.removeItem('token');
+				window.dispatchEvent(new Event('auth:expired'));
+			}
+		}
+
+		return response;
+	};
+}
+
 function Header() {
 	const { t, i18n } = useTranslation();
 	const [query, setQuery] = useState('');
@@ -35,10 +80,21 @@ function Header() {
 	const location = useLocation();
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+	const [isLoggedIn, setIsLoggedIn] = useState(isTokenValid(localStorage.getItem('token')));
 
 	useEffect(() => {
-		setIsLoggedIn(!!localStorage.getItem('token'));
+		patchFetchOnce();
+
+		const handleAuthExpired = () => {
+			setIsLoggedIn(false);
+		};
+
+		window.addEventListener('auth:expired', handleAuthExpired);
+		return () => window.removeEventListener('auth:expired', handleAuthExpired);
+	}, []);
+
+	useEffect(() => {
+		setIsLoggedIn(isTokenValid(localStorage.getItem('token')));
 	}, [location.pathname]);
 
 	useEffect(() => {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
 import AuthRequired from "../components/AuthRequired";
@@ -11,6 +12,7 @@ function getPosterUrl(poster: string | null) {
 }
 
 const Watchlist = ({ triggerToast }) => {
+  const { t } = useTranslation();
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -58,20 +60,20 @@ useEffect(() => {
     });
 
 }, []);
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p>{t('watchlist.loading')}</p>
   if (isAuthError) return <AuthRequired />
-  if (error) return <p>Error : {error}</p>
+  if (error) return <p>{t('watchlist.error', { message: error })}</p>
 
     return (
   <div className="watchlist-page">
 
     <h1 className="watchlist_title">
-      My Watchlist
+      {t('watchlist.title')}
     </h1>
 
     {watchlist.length === 0 ? (
       <p className="watchlist-empty">
-        Your watchlist is empty
+        {t('watchlist.empty')}
       </p>
     ) : (
 

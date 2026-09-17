@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import "./Reviews.css";
 import UserCard from '../components/UserCard';
 import { Link } from "react-router-dom";
 
 const Reviews = () => {
+    const { t } = useTranslation();
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -33,16 +35,16 @@ const Reviews = () => {
         });
     }, []);
 
-    if (loading) return <p className="reviews-loading">Loading...</p>;
-    if (error) return <p className="reviews-error">Error : {error}</p>;
+    if (loading) return <p className="reviews-loading">{t('reviews.loading')}</p>;
+    if (error) return <p className="reviews-error">{t('reviews.error', { message: error })}</p>;
 
     return (
         <div className="reviews-page">
-            <h1 className="reviews-title"> All Reviews</h1>
+            <h1 className="reviews-title">{t('reviews.title')}</h1>
 
             {reviews.length === 0 ? (
                 <p className="reviews-empty">
-                    You don't have any reviews yet
+                    {t('reviews.empty')}
                 </p>
             ) : (
                 <div className="reviews-list">
@@ -77,7 +79,7 @@ const Reviews = () => {
                                 </p>
 
                                 <p className="reviews-rating">
-                                    Rating : {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                                    {t('reviews.rating')} : {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
                                 </p>
 
                             </div>

@@ -33,6 +33,16 @@ function FriendsActivity() {
 	const [loggedOut, setLoggedOut] = useState(false);
 
 	useEffect(() => {
+		const handleAuthExpired = () => {
+			setFeed(null);
+			setLoggedOut(true);
+		};
+
+		window.addEventListener('auth:expired', handleAuthExpired);
+		return () => window.removeEventListener('auth:expired', handleAuthExpired);
+	}, []);
+
+	useEffect(() => {
 		const token = localStorage.getItem('token');
 
 		if (!token) {
@@ -48,6 +58,11 @@ function FriendsActivity() {
 		})
 			.then(async (res) => {
 				const data = await res.json();
+
+				if (res.status === 401 || res.status === 403) {
+					setLoggedOut(true);
+					return;
+				}
 
 				if (!res.ok)
 					throw new Error(data.error || 'Error');

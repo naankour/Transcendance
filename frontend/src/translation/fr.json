@@ -7,7 +7,7 @@
 		"navLabel": "ACCUEIL",
 		"navMovies": "FILMS",
 		"navReviews": "AVIS",
-		"navWatchlist": "À VOIR",
+		"navWatchlist": "WATCHLIST",
 		"navFavorites": "FAVORIS",
 		"navProfile": "PROFIL",
 		"login": "Connexion",
@@ -29,12 +29,32 @@
 		"actorsDirectors": "Acteurs / réalisateurs",
 		"users": "Utilisateurs"
 	},
-	"watchlistPage": {
-		"watchlist": "Ma Watchlist",
-		"movieID": "Film ID :"
+	"watchlist": {
+		"loading": "Chargement...",
+		"title": "Ma Watchlist",
+		"empty": "Ta watchlist est vide",
+		"error": "Erreur : {{message}}"
 	},
-
-
+	"favorites": {
+		"loading": "Chargement...",
+		"title": "Mes Favoris",
+		"empty": "Ta liste de favoris est vide",
+		"error": "Erreur : {{message}}"
+	},
+	"reviews": {
+		"loading": "Chargement...",
+		"title": "Toutes les Reviews",
+		"empty": "Tu n'as pas encore de review",
+		"error": "Erreur : {{message}}",
+		"rating": "Note"
+	  },
+	  "myReviews": {
+		"loading": "Chargement...",
+		"title": "Mes Reviews",
+		"empty": "Tu n'as pas encore de review",
+		"error": "Erreur : {{message}}",
+		"rating": "Note"
+	  },
 	"terms": {
 		"title": "Conditions d'utilisation",
 		"lastUpdated": "Dernière mise à jour : 2 août 2026",
@@ -239,4 +259,6 @@
 		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
 		"requiredButton": "Se connecter"
 	}
+
+
 }
