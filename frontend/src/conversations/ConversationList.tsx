@@ -1,6 +1,3 @@
-// composant qui liste les conversations d'un user
-// utilise GET /api/conversations (getMyConversations)
-
 import {useState, useEffect} from 'react';
 import { socket } from '../../socket';
 import './ChatBubble.css'
@@ -33,31 +30,34 @@ export default function ConversationList({ selectedConversationId, onSelect }: C
     
     const [conversation, setConversation] = useState<Conv[]>([]);
 
-    async function fetchConversations() {
-  try {
-    const token = localStorage.getItem('token');
+    async function fetchConversations() 
+    {
+      const token = localStorage.getItem('token');
 
-        console.log("TOKEN :", token);
-
+      if (!token) 
+      {
+        setConversation([]);
+        return;
+      }
+    
+    try 
+    {
     const request = await fetch('/api/conversations', {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
 
-    console.log("STATUS :", request.status);
-
-    const data = await request.json();
-
-    console.log("DATA CONVERSATIONS :", data);
-
-    if (!request.ok) {
+    if (!request.ok) 
+    {
       throw new Error(`Erreur HTTP ${request.status}`);
     }
 
-    
+    const data = await request.json();
     setConversation(data);
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     console.error(error);
   }
 }

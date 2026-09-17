@@ -51,7 +51,6 @@ export default function Discover() {
   const rawTotalPagesRef = useRef(1);
   const exhaustedRef = useRef(false);
   const lastFiltersKeyRef = useRef('');
-  // const pageCacheRef = useRef<Map<number, Movie[]>>(new Map());
 
 	const navigate = useNavigate();
 
@@ -211,35 +210,6 @@ export default function Discover() {
     fetchMovies();
   }, [genre, year, sort, language, page]);
   
-//   useEffect(() => {
-//     if (isFirstRender.current) {
-//     isFirstRender.current = false;
-//     return;
-//   }
-//   setPage(1);
-//   seenIdsRef.current = new Set();
-//   movieBufferRef.current = [];
-//   rawPageCursorRef.current = 0;
-//   rawTotalPagesRef.current = 1;
-//   exhaustedRef.current = false;
-// }, [genre, year, sort, language]);
-
-// useEffect(() => {
-//     const params: Record<string, string> = {};
-//     if (genre) 
-//       params.genre = genre;
-//     if (year)
-//         params.year = year;
-//     if (sort)
-//       params.sort = sort;
-//     if (language)
-//       params.language = language;
-//     params.page = page.toString();
-
-//     setSearchParams(params, { replace: true });
-//   }, [genre, year, sort ,language, page]);
-
-
   const decades = buildDecades();
 
    function handleSelectYear(y: number) {
@@ -405,35 +375,3 @@ export default function Discover() {
     </div>
   );
 }
-
-// export default function Discover() {
-//     const [genreArray, setGenreArray] = useState<Genre[]>([]);
-//     const navigate = useNavigate();
-//     // const [id, setId] = useState('');
-    
-    // async function fetchGenres() {
-    // const request = await fetch(`/api/genres`);
-    
-    // const data = await request.json();
-    // console.log(data);
-    // setGenreArray(data.genres);
-    // }
-    // useEffect(()=>{
-    // fetchGenres()}, []);
-
-//         function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>)
-//         {
-//             navigate(`/genres/${e.target.value.trim()}`);
-//         }
-
-//     return (
-//         <div>
-//             <label htmlFor="genres">Choose a genre:</label>
-//             <select name="genres" onChange={handleSelectChange}>
-//                 {genreArray.map(genre => <option key={genre.id} value={genre.id} >{genre.name}</option>)}
-
-//             </select>
-//             {/* <h2>POPO</h2> */}
-//         </div>
-//     )
-// }

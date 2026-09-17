@@ -24,11 +24,21 @@ const io = new Server(server, {
 
 app.set("io", io);
 
+const onlineUsers = new Map();
+app.set("onlineUsers", onlineUsers);
+
 io.on("connection", (socket) => {
   console.log("User connected :", socket.id);
 
   socket.on("identify", (userId) => {
     socket.join(`user_${userId}`);
+    socket.data.userId = userId;
+    const count = onlineUsers.get(userId) || 0;
+
+    onlineUsers.set(userId, count + 1);
+
+    io.emit("userOnline", { userId });
+
     console.log(`Socket ${socket.id} identified as user_${userId}`);
   });
 
@@ -43,6 +53,21 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    const userId = socket.data.userId;
+
+    if (userId)
+    {
+      const count = onlineUsers.get(userId) || 0;
+
+      if (count <= 1)
+      {
+        onlineUsers.delete(userId);
+        io.emit("userOffline", { userId });
+       }
+      else {
+          onlineUsers.set(userId, count - 1);
+        }
+      }
     console.log("User disconnected :", socket.id);
   });
 });
@@ -94,9 +119,6 @@ app.use('/api', visitorRoutes);
 
 const activityRoutes = require('./api/activity');
 app.use('/api', activityRoutes);
-
-// const genreRoutes = require('./api/genres');
-// app.use('/api/genres', genreRoutes);
 
 async function startServer() {
   console.log("1");

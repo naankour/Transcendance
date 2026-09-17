@@ -1,8 +1,3 @@
-// composant qui affiche une conversation 
-// utilise GET /api/conversations/:id/messages (getMessages)
-// écoute les nouveaux messages en temps réel
-// envoie des messages
-
 import {useState, useEffect} from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { socket } from '../../socket';
@@ -46,6 +41,12 @@ export default function ChatWindow({ conversationId }: ChatWindowProps) {
     try {
       const token = localStorage.getItem('token');
 
+      if (!token) 
+      {
+        setLoading(false);
+        return;
+      }
+
       const request = await fetch(`/api/conversations/${conversationId}/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,17 +64,26 @@ export default function ChatWindow({ conversationId }: ChatWindowProps) {
     catch (error) {
         console.error(error);
     }
-    finally {
+    finally 
+      {
         setLoading(false);
-        }
+      }
     }
 
     async function markAsRead() {
+
+      const token = localStorage.getItem('token');
+      if (!token) 
+        return;
+
       try {
-        await fetch(`/api/conversations/${conversationId}/read`, {
+        const request = await fetch(`/api/conversations/${conversationId}/read`, {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
         });
+
+        if (!request.ok)
+          return;
         refreshUnreadCount();
       }
       catch (error) {

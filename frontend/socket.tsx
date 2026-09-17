@@ -5,6 +5,11 @@ export const socket = io("https://localhost", {
   transports: ["websocket"]
 });
 
+export function disconnectSocket() {
+  socket.disconnect();
+  socket.connect();
+}
+
 export function identifySocket() {
   const token = localStorage.getItem('token');
   if (!token) return;
@@ -24,4 +29,4 @@ export function identifySocket() {
   }
 }
 
-identifySocket();
+socket.on('connect', identifySocket);

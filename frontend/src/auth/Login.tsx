@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { identifySocket } from '../../socket';
+import { refreshUnreadCount } from '../notification';
 
 export function Login({ onSwitchToRegister, triggerToast }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -30,6 +31,7 @@ export function Login({ onSwitchToRegister, triggerToast }) {
       if (data.token) {
         localStorage.setItem('token', data.token);
         identifySocket();
+        refreshUnreadCount();
       }
 
       triggerToast("You're in ◝(ᵔᗜᵔ)◜ heehee...");

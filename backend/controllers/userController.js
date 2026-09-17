@@ -222,11 +222,28 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getUserOnlineStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const onlineUsers = req.app.get('onlineUsers');
+
+    const isOnline = onlineUsers.has(Number(id));
+
+    return res.json({ isOnline });
+  }
+  catch (error)
+  {
+    console.error('Error checking online status:', error);
+    return res.status(500).json({ error: 'Internal server error'});
+  }
+}
+
 module.exports = {
   getMyProfile,
   updateMyProfile,
   deleteMyProfile,
   getUserById,
   getUsers,
+  getUserOnlineStatus,
   upload
 };

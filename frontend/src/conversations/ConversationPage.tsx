@@ -1,5 +1,3 @@
-// page conversation qui contient les composants ConversationList et ChatWindow
-
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ConversationList from './ConversationList';
@@ -24,9 +22,6 @@ export default function ConversationPage() {
                     <button className={`conversation-page-tab ${showNewMessage ? 'active' : ''}`}
                     onClick={() => setShowNewMessage(true)}>Follows</button>
                 </div>
-                {/* <ConversationList 
-                selectedConversationId={selectedConversationId}
-                onSelect={(id) => setSelectedConversationId(id)} /> */}
                 <div className="conversation-page-list">
                 {showNewMessage ? (
                     <NewMessageList

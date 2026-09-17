@@ -1,5 +1,6 @@
 import { getAvatarUrl } from '../utils/avatar';
-import FollowsButton from '../components/FollowsButton'
+import FollowsButton from '../components/FollowsButton';
+import OnlineStatus from '../components/Onlinestatus';
 
 export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, triggerToast, isFollowing, onFollowChange }) {
   return (
@@ -11,6 +12,7 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, tr
       />
       <div className="profile-header-info">
         <h2 className="profile-username">{user.username}</h2>
+        <OnlineStatus userId={user.id} />
         {(user.firstname || user.lastname) && (
           <p className="profile-fullname">
             {user.firstname} {user.lastname}
@@ -44,32 +46,8 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, tr
             onSuccess={onFollowChange}
           />
 
-          {/* </FollowsButton> */}
         </div>
       )}
     </div>
   );
 }
-
-{/* <FollowsButton
-userId={item.follower_id}
-action={alreadyFollowing ? "unfollow" : "follow"}
-triggerToast={triggerToast}
-onSuccess={() => {
-    if (alreadyFollowing) 
-    {
-        setMyFollows(prev =>
-            prev.filter(
-                follow => follow.followed_id !== item.follower_id
-            )
-        );
-    } 
-    else 
-    {
-        setMyFollows(prev => [
-            ...prev,
-            { followed_id: item.follower_id }
-        ]);
-    }
-}}
-/> */}

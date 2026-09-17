@@ -25,21 +25,6 @@ export default function ChatBubble() {
         return unsubscribe;
     }, []);
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-
-    //     fetch('/api/conversations', {
-    //         headers: { Authorization: `Bearer ${token}` },
-    //     })
-    //     .then((res) => res.json())
-    //     .then((conversations: any[]) => {
-    //         conversations.forEach((conv) => {
-    //             socket.emit('joinConversation', conv.id);
-    //         });
-    //     })
-    //     .catch((err) => console.error(err));
-    // }, []);
-
 	useEffect(() => {
 		socket.on('conversationUpdated', refreshUnreadCount);
 

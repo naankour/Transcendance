@@ -3,6 +3,8 @@ import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import '../styles/Header.css';
+import { disconnectSocket } from '../../socket';
+import { setUnreadCount } from '../notification';
 
 
 interface MovieResult {
@@ -61,6 +63,8 @@ function patchFetchOnce() {
 		if (response.status === 401 || response.status === 403) {
 			if (localStorage.getItem('token')) {
 				localStorage.removeItem('token');
+				disconnectSocket();
+				setUnreadCount(0);
 				window.dispatchEvent(new Event('auth:expired'));
 			}
 		}
@@ -165,6 +169,8 @@ function Header() {
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
+		disconnectSocket();
+		setUnreadCount(0);
 		setIsLoggedIn(false);
 		navigate('/');
 	};

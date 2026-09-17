@@ -22,6 +22,12 @@ export function subscribeUnreadCount(listener: Listener) {
 }
 
 export async function refreshUnreadCount() {
+    const token = localStorage.getItem('token');
+    if (!token)
+    {
+        setUnreadCount(0);
+        return;
+    }
     try {
         const token = localStorage.getItem('token');
         const request = await fetch('/api/conversations/unread-count', {
