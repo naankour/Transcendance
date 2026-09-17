@@ -8,8 +8,5 @@ router.post('/:movie_id', authenticateToken, favoriteController.addFavorite);
 router.delete('/:movie_id', authenticateToken, favoriteController.removeFavorite);
 
 router.get('/user/:userId', authenticateToken, favoriteController.getFavoritesByUserId);
-// router.get('/', favoriteController.getFavorites)
-// router.post('/:movie_id', favoriteController.addFavorite)
-// router.delete('/:movie_id', favoriteController.removeFavorite)
 
 module.exports = router;
