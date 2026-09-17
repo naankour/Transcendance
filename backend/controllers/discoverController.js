@@ -60,7 +60,18 @@ const getMovies = async (req, res) => {
 
 const getGenre = async (req, res) => {
     try {
-    const request = await fetch('https://api.themoviedb.org/3/genre/movie/list', 
+    const language = req.query.language;
+    const validLanguages = ["en-US", "fr-FR", "es-ES"];
+
+    const params = new URLSearchParams();
+
+    if (validLanguages.includes(language)) {
+        params.append("language", language);
+    } else {
+        params.append("language", "en-US");
+    }
+
+    const request = await fetch(`https://api.themoviedb.org/3/genre/movie/list?${params.toString()}`, 
         {
             headers: {
                 Authorization: `Bearer ${process.env.TMDB_API_KEY}`,

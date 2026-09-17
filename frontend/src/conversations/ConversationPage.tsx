@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ConversationList from './ConversationList';
 import ChatWindow from './ChatWindow';
 import NewMessageList from './NewMessageList';
 import './ConversationPage.css';
 
 export default function ConversationPage() {
+    const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const idFromUrl = searchParams.get('id');
 
@@ -18,9 +20,9 @@ export default function ConversationPage() {
         <div className="conversation-page">
             <div className="conversation-page-sidebar">
                 <div className="conversation-page-tabs">
-                    <button onClick={() => setShowNewMessage(false)}className={`conversation-page-tab ${!showNewMessage ? 'active' : ''}`}>My conversations</button>
+                    <button onClick={() => setShowNewMessage(false)}className={`conversation-page-tab ${!showNewMessage ? 'active' : ''}`}>{t('conversationPage.myConversations')}</button>
                     <button className={`conversation-page-tab ${showNewMessage ? 'active' : ''}`}
-                    onClick={() => setShowNewMessage(true)}>Follows</button>
+                    onClick={() => setShowNewMessage(true)}>{t('conversationPage.follows')}</button>
                 </div>
                 <div className="conversation-page-list">
                 {showNewMessage ? (
@@ -43,7 +45,7 @@ export default function ConversationPage() {
                 {selectedConversationId ? (
                     <ChatWindow conversationId={selectedConversationId} />
                 ) : (
-                    <p className="conversation-page-empty">Select a conversation to start discussing.</p>
+                    <p className="conversation-page-empty">{t('conversationPage.emptyState')}</p>
                 )}
             </div>
         </div>

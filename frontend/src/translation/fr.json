@@ -19,7 +19,9 @@
 		"born": "Né(e) le :",
 		"noBiography": "Aucune biographie disponible.",
 		"filmography": "Filmographie",
-		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)"
+		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)",
+		"roleActor": "Acteur",
+		"roleDirector": "Réalisateur"
 	},
 	
 	"searchPage": {
@@ -312,7 +314,78 @@
 	"auth": {
 		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
 		"requiredButton": "Se connecter"
+	},
+	"discover": {
+		"title": "✦ Découvrir des films ✦",
+		"filters": {
+			"genre": "Choisir un genre :",
+			"anyGenre": "Tous les genres",
+			"sort": "Trier",
+			"neutral": "Tri neutre",
+			"popularity": "Popularité",
+			"highestFirst": "Du plus populaire au moins populaire",
+			"lowestFirst": "Du moins populaire au plus populaire",
+			"releaseDate": "Date de sortie",
+			"newestFirst": "Les plus récents",
+			"earliestFirst": "Les plus anciens",
+			"rating": "Note",
+			"highestRated": "Les mieux notés",
+			"lowestRated": "Les moins bien notés",
+			"year": "Année",
+			"anyYear": "Toutes les années",
+			"language": "Toutes les langues",
+			"english": "Anglais",
+			"french": "Français",
+			"spanish": "Espagnol",
+			"japanese": "Japonais",
+			"korean": "Coréen",
+			"german": "Allemand",
+			"italian": "Italien",
+			"backToDecades": "← retour aux décennies"
+		},
+		"status": {
+			"loading": "Chargement...",
+			"noMovies": "Aucun film trouvé avec ces filtres.",
+			"noMoreMovies": "✦ Il n'y a plus de films disponibles avec ces filtres ✦"
+		},
+		"pagination": {
+			"previous": "Précédent",
+			"next": "Suivant"
+		}
+	},
+	"movieListButton": {
+		"addedToWatchlist": "Film ajouté à la watchlist !",
+		"removedFromWatchlist": "Film retiré de la watchlist !",
+		"addedToFavorites": "Film ajouté aux favoris !",
+		"removedFromFavorites": "Film retiré des favoris !",
+		"addToWatchlist": "Ajouter à la watchlist",
+		"removeFromWatchlist": "Retirer de la watchlist",
+		"addToFavorites": "Ajouter aux favoris",
+		"removeFromFavorites": "Retirer des favoris"
+	},
+	"followsButton": {
+		"followed": "Vous suivez maintenant cet utilisateur",
+		"unfollowed": "Vous ne suivez plus cet utilisateur",
+		"follow": "Suivre",
+		"unfollow": "Ne plus suivre"
+	},
+	"chatBubble": {
+		"back": "← retour",
+		"messages": "✎ Messages",
+		"contacts": "+ Contacts"
+	},
+	"chatWindow": {
+		"loadingMessages": "Chargement des messages...",
+		"writeMessagePlaceholder": "Écrire un message...",
+		"send": "Envoyer ✦"
+	},
+	"conversationPage": {
+		"myConversations": "Mes conversations",
+		"follows": "Follows",
+		"emptyState": "Sélectionnez une conversation pour commencer à discuter."
+	},
+	"newMessageList": {
+		"loading": "Chargement...",
+		"empty": "Vous ne suivez personne pour le moment ✦"
 	}
-
-
 }

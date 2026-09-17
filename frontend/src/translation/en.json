@@ -19,7 +19,9 @@
 		"born": "Born:",
 		"noBiography": "No biography available.",
 		"filmography": "Filmography",
-		"biographyFallbackNotice": "(Biography only available in English)"
+		"biographyFallbackNotice": "(Biography only available in English)",
+		"roleActor": "Actor",
+		"roleDirector": "Director"
 	},
 	"searchPage": {
 		"resultsFor": "Results for \"{{query}}\"",
@@ -309,5 +311,78 @@
 	"auth": {
 		"requiredDefault": "You need to be logged in to access this page.",
 		"requiredButton": "Log in"
+	},
+	"discover": {
+		"title": "✦ Discover Movies ✦",
+		"filters": {
+			"genre": "Choose a genre:",
+			"anyGenre": "Any Genre",
+			"sort": "Sort",
+			"neutral": "Neutral Sort",
+			"popularity": "Popularity",
+			"highestFirst": "Highest First",
+			"lowestFirst": "Lowest First",
+			"releaseDate": "Release Date",
+			"newestFirst": "Newest First",
+			"earliestFirst": "Earliest First",
+			"rating": "Rating",
+			"highestRated": "Highest Rated",
+			"lowestRated": "Lowest Rated",
+			"year": "Year",
+			"anyYear": "Any Year",
+			"language": "Any Language",
+			"english": "English",
+			"french": "French",
+			"spanish": "Spanish",
+			"japanese": "Japanese",
+			"korean": "Korean",
+			"german": "German",
+			"italian": "Italian",
+			"backToDecades": "← back to decades"
+		},
+		"status": {
+			"loading": "Loading...",
+			"noMovies": "No movies found for these filters.",
+			"noMoreMovies": "✦ No more movies available for these filters ✦"
+		},
+		"pagination": {
+			"previous": "Previous",
+			"next": "Next"
+		}
+	},
+	"movieListButton": {
+		"addedToWatchlist": "Movie added to watchlist !",
+		"removedFromWatchlist": "Movie removed from watchlist !",
+		"addedToFavorites": "Movie added to favorites !",
+		"removedFromFavorites": "Movie removed from favorites !",
+		"addToWatchlist": "Add to watchlist",
+		"removeFromWatchlist": "Remove from watchlist",
+		"addToFavorites": "Add to favorites",
+		"removeFromFavorites": "Remove from favorites"
+	},
+	"followsButton": {
+		"followed": "You followed this user",
+		"unfollowed": "You unfollowed this user",
+		"follow": "Follow",
+		"unfollow": "Unfollow"
+	},
+	"chatBubble": {
+		"back": "← back",
+		"messages": "✎ Messages",
+		"contacts": "+ Contacts"
+	},
+	"chatWindow": {
+		"loadingMessages": "Loading messages...",
+		"writeMessagePlaceholder": "Write a Message...",
+		"send": "Send ✦"
+	},
+	"conversationPage": {
+		"myConversations": "My conversations",
+		"follows": "Follows",
+		"emptyState": "Select a conversation to start discussing."
+	},
+	"newMessageList": {
+		"loading": "Loading...",
+		"empty": "You're following nobody at the moment ✦"
 	}
 }

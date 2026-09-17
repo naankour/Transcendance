@@ -45,7 +45,7 @@ function VisitorCounter() {
 		return (<p className="visitor-counter-status">{t('home.loading')}</p>);
     
 	if (count === null)
-		return (<p className="visitor-counter-status">{t('home.noRecommendation')}</p>);
+		return (<p className="visitor-counter-status">{t('errors.generic')}</p>);
 
 	const paddedCount = String(count).padStart(6, '0');
 	const digits = paddedCount.split('');

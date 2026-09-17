@@ -130,7 +130,7 @@ function Header() {
 		}, 300);
 
 		return () => clearTimeout(timeoutId);
-	}, [query]);
+	}, [query, i18n.language]);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -171,6 +171,7 @@ function Header() {
 		localStorage.removeItem('token');
 		disconnectSocket();
 		setUnreadCount(0);
+		window.dispatchEvent(new Event('auth:expired'));
 		setIsLoggedIn(false);
 		navigate('/');
 	};
@@ -287,7 +288,7 @@ function Header() {
 			</div>
 
 			<nav className="header-banner" aria-label={t('header.navLabel')}>
-				<NavLink to="/" end className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
+				<NavLink to="/discover" end className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navMovies')}</span>
 				</NavLink>
 				<NavLink to={isLoggedIn ? '/reviews/me' : '/reviews'} className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
