@@ -165,6 +165,7 @@ function Header() {
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
+		window.dispatchEvent(new Event('auth:expired'));
 		setIsLoggedIn(false);
 		navigate('/');
 	};
