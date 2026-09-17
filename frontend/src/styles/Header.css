@@ -250,6 +250,10 @@
 		font-size: 36px;
 	}
 
+	.header{
+		gap: 10px;
+	}
+
 	.header-logo-star {
 		font-size: 26px;
 	}

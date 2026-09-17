@@ -126,7 +126,7 @@ function Header() {
 		}, 300);
 
 		return () => clearTimeout(timeoutId);
-	}, [query]);
+	}, [query, i18n.language]);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {

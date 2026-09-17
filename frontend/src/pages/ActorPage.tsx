@@ -115,7 +115,7 @@ function ActorPage() {
 									<span className="filmography-details">
 										{movie.release_date && movie.release_date.slice(0, 4)}
 										{movie.release_date && ' · '}
-										{movie.role}
+										{movie.role === 'Director' ? t('actorPage.roleDirector') : t('actorPage.roleActor')}
 									</span>
 								</Link>
 							))}
