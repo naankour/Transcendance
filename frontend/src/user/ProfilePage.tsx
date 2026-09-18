@@ -63,6 +63,12 @@ export function ProfilePage({ triggerToast })
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
+
+      if (!token)
+      {
+        setUser(null);
+        return;
+      }
       const endpoint = isOwnProfile ? '/api/users/me' : `/api/users/${userIdFromParams}`;
 
       const response = await fetch(endpoint, {
