@@ -1,254 +1,914 @@
-/* ==========================================================================
-      GLOBAL & ROOT STYLES
-   ========================================================================== */
+/* ============================================================
+   SKYBLOG — Y2K NEON AUTH
+   ============================================================ */
+
 :root {
-  background-color: #F0F0F0; 
-  font-family: Verdana, Tahoma, sans-serif; 
+  --pink: #ff1493;
+  --pink-bright: #ff2ea8;
+  --pink-light: #ff65bd;
+
+  --purple-dark: #07000f;
+  --purple: #100018;
+  --purple-card: #12091c;
+
+  --white: #ffffff;
+  --muted: rgba(255, 255, 255, 0.52);
+
+  --font-retro: "Courier New", Courier, monospace;
 }
 
-/* ==========================================================================
-      AUTH PAGE CONTAINER & LAYOUT
-   ========================================================================== */
-/* --- Container centering the box --- */
+
+/* ============================================================
+   PAGE
+   ============================================================ */
+
 .skyblog-container {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
-  padding: 2rem;
-}
 
-/* --- The auth box --- */
-.skyblog-box {
-  width: 100%;
-  max-width: 450px;
-  background-color: #FFFFFF;
-  border: 2px solid #000000; 
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2); 
+  padding: 60px 20px;
+
   overflow: hidden;
-  margin-bottom: 2rem;
+
+  color: var(--white);
+
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(255, 20, 147, 0.16) 0%,
+      rgba(255, 20, 147, 0.05) 28%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(126, 0, 255, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(255, 0, 180, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #040007 0%,
+      #09000f 42%,
+      #100018 100%
+    );
 }
 
-/* --- The Header --- */
+
+/* ============================================================
+   PERSPECTIVE NEON GRID
+   ============================================================ */
+
+.skyblog-container::before {
+  content: "";
+
+  position: absolute;
+
+  left: -20%;
+  right: -20%;
+  bottom: -8%;
+
+  width: 140%;
+  height: 42%;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 20, 147, 0.30) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 20, 147, 0.30) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    55px 34px,
+    55px 34px;
+
+  transform:
+    perspective(260px)
+    rotateX(58deg);
+
+  transform-origin: center bottom;
+
+  opacity: 0.75;
+
+  -webkit-mask-image: linear-gradient(
+    to top,
+    black 0%,
+    rgba(0, 0, 0, 0.8) 35%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to top,
+    black 0%,
+    rgba(0, 0, 0, 0.8) 35%,
+    transparent 100%
+  );
+
+  z-index: 0;
+}
+
+
+/* Horizon glow */
+
+.skyblog-container::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: 18%;
+
+  height: 2px;
+
+  background: var(--pink);
+
+  box-shadow:
+    0 0 8px var(--pink),
+    0 0 20px var(--pink),
+    0 0 50px var(--pink);
+
+  opacity: 0.55;
+
+  z-index: 0;
+}
+
+
+/* ============================================================
+   MAIN CARD
+   ============================================================ */
+
+.skyblog-box {
+  position: relative;
+
+  width: min(420px, 100%);
+
+  box-sizing: border-box;
+
+  padding: 28px 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(27, 9, 39, 0.98),
+      rgba(8, 2, 15, 0.99)
+    );
+
+  border: 3px dashed var(--pink);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 0 0 5px #0b0512,
+    0 0 0 8px rgba(255, 20, 147, 0.18),
+    0 0 18px rgba(255, 20, 147, 0.40),
+    0 0 45px rgba(255, 20, 147, 0.22),
+    8px 8px 0 rgba(255, 20, 147, 0.18);
+
+  animation: cardAppear 0.55s ease-out;
+
+  z-index: 5;
+}
+
+
+/* ============================================================
+   CARD HEART
+   ============================================================ */
+
+.skyblog-box::before {
+  content: "♥";
+
+  position: absolute;
+
+  top: -19px;
+  left: 28px;
+
+  padding: 0 9px;
+
+  background: var(--purple-card);
+
+  color: var(--pink);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 23px;
+
+  text-shadow:
+    0 0 5px var(--pink),
+    0 0 12px var(--pink),
+    0 0 25px var(--pink);
+
+  animation: heartBeat 1.4s ease-in-out infinite;
+
+  z-index: 20;
+}
+
+
+/* ============================================================
+   CARD STAR
+   ============================================================ */
+
+.skyblog-box::after {
+  content: "★";
+
+  position: absolute;
+
+  right: 23px;
+  bottom: -19px;
+
+  padding: 0 8px;
+
+  background: var(--purple-card);
+
+  color: var(--pink);
+
+  font-size: 21px;
+
+  text-shadow:
+    0 0 5px var(--pink),
+    0 0 12px var(--pink),
+    0 0 25px var(--pink);
+
+  animation: starPulse 1.7s ease-in-out infinite;
+
+  z-index: 20;
+}
+
+
+/* ============================================================
+   HEADER / SKYBLOG LOGO
+   ============================================================ */
+
 .skyblog-header {
-  background-color: #000080; 
-  color: #FFFFFF;
-  font-family: "Times New Roman", Times, serif; 
-  font-size: 1.2rem;
-  font-weight: bold;
+  color: var(--pink);
+
+  font-family: var(--font-retro);
+
+  font-size: 1.75rem;
+
+  font-weight: 900;
+
   text-align: center;
-  padding: 10px;
-  border-bottom: 2px solid #000000;
-  text-transform: uppercase;
+
+  padding-bottom: 17px;
+
+  border-bottom:
+    2px dashed
+    rgba(255, 20, 147, 0.45);
+
+  letter-spacing: 4px;
+
+  text-shadow:
+    0 0 5px var(--pink),
+    0 0 12px var(--pink),
+    0 0 25px rgba(255, 20, 147, 0.65);
+
+  animation: logoGlow 2.5s ease-in-out infinite alternate;
 }
 
-/* --- Form Body area --- */
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
 .skyblog-content {
-  padding: 1.5rem;
+  padding-top: 22px;
 }
 
-/* ==========================================================================
-      LOGIN & REGISTER FORMS (Shared .auth-form Styles)
-   ========================================================================== */
-/* Form layout structure */
-/* --- Form Layout --- */
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
 .auth-form {
   display: flex;
+
   flex-direction: column;
-  gap: 1rem;
+
+  gap: 15px;
+
+  width: 100%;
 }
 
-/* --- Headers inside the form --- */
+
+/* ============================================================
+   FORM TITLE
+   ============================================================ */
+
 .auth-form h2 {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: underline; 
-  color: #000000;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
+  margin: 0 0 7px;
 
-/* --- Input Fields --- */
-.auth-form input {
-  padding: 8px;
-  border-radius: 0;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #7F9DB9 #cbd5e1 #cbd5e1 #7F9DB9; 
-  background-color: #FFFFFF;
-  font-size: 0.9rem;
-  color: #000000;
-}
-
-/* --- Submit Button --- */
-.auth-form button[type="submit"] {
-  padding: 8px;
-  background-color: #0000FF; 
   color: white;
-  border: 2px solid #000080;
-  border-radius: 0;
-  font-weight: bold;
-  font-size: 0.95rem;
-  cursor: pointer;
-  text-transform: uppercase;
-}
 
-.auth-form button[type="submit"]:hover {
-  background-color: #3333FF; 
-}
+  font-family: Arial, Helvetica, sans-serif;
 
-.auth-form button[type="submit"]:disabled, 
-.auth-form input:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background-color: #E0E0E0;
-}
+  font-size: 1.45rem;
 
-/* --- The 'already have an account' link section --- */
-.auth-form p {
-  font-size: 0.8rem;
+  font-weight: 800;
+
   text-align: center;
-  color: #333333;
-  margin-top: 1rem;
+
+  text-shadow:
+    0 0 5px rgba(255, 20, 147, 0.75),
+    0 0 15px rgba(255, 20, 147, 0.35);
 }
 
-/* --- Retro text link (Blue, underlined, no border button) --- */
-.link-btn {
-  background: none;
-  border: none;
-  color: #0000FF; /* Classic link blue */
-  text-decoration: underline;
-  cursor: pointer;
-  font-family: Verdana, sans-serif;
-  font-size: 0.8rem;
-  padding: 0;
+
+/* ============================================================
+   INPUT WRAPPER
+   ============================================================ */
+
+.auth-input-wrapper {
+  position: relative;
+
+  width: 100%;
 }
 
-/* --- Old School Error Display (Bright red, centered) --- */
-.error-badge {
-  color: #FF0000;
-  font-size: 0.9rem;
-  font-weight: bold;
-  border: 1px dashed #FF0000; 
-  padding: 5px;
-  margin-bottom: 1rem;
-  text-align: center;
-}
 
-/* --- Simple Retro Footer --- */
-.retro-footer {
-  font-size: 0.7rem;
-  color: #999999;
-  font-family: Tahoma, sans-serif;
-}
+/* ============================================================
+   INPUT ICON
+   ============================================================ */
 
-/* ==========================================================================
-      RETRO TOAST NOTIFICATIONS
-   ========================================================================== */
-/* Retro Toast Notification Container */
-.retro-toast-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
+.auth-input-icon {
+  position: absolute;
+
+  left: 17px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: rgba(255, 190, 230, 0.75);
+
+  font-size: 20px;
+
   pointer-events: none;
-  display: flex;
-  justify-content: flex-end;
+
+  z-index: 2;
+
+  text-shadow:
+    0 0 6px rgba(255, 20, 147, 0.45);
 }
 
-.retro-toast {
-  background-color: #ffffcc;
-  color: #000000;
-  border: 2px solid #000000;
-  box-shadow: 4px 4px 0px #000000;
-  padding: 12px 20px;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: bold;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  white-space: nowrap;
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.auth-form input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 13px 16px 13px 52px;
+
+  border: 2px solid var(--pink);
+
+  border-radius: 12px;
+
+  outline: none;
+
+  background:
+    rgba(0, 0, 0, 0.30);
+
+  color: white;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 0.95rem;
+
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.5),
+    0 0 5px rgba(255, 20, 147, 0.12);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
-.retro-toast-icon {
-  font-size: 18px;
-  flex-shrink: 0;
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.50);
 }
 
-.toast-in {
-  animation: slideIn 0.3s ease-out forwards;
+
+.auth-form input:focus {
+  border-color: var(--pink-light);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 0 8px var(--pink),
+    0 0 18px rgba(255, 20, 147, 0.38),
+    inset 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-.toast-out {
-  animation: slideOut 0.3s ease-in forwards;
+
+.auth-form input:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+
+/* ============================================================
+   SUBMIT BUTTON
+   ============================================================ */
+
+.auth-form button[type="submit"] {
+  width: 100%;
+
+  margin-top: 4px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff2ea8 0%,
+      #f90083 100%
+    );
+
+  color: white;
+
+  font-family: var(--font-retro);
+
+  font-size: 1rem;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 10px rgba(255, 20, 147, 0.70),
+    0 0 25px rgba(255, 20, 147, 0.38);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(120%);
-    opacity: 0;
-  }
+
+.auth-form button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 12px var(--pink),
+    0 0 28px var(--pink),
+    0 0 50px rgba(255, 20, 147, 0.40);
 }
 
-/* --- Social OAuth Buttons --- */
-.oauth-section {
-  margin-top: 20px;
-  border-top: 1px dashed #ccc;
-  padding-top: 15px;
+
+.auth-form button[type="submit"]:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+
+.auth-form button[type="submit"]:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   LOGIN / REGISTER SWITCH
+   ============================================================ */
+
+.auth-form p {
+  margin: 6px 0 0;
+
+  color: white;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 0.85rem;
+
   text-align: center;
 }
+
+
+.link-btn {
+  padding: 0 4px;
+
+  border: none;
+
+  background: none;
+
+  color: var(--pink);
+
+  font-size: inherit;
+
+  font-weight: bold;
+
+  text-decoration: underline;
+
+  cursor: pointer;
+
+  text-shadow:
+    0 0 6px var(--pink);
+
+  transition: color 0.2s ease;
+}
+
+
+.link-btn:hover {
+  color: white;
+
+  text-shadow:
+    0 0 8px white,
+    0 0 15px var(--pink);
+}
+
+
+/* ============================================================
+   FLOATING Y2K DECORATIONS
+   ============================================================ */
+
+.y2k-decoration {
+  position: absolute;
+
+  display: block;
+
+  color: var(--pink);
+
+  pointer-events: none;
+
+  user-select: none;
+
+  z-index: 2;
+
+  text-shadow:
+    0 0 5px var(--pink),
+    0 0 12px var(--pink),
+    0 0 25px var(--pink);
+}
+
+
+/* Hearts */
+
+.y2k-heart {
+  font-family: Arial, sans-serif;
+
+  font-size: 48px;
+
+  animation:
+    floatHeart 4s ease-in-out infinite;
+}
+
+
+.y2k-heart-1 {
+  top: 12%;
+  left: 7%;
+}
+
+
+.y2k-heart-2 {
+  top: 47%;
+  right: 7%;
+
+  font-size: 39px;
+
+  animation-delay: 1.2s;
+}
+
+
+.y2k-heart-3 {
+  right: 10%;
+  bottom: 10%;
+
+  font-size: 50px;
+
+  animation-delay: 2s;
+}
+
+
+/* Stars */
+
+.y2k-star {
+  font-size: 35px;
+
+  animation:
+    floatStar 3s ease-in-out infinite;
+}
+
+
+.y2k-star-1 {
+  top: 12%;
+  right: 8%;
+}
+
+
+.y2k-star-2 {
+  top: 43%;
+  left: 6%;
+
+  font-size: 27px;
+
+  animation-delay: 0.7s;
+}
+
+
+.y2k-star-3 {
+  bottom: 14%;
+  left: 7%;
+
+  font-size: 39px;
+
+  animation-delay: 1.4s;
+}
+
+
+/* ============================================================
+   OAUTH
+   ============================================================ */
+
+.oauth-section {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(420px, 100%);
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  border-top:
+    1px dashed
+    rgba(255, 20, 147, 0.30);
+
+  text-align: center;
+}
+
 
 .oauth-title {
-  font-size: 12px;
-  margin-bottom: 10px;
-  color: #666;
+  margin-bottom: 12px;
+
+  color: var(--pink);
+
+  font-size: 11px;
+
+  letter-spacing: 1px;
+
   text-transform: uppercase;
+
+  text-shadow:
+    0 0 6px var(--pink);
 }
+
 
 .oauth-buttons {
   display: flex;
-  gap: 10px;
+
   justify-content: center;
+
+  gap: 12px;
 }
+
 
 .oauth-btn {
   display: flex;
+
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 9px 17px;
+
+  border-radius: 10px;
+
   font-size: 12px;
+
   font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
 
 .oauth-btn-github {
-  background-color: #24292e;
-  color: #ffffff;
-  border: 1px solid #000000;
+  border: 1px solid var(--pink);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
 }
 
+
 .oauth-btn-google {
-  background-color: #ffffff;
-  color: #333333;
-  border: 1px solid #cccccc;
+  border: 1px solid var(--pink);
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: #111;
+}
+
+
+.oauth-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 10px var(--pink),
+    0 0 20px rgba(255, 20, 147, 0.3);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.retro-footer {
+  position: relative;
+
+  z-index: 5;
+
+  margin-top: 18px;
+
+  color: rgba(255, 20, 147, 0.60);
+
+  font-family: var(--font-retro);
+
+  font-size: 0.7rem;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 5px rgba(255, 20, 147, 0.35);
+}
+
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(25px)
+      scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+
+@keyframes starPulse {
+  0%,
+  100% {
+    transform:
+      scale(1)
+      rotate(0deg);
+
+    opacity: 0.75;
+  }
+
+  50% {
+    transform:
+      scale(1.2)
+      rotate(15deg);
+
+    opacity: 1;
+  }
+}
+
+
+@keyframes logoGlow {
+  from {
+    text-shadow:
+      0 0 5px var(--pink),
+      0 0 12px var(--pink);
+  }
+
+  to {
+    text-shadow:
+      0 0 5px var(--pink),
+      0 0 15px var(--pink),
+      0 0 30px var(--pink);
+  }
+}
+
+
+@keyframes floatHeart {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(-5deg);
+  }
+
+  50% {
+    transform:
+      translateY(-18px)
+      rotate(5deg);
+  }
+}
+
+
+@keyframes floatStar {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(0deg)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translateY(-13px)
+      rotate(25deg)
+      scale(1.15);
+  }
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .skyblog-container {
+    padding: 35px 15px;
+  }
+
+  .skyblog-box {
+    padding: 25px 18px;
+  }
+
+  .skyblog-header {
+    font-size: 1.35rem;
+
+    letter-spacing: 3px;
+  }
+
+  .y2k-heart-1 {
+    left: 2%;
+  }
+
+  .y2k-heart-2 {
+    right: 2%;
+  }
+
+  .y2k-star-1 {
+    right: 3%;
+  }
+
+  .y2k-star-2 {
+    left: 2%;
+  }
+
+  .oauth-buttons {
+    flex-wrap: wrap;
+  }
 }

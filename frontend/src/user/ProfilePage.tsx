@@ -3,15 +3,20 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import { ProfileHeader } from './ProfileHeader'; 
 import { ProfileEditForm } from './ProfileEditForm'; 
-import Watchlist from "../Watchlist/Watchlist";
-import Favorites from "../Favorites/Favorites";
-import './ProfilePage.css';
+import Followers  from '../Followers/Followers';
+import Follows from '../Follows/Follows';
+import Watchlist from '../Watchlist/Watchlist';
+import Favorites from '../Favorites/Favorites';
+import AuthRequired from "../components/AuthRequired";
+
+
 
 export function ProfilePage({ triggerToast }) 
 {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const[isFollowing, setIsFollowing] = useState(false);
 
   const { id: userIdFromParams } = useParams();
   const navigate = useNavigate();
@@ -31,13 +36,39 @@ export function ProfilePage({ triggerToast })
   const isOwnProfile = !userIdFromParams || Number(userIdFromParams) === Number(currentUserId);
 
   useEffect(() => {
+
     fetchProfile();
   }, [userIdFromParams]);
+
+  useEffect(() => {
+    if (isOwnProfile || !user)
+      return;
+    
+    const token = localStorage.getItem('token');
+
+    fetch('/api/follows', {
+      headers: {
+        Authorization: `Bearer ${token}` },
+      
+    })
+    .then(res => res.json())
+    .then(data => {
+      const alreadyFollowing = data.some((f: any) => f.followed_id === user.id);
+      setIsFollowing(alreadyFollowing);
+    })
+    .catch(err => console.error(err));
+  }, [user, isOwnProfile]);
 
   const fetchProfile = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
+
+      if (!token)
+      {
+        setUser(null);
+        return;
+      }
       const endpoint = isOwnProfile ? '/api/users/me' : `/api/users/${userIdFromParams}`;
 
       const response = await fetch(endpoint, {
@@ -80,7 +111,8 @@ export function ProfilePage({ triggerToast })
       }
 
       // redirige vers le chat
-      navigate(`/chat?id=${conversation.id}`);
+      // navigate(`/chat?id=${conversation.id}`);
+      navigate(`/conversations?id=${conversation.id}`);
     } catch (err) {
       if (triggerToast) {
         triggerToast(err.message || 'Something went wrong', '⚠️');
@@ -97,59 +129,70 @@ export function ProfilePage({ triggerToast })
   };
 
   if (loading) 
-    return <div className="profile-page profile-page--state">Loading profile...</div>;
+    return <div className="profile-container">Loading profile...</div>;
 
   if (!user) 
-    return <div className="profile-page profile-page--state profile-page--error">Could not load profile.</div>;
+    return <AuthRequired />
 
   return (
-    <div className="profile-page">
-      <div className="profile-page__grid">
+    <div className="profile-container">
+      <div className="profile-box">
 
-        <div className="left-column">
-          <div className="profile-header-section">
-            <ProfileHeader 
-              user={user} 
-              isOwnProfile={isOwnProfile} 
-              onEditClick={() => setIsEditing(true)} 
-              onStartChat={handleStartChat}
+        <div className="profile-header-section">
+          <ProfileHeader
+            user={user}
+            isOwnProfile={isOwnProfile}
+            onEditClick={() => setIsEditing(true)}
+            onStartChat={handleStartChat}
+            triggerToast={triggerToast}
+            isFollowing={isFollowing}
+            onFollowChange={() => setIsFollowing(prev => !prev)}
+/>
+        </div>
+
+        <div className="profile-info-section">
+          {isEditing ? (
+            <ProfileEditForm
+              user={user}
+              onSave={handleProfileUpdated}
+              onCancel={() => setIsEditing(false)}
+              triggerToast={triggerToast}
             />
-          </div>
+          ) : (
+            <div className="profile-info">
+              <p><strong>Email:</strong> {user.email}</p>
+              <p><strong>Bio:</strong> {user.bio || 'No bio yet.'}</p>
+            </div>
+          )}
         </div>
 
-        <div className="middle-column">
-          <div className="profile-info-section">
-            {isEditing ? (
-              <ProfileEditForm
-                user={user}
-                onSave={handleProfileUpdated}
-                onCancel={() => setIsEditing(false)}
-                triggerToast={triggerToast}
+        <div className="profile-follow-section">
+            <Follows
+              userId={user.id}
+              isOwnProfile={isOwnProfile}
+              triggerToast={triggerToast}
               />
-            ) : (
-              <div className="profile-info">
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Bio:</strong> {user.bio || 'No bio yet.'}</p>
-              </div>
-            )}
-          </div>
+              <Followers
+              userId={user.id}
+              isOwnProfile={isOwnProfile}
+              triggerToast={triggerToast}
+              />
+          {/* <Followers userId={user.id} /> */}
+          {/* <Following userId={user.id} /> */}
         </div>
 
-        <div className="right-column">
-          <div className="profile-follow-section">
-            <p className="profile-page__section-title">Abonnés &amp; abonnements</p>
-            <p className="profile-page__empty">Aucun abonné pour l'instant.</p>
-            {/* <Followers userId={user.id} /> */}
-            {/* <Following userId={user.id} /> */}
-          </div>
+        <div className="profile-watchlist-section">
+          <Watchlist 
+          userId={user.id}
+          triggerToast={triggerToast} 
+          />
+        </div>
 
-          <div className="profile-watchlist-section">
-            <Watchlist triggerToast={triggerToast} />
-          </div>
-
-          <div className="profile-favorites-section">
-            <Favorites triggerToast={triggerToast} />
-          </div>
+        <div className="profile-favorites-section">
+          <Favorites 
+          userId={user.id} 
+          triggerToast={triggerToast}
+          />
         </div>
 
       </div>

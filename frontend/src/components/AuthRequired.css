@@ -2,6 +2,9 @@
     display: flex;
     justify-content: center;
     margin-top: 70px;
+	flex-direction: column;
+	align-items: center;
+
 }
 
 .auth-required {
@@ -41,10 +44,8 @@
 
 .auth-required-icon {
 	margin: 0 0 14px;
-
 	font-size: 42px;
 	line-height: 1;
-
 	filter:
 		drop-shadow(0 0 5px var(--color-accent))
 		drop-shadow(0 0 12px rgba(255, 46, 154, 0.5));
@@ -78,51 +79,6 @@
 	box-shadow: 0 0 8px var(--color-accent);
 }
 
-/* bouton connexion */
-/* .auth-required-button {
-	position: relative;
-
-	display: inline-block;
-
-	padding: 9px 22px;
-
-	background: linear-gradient(
-		180deg,
-		#ff63ae 0%,
-		var(--color-accent) 100%
-	);
-
-	border: 2px solid var(--color-text);
-	border-radius: 4px;
-
-	color: white;
-	font-size: 14px;
-	font-weight: 700;
-	text-decoration: none;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-
-	box-shadow:
-		0 0 6px var(--color-accent),
-		0 0 14px rgba(255, 46, 154, 0.45);
-
-	transition:
-		transform 0.2s ease,
-		box-shadow 0.2s ease,
-		filter 0.2s ease;
-}
-
-.auth-required-button:hover {
-	transform: translateY(-2px) scale(1.04);
-
-	filter: brightness(1.1);
-
-	box-shadow:
-		0 0 8px var(--color-accent),
-		0 0 18px var(--color-accent),
-		0 0 30px rgba(255, 46, 154, 0.35);
-} */
-
 .auth-required-button:active {
 	transform: translateY(0) scale(0.98);
 }
@@ -130,4 +86,15 @@
 .auth-required-button:focus-visible {
 	outline: 2px solid var(--color-text);
 	outline-offset: 4px;
+}
+
+.auth-required-sticker {
+	margin-top: 50px;
+	animation: moving-sticker 4s ease-in-out infinite;
+}
+
+.auth-required-sticker img{
+	height: 250px;
+	filter: drop-shadow(0 0 1px var(--color-accent)) drop-shadow(0 0 1px var(--color-accent-softer));
+
 }

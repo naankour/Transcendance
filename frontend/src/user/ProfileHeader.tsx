@@ -1,6 +1,8 @@
 import { getAvatarUrl } from '../utils/avatar';
+import FollowsButton from '../components/FollowsButton';
+import OnlineStatus from '../components/Onlinestatus';
 
-export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat }) {
+export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, triggerToast, isFollowing, onFollowChange }) {
   return (
     <div className="profile-header">
       <img
@@ -10,6 +12,7 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat }) 
       />
       <div className="profile-header-info">
         <h2 className="profile-username">{user.username}</h2>
+        <OnlineStatus userId={user.id} />
         {(user.firstname || user.lastname) && (
           <p className="profile-fullname">
             {user.firstname} {user.lastname}
@@ -28,13 +31,22 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat }) 
         </button>
       ) : (
         /* profil de quelq'un d'autre -> bouton message */
-        <button
+        <div>
+          <button
           type="button"
           onClick={onStartChat}
           className="message-btn"
-        >
+          >
           Message 💬
-        </button>
+          </button>
+          <FollowsButton
+            userId={user.id}
+            action={isFollowing ? 'unfollow' : 'follow'}
+            triggerToast={triggerToast}
+            onSuccess={onFollowChange}
+          />
+
+        </div>
       )}
     </div>
   );

@@ -2,22 +2,34 @@
 	display: flex;
 	gap: 12px;
 	cursor: pointer;
+	flex: 1;
+    min-height: 0;
+	height: 100%;
 }
 
 .daily-pick-poster {
-	width: 90px;
+	width: 120px;
+	height: 170px;
+	object-fit: cover;
+	flex-shrink: 0;
+	align-self: flex-start;
 	border-radius: 5px;
-    border: 1px solid var(--color-accent-soft);
+	border: 1px solid var(--color-accent-soft);
 }
 
 .daily-pick-info {
 	display: flex;
 	flex-direction: column;
+	min-width: 0;
+	overflow: hidden; 
 }
 
 .daily-pick-title {
 	font-weight: 700;
 	margin: 0 0 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
 }
 
 .daily-pick-title:hover {
@@ -26,11 +38,11 @@
 }
 
 .daily-pick-overview {
-	font-size: 13px;
+	font-size: 14px;
 	color: var(--color-text-muted);
 	line-height: 1.4;
 	display: -webkit-box;
-	-webkit-line-clamp: 4;
+	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }

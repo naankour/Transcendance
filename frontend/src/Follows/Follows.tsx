@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Follows.css"
 import FollowsButton from "../components/FollowsButton";
 import UserCard from '../components/UserCard';
 import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
+interface FollowsProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+  isOwnProfile?: boolean;
+}
 
-const Follows = ({ triggerToast }) => {
+const Follows = ({ triggerToast, userId, isOwnProfile = true }: FollowsProps) => {
+    const { t } = useTranslation();
     const [follows, setFollows] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -22,7 +29,10 @@ const Follows = ({ triggerToast }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('/api/follows', {
+        const endpoint = userId ? `/api/follows/user/${userId}` : '/api/follows';
+
+
+        fetch(endpoint, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -38,7 +48,7 @@ const Follows = ({ triggerToast }) => {
             return res.json();
         })
         .then(data => {
-            console.log(data);
+            // console.log(data);
 
             setFollows(data);
             setLoading(false);
@@ -49,22 +59,22 @@ const Follows = ({ triggerToast }) => {
             setLoading(false);
         });
 
-    }, []);
+    }, [userId]);
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return <p>{t('follows.loading')}</p>
     if (isAuthError) return <AuthRequired />
-    if (error) return <p>Error : {error}</p>
+    if (error) return <p>{t('follows.error', { message: error })}</p>
 
     return (
         <div className="follows-page">
 
             <h1 className="follows-title">
-                My Follows
+                {t('follows.title')}
             </h1>
 
             {follows.length === 0 ? (
                 <p className="follows-empty">
-                    You are not following anyone yet..
+                    {t('follows.empty')}
                 </p>
             ) : (
 
@@ -100,12 +110,14 @@ const Follows = ({ triggerToast }) => {
                                 </h2>
                             </Link>
 
+                            {isOwnProfile && (
                             <FollowsButton
                                 userId={item.followed_id}
                                 action="unfollow"
                                 triggerToast ={triggerToast}
                                 onSuccess={() => removeFollow(item.followed_id)}
                             />
+                        )}
                         </div>
                     ))}
                 </div>

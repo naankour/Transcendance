@@ -115,4 +115,41 @@ const removeFollow = async(req, res) =>
     }
 }
 
-module.exports = { getFollows, getFollowers, addFollow, removeFollow };
+const getFollowsByUserId = async (req, res) => {
+  try {
+    const user_id = parseInt(req.params.userId);
+
+    const follows = await prisma.follows.findMany({
+      where: {
+        follower_id: user_id
+      },
+      include: {
+        users_follows_followed_idTousers: true
+      }
+    });
+    res.status(200).json(follows);
+  } catch (error) {
+    console.error('Error in getFollowsByUserId:', error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const getFollowersByUserId = async (req, res) => {
+  try {
+    const user_id = parseInt(req.params.userId);
+
+    const followers = await prisma.follows.findMany({
+      where: {
+        followed_id: user_id
+      },
+      include: {
+        users_follows_follower_idTousers: true
+      }
+    });
+    res.status(200).json(followers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { getFollows, getFollowers, getFollowsByUserId, getFollowersByUserId, addFollow, removeFollow };

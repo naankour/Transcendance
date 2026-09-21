@@ -5,13 +5,18 @@ import MovieListButton from "../components/MovieListButton";
 import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
+interface WatchlistProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+}
+
 function getPosterUrl(poster: string | null) {
   if (!poster) return '';
   if (poster.startsWith('http')) return poster;
   return `https://image.tmdb.org/t/p/w200${poster}`;
 }
 
-const Watchlist = ({ triggerToast }) => {
+const Watchlist = ({ triggerToast, userId }: WatchlistProps) => {
   const { t } = useTranslation();
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
@@ -28,7 +33,9 @@ const Watchlist = ({ triggerToast }) => {
 useEffect(() => {
   const token = localStorage.getItem('token');
 
-  fetch('/api/watchlist', {
+  const endpoint = userId ? `/api/watchlist/user/${userId}` : '/api/watchlist';
+
+  fetch(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -59,10 +66,10 @@ useEffect(() => {
       setLoading(false);
     });
 
-}, []);
-  if (loading) return <p>{t('watchlist.loading')}</p>
-  if (isAuthError) return <AuthRequired />
-  if (error) return <p>{t('watchlist.error', { message: error })}</p>
+}, [userId]);
+if (loading) return <p>{t('watchlist.loading')}</p>
+if (isAuthError) return <AuthRequired />
+if (error) return <p>{t('watchlist.error', { message: error })}</p>
 
     return (
   <div className="watchlist-page">

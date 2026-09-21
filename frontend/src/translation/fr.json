@@ -19,15 +19,19 @@
 		"born": "Né(e) le :",
 		"noBiography": "Aucune biographie disponible.",
 		"filmography": "Filmographie",
-		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)"
+		"biographyFallbackNotice": "(Biographie seulement disponible en anglais)",
+		"roleActor": "Acteur",
+		"roleDirector": "Réalisateur"
 	},
+	
 	"searchPage": {
 		"resultsFor": "Résultats pour « {{query}} »",
 		"loading": "Chargement...",
 		"noResults": "Aucun résultat.",
 		"movies": "Films",
 		"actorsDirectors": "Acteurs / réalisateurs",
-		"users": "Utilisateurs"
+		"users": "Utilisateurs",
+		"loadMore": "Charger plus"
 	},
 	"watchlist": {
 		"loading": "Chargement...",
@@ -54,6 +58,55 @@
 		"empty": "Tu n'as pas encore de review",
 		"error": "Erreur : {{message}}",
 		"rating": "Note"
+	  },
+	  "followers": {
+		"loading": "Chargement...",
+		"title": "Mes Followers",
+		"empty": "Tu n'as pas encore de followers.",
+		"error": "Erreur : {{message}}"
+	  },
+	  "follows": {
+		"loading": "Chargement...",
+		"title": "Mes Follows",
+		"empty": "Tu ne suis personne pour le moment...",
+		"error": "Erreur : {{message}}"
+	  },
+	  "editReview": {
+		"title": "Modifier la Review",
+		"ratingPlaceholder": "Note (0.5 - 5)",
+		"contentPlaceholder": "Votre review...",
+		"update": "Modifier",
+		"delete": "Supprimer",
+		"updated": "Review modifiée !",
+		"deleted": "Review supprimée !",
+		"error": "Erreur : {{message}}"
+	  },
+	  "reviewsSimple": {
+		"title": "Mes Review",
+		"movieId": "Film ID",
+		"rating": "Note",
+		"content": "Contenu",
+		"edit": "Modifier"
+	  },
+	  "profileEdit": {
+		"changePhoto": "Changer la photo 📷",
+		"newPhoto": "Nouvelle photo : {{name}}",
+		"username": "Nom d'utilisateur",
+		"firstname": "Prénom",
+		"lastname": "Nom",
+		"email": "Email",
+		"bio": "Bio",
+		"changePassword": "Chaaaaaaange le mot de paaaaaaaaaaasse",
+		"currentPassword": "Mot de passe actuel",
+		"currentPasswordPlaceholder": "Entre ton mot de passe actuel",
+		"newPassword": "Nouveau mot de passe",
+		"newPasswordPlaceholder": "Entre ton nouveau mot de passe",
+		"save": "Enregistrer",
+		"saving": "Enregistrement...",
+		"cancel": "Annuler",
+		"updateSuccess": "Profil mis à jour avec succès !",
+		"updateFailed": "Échec de la mise à jour du profil",
+		"somethingWrong": "Une erreur est survenue"
 	  },
 	"terms": {
 		"title": "Conditions d'utilisation",
@@ -211,7 +264,7 @@
 		"friendsActivity": "Activité des amis",
 		"loading": "Chargement...",
 		"noRecommendation": "Aucune recommandation disponible pour le moment.",
-		"friendsActivityLoginPrompt": "Connectez-vous pour voir l'activité de vos amis.",
+		"friendsActivityLoginPrompt": "Connectez-vous ou créez un compte pour voir l'activité de vos amis.",
 		"friendsActivityEmpty": "Aucune activité récente des personnes que vous suivez.",
 		"activityReviews": "Avis",
 		"activityWatchlist": "Ajouts à la watchlist",
@@ -226,7 +279,10 @@
 		"reviewed": "a donné son avis sur",
 		"rating": "Note",
 		"aboutMeLoginPrompt": "Connectez-vous pour voir votre section à propos de moi.",
-		"login": "Se connecter"
+		"login": "Se connecter",
+		"memberSince": "Membre depuis {{date}}",
+		"dateLocale": "fr-FR",
+		"seeAllReviews": "Voir plus"
 	},
 
 	"moviePage": {
@@ -258,7 +314,78 @@
 	"auth": {
 		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
 		"requiredButton": "Se connecter"
+	},
+	"discover": {
+		"title": "✦ Découvrir des films ✦",
+		"filters": {
+			"genre": "Choisir un genre :",
+			"anyGenre": "Tous les genres",
+			"sort": "Trier",
+			"neutral": "Tri neutre",
+			"popularity": "Popularité",
+			"highestFirst": "Du plus populaire au moins populaire",
+			"lowestFirst": "Du moins populaire au plus populaire",
+			"releaseDate": "Date de sortie",
+			"newestFirst": "Les plus récents",
+			"earliestFirst": "Les plus anciens",
+			"rating": "Note",
+			"highestRated": "Les mieux notés",
+			"lowestRated": "Les moins bien notés",
+			"year": "Année",
+			"anyYear": "Toutes les années",
+			"language": "Toutes les langues",
+			"english": "Anglais",
+			"french": "Français",
+			"spanish": "Espagnol",
+			"japanese": "Japonais",
+			"korean": "Coréen",
+			"german": "Allemand",
+			"italian": "Italien",
+			"backToDecades": "← retour aux décennies"
+		},
+		"status": {
+			"loading": "Chargement...",
+			"noMovies": "Aucun film trouvé avec ces filtres.",
+			"noMoreMovies": "✦ Il n'y a plus de films disponibles avec ces filtres ✦"
+		},
+		"pagination": {
+			"previous": "Précédent",
+			"next": "Suivant"
+		}
+	},
+	"movieListButton": {
+		"addedToWatchlist": "Film ajouté à la watchlist !",
+		"removedFromWatchlist": "Film retiré de la watchlist !",
+		"addedToFavorites": "Film ajouté aux favoris !",
+		"removedFromFavorites": "Film retiré des favoris !",
+		"addToWatchlist": "Ajouter à la watchlist",
+		"removeFromWatchlist": "Retirer de la watchlist",
+		"addToFavorites": "Ajouter aux favoris",
+		"removeFromFavorites": "Retirer des favoris"
+	},
+	"followsButton": {
+		"followed": "Vous suivez maintenant cet utilisateur",
+		"unfollowed": "Vous ne suivez plus cet utilisateur",
+		"follow": "Suivre",
+		"unfollow": "Ne plus suivre"
+	},
+	"chatBubble": {
+		"back": "← retour",
+		"messages": "✎ Messages",
+		"contacts": "+ Contacts"
+	},
+	"chatWindow": {
+		"loadingMessages": "Chargement des messages...",
+		"writeMessagePlaceholder": "Écrire un message...",
+		"send": "Envoyer ✦"
+	},
+	"conversationPage": {
+		"myConversations": "Mes conversations",
+		"follows": "Follows",
+		"emptyState": "Sélectionnez une conversation pour commencer à discuter."
+	},
+	"newMessageList": {
+		"loading": "Chargement...",
+		"empty": "Vous ne suivez personne pour le moment ✦"
 	}
-
-
 }

@@ -3,6 +3,12 @@ import { useTranslation } from 'react-i18next';
 import "./MyReviews.css";
 import { Link } from "react-router-dom";
 
+function getPosterUrl(poster: string | null) {
+  if (!poster) return '';
+  if (poster.startsWith('http')) return poster;
+  return `https://image.tmdb.org/t/p/w200${poster}`;
+}
+
 const MyReviews = () => {
     const { t } = useTranslation();
     const [myreviews, setMyReviews] = useState([]);
@@ -52,7 +58,7 @@ const MyReviews = () => {
 
                         <Link to={`/movie/${review.movies.tmdb_id}`} className="link">
                             <img
-                                src={review.movies.poster}
+                                src={getPosterUrl(review.movies.poster)}
                                 alt={review.movies.title}
                                 className="myreviews-poster"
                             />

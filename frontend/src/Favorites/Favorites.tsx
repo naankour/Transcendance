@@ -5,13 +5,18 @@ import MovieListButton from "../components/MovieListButton";
 import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
+interface FavoritesProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+}
+
 function getPosterUrl(poster: string | null) {
   if (!poster) return '';
   if (poster.startsWith('http')) return poster;
   return `https://image.tmdb.org/t/p/w200${poster}`;
 }
 
-const Favorites = ({ triggerToast }) => {
+const Favorites = ({ triggerToast, userId }: FavoritesProps) => {
   const { t } = useTranslation();
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
@@ -29,7 +34,9 @@ useEffect(() =>
     {
     const token = localStorage.getItem('token');
 
-    fetch('/api/Favorites', 
+    const endpoint = userId ? `/api/favorites/user/${userId}` : '/api/favorites';
+
+    fetch(endpoint, 
     {
         headers: 
         {
@@ -66,7 +73,7 @@ useEffect(() =>
       setLoading(false);
     });
 
-}, []);
+}, [userId]);
 
   if (loading) return <p>{t('favorites.loading')}</p>
   if (isAuthError) return <AuthRequired />
