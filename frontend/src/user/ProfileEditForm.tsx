@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { getAvatarUrl } from '../utils/avatar';
 import './User.css';
+import './ProfileEditForm.css';
 
 export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     username: user.username || '',
     firstname: user.firstname || '',
@@ -13,12 +17,14 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
   });
 
   const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
+      setAvatarPreview(URL.createObjectURL(file));
     }
   };
 
@@ -56,17 +62,17 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to update profile');
+        throw new Error(data.error || t('profileEdit.updateFailed'));
       }
 
       if (triggerToast) {
-        triggerToast(data.message || 'Profile updated successfully!', '♡');
+        triggerToast(data.message || t('profileEdit.updateSuccess'), '♡');
       }
 
       onSave(data.user);
     } catch (err) {
       if (triggerToast) {
-        triggerToast(err.message || 'Something went wrong', '⚠️');
+        triggerToast(err.message || t('profileEdit.somethingWrong'), '⚠️');
       }
     } finally {
       setLoading(false);
@@ -76,8 +82,13 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
   return (
     <form onSubmit={handleSubmit} className="profile-edit-form">
       <div className="profile-edit-avatar-row">
+        <img
+          src={avatarPreview || getAvatarUrl(user?.avatar_url)}
+          alt=""
+          className="profile-edit-avatar-preview"
+        />
         <label className="profile-edit-avatar-label">
-          {avatarFile ? `New photo: ${avatarFile.name}` : 'Change Photo 📷'}
+          {avatarFile ? t('profileEdit.newPhoto', { name: avatarFile.name }) : t('profileEdit.changePhoto')}
           <input
             type="file"
             accept="image/*"
@@ -88,50 +99,52 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
         </label>
       </div>
 
-      <label>
-        Username
-        <input
-          type="text"
-          value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-          required
-          disabled={loading}
-        />
-      </label>
+      <div className="profile-edit-grid">
+        <label>
+          {t('profileEdit.username')}
+          <input
+            type="text"
+            value={formData.username}
+            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            required
+            disabled={loading}
+          />
+        </label>
 
-      <label>
-        First Name
-        <input
-          type="text"
-          value={formData.firstname}
-          onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
-          disabled={loading}
-        />
-      </label>
+        <label>
+          {t('profileEdit.email')}
+          <input
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
+            disabled={loading}
+          />
+        </label>
 
-      <label>
-        Last Name
-        <input
-          type="text"
-          value={formData.lastname}
-          onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
-          disabled={loading}
-        />
-      </label>
+        <label>
+          {t('profileEdit.firstname')}
+          <input
+            type="text"
+            value={formData.firstname}
+            onChange={(e) => setFormData({ ...formData, firstname: e.target.value })}
+            disabled={loading}
+          />
+        </label>
 
-      <label>
-        Email
-        <input
-          type="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          required
-          disabled={loading}
-        />
-      </label>
+        <label>
+          {t('profileEdit.lastname')}
+          <input
+            type="text"
+            value={formData.lastname}
+            onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
+            disabled={loading}
+          />
+        </label>
+      </div>
 
-      <label>
-        Bio
+      <label className="profile-edit-bio">
+        {t('profileEdit.bio')}
         <textarea
           value={formData.bio}
           onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
@@ -140,36 +153,38 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       </label>
 
       <hr className="form-divider" />
-      <p className="password-section-title">Chaaaaaaange Paaaaaaaaaaasswoooooooooooord</p>
+      <p className="password-section-title">{t('profileEdit.changePassword')}</p>
 
-      <label>
-        Current Password
-        <input
-          type="password"
-          value={formData.currentPassword}
-          onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })}
-          placeholder="Enter current password"
-          disabled={loading}
-        />
-      </label>
+      <div className="profile-edit-grid">
+        <label>
+          {t('profileEdit.currentPassword')}
+          <input
+            type="password"
+            value={formData.currentPassword}
+            onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })}
+            placeholder={t('profileEdit.currentPasswordPlaceholder')}
+            disabled={loading}
+          />
+        </label>
 
-      <label>
-        New Password
-        <input
-          type="password"
-          value={formData.newPassword}
-          onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
-          placeholder="Enter new password"
-          disabled={loading}
-        />
-      </label>
+        <label>
+          {t('profileEdit.newPassword')}
+          <input
+            type="password"
+            value={formData.newPassword}
+            onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
+            placeholder={t('profileEdit.newPasswordPlaceholder')}
+            disabled={loading}
+          />
+        </label>
+      </div>
 
       <div className="profile-edit-actions">
-        <button type="submit" disabled={loading}>
-          {loading ? 'Saving...' : 'Save'}
+        <button type="submit" className="profile-edit-save-btn" disabled={loading}>
+          {loading ? t('profileEdit.saving') : t('profileEdit.save')}
         </button>
-        <button type="button" onClick={onCancel} disabled={loading}>
-          Cancel
+        <button type="button" className="profile-edit-cancel-btn" onClick={onCancel} disabled={loading}>
+          {t('profileEdit.cancel')}
         </button>
       </div>
     </form>

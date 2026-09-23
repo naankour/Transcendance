@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-import './Header.css';
+import '../styles/Header.css';
+import { disconnectSocket } from '../../socket';
+import { setUnreadCount } from '../notification';
+
 
 interface MovieResult {
 	id: number;
@@ -23,6 +26,53 @@ interface UserResult {
 	avatar_url: string | null;
 }
 
+function isTokenValid(token: string | null): boolean {
+	if (!token) {
+		return false;
+	}
+
+	const parts = token.split('.');
+	if (parts.length !== 3) {
+		return false;
+	}
+
+	try {
+		const payload = JSON.parse(atob(parts[1]));
+		if (!payload.exp) {
+			return true;
+		}
+		return payload.exp * 1000 > Date.now();
+	} catch {
+		return false;
+	}
+}
+
+let fetchPatched = false;
+
+function patchFetchOnce() {
+	if (fetchPatched) {
+		return;
+	}
+	fetchPatched = true;
+
+	const originalFetch = window.fetch;
+
+	window.fetch = async (...args: Parameters<typeof fetch>) => {
+		const response = await originalFetch(...args);
+
+		if (response.status === 401 || response.status === 403) {
+			if (localStorage.getItem('token')) {
+				localStorage.removeItem('token');
+				disconnectSocket();
+				setUnreadCount(0);
+				window.dispatchEvent(new Event('auth:expired'));
+			}
+		}
+
+		return response;
+	};
+}
+
 function Header() {
 	const { t, i18n } = useTranslation();
 	const [query, setQuery] = useState('');
@@ -34,10 +84,21 @@ function Header() {
 	const location = useLocation();
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+	const [isLoggedIn, setIsLoggedIn] = useState(isTokenValid(localStorage.getItem('token')));
 
 	useEffect(() => {
-		setIsLoggedIn(!!localStorage.getItem('token'));
+		patchFetchOnce();
+
+		const handleAuthExpired = () => {
+			setIsLoggedIn(false);
+		};
+
+		window.addEventListener('auth:expired', handleAuthExpired);
+		return () => window.removeEventListener('auth:expired', handleAuthExpired);
+	}, []);
+
+	useEffect(() => {
+		setIsLoggedIn(isTokenValid(localStorage.getItem('token')));
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -69,7 +130,7 @@ function Header() {
 		}, 300);
 
 		return () => clearTimeout(timeoutId);
-	}, [query]);
+	}, [query, i18n.language]);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -108,6 +169,9 @@ function Header() {
 
 	const handleLogout = () => {
 		localStorage.removeItem('token');
+		disconnectSocket();
+		setUnreadCount(0);
+		window.dispatchEvent(new Event('auth:expired'));
 		setIsLoggedIn(false);
 		navigate('/');
 	};
@@ -123,92 +187,7 @@ function Header() {
 					<span className="header-logo-star">★</span>
 				</Link>
 
-				<div className="research-and-language-switcher">
-					<div ref={containerRef} className="search-container">
-						<input
-							type="text"
-							value={query}
-							onChange={(e) => setQuery(e.target.value)}
-							onKeyDown={(e) => e.key === 'Enter' && handleFullSearch()}
-							onFocus={() => {
-								if (hasResults)
-									setShowResults(true);
-							}}
-							placeholder={t('header.searchPlaceholder')}
-							className="search-input"
-						/>
-
-						{showResults && hasResults && (
-							<div className="search-results">
-								{movies.length > 0 && (
-									<div className="search-section">
-										<p className="search-section-title">{t('header.movies')}</p>
-										{movies.map((movie) => (
-											<div
-												key={movie.id}
-												onClick={() => handleSelectMovie(movie.id)}
-												className="search-result-item"
-											>
-												{movie.poster_path && (
-													<img
-														src={`https://image.tmdb.org/t/p/w45${movie.poster_path}`}
-														alt={movie.title}
-														className="search-result-poster"
-													/>
-												)}
-												<span>{movie.title} {movie.release_date ? `(${movie.release_date.slice(0, 4)})` : ''}</span>
-											</div>
-										))}
-									</div>
-								)}
-
-								{people.length > 0 && (
-									<div className="search-section">
-										<p className="search-section-title">{t('header.actorsDirectors')}</p>
-										{people.map((person) => (
-											<div
-												key={person.id}
-												onClick={() => handleSelectPerson(person.id)}
-												className="search-result-item"
-											>
-												{person.profile_path && (
-													<img
-														src={`https://image.tmdb.org/t/p/w45${person.profile_path}`}
-														alt={person.name}
-														className="search-result-avatar"
-													/>
-												)}
-												<span>{person.name}</span>
-											</div>
-										))}
-									</div>
-								)}
-
-								{users.length > 0 && (
-									<div className="search-section">
-										<p className="search-section-title">{t('header.users')}</p>
-										{users.map((user) => (
-											<div
-												key={user.id}
-												onClick={() => handleSelectUser(user.id)}
-												className="search-result-item"
-											>
-												{user.avatar_url && (
-													<img
-														src={user.avatar_url}
-														alt={user.username}
-														className="search-result-avatar"
-													/>
-												)}
-												<span>{user.username}</span>
-											</div>
-										))}
-									</div>
-								)}
-							</div>
-						)}
-					</div>
-
+				<div className="header-actions">
 					<LanguageSwitcher />
 
 					{isLoggedIn ? (
@@ -221,13 +200,98 @@ function Header() {
 						</Link>
 					)}
 				</div>
+
+				<div ref={containerRef} className="search-container">
+					<input
+						type="text"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						onKeyDown={(e) => e.key === 'Enter' && handleFullSearch()}
+						onFocus={() => {
+							if (hasResults)
+								setShowResults(true);
+						}}
+						placeholder={t('header.searchPlaceholder')}
+						className="search-input"
+					/>
+
+					{showResults && hasResults && (
+						<div className="search-results">
+							{movies.length > 0 && (
+								<div className="search-section">
+									<p className="search-section-title">{t('header.movies')}</p>
+									{movies.map((movie) => (
+										<div
+											key={movie.id}
+											onClick={() => handleSelectMovie(movie.id)}
+											className="search-result-item"
+										>
+											{movie.poster_path && (
+												<img
+													src={`https://image.tmdb.org/t/p/w45${movie.poster_path}`}
+													alt={movie.title}
+													className="search-result-poster"
+												/>
+											)}
+											<span>{movie.title} {movie.release_date ? `(${movie.release_date.slice(0, 4)})` : ''}</span>
+										</div>
+									))}
+								</div>
+							)}
+
+							{people.length > 0 && (
+								<div className="search-section">
+									<p className="search-section-title">{t('header.actorsDirectors')}</p>
+									{people.map((person) => (
+										<div
+											key={person.id}
+											onClick={() => handleSelectPerson(person.id)}
+											className="search-result-item"
+										>
+											{person.profile_path && (
+												<img
+													src={`https://image.tmdb.org/t/p/w45${person.profile_path}`}
+													alt={person.name}
+													className="search-result-avatar"
+												/>
+											)}
+											<span>{person.name}</span>
+										</div>
+									))}
+								</div>
+							)}
+
+							{users.length > 0 && (
+								<div className="search-section">
+									<p className="search-section-title">{t('header.users')}</p>
+									{users.map((user) => (
+										<div
+											key={user.id}
+											onClick={() => handleSelectUser(user.id)}
+											className="search-result-item"
+										>
+											{user.avatar_url && (
+												<img
+													src={user.avatar_url}
+													alt={user.username}
+													className="search-result-avatar"
+												/>
+											)}
+											<span>{user.username}</span>
+										</div>
+									))}
+								</div>
+							)}
+						</div>
+					)}
+				</div>
 			</div>
 
 			<nav className="header-banner" aria-label={t('header.navLabel')}>
-				<NavLink to="/" end className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
+				<NavLink to="/discover" end className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navMovies')}</span>
 				</NavLink>
-				<NavLink to="/reviews/me" className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
+				<NavLink to={isLoggedIn ? '/reviews/me' : '/reviews'} className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>
 					<span className="nav-label">{t('header.navReviews')}</span>
 				</NavLink>
 				<NavLink to="/watchlist" className={({ isActive }) => `header-nav-link${isActive ? ' active' : ''}`}>

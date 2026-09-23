@@ -3,8 +3,74 @@ const path = require('path');
 const { initializeDatabase } = require('./config/db');
 const { test_seed } = require('./prisma/seed')
 require('dotenv').config();
+const http = require('http');
+const { Server } = require('socket.io');
+
 
 const app = express();
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: [
+      "https://localhost",
+      "http://localhost:5173"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
+
+app.set("io", io);
+
+const onlineUsers = new Map();
+app.set("onlineUsers", onlineUsers);
+
+io.on("connection", (socket) => {
+  console.log("User connected :", socket.id);
+
+  socket.on("identify", (userId) => {
+    socket.join(`user_${userId}`);
+    socket.data.userId = userId;
+    const count = onlineUsers.get(userId) || 0;
+
+    onlineUsers.set(userId, count + 1);
+
+    io.emit("userOnline", { userId });
+
+    console.log(`Socket ${socket.id} identified as user_${userId}`);
+  });
+
+  socket.on("joinConversation", (conversationId) => {
+    socket.join(`conversation_${conversationId}`);
+    console.log(`Socket ${socket.id} joined conversation_${conversationId}`);
+  });
+
+  socket.on("leaveConversation", (conversationId) => {
+    socket.leave(`conversation_${conversationId}`);
+    console.log(`Socket ${socket.id} left conversation_${conversationId}`);
+  });
+
+  socket.on("disconnect", () => {
+    const userId = socket.data.userId;
+
+    if (userId)
+    {
+      const count = onlineUsers.get(userId) || 0;
+
+      if (count <= 1)
+      {
+        onlineUsers.delete(userId);
+        io.emit("userOffline", { userId });
+       }
+      else {
+          onlineUsers.set(userId, count - 1);
+        }
+      }
+    console.log("User disconnected :", socket.id);
+  });
+});
 
 app.use(express.json());
 
@@ -37,13 +103,22 @@ app.use('/api/movies', movieRoutes);
 const conversationRoute = require('./api/conversations');
 app.use('/api/conversations', conversationRoute);
 
+const discoverRoutes = require('./api/discover');
+app.use('/api/discover', discoverRoutes);
+
 const searchRoutes = require('./api/search');
 app.use('/api', searchRoutes);
 
+const recommendationRoutes = require('./api/recommendation');
+app.use('/api', recommendationRoutes);
+
 app.use('/avatars', express.static(path.join(__dirname, 'public/avatars')));
 
-// const genreRoutes = require('./api/genres');
-// app.use('/api/genres', genreRoutes);
+const visitorRoutes = require('./api/visitors');
+app.use('/api', visitorRoutes);
+
+const activityRoutes = require('./api/activity');
+app.use('/api', activityRoutes);
 
 async function startServer() {
   console.log("1");
@@ -54,7 +129,7 @@ async function startServer() {
     await test_seed()
     console.log("3");
 
-    app.listen(PORT, '0.0.0.0', () => {
+    server.listen(PORT, '0.0.0.0', () => {
       console.log("4");
       console.log(`Server running on port ${PORT}`);
     });

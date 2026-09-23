@@ -1,0 +1,186 @@
+/* ------------------------------------------------------------------
+   ProfileEditForm — same tokens as .movie-page / .profile-page.
+   Defined locally too, so the form looks right even if rendered
+   outside that wrapper.
+------------------------------------------------------------------ */
+
+.profile-edit-form {
+	--bg-color: #0c0208;
+	--accent: #e6197a;
+	--accent-soft: #f06bb0;
+	--accent-glow: rgba(230, 25, 122, 0.35);
+	--text-color: #f5f0f3;
+	--text-muted: #c9b8c3;
+	--border-color: rgba(230, 25, 122, 0.25);
+
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	font-family: 'Poppins', 'Segoe UI', sans-serif;
+	color: var(--text-color);
+}
+
+/* ---- Avatar row ---- */
+
+.profile-edit-avatar-row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.profile-edit-avatar-preview {
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--accent);
+	box-shadow: 0 0 16px var(--accent-glow);
+	flex-shrink: 0;
+}
+
+.profile-edit-avatar-label {
+	display: inline-block;
+	background: transparent;
+	color: var(--accent-soft);
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
+	padding: 8px 18px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.profile-edit-avatar-label:hover {
+	color: #fff;
+	border-color: var(--accent);
+	background: rgba(230, 25, 122, 0.08);
+}
+
+/* ---- Fields ---- */
+
+.profile-edit-form label {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--accent-soft);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.profile-edit-form input,
+.profile-edit-form textarea {
+	font-family: inherit;
+	font-size: 0.95rem;
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: normal;
+	color: #1a1a1a;
+	background: #fff;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 12px;
+	outline: none;
+	box-shadow: 0 0 0 2px transparent;
+	transition: box-shadow 0.2s ease;
+}
+
+.profile-edit-form input:focus,
+.profile-edit-form textarea:focus {
+	box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.profile-edit-form input:disabled,
+.profile-edit-form textarea:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.profile-edit-form textarea {
+	min-height: 90px;
+	resize: vertical;
+}
+
+.profile-edit-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.profile-edit-bio {
+	width: 100%;
+}
+
+/* ---- Password section ---- */
+
+.form-divider {
+	border: none;
+	border-top: 1px solid var(--border-color);
+	margin: 4px 0;
+}
+
+.password-section-title {
+	margin: 0 0 -4px;
+	font-size: 0.85rem;
+	font-weight: 700;
+	color: var(--accent-soft);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+/* ---- Actions ---- */
+
+.profile-edit-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 4px;
+}
+
+.profile-edit-save-btn,
+.profile-edit-cancel-btn {
+	font-family: inherit;
+	font-size: 0.9rem;
+	font-weight: 600;
+	border-radius: 8px;
+	padding: 10px 22px;
+	cursor: pointer;
+	transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.profile-edit-save-btn {
+	background: #e9e6e8;
+	color: #1a1a1a;
+	border: none;
+}
+
+.profile-edit-save-btn:hover:not(:disabled) {
+	background: var(--accent-soft);
+	color: #fff;
+	transform: translateY(-1px);
+}
+
+.profile-edit-save-btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.profile-edit-cancel-btn {
+	background: transparent;
+	color: var(--text-muted);
+	border: 1px solid var(--border-color);
+}
+
+.profile-edit-cancel-btn:hover:not(:disabled) {
+	color: #fff;
+	border-color: var(--accent);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 520px) {
+	.profile-edit-grid {
+		grid-template-columns: 1fr;
+	}
+}

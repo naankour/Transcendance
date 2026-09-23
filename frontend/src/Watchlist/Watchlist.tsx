@@ -1,22 +1,50 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Watchlist.css";
 import MovieListButton from "../components/MovieListButton";
+import AuthRequired from "../components/AuthRequired";
+import { Link } from "react-router-dom";
 
-const Watchlist = () => {
+interface WatchlistProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+}
+
+function getPosterUrl(poster: string | null) {
+  if (!poster) return '';
+  if (poster.startsWith('http')) return poster;
+  return `https://image.tmdb.org/t/p/w200${poster}`;
+}
+
+const Watchlist = ({ triggerToast, userId }: WatchlistProps) => {
+  const { t } = useTranslation();
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isAuthError, setIsAuthError] = useState(false)
+  const removeWatchlist = (movieId:number) => 
+  {
+    setWatchlist(prev =>
+        prev.filter(item => item.movie_id !== movieId)
+    );
+  };
 
 
 useEffect(() => {
   const token = localStorage.getItem('token');
 
-  fetch('/api/watchlist', {
+  const endpoint = userId ? `/api/watchlist/user/${userId}` : '/api/watchlist';
+
+  fetch(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
     .then(res => {
+      if (res.status === 403) {
+        setIsAuthError(true);
+        throw new Error('Forbidden');
+      }
       if (!res.ok) {
         throw new Error(`Error ${res.status}`);
       }
@@ -38,20 +66,21 @@ useEffect(() => {
       setLoading(false);
     });
 
-}, []);
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error : {error}</p>
+}, [userId]);
+if (loading) return <p>{t('watchlist.loading')}</p>
+if (isAuthError) return <AuthRequired />
+if (error) return <p>{t('watchlist.error', { message: error })}</p>
 
     return (
   <div className="watchlist-page">
 
     <h1 className="watchlist_title">
-      My Watchlist
+      {t('watchlist.title')}
     </h1>
 
     {watchlist.length === 0 ? (
       <p className="watchlist-empty">
-        Your watchlist is empty
+        {t('watchlist.empty')}
       </p>
     ) : (
 
@@ -59,18 +88,22 @@ useEffect(() => {
         {watchlist.map((item: any) => (
           <div key={item.id} className="watchlist-card">
 
-            <img
-              className="watchlist-poster"
-              src={item.movies.poster}
-              alt={item.movies.title}
-            />
-
+            <Link to={`/movie/${item.movies.tmdb_id}`} className="link">
+              <img
+                className="watchlist-poster"
+                src={getPosterUrl(item.movies.poster)}
+                alt={item.movies.title}
+              />
+          
             <h2>{item.movies.title}</h2>
+            </Link>  
 
           <MovieListButton
             movieId={item.movie_id}
             type="watchlist"
             action="remove"
+            triggerToast={triggerToast}
+            onSuccess={() => removeWatchlist(item.movie_id)}
           />
 
           </div>

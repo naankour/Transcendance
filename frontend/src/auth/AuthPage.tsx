@@ -4,8 +4,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Login } from './Login';
 import { Register } from './Register';
-
-import './Auth.css';
+import './Auth.css'; 
+import { identifySocket } from '../../socket';
+import {refreshUnreadCount } from '../notification';
 
 export function Auth({ triggerToast }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -19,7 +20,8 @@ export function Auth({ triggerToast }) {
 
     if (token) {
       localStorage.setItem('token', token);
-
+      identifySocket();
+      refreshUnreadCount();
       if (triggerToast) {
         triggerToast(
           'Logged in successfully! ♡⸜(˶˃ ᵕ ˂˶)⸝♡',

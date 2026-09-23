@@ -13,4 +13,6 @@ router.delete('/me', authenticateToken, userController.deleteMyProfile);
 
 router.get('/:id', userController.getUserById);
 
+router.get('/:id/online-status', userController.getUserOnlineStatus);
+
 module.exports = router;

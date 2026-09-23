@@ -8,6 +8,8 @@
 .app-content {
 	width: 100%;
 	flex: 1;
+	padding-bottom: 10px;
+
 }
 
 .footer {

@@ -9,9 +9,9 @@
 	border-radius: 15px;
 
 	cursor: pointer;
-	font-family: var(--font-title);
+	font-family: 'Press Start 2P', cursive;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 8px;
 
 	box-shadow: 0 0 8px var(--color-accent);
 	transition: all 0.2s ease;

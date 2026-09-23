@@ -44,29 +44,6 @@ const getFollowers = async(req, res) =>
     }
 }
 
-const checkFollow = async(req, res) =>
-{
-    try
-    {
-        const follower_id = req.user.id;
-        const followed_id = parseInt(req.params.user_id);
-
-        const follow = await prisma.follows.findUnique({
-            where: {
-                follower_id_followed_id: {
-                    follower_id,
-                    followed_id,
-                }
-            }
-        });
-        res.status(200).json({following: !!follow});
-    }
-    catch (error)
-    {
-        res.status(500).json({ error: error.message });
-    }
-}
-
 const addFollow = async(req, res) =>
 {
     try
@@ -90,7 +67,7 @@ const addFollow = async(req, res) =>
         });
 
         if (existingFollow) {
-            return res.status(400).json({
+            return res.status(409).json({
                 error: "Already following this user"
             });
         }
@@ -138,4 +115,41 @@ const removeFollow = async(req, res) =>
     }
 }
 
-module.exports = { getFollows, getFollowers, checkFollow, addFollow, removeFollow };
+const getFollowsByUserId = async (req, res) => {
+  try {
+    const user_id = parseInt(req.params.userId);
+
+    const follows = await prisma.follows.findMany({
+      where: {
+        follower_id: user_id
+      },
+      include: {
+        users_follows_followed_idTousers: true
+      }
+    });
+    res.status(200).json(follows);
+  } catch (error) {
+    console.error('Error in getFollowsByUserId:', error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const getFollowersByUserId = async (req, res) => {
+  try {
+    const user_id = parseInt(req.params.userId);
+
+    const followers = await prisma.follows.findMany({
+      where: {
+        followed_id: user_id
+      },
+      include: {
+        users_follows_follower_idTousers: true
+      }
+    });
+    res.status(200).json(followers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { getFollows, getFollowers, getFollowsByUserId, getFollowersByUserId, addFollow, removeFollow };

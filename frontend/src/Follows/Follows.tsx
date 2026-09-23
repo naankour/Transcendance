@@ -1,29 +1,54 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import "./Follows.css"
 import FollowsButton from "../components/FollowsButton";
+import UserCard from '../components/UserCard';
+import AuthRequired from "../components/AuthRequired";
+import { Link } from "react-router-dom";
 
-const Follows = () => {
+interface FollowsProps {
+  triggerToast?: (msg: string, icon?: string) => void;
+  userId?: number;
+  isOwnProfile?: boolean;
+}
+
+const Follows = ({ triggerToast, userId, isOwnProfile = true }: FollowsProps) => {
+    const { t } = useTranslation();
     const [follows, setFollows] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [isAuthError, setIsAuthError] = useState(false)
+    const removeFollow = (userId:number) => 
+    {
+        setFollows(prev =>
+            prev.filter(item => item.followed_id !== userId)
+        );
+    };
 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('/api/follows', {
+        const endpoint = userId ? `/api/follows/user/${userId}` : '/api/follows';
+
+
+        fetch(endpoint, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         .then(res => {
+            if (res.status === 403) {
+                setIsAuthError(true);
+                throw new Error('Forbidden');
+            }
             if (!res.ok) {
                 throw new Error(`Error ${res.status}`);
             }
             return res.json();
         })
         .then(data => {
-            console.log(data);
+            // console.log(data);
 
             setFollows(data);
             setLoading(false);
@@ -34,38 +59,65 @@ const Follows = () => {
             setLoading(false);
         });
 
-    }, []);
+    }, [userId]);
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error : {error}</p>
+    if (loading) return <p>{t('follows.loading')}</p>
+    if (isAuthError) return <AuthRequired />
+    if (error) return <p>{t('follows.error', { message: error })}</p>
 
     return (
         <div className="follows-page">
 
-            <h1 className="follows_title">
-                My Follows
+            <h1 className="follows-title">
+                {t('follows.title')}
             </h1>
 
             {follows.length === 0 ? (
-                <p className="followers-empty">
-                    You don't have any followers yet.
+                <p className="follows-empty">
+                    {t('follows.empty')}
                 </p>
             ) : (
 
                 <div className="follows-list">
                     {follows.map((item: any) => (
+
                         <div 
                             key={item.id} 
-                            className="follow-card">
+                            className="follows-card">
 
-                                <h2>
+                            <Link 
+                                to={`/profile/${item.users_follows_followed_idTousers.id}`} 
+                                className="link"
+                            >
+                                <div className="heart-avatar-wrapper">
+
+                                    <img
+                                        src={item.users_follows_followed_idTousers.avatar_url}
+                                        alt={item.users_follows_followed_idTousers.username}
+                                        className="follows-user-avatar"
+                                    />
+
+                                </div>
+                            </Link>
+
+                             <Link 
+                                to={`/profile/${item.users_follows_followed_idTousers.id}`} 
+                                className="link"
+                            >
+
+                                <h2 className="follows-user-username">
                                     {item.users_follows_followed_idTousers.username}
                                 </h2>
-                            
+                            </Link>
+
+                            {isOwnProfile && (
                             <FollowsButton
                                 userId={item.followed_id}
                                 action="unfollow"
+                                triggerToast ={triggerToast}
+                                onSuccess={() => removeFollow(item.followed_id)}
                             />
+                        )}
                         </div>
                     ))}
                 </div>
