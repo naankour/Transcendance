@@ -303,7 +303,12 @@
 		"noReviews": "No reviews yet.",
 		"editReview": "Edit my review",
 		"updateReview": "Update my review",
-		"you": "you"
+		"you": "you",
+		"deleteReview": "Delete",
+		"deleting": "Deleting...",
+		"reviewPublished": "Review published!",
+		"reviewUpdated": "Review updated!",
+		"reviewDeleted": "Review deleted!"
 	},
 	"errors": {
 		"generic": "Something went wrong. Please try again."

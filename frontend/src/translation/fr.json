@@ -305,7 +305,12 @@
 		"noReviews": "Aucune review pour le moment.",
 		"editReview": "Modifier ma review",
 		"updateReview": "Mettre à jour ma review",
-		"you": "vous"
+		"you": "vous",
+		"deleteReview": "Supprimer",
+		"deleting": "Suppression...",
+		"reviewPublished": "Review publiée !",
+		"reviewUpdated": "Review mise à jour !",
+		"reviewDeleted": "Review supprimée !"
 	},
 
 	"errors": {

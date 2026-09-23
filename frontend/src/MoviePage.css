@@ -1,3 +1,6 @@
+/* ==========================================================================
+   MoviePage.css — Thème "cinéma nocturne" (fond noir, accents magenta)
+   ========================================================================== */
 
 .movie-page {
   --bg-color: #0c0208;
@@ -158,6 +161,35 @@
   cursor: not-allowed;
 }
 
+.movie-page__form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.movie-page__delete-btn {
+  margin-top: 12px;
+  background: transparent;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.movie-page__delete-btn:hover:not(:disabled) {
+  background: #ff6b6b;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.movie-page__delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .movie-page__submit-error {
   color: #ff6b6b;
   margin-top: 8px;
@@ -193,10 +225,4 @@
   margin: 6px 0 0;
   color: var(--text-muted);
   line-height: 1.5;
-}
-
-.movie-page__list-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
 }

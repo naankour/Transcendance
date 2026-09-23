@@ -305,7 +305,12 @@
 		"noReviews": "Aún no hay reseñas.",
 		"editReview": "Editar mi reseña",
 		"updateReview": "Actualizar mi reseña",
-		"you": "tú"
+		"you": "tú",
+		"deleteReview": "Eliminar",
+		"deleting": "Eliminando...",
+		"reviewPublished": "¡Reseña publicada!",
+		"reviewUpdated": "¡Reseña actualizada!",
+		"reviewDeleted": "¡Reseña eliminada!"
 	},
 
 	"errors": {
