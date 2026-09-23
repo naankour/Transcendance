@@ -58,11 +58,22 @@ function App() {
   useEffect(() => {
 
     socket.on("reviewCreated", (data) => {
-      triggerToast(`${data.author} published a new review !`, "⭐"); });
+      triggerToast(`${data.author} published a new review on ${data.movie_name}!`, "⭐"); });
+
+    socket.on("reviewUpdated", (data) => {
+      triggerToast(`${data.author} updated their review on ${data.movie_name}!`, "✏️");
+    });
+
+    socket.on("reviewDeleted", (data) => {
+      triggerToast(`${data.author} deleted their review on ${data.movie_name}`, "🗑️");
+    });
     
     return () => 
-      {socket.off("reviewCreated");}; 
-    
+      {
+        socket.off("reviewCreated");
+        socket.off("reviewUpdated");
+        socket.off("reviewDeleted");
+      }; 
     }, []);
 
 return (

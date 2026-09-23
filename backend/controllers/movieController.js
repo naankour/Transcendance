@@ -207,6 +207,16 @@ async function postReview(req, res) {
         reviewId: review.id,
         movieId: review.movie_id,
         author: review.users.username,
+        movie_name: savedMovie.title,
+      });
+    }
+    else {
+      const io = req.app.get("io");
+      io.emit("reviewUpdated",{
+        reviewId: review.id,
+        movieId: review.movie_id,
+        author: review.users.username,
+        movie_name: savedMovie.title,
       });
     }
 
