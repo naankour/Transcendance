@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import '../styles/LegalPage.css';
+import './LegalPage.css';
 
 function TermsOfService() {
 	const { t } = useTranslation();
