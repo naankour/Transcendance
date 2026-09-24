@@ -17,7 +17,7 @@ import { socket } from '../socket';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './HomePage/HomePage';
-import MoviePage from './MoviePage';
+import MoviePage from './MoviePage/MoviePage';
 import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
@@ -30,12 +30,12 @@ import MyReviews from './MyReviews/MyReviews'
 import Reviews from './Reviews/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
-import ActorPage from './pages/ActorPage';
+import ActorPage from './ActorPages/ActorPage';
 import Header from './layout/Header';
-import SearchResultsPage from './pages/SearchResultsPage';
+import SearchResultsPage from './SearchResult/SearchResultsPage';
 import Discover from './pages/Discover'
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './layout/PrivacyPolicy';
+import TermsOfService from './layout/TermsOfService';
 import Footer from './layout/Footer';
 import ChatBubble from './conversations/ChatBubble';
 
