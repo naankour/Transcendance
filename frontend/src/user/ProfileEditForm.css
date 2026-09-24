@@ -109,8 +109,23 @@
 	gap: 16px;
 }
 
+/* Le champ username occupe toute la largeur, au-dessus de firstname/lastname */
+.profile-edit-username {
+	grid-column: 1 / -1;
+}
+
+/* ---- Bio ---- */
+
 .profile-edit-bio {
 	width: 100%;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid var(--border-color);
+	border-radius: 12px;
+	padding: 14px 16px 16px;
+}
+
+.profile-edit-bio textarea {
+	margin-top: 2px;
 }
 
 /* ---- Password section ---- */
@@ -143,27 +158,30 @@
 	font-family: inherit;
 	font-size: 0.9rem;
 	font-weight: 600;
-	border-radius: 8px;
-	padding: 10px 22px;
+	border-radius: 999px;
+	padding: 11px 26px;
 	cursor: pointer;
-	transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+	transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .profile-edit-save-btn {
-	background: #e9e6e8;
-	color: #1a1a1a;
-	border: none;
+	background: var(--accent);
+	color: #fff;
+	border: 1px solid var(--accent);
+	box-shadow: 0 4px 16px var(--accent-glow);
 }
 
 .profile-edit-save-btn:hover:not(:disabled) {
 	background: var(--accent-soft);
-	color: #fff;
+	border-color: var(--accent-soft);
 	transform: translateY(-1px);
+	box-shadow: 0 6px 20px var(--accent-glow);
 }
 
 .profile-edit-save-btn:disabled {
 	opacity: 0.6;
 	cursor: not-allowed;
+	box-shadow: none;
 }
 
 .profile-edit-cancel-btn {
@@ -182,5 +200,9 @@
 @media (max-width: 520px) {
 	.profile-edit-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.profile-edit-username {
+		grid-column: auto;
 	}
 }

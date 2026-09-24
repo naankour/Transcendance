@@ -9,6 +9,7 @@ import Follows from '../Follows/Follows';
 import Watchlist from '../Watchlist/Watchlist';
 import Favorites from '../Favorites/Favorites';
 import AuthRequired from "../components/AuthRequired";
+import './ProfilePage.css';
 
 
 
@@ -145,7 +146,7 @@ export function ProfilePage({ triggerToast })
           <ProfileHeader
             user={user}
             isOwnProfile={isOwnProfile}
-            onEditClick={() => setIsEditing(true)}
+            onEditClick={() => setIsEditing(prev => !prev)}
             onStartChat={handleStartChat}
             triggerToast={triggerToast}
             isFollowing={isFollowing}

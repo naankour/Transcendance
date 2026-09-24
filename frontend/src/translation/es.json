@@ -104,7 +104,8 @@
 		"cancel": "Cancelar",
 		"updateSuccess": "¡Perfil actualizado correctamente!",
 		"updateFailed": "Error al actualizar el perfil",
-		"somethingWrong": "Algo salió mal"
+		"somethingWrong": "Algo salió mal",
+		"changePassword": "Cambiar la contraseña"
 	  },
 	  
 	"terms": {

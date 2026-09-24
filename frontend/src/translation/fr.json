@@ -105,7 +105,8 @@
 		"cancel": "Annuler",
 		"updateSuccess": "Profil mis à jour avec succès !",
 		"updateFailed": "Échec de la mise à jour du profil",
-		"somethingWrong": "Une erreur est survenue"
+		"somethingWrong": "Une erreur est survenue",
+		"changePassword": "Changer le mot de passe"
 	  },
 	"terms": {
 		"title": "Conditions d'utilisation",

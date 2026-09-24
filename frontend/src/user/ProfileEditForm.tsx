@@ -100,23 +100,12 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       </div>
 
       <div className="profile-edit-grid">
-        <label>
+        <label className="profile-edit-username">
           {t('profileEdit.username')}
           <input
             type="text"
             value={formData.username}
             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-            required
-            disabled={loading}
-          />
-        </label>
-
-        <label>
-          {t('profileEdit.email')}
-          <input
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
             disabled={loading}
           />
@@ -153,6 +142,7 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       </label>
 
       <hr className="form-divider" />
+      <p className="password-section-title">{t('profileEdit.changePassword')}</p>
       <div className="profile-edit-grid">
         <label>
           {t('profileEdit.currentPassword')}
