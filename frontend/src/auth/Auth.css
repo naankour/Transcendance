@@ -1220,10 +1220,12 @@
     toastGlow 2s ease-in-out 0.35s infinite alternate;
 }
 
+.toast-out {
+  animation: slideOut 0.3s ease-in forwards;
+}
 
 .auth-form input:disabled {
   opacity: 0.5;
-
   cursor: not-allowed;
 }
 
