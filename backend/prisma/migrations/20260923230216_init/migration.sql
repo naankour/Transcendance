@@ -5,10 +5,10 @@
 
 */
 -- AlterTable
-ALTER TABLE "movies" ADD COLUMN     "tmdb_id" INTEGER;
+ALTER TABLE "movies" ADD COLUMN IF NOT EXISTS "tmdb_id" INTEGER;
 
 -- AlterTable
 ALTER TABLE "users" ALTER COLUMN "avatar_url" SET DEFAULT '/avatars/default_avatar.png';
 
 -- CreateIndex
-CREATE UNIQUE INDEX "movies_tmdb_id_key" ON "movies"("tmdb_id");
+CREATE UNIQUE INDEX IF NOT EXISTS "movies_tmdb_id_key" ON "movies"("tmdb_id");
