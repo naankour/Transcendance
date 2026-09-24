@@ -313,10 +313,6 @@
 	"errors": {
 		"generic": "Something went wrong. Please try again."
 	},
-	"auth": {
-		"requiredDefault": "You need to be logged in to access this page.",
-		"requiredButton": "Log in"
-	},
 	"discover": {
 		"title": "✦ Discover Movies ✦",
 		"filters": {
@@ -389,5 +385,30 @@
 	"newMessageList": {
 		"loading": "Loading...",
 		"empty": "You're following nobody at the moment ✦"
-	}
+	},
+	"auth": {
+		"welcomeBack": "Welcome Back",
+		"createAccount": "Create Account",
+		"username": "Username",
+		"email": "Email",
+		"password": "Password",
+		"signIn": "Sign In",
+		"signingIn": "Signing In...",
+		"signUp": "Sign Up",
+		"creatingAccount": "Creating Account...",
+		"noAccount": "Don't have an account?",
+		"haveAccount": "Already have an account?",
+		"register": "Register",
+		"login": "Login",
+		"loginFailed": "Login failed",
+		"registerFailed": "Registration failed",
+		"somethingWrong": "Something went wrong",
+		"loginSuccess": "You're in ◝(ᵔᗜᵔ)◜ heehee...",
+		"registerSuccess": "Account created ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ heehee...",
+		"oauthSuccess": "Logged in successfully! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"orQuickConnect": "Or quick connect with:",
+		"footer": "© 2004 LetterBlog Enterprises LLC. Best viewed in Internet Explorer 6.0",
+		"requiredDefault": "You need to be logged in to access this page.",
+		"requiredButton": "Log in"
+	  }
 }

@@ -316,10 +316,6 @@
 	"errors": {
 		"generic": "Une erreur est survenue. Veuillez réessayer."
 	},
-	"auth": {
-		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
-		"requiredButton": "Se connecter"
-	},
 	"discover": {
 		"title": "✦ Découvrir des films ✦",
 		"filters": {
@@ -392,5 +388,30 @@
 	"newMessageList": {
 		"loading": "Chargement...",
 		"empty": "Vous ne suivez personne pour le moment ✦"
-	}
+	},
+	"auth": {
+		"welcomeBack": "Bon retour",
+		"createAccount": "Créer un compte",
+		"username": "Nom d'utilisateur",
+		"email": "E-mail",
+		"password": "Mot de passe",
+		"signIn": "Se connecter",
+		"signingIn": "Connexion...",
+		"signUp": "S'inscrire",
+		"creatingAccount": "Création du compte...",
+		"noAccount": "Pas encore de compte ?",
+		"haveAccount": "Déjà un compte ?",
+		"register": "S'inscrire",
+		"login": "Se connecter",
+		"loginFailed": "Échec de la connexion",
+		"registerFailed": "Échec de l'inscription",
+		"somethingWrong": "Une erreur est survenue",
+		"loginSuccess": "Te voilà ◝(ᵔᗜᵔ)◜ hihi...",
+		"registerSuccess": "Compte créé ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ hihi...",
+		"oauthSuccess": "Connexion réussie ! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"orQuickConnect": "Ou connexion rapide avec :",
+		"footer": "© 2004 LetterBlog Enterprises LLC. Optimisé pour Internet Explorer 6.0",
+		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
+		"requiredButton": "Se connecter"
+	  }
 }
