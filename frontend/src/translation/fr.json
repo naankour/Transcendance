@@ -437,5 +437,10 @@
 		"privacyPolicy": "Politique de confidentialité",
 		"termsOfService": "Conditions d'utilisation",
 		"legalInformation": "Informations légales"
+	  },
+	  "app": {
+		"reviewCreated": "{{author}} a publié une nouvelle critique sur {{movie}} !",
+		"reviewUpdated": "{{author}} a modifié sa critique sur {{movie}} !",
+		"reviewDeleted": "{{author}} a supprimé sa critique sur {{movie}}"
 	  }
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { socket } from '../socket';
 
 // const3 socket = io("http://localhost:3000", {
@@ -38,11 +39,11 @@ import TermsOfService from './pages/TermsOfService';
 import Footer from './layout/Footer';
 import ChatBubble from './conversations/ChatBubble';
 
-// import ConversationList from './conversations/ConversationList';
-
 import './App.css';
 
 function App() {
+
+  const { t } = useTranslation();
 
   const [toastMessage, setToastMessage] = useState('');
   const [toastIcon, setToastIcon] = useState('💾');
@@ -58,14 +59,14 @@ function App() {
   useEffect(() => {
 
     socket.on("reviewCreated", (data) => {
-      triggerToast(`${data.author} published a new review on ${data.movie_name}!`, "⭐"); });
+      triggerToast(t('app.reviewCreated', { author: data.author, movie: data.movie_name }), "⭐"); });
 
     socket.on("reviewUpdated", (data) => {
-      triggerToast(`${data.author} updated their review on ${data.movie_name}!`, "✏️");
+      triggerToast(t('app.reviewUpdated', { author: data.author, movie: data.movie_name }), "✏️");
     });
 
     socket.on("reviewDeleted", (data) => {
-      triggerToast(`${data.author} deleted their review on ${data.movie_name}`, "🗑️");
+      triggerToast(t('app.reviewDeleted', { author: data.author, movie: data.movie_name }), "🗑️");
     });
     
     return () => 

@@ -435,5 +435,10 @@
 		"privacyPolicy": "Privacy Policy",
 		"termsOfService": "Terms of Service",
 		"legalInformation": "Legal information"
+	  },
+	  "app": {
+		"reviewCreated": "{{author}} published a new review on {{movie}}!",
+		"reviewUpdated": "{{author}} updated their review on {{movie}}!",
+		"reviewDeleted": "{{author}} deleted their review on {{movie}}"
 	  }
 }
