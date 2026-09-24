@@ -1,7 +1,6 @@
 const { getTmdbLanguage } = require('../utils/tmdbLang');
 
 // GET /actors/search/:name
-// Cherche des acteurs sur TMDB par nom
 const searchActor = async (req, res) => {
 	let name = req.params.name;
 
@@ -55,7 +54,6 @@ const searchActor = async (req, res) => {
 };
 
 // GET /actors/:tmdbId
-// Renvoie la fiche complète d'un acteur avec sa filmographie
 const getActorById = async (req, res) => {
 	const tmdbId = Number(req.params.tmdbId);
 
@@ -100,8 +98,6 @@ const getActorById = async (req, res) => {
 
 		details.biographyIsFallback = false;
 
-		// Si TMDB n'a pas de bio dans la langue choisie,
-		// on récupère la bio anglaise en fallback
 		if (!details.biography && tmdbLanguage !== 'en-US') {
 			const fallbackResponse = await fetch(
 				`https://api.themoviedb.org/3/person/${tmdbId}?language=en-US`,

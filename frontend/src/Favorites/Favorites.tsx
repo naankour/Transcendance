@@ -34,6 +34,11 @@ useEffect(() =>
     {
     const token = localStorage.getItem('token');
 
+    if (!token) {
+        setLoading(false);
+        setIsAuthError(true);
+        return;
+    }
     const endpoint = userId ? `/api/favorites/user/${userId}` : '/api/favorites';
 
     fetch(endpoint, 
@@ -68,7 +73,6 @@ useEffect(() =>
     })
     .catch(err => 
     {
-      console.error(err);
       setError(err.message);
       setLoading(false);
     });

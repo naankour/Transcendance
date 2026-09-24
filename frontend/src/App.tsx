@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { socket } from '../socket';
 
 // const3 socket = io("http://localhost:3000", {
@@ -16,7 +17,7 @@ import { socket } from '../socket';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './HomePage/HomePage';
-import MoviePage from './MoviePage';
+import MoviePage from './MoviePage/MoviePage';
 import { Auth } from './auth/AuthPage';
 import { Toast } from './auth/Toast';
 import { ProfilePage } from './user/ProfilePage'; 
@@ -29,20 +30,20 @@ import MyReviews from './MyReviews/MyReviews'
 import Reviews from './Reviews/Reviews'
 import CreateReview from './pages/CreateReview'
 import EditReview from './pages/EditReview'
-import ActorPage from './pages/ActorPage';
+import ActorPage from './ActorPages/ActorPage';
 import Header from './layout/Header';
-import SearchResultsPage from './pages/SearchResultsPage';
+import SearchResultsPage from './SearchResult/SearchResultsPage';
 import Discover from './pages/Discover'
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './layout/PrivacyPolicy';
+import TermsOfService from './layout/TermsOfService';
 import Footer from './layout/Footer';
 import ChatBubble from './conversations/ChatBubble';
-
-// import ConversationList from './conversations/ConversationList';
 
 import './App.css';
 
 function App() {
+
+  const { t } = useTranslation();
 
   const [toastMessage, setToastMessage] = useState('');
   const [toastIcon, setToastIcon] = useState('💾');
@@ -58,14 +59,14 @@ function App() {
   useEffect(() => {
 
     socket.on("reviewCreated", (data) => {
-      triggerToast(`${data.author} published a new review on ${data.movie_name}!`, "⭐"); });
+      triggerToast(t('app.reviewCreated', { author: data.author, movie: data.movie_name }), "⭐"); });
 
     socket.on("reviewUpdated", (data) => {
-      triggerToast(`${data.author} updated their review on ${data.movie_name}!`, "✏️");
+      triggerToast(t('app.reviewUpdated', { author: data.author, movie: data.movie_name }), "✏️");
     });
 
     socket.on("reviewDeleted", (data) => {
-      triggerToast(`${data.author} deleted their review on ${data.movie_name}`, "🗑️");
+      triggerToast(t('app.reviewDeleted', { author: data.author, movie: data.movie_name }), "🗑️");
     });
     
     return () => 

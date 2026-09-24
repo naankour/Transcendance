@@ -434,5 +434,15 @@
 		"profileUpdated": "Perfil actualizado",
 		"loading": "Cargando perfil...",
 		"noBio": "Aún no hay biografía."
-	}
+	},
+	"footer": {
+		"privacyPolicy": "Política de privacidad",
+		"termsOfService": "Términos de servicio",
+		"legalInformation": "Información legal"
+	  },
+	  "app": {
+		"reviewCreated": "¡{{author}} ha publicado una nueva crítica sobre {{movie}}!",
+		"reviewUpdated": "¡{{author}} ha modificado su crítica sobre {{movie}}!",
+		"reviewDeleted": "{{author}} ha eliminado su crítica sobre {{movie}}"
+	  }
 }

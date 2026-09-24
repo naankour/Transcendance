@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import defaultActor from '../assets/sticker-mask.png';
-import '../styles/ActorPage.css';
+import './ActorPage.css';
 
 interface FilmographyEntry {
 	id: number;

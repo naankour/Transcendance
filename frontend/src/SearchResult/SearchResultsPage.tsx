@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import defaultActor from '../assets/sticker-mask.png';
 import { getAvatarUrl } from '../utils/avatar.js';
-import '../styles/SearchResultsPage.css';
+import './SearchResultsPage.css';
 
 interface MovieResult {
 	id: number;

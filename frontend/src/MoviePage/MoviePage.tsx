@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import MovieListButton from './components/MovieListButton';
+import MovieListButton from '../components/MovieListButton';
 import './MoviePage.css';
 
 interface Review {

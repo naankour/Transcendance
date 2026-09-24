@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Modak&family=Ranchers&family=Rubik+Puddles&display=swap');
 
 .header {
 	width: 100%;
@@ -16,7 +15,7 @@
 	position: sticky;
 	width: 100%;
 	top: 0;
-	background-color: black;
+	background-color: var(--color-bg);
 	box-sizing: border-box;
 	z-index: 100;
 }
@@ -38,7 +37,7 @@
 }
 
 .header-nav-link {
-	font-family: "Modak", system-ui;
+	font-family: var(--font-display);
 	color: #1a0a12;
 	text-decoration: none;
 	font-size: 21px;
@@ -84,7 +83,7 @@
 	gap: 8px;
 	font-size: 42px;
 	text-decoration: none;
-	font-family: "Rubik Puddles", system-ui;
+	font-family: var(--font-puddle);
 	font-weight: 400;
 	font-style: normal;
 	transition: transform 0.2s ease;
