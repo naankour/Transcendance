@@ -1,4 +1,3 @@
-
 const prisma = require('../prisma/prismaClient.js');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
@@ -37,14 +36,14 @@ const getMyProfile = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
+      return res.status(404).json({ error: 'notifications.userNotFound' });
     }
 
     // on renvoie l'objet du user en format json
     return res.json(user);
   } catch (error) {
     console.error('Error fetching profile:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'notifications.internalServerError' });
   }
 };
 
@@ -55,7 +54,7 @@ const updateMyProfile = async (req, res) => {
     const { firstname, lastname, username, email, bio, currentPassword, newPassword } = req.body;
 
     if (!username || !email) {
-      return res.status(400).json({ error: 'Username and email are required fields (ง •̀_•́)ง' });
+      return res.status(400).json({ error: 'notifications.usernameEmailRequired' });
     }
 
     // Récupère l'utilisateur actuel pour vérifier le mdp si besoin
@@ -64,7 +63,7 @@ const updateMyProfile = async (req, res) => {
     });
 
     if (!currentUser) {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
+      return res.status(404).json({ error: 'notifications.userNotFound' });
     }
 
     let password_hash = currentUser.password_hash;
@@ -72,12 +71,12 @@ const updateMyProfile = async (req, res) => {
     // Si l'utilisateur demande à changer son mot de passe
     if (newPassword) {
       if (!currentPassword) {
-        return res.status(400).json({ error: 'Current password is required to set a new password (ง •̀_•́)ง' });
+        return res.status(400).json({ error: 'notifications.currentPasswordRequired' });
       }
 
       const isMatch = await bcrypt.compare(currentPassword, currentUser.password_hash);
       if (!isMatch) {
-        return res.status(401).json({ error: 'Incorrect current password ( ｡ •̀ ᴖ •́ ｡)💢' });
+        return res.status(401).json({ error: 'notifications.incorrectCurrentPassword' });
       }
 
       password_hash = await bcrypt.hash(newPassword, 10);
@@ -112,12 +111,12 @@ const updateMyProfile = async (req, res) => {
     });
 
     return res.json({
-      message: 'Profile updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡',
+      message: 'notifications.profileUpdated',
       user: updatedUser,
     });
   } catch (error) {
     console.error('Error updating profile:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'notifications.internalServerError' });
   }
 };
 
@@ -128,7 +127,7 @@ const deleteMyProfile = async (req, res) => {
     const { password } = req.body || {};
 
     if (!password) {
-      return res.status(400).json({ error: 'Password is required to delete your account (ง •̀_•́)ง' });
+      return res.status(400).json({ error: 'notifications.passwordRequiredToDelete' });
     }
 
     // récupère le password_hash dans la bdd
@@ -137,7 +136,7 @@ const deleteMyProfile = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
+      return res.status(404).json({ error: 'notifications.userNotFound' });
     }
 
     const currentHashedPassword = user.password_hash;
@@ -149,17 +148,17 @@ const deleteMyProfile = async (req, res) => {
     // vérifie le mdp
     const isMatch = await bcrypt.compare(password, currentHashedPassword);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Incorrect password (╥﹏╥)' });
+      return res.status(401).json({ error: 'notifications.incorrectPassword' });
     }
 
     await prisma.users.delete({
       where: { id: Number(userId) },
     });
 
-    return res.json({ message: 'Account deleted successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡' });
+    return res.json({ message: 'notifications.accountDeleted' });
   } catch (error) {
     console.error('Error deleting profile:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'notifications.internalServerError' });
   }
 };
 
@@ -182,13 +181,13 @@ const getUserById = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found (╥﹏╥)' });
+      return res.status(404).json({ error: 'notifications.userNotFound' });
     }
 
     return res.json(user);
   } catch (error) {
     console.error('Error fetching public profile:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'notifications.internalServerError' });
   }
 };
 
@@ -218,7 +217,7 @@ const getUsers = async (req, res) => {
     return res.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'notifications.internalServerError' });
   }
 };
 
@@ -234,7 +233,7 @@ const getUserOnlineStatus = async (req, res) => {
   catch (error)
   {
     console.error('Error checking online status:', error);
-    return res.status(500).json({ error: 'Internal server error'});
+    return res.status(500).json({ error: 'notifications.internalServerError'});
   }
 }
 

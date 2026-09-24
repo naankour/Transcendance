@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { getAvatarUrl } from '../utils/avatar';
 import FollowsButton from '../components/FollowsButton';
 import OnlineStatus from '../components/Onlinestatus';
 
 export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, triggerToast, isFollowing, onFollowChange }) {
+  const { t } = useTranslation();
+
   return (
     <div className="profile-header">
       <img
@@ -27,7 +30,7 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, tr
           onClick={onEditClick}
           className="edit-profile-btn"
         >
-          Edit Profile
+          {t('profile.editProfile')}
         </button>
       ) : (
         /* profil de quelq'un d'autre -> bouton message */
@@ -37,7 +40,7 @@ export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, tr
           onClick={onStartChat}
           className="message-btn"
           >
-          Message 💬
+          {t('profile.message')} 💬
           </button>
           <FollowsButton
             userId={user.id}

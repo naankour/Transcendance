@@ -412,5 +412,26 @@
 		"oauthSuccess": "¡Sesión iniciada con éxito! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
 		"orQuickConnect": "O conéctate rápidamente con:",
 		"footer": "© 2004 LetterBlog Enterprises LLC. Mejor visto en Internet Explorer 6.0"
+	},
+	"notifications": {
+		"userNotFound": "Usuario no encontrado (╥﹏╥)",
+		"usernameEmailRequired": "El nombre de usuario y el email son obligatorios (ง •̀_•́)ง",
+		"currentPasswordRequired": "Se requiere la contraseña actual para establecer una nueva (ง •̀_•́)ง",
+		"incorrectCurrentPassword": "Contraseña actual incorrecta ( ｡ •̀ ᴖ •́ ｡)💢",
+		"profileUpdated": "Perfil actualizado con éxito ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"passwordRequiredToDelete": "Se requiere la contraseña para eliminar tu cuenta (ง •̀_•́)ง",
+		"incorrectPassword": "Contraseña incorrecta (╥﹏╥)",
+		"accountDeleted": "Cuenta eliminada con éxito ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"internalServerError": "Error interno del servidor"
+	  },
+	  "profile": {
+		"editProfile": "Editar perfil",
+		"message": "Mensaje",
+		"failedToLoad": "No se pudo cargar el perfil",
+		"somethingWentWrong": "Algo salió mal",
+		"failedToStartConversation": "No se pudo iniciar la conversación",
+		"profileUpdated": "Perfil actualizado",
+		"loading": "Cargando perfil...",
+		"noBio": "Aún no hay biografía."
 	}
 }

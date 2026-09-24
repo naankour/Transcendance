@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
+import { useTranslation } from 'react-i18next';
 import { ProfileHeader } from './ProfileHeader'; 
 import { ProfileEditForm } from './ProfileEditForm'; 
 import Followers  from '../Followers/Followers';
@@ -13,6 +14,7 @@ import AuthRequired from "../components/AuthRequired";
 
 export function ProfilePage({ triggerToast }) 
 {
+  const { t } = useTranslation();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -48,7 +50,8 @@ export function ProfilePage({ triggerToast })
 
     fetch('/api/follows', {
       headers: {
-        Authorization: `Bearer ${token}` },
+        Authorization: `Bearer ${token}`,
+      },
       
     })
     .then(res => res.json())
@@ -80,13 +83,13 @@ export function ProfilePage({ triggerToast })
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to load profile');
+        throw new Error(data.error ? t(data.error) : t('profile.failedToLoad'));
       }
 
       setUser(data);
     } catch (err) {
       if (triggerToast) 
-        triggerToast(err.message || 'Something went wrong', '⚠️');
+        triggerToast(err.message || t('profile.somethingWentWrong'), '⚠️');
     } finally {
       setLoading(false);
     }
@@ -107,7 +110,7 @@ export function ProfilePage({ triggerToast })
       const conversation = await response.json();
 
       if (!response.ok) {
-        throw new Error(conversation.error || 'Failed to start conversation');
+        throw new Error(conversation.error ? t(conversation.error) : t('profile.failedToStartConversation'));
       }
 
       // redirige vers le chat
@@ -115,7 +118,7 @@ export function ProfilePage({ triggerToast })
       navigate(`/conversations?id=${conversation.id}`);
     } catch (err) {
       if (triggerToast) {
-        triggerToast(err.message || 'Something went wrong', '⚠️');
+        triggerToast(err.message || t('profile.somethingWentWrong'), '⚠️');
       }
     }
   };
@@ -124,12 +127,12 @@ export function ProfilePage({ triggerToast })
     setUser(updatedUser);
     setIsEditing(false);
     if (triggerToast) {
-      triggerToast('Profile updated ♡⸜(˶˃ ᵕ ˂˶)⸝♡', '✨');
+      triggerToast(t('profile.profileUpdated') + ' ♡⸜(˶˃ ᵕ ˂˶)⸝♡', '✨');
     }
   };
 
   if (loading) 
-    return <div className="profile-container">Loading profile...</div>;
+    return <div className="profile-container">{t('profile.loading')}</div>;
 
   if (!user) 
     return <AuthRequired />
@@ -160,7 +163,7 @@ export function ProfilePage({ triggerToast })
             />
           ) : (
             <div className="profile-info">
-              <p><strong></strong> {user.bio || 'No bio yet.'}</p>
+              <p><strong></strong> {user.bio || t('profile.noBio')}</p>
             </div>
           )}
         </div>

@@ -62,11 +62,11 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || t('profileEdit.updateFailed'));
+        throw new Error(data.error ? t(data.error) : t('profileEdit.updateFailed'));
       }
 
       if (triggerToast) {
-        triggerToast(data.message || t('profileEdit.updateSuccess'), '♡');
+        triggerToast(data.message ? t(data.message) : t('profileEdit.updateSuccess'), '♡');
       }
 
       onSave(data.user);

@@ -409,5 +409,26 @@
 		"footer": "© 2004 LetterBlog Enterprises LLC. Best viewed in Internet Explorer 6.0",
 		"requiredDefault": "You need to be logged in to access this page.",
 		"requiredButton": "Log in"
+	  },
+	  "notifications": {
+		"userNotFound": "User not found (╥﹏╥)",
+		"usernameEmailRequired": "Username and email are required fields (ง •̀_•́)ง",
+		"currentPasswordRequired": "Current password is required to set a new password (ง •̀_•́)ง",
+		"incorrectCurrentPassword": "Incorrect current password ( ｡ •̀ ᴖ •́ ｡)💢",
+		"profileUpdated": "Profile updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"passwordRequiredToDelete": "Password is required to delete your account (ง •̀_•́)ง",
+		"incorrectPassword": "Incorrect password (╥﹏╥)",
+		"accountDeleted": "Account deleted successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"internalServerError": "Internal server error"
+	  },
+	  "profile": {
+		"editProfile": "Edit Profile",
+		"message": "Message",
+		"failedToLoad": "Failed to load profile",
+		"somethingWentWrong": "Something went wrong",
+		"failedToStartConversation": "Failed to start conversation",
+		"profileUpdated": "Profile updated",
+		"loading": "Loading profile...",
+		"noBio": "No bio yet."
 	  }
 }
