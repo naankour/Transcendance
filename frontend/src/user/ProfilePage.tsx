@@ -160,8 +160,7 @@ export function ProfilePage({ triggerToast })
             />
           ) : (
             <div className="profile-info">
-              <p><strong>Email:</strong> {user.email}</p>
-              <p><strong>Bio:</strong> {user.bio || 'No bio yet.'}</p>
+              <p><strong></strong> {user.bio || 'No bio yet.'}</p>
             </div>
           )}
         </div>
