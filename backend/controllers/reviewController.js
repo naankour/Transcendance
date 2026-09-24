@@ -121,7 +121,7 @@ const createReview = async (req, res) =>
         });
 
         if (existingReview)
-        {z
+        {
             return res.status(409).json({
                 error: "You already reviewed this movie"
             });

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Login } from './Login';
 import { Register } from './Register';
@@ -9,6 +10,7 @@ import { identifySocket } from '../../socket';
 import {refreshUnreadCount } from '../notification';
 
 export function Auth({ triggerToast }) {
+  const { t } = useTranslation();
   const [isLogin, setIsLogin] = useState(true);
 
   const [searchParams] = useSearchParams();
@@ -24,14 +26,14 @@ export function Auth({ triggerToast }) {
       refreshUnreadCount();
       if (triggerToast) {
         triggerToast(
-          'Logged in successfully! ♡⸜(˶˃ ᵕ ˂˶)⸝♡',
+          t('auth.oauthSuccess'),
           '✨'
         );
       }
 
       navigate('/', { replace: true });
     }
-  }, [searchParams, navigate, triggerToast]);
+  }, [searchParams, navigate, triggerToast, t]);
 
   const handleGithubLogin = () => {
     window.location.href = '/api/auth/github';
@@ -121,7 +123,7 @@ export function Auth({ triggerToast }) {
           <div className="oauth-section">
 
             <p className="oauth-title">
-              Or quick connect with:
+              {t('auth.orQuickConnect')}
             </p>
 
             <div className="oauth-buttons">
@@ -181,7 +183,7 @@ export function Auth({ triggerToast }) {
 
 
       <footer className="retro-footer">
-        © 2004 LetterBlog Enterprises LLC. Best viewed in Internet Explorer 6.0
+        {t('auth.footer')}
       </footer>
 
     </div>

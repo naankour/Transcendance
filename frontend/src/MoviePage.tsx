@@ -55,6 +55,7 @@ function MoviePage({ triggerToast }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [myReviewId, setMyReviewId] = useState<number | null>(null);
+  const [deletingReviewId, setDeletingReviewId] = useState<number | null>(null);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
@@ -138,11 +139,42 @@ function MoviePage({ triggerToast }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || t('errors.generic'));
 
+      triggerToast(myReviewId ? t('moviePage.reviewUpdated') : t('moviePage.reviewPublished'), '⭐');
       loadMovie();
     } catch (err: any) {
       setSubmitError(err.message);
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId: number) => {
+    setDeletingReviewId(reviewId);
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const res = await fetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || t('errors.generic'));
+      }
+
+      triggerToast(t('moviePage.reviewDeleted'), '🗑️');
+      setRating(5);
+      setContent('');
+      setMyReviewId(null);
+      loadMovie();
+    } catch (err: any) {
+      triggerToast(err.message, '⚠️');
+    } finally {
+      setDeletingReviewId(null);
     }
   };
 
@@ -228,13 +260,24 @@ function MoviePage({ triggerToast }: Props) {
                 placeholder={t('moviePage.reviewPlaceholder')}
                 className="movie-page__textarea"
               />
-              <button onClick={handleSubmitReview} disabled={submitting} className="movie-page__submit-btn">
-                {submitting
-                  ? t('moviePage.submitting')
-                  : myReviewId
-                  ? t('moviePage.updateReview')
-                  : t('moviePage.publishReview')}
-              </button>
+              <div className="movie-page__form-actions">
+                <button onClick={handleSubmitReview} disabled={submitting} className="movie-page__submit-btn">
+                  {submitting
+                    ? t('moviePage.submitting')
+                    : myReviewId
+                    ? t('moviePage.updateReview')
+                    : t('moviePage.publishReview')}
+                </button>
+                {myReviewId && (
+                  <button
+                    onClick={() => handleDeleteReview(myReviewId)}
+                    disabled={deletingReviewId === myReviewId}
+                    className="movie-page__delete-btn"
+                  >
+                    {deletingReviewId === myReviewId ? t('moviePage.deleting') : t('moviePage.deleteReview')}
+                  </button>
+                )}
+              </div>
               {submitError && <p className="movie-page__submit-error">{submitError}</p>}
             </>
           )}

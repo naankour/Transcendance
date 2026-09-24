@@ -305,15 +305,16 @@
 		"noReviews": "Aún no hay reseñas.",
 		"editReview": "Editar mi reseña",
 		"updateReview": "Actualizar mi reseña",
-		"you": "tú"
+		"you": "tú",
+		"deleteReview": "Eliminar",
+		"deleting": "Eliminando...",
+		"reviewPublished": "¡Reseña publicada!",
+		"reviewUpdated": "¡Reseña actualizada!",
+		"reviewDeleted": "¡Reseña eliminada!"
 	},
 
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
-	},
-	"auth": {
-		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
-		"requiredButton": "Iniciar sesión"
 	},
 	"discover": {
 		"title": "✦ Descubrir películas ✦",
@@ -387,5 +388,30 @@
 	"newMessageList": {
 		"loading": "Cargando...",
 		"empty": "No sigues a nadie por el momento ✦"
+	},
+	"auth": {
+		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
+		"requiredButton": "Iniciar sesión",
+		"welcomeBack": "Bienvenida de nuevo",
+		"createAccount": "Crear cuenta",
+		"username": "Nombre de usuario",
+		"email": "Correo electrónico",
+		"password": "Contraseña",
+		"signIn": "Iniciar sesión",
+		"signingIn": "Iniciando sesión...",
+		"signUp": "Registrarse",
+		"creatingAccount": "Creando cuenta...",
+		"noAccount": "¿Aún no tienes cuenta?",
+		"haveAccount": "¿Ya tienes cuenta?",
+		"register": "Regístrate",
+		"login": "Inicia sesión",
+		"loginFailed": "Error al iniciar sesión",
+		"registerFailed": "Error al registrarse",
+		"somethingWrong": "Algo salió mal",
+		"loginSuccess": "Ya estás dentro ◝(ᵔᗜᵔ)◜ jeje...",
+		"registerSuccess": "Cuenta creada ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ jeje...",
+		"oauthSuccess": "¡Sesión iniciada con éxito! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"orQuickConnect": "O conéctate rápidamente con:",
+		"footer": "© 2004 LetterBlog Enterprises LLC. Mejor visto en Internet Explorer 6.0"
 	}
 }
