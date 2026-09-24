@@ -433,5 +433,10 @@
 		"profileUpdated": "Perfil actualizado",
 		"loading": "Cargando perfil...",
 		"noBio": "Aún no hay biografía."
-	}
+	},
+	"footer": {
+		"privacyPolicy": "Política de privacidad",
+		"termsOfService": "Términos de servicio",
+		"legalInformation": "Información legal"
+	  }
 }
