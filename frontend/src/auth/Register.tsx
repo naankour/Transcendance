@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function Register({ onSwitchToLogin, triggerToast }) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -25,19 +27,19 @@ export function Register({ onSwitchToLogin, triggerToast }) {
 
       if (!response.ok) {
         const errorMessage =
-          data.error || data.message || "Registration failed";
+          data.error || data.message || t("auth.registerFailed");
         throw new Error(errorMessage);
       }
 
       if (triggerToast) {
-        triggerToast("Account created ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ heehee...", "✨");
+        triggerToast(t("auth.registerSuccess"), "✨");
       }
       setTimeout(() => {
         onSwitchToLogin();
       }, 1200);
     } catch (err) {
       if (triggerToast) {
-        triggerToast(err.message || "Something went wrong", "⚠️");
+        triggerToast(err.message || t("auth.somethingWrong"), "⚠️");
       }
     } finally {
       setLoading(false);
@@ -46,11 +48,11 @@ export function Register({ onSwitchToLogin, triggerToast }) {
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <h2>Create Account</h2>
-      
+      <h2>{t("auth.createAccount")}</h2>
+
       <input
         type="text"
-        placeholder="Username"
+        placeholder={t("auth.username")}
         value={formData.username}
         onChange={(e) => setFormData({ ...formData, username: e.target.value })}
         required
@@ -59,7 +61,7 @@ export function Register({ onSwitchToLogin, triggerToast }) {
 
       <input
         type="email"
-        placeholder="Email"
+        placeholder={t("auth.email")}
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         required
@@ -68,7 +70,7 @@ export function Register({ onSwitchToLogin, triggerToast }) {
 
       <input
         type="password"
-        placeholder="Password"
+        placeholder={t("auth.password")}
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         required
@@ -76,18 +78,18 @@ export function Register({ onSwitchToLogin, triggerToast }) {
       />
 
       <button type="submit" disabled={loading}>
-        {loading ? "Creating Account..." : "Sign Up"}
+        {loading ? t("auth.creatingAccount") : t("auth.signUp")}
       </button>
 
       <p>
-        Already have an account?{" "}
+        {t("auth.haveAccount")}{" "}
         <button
           type="button"
           onClick={onSwitchToLogin}
           className="link-btn"
           disabled={loading}
         >
-          Login
+          {t("auth.login")}
         </button>
       </p>
     </form>
