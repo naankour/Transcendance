@@ -96,7 +96,6 @@
 		"lastname": "Nom",
 		"email": "Email",
 		"bio": "Bio",
-		"changePassword": "Chaaaaaaange le mot de paaaaaaaaaaasse",
 		"currentPassword": "Mot de passe actuel",
 		"currentPasswordPlaceholder": "Entre ton mot de passe actuel",
 		"newPassword": "Nouveau mot de passe",

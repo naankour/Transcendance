@@ -153,8 +153,6 @@ export function ProfileEditForm({ user, onSave, onCancel, triggerToast }) {
       </label>
 
       <hr className="form-divider" />
-      <p className="password-section-title">{t('profileEdit.changePassword')}</p>
-
       <div className="profile-edit-grid">
         <label>
           {t('profileEdit.currentPassword')}
