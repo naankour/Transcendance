@@ -26,7 +26,8 @@
   position: relative;
 
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 620px;
 
   box-sizing: border-box;
 
@@ -35,7 +36,7 @@
   justify-content: center;
   align-items: center;
 
-  padding: 60px 20px;
+  padding: 25px 20px 90px;
 
   overflow: hidden;
 
@@ -76,80 +77,65 @@
 
   position: absolute;
 
-  left: -20%;
-  right: -20%;
-  bottom: -8%;
+  /* Make the grid extend far beyond both sides of the screen */
+  left: -60%;
+  width: 220%;
 
-  width: 140%;
-  height: 42%;
+  /* Push the grid high enough to reach toward the card */
+  bottom: 0%;
+  height: 98%;
 
   pointer-events: none;
 
   background-image:
     linear-gradient(
-      rgba(255, 20, 147, 0.30) 1px,
-      transparent 1px
+      rgba(255, 20, 147, 0.75) 2px,
+      transparent 2px
     ),
     linear-gradient(
       90deg,
-      rgba(255, 20, 147, 0.30) 1px,
-      transparent 1px
+      rgba(255, 20, 147, 0.75) 2px,
+      transparent 2px
     );
 
+  /* Bigger grid squares */
   background-size:
-    55px 34px,
-    55px 34px;
+    120px 88px,
+    120px 88px;
 
+  /* Perspective floor */
   transform:
-    perspective(260px)
-    rotateX(58deg);
+    perspective(420px)
+    rotateX(62deg);
 
   transform-origin: center bottom;
 
-  opacity: 0.75;
+  /* Strong neon glow */
+  filter:
+    drop-shadow(0 0 3px #ff1493)
+    drop-shadow(0 0 8px rgba(255, 20, 147, 0.85))
+    drop-shadow(0 0 18px rgba(255, 20, 147, 0.55));
 
+  /* Fade as the grid approaches the card */
   -webkit-mask-image: linear-gradient(
     to top,
     black 0%,
-    rgba(0, 0, 0, 0.8) 35%,
-    transparent 100%
+    black 45%,
+    rgba(0, 0, 0, 0.85) 62%,
+    rgba(0, 0, 0, 0.45) 76%,
+    transparent 94%
   );
 
   mask-image: linear-gradient(
     to top,
     black 0%,
-    rgba(0, 0, 0, 0.8) 35%,
-    transparent 100%
+    black 45%,
+    rgba(0, 0, 0, 0.85) 62%,
+    rgba(0, 0, 0, 0.45) 76%,
+    transparent 94%
   );
 
-  z-index: 0;
-}
-
-
-/* Horizon glow */
-
-.skyblog-container::after {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  right: 0;
-
-  bottom: 18%;
-
-  height: 2px;
-
-  background: var(--pink);
-
-  box-shadow:
-    0 0 8px var(--pink),
-    0 0 20px var(--pink),
-    0 0 50px var(--pink);
-
-  opacity: 0.55;
-
-  z-index: 0;
+  z-index: 1;
 }
 
 
@@ -164,7 +150,7 @@
 
   box-sizing: border-box;
 
-  padding: 28px 24px;
+  padding: 24px 24px 21px;
 
   background:
     linear-gradient(
@@ -173,16 +159,19 @@
       rgba(8, 2, 15, 0.99)
     );
 
-  border: 3px dashed var(--pink);
+  /*
+     SOLID outer border.
+     The dashed line is only the inner frame.
+  */
+  border: 2px solid var(--pink);
 
   border-radius: 20px;
 
   box-shadow:
     0 0 0 5px #0b0512,
-    0 0 0 8px rgba(255, 20, 147, 0.18),
+    0 0 0 8px rgba(255, 20, 147, 0.16),
     0 0 18px rgba(255, 20, 147, 0.40),
-    0 0 45px rgba(255, 20, 147, 0.22),
-    8px 8px 0 rgba(255, 20, 147, 0.18);
+    0 0 45px rgba(255, 20, 147, 0.22);
 
   animation: cardAppear 0.55s ease-out;
 
@@ -191,7 +180,7 @@
 
 
 /* ============================================================
-   CARD HEART
+   INNER FRAME
    ============================================================ */
 
 .skyblog-box::before {
@@ -199,18 +188,25 @@
 
   position: absolute;
 
-  top: -19px;
-  left: 28px;
+  top: -17px;
+  left: 27px;
 
-  padding: 0 9px;
+  width: 30px;
+  height: 30px;
 
-  background: var(--purple-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
 
   color: var(--pink);
 
   font-family: Arial, sans-serif;
 
-  font-size: 23px;
+  font-size: 24px;
+
+  line-height: 1;
 
   text-shadow:
     0 0 5px var(--pink),
@@ -223,6 +219,20 @@
 }
 
 
+/* dashed inner frame */
+.skyblog-content {
+  position: relative;
+
+  padding: 18px 18px 17px;
+
+  border:
+    2px dashed
+    rgba(255, 20, 147, 0.75);
+
+  border-radius: 13px;
+}
+
+
 /* ============================================================
    CARD STAR
    ============================================================ */
@@ -232,16 +242,25 @@
 
   position: absolute;
 
-  right: 23px;
-  bottom: -19px;
+  right: 22px;
+  bottom: -17px;
 
-  padding: 0 8px;
+  width: 31px;
+  height: 31px;
 
-  background: var(--purple-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
 
   color: var(--pink);
 
-  font-size: 21px;
+  font-family: Arial, sans-serif;
+
+  font-size: 22px;
+
+  line-height: 1;
 
   text-shadow:
     0 0 5px var(--pink),
@@ -259,6 +278,8 @@
    ============================================================ */
 
 .skyblog-header {
+  position: relative;
+
   color: var(--pink);
 
   font-family: var(--font-retro);
@@ -269,11 +290,7 @@
 
   text-align: center;
 
-  padding-bottom: 17px;
-
-  border-bottom:
-    2px dashed
-    rgba(255, 20, 147, 0.45);
+  padding: 5px 0 14px;
 
   letter-spacing: 4px;
 
@@ -287,11 +304,22 @@
 
 
 /* ============================================================
-   CONTENT
+   PINK LINE UNDER SKYBLOG
    ============================================================ */
 
-.skyblog-content {
-  padding-top: 22px;
+.skyblog-header::after {
+  content: "";
+
+  position: absolute;
+
+  left: 15px;
+  right: 15px;
+
+  bottom: 0;
+
+  border-bottom:
+    2px dashed
+    rgba(255, 20, 147, 0.65);
 }
 
 
@@ -304,7 +332,7 @@
 
   flex-direction: column;
 
-  gap: 15px;
+  gap: 11px;
 
   width: 100%;
 }
@@ -315,13 +343,13 @@
    ============================================================ */
 
 .auth-form h2 {
-  margin: 0 0 7px;
+  margin: 0 0 4px;
 
   color: white;
 
   font-family: Arial, Helvetica, sans-serif;
 
-  font-size: 1.45rem;
+  font-size: 1.42rem;
 
   font-weight: 800;
 
@@ -351,14 +379,14 @@
 .auth-input-icon {
   position: absolute;
 
-  left: 17px;
+  left: 14px;
   top: 50%;
 
   transform: translateY(-50%);
 
   color: rgba(255, 190, 230, 0.75);
 
-  font-size: 20px;
+  font-size: 18px;
 
   pointer-events: none;
 
@@ -378,11 +406,13 @@
 
   box-sizing: border-box;
 
-  padding: 13px 16px 13px 52px;
+  height: 47px;
+
+  padding: 10px 14px 10px 45px;
 
   border: 2px solid var(--pink);
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   outline: none;
 
@@ -393,7 +423,7 @@
 
   font-family: Arial, Helvetica, sans-serif;
 
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 
   box-shadow:
     inset 0 0 8px rgba(0, 0, 0, 0.5),
@@ -413,8 +443,6 @@
 
 .auth-form input:focus {
   border-color: var(--pink-light);
-
-  transform: translateY(-1px);
 
   box-shadow:
     0 0 8px var(--pink),
@@ -437,13 +465,15 @@
 .auth-form button[type="submit"] {
   width: 100%;
 
-  margin-top: 4px;
+  height: 48px;
 
-  padding: 14px;
+  margin-top: 5px;
+
+  padding: 10px;
 
   border: none;
 
-  border-radius: 12px;
+  border-radius: 11px;
 
   background:
     linear-gradient(
@@ -456,7 +486,7 @@
 
   font-family: var(--font-retro);
 
-  font-size: 1rem;
+  font-size: 0.95rem;
 
   font-weight: 900;
 
@@ -475,17 +505,12 @@
 
 
 .auth-form button[type="submit"]:hover:not(:disabled) {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 
   box-shadow:
     0 0 12px var(--pink),
     0 0 28px var(--pink),
     0 0 50px rgba(255, 20, 147, 0.40);
-}
-
-
-.auth-form button[type="submit"]:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 
@@ -501,20 +526,20 @@
    ============================================================ */
 
 .auth-form p {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
 
   color: white;
 
   font-family: Arial, Helvetica, sans-serif;
 
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 
   text-align: center;
 }
 
 
 .link-btn {
-  padding: 0 4px;
+  padding: 0 3px;
 
   border: none;
 
@@ -532,8 +557,6 @@
 
   text-shadow:
     0 0 6px var(--pink);
-
-  transition: color 0.2s ease;
 }
 
 
@@ -547,7 +570,32 @@
 
 
 /* ============================================================
-   FLOATING Y2K DECORATIONS
+   ERROR
+   ============================================================ */
+
+.error-badge {
+  margin-bottom: 3px;
+
+  padding: 6px;
+
+  color: #ff7ac8;
+
+  background: rgba(255, 20, 147, 0.06);
+
+  border: 1px solid var(--pink);
+
+  border-radius: 6px;
+
+  font-size: 0.78rem;
+
+  font-weight: bold;
+
+  text-align: center;
+}
+
+
+/* ============================================================
+   BACKGROUND HEARTS
    ============================================================ */
 
 .y2k-decoration {
@@ -555,92 +603,449 @@
 
   display: block;
 
-  color: var(--pink);
+  color: #ff39aa;
 
   pointer-events: none;
-
   user-select: none;
 
   z-index: 2;
 
   text-shadow:
-    0 0 5px var(--pink),
-    0 0 12px var(--pink),
-    0 0 25px var(--pink);
+    0 0 4px #ff1493,
+    0 0 9px #ff1493,
+    0 0 18px #ff1493,
+    0 0 30px rgba(255, 20, 147, 0.55);
 }
 
 
-/* Hearts */
+/* HEARTS */
 
 .y2k-heart {
   font-family: Arial, sans-serif;
 
-  font-size: 48px;
+  font-weight: normal;
+
+  font-size: 62px;
+
+  line-height: 1;
+
+  color: transparent;
+
+  -webkit-text-stroke: 2px #ff39aa;
+
+  text-shadow:
+    0 0 5px #ff1493,
+    0 0 12px #ff1493,
+    0 0 22px rgba(255, 20, 147, 0.75);
 
   animation:
     floatHeart 4s ease-in-out infinite;
 }
 
 
+/* TOP-LEFT HEART */
+
 .y2k-heart-1 {
-  top: 12%;
+  top: 8%;
   left: 7%;
+
+  font-size: 67px;
 }
 
+
+/* orbit */
+
+.y2k-heart-1::after {
+  content: "";
+
+  position: absolute;
+
+  width: 126px;
+  height: 42px;
+
+  left: -31px;
+  top: 23px;
+
+  border: 1.5px solid #ff39aa;
+
+  border-radius: 50%;
+
+  transform: rotate(-18deg);
+
+  box-shadow:
+    0 0 5px #ff1493,
+    0 0 12px rgba(255, 20, 147, 0.45);
+
+  z-index: -1;
+}
+
+
+/* little sparkle above-right of top-left heart */
+
+.y2k-heart-1::before {
+  content: "";
+
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  left: 137px;
+  top: -20px;
+
+  background: #ff39aa;
+
+  clip-path: polygon(
+    50% 0%,
+    58% 42%,
+    100% 50%,
+    58% 58%,
+    50% 100%,
+    42% 58%,
+    0% 50%,
+    42% 42%
+  );
+
+  filter:
+    drop-shadow(0 0 4px #ff1493)
+    drop-shadow(0 0 9px #ff1493);
+
+  z-index: 5;
+}
+
+
+/* RIGHT-MIDDLE HEART */
 
 .y2k-heart-2 {
-  top: 47%;
-  right: 7%;
+  top: 46%;
+  right: 6%;
 
-  font-size: 39px;
+  font-size: 52px;
 
-  animation-delay: 1.2s;
+  animation-delay: 1s;
 }
 
 
-.y2k-heart-3 {
-  right: 10%;
-  bottom: 10%;
+/* small sparkle near right heart */
 
-  font-size: 50px;
+.y2k-heart-2::before {
+  content: "";
+
+  position: absolute;
+
+  width: 13px;
+  height: 13px;
+
+  left: -28px;
+  top: -18px;
+
+  background: #ff39aa;
+
+  clip-path: polygon(
+    50% 0%,
+    58% 42%,
+    100% 50%,
+    58% 58%,
+    50% 100%,
+    42% 58%,
+    0% 50%,
+    42% 42%
+  );
+
+  filter:
+    drop-shadow(0 0 4px #ff1493)
+    drop-shadow(0 0 8px #ff1493);
+}
+
+
+/* BOTTOM-RIGHT HEART */
+
+.y2k-heart-3 {
+  right: 6%;
+  bottom: 9%;
+
+  font-size: 62px;
 
   animation-delay: 2s;
 }
 
 
-/* Stars */
+/* orbit */
+
+.y2k-heart-3::after {
+  content: "";
+
+  position: absolute;
+
+  width: 126px;
+  height: 40px;
+
+  left: -30px;
+  top: 25px;
+
+  border: 1.5px solid #ff39aa;
+
+  border-radius: 50%;
+
+  transform: rotate(-18deg);
+
+  box-shadow:
+    0 0 5px #ff1493,
+    0 0 12px rgba(255, 20, 147, 0.45);
+
+  z-index: -1;
+}
+
+
+/* small sparkle above-left of bottom-right heart */
+
+.y2k-heart-3::before {
+  content: "";
+
+  position: absolute;
+
+  width: 15px;
+  height: 15px;
+
+  left: -35px;
+  top: -22px;
+
+  background: #ff39aa;
+
+  clip-path: polygon(
+    50% 0%,
+    58% 42%,
+    100% 50%,
+    58% 58%,
+    50% 100%,
+    42% 58%,
+    0% 50%,
+    42% 42%
+  );
+
+  filter:
+    drop-shadow(0 0 4px #ff1493)
+    drop-shadow(0 0 9px #ff1493);
+}
+
+
+/* ============================================================
+   BACKGROUND FOUR-POINT STARS
+   ============================================================ */
 
 .y2k-star {
-  font-size: 35px;
+  font-size: 0;
+
+  width: 24px;
+  height: 24px;
+
+  line-height: 0;
+
+  color: transparent;
 
   animation:
     floatStar 3s ease-in-out infinite;
 }
 
 
-.y2k-star-1 {
-  top: 12%;
-  right: 8%;
+/* actual thin four-point sparkle */
+
+.y2k-star::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, -50%);
+
+  /* BRIGHT NEON PINK */
+  background: #ff00aa;
+
+  clip-path: polygon(
+    50% 0%,
+    58% 42%,
+    100% 50%,
+    58% 58%,
+    50% 100%,
+    42% 58%,
+    0% 50%,
+    42% 42%
+  );
+
+  filter:
+    drop-shadow(0 0 3px #ff00aa)
+    drop-shadow(0 0 7px #ff00aa)
+    drop-shadow(0 0 14px #ff1493)
+    drop-shadow(0 0 25px #ff1493)
+    drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
 }
 
 
+/* LARGE TOP-RIGHT SPARKLE */
+
+.y2k-star-1 {
+  top: 9%;
+  right: 7%;
+
+  width: 48px;
+  height: 48px;
+}
+
+
+/* SMALL LEFT SPARKLE */
+
 .y2k-star-2 {
-  top: 43%;
+  top: 40%;
   left: 6%;
 
-  font-size: 27px;
+  width: 18px;
+  height: 18px;
 
   animation-delay: 0.7s;
 }
 
 
-.y2k-star-3 {
-  bottom: 14%;
-  left: 7%;
+/* LOWER-LEFT SPARKLE */
 
-  font-size: 39px;
+.y2k-star-3 {
+  left: 6%;
+  bottom: 14%;
+
+  width: 31px;
+  height: 31px;
 
   animation-delay: 1.4s;
+}
+
+/* ============================================================
+   TWINKLING BACKGROUND STARS
+   ============================================================ */
+
+.twinkle-star {
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  background: #ffb6e6;
+
+  clip-path: polygon(
+    50% 0%,
+    58% 42%,
+    100% 50%,
+    58% 58%,
+    50% 100%,
+    42% 58%,
+    0% 50%,
+    42% 42%
+  );
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  filter:
+    drop-shadow(0 0 3px #ff39aa)
+    drop-shadow(0 0 7px #ff1493);
+
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+
+/* different positions */
+
+.twinkle-star-1 {
+  top: 17%;
+  left: 23%;
+  animation-delay: 0s;
+}
+
+.twinkle-star-2 {
+  top: 29%;
+  left: 13%;
+  width: 4px;
+  height: 4px;
+  animation-delay: 1.2s;
+}
+
+.twinkle-star-3 {
+  top: 22%;
+  right: 25%;
+  width: 5px;
+  height: 5px;
+  animation-delay: 2.1s;
+}
+
+.twinkle-star-4 {
+  top: 57%;
+  left: 24%;
+  width: 4px;
+  height: 4px;
+  animation-delay: 0.7s;
+}
+
+.twinkle-star-5 {
+  top: 68%;
+  right: 25%;
+  width: 6px;
+  height: 6px;
+  animation-delay: 1.8s;
+}
+
+.twinkle-star-6 {
+  bottom: 24%;
+  left: 18%;
+  width: 5px;
+  height: 5px;
+  animation-delay: 2.6s;
+}
+
+.twinkle-star-7 {
+  bottom: 31%;
+  right: 17%;
+  width: 4px;
+  height: 4px;
+  animation-delay: 1.5s;
+}
+
+.twinkle-star-8 {
+  top: 14%;
+  left: 40%;
+  width: 4px;
+  height: 4px;
+  animation-delay: 3.1s;
+}
+
+
+/* ============================================================
+   TWINKLE ANIMATION
+   ============================================================ */
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  55% {
+    opacity: 0.85;
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
 }
 
 
@@ -649,37 +1054,26 @@
    ============================================================ */
 
 .oauth-section {
-  position: relative;
+  margin-top: 14px;
 
-  z-index: 5;
-
-  width: min(420px, 100%);
-
-  margin-top: 20px;
-
-  padding-top: 15px;
+  padding-top: 10px;
 
   border-top:
     1px dashed
-    rgba(255, 20, 147, 0.30);
+    rgba(255, 20, 147, 0.25);
 
   text-align: center;
 }
 
 
 .oauth-title {
-  margin-bottom: 12px;
+  margin: 0 0 8px;
 
-  color: var(--pink);
+  color: rgba(255, 255, 255, 0.55);
 
-  font-size: 11px;
-
-  letter-spacing: 1px;
+  font-size: 10px;
 
   text-transform: uppercase;
-
-  text-shadow:
-    0 0 6px var(--pink);
 }
 
 
@@ -688,7 +1082,7 @@
 
   justify-content: center;
 
-  gap: 12px;
+  gap: 8px;
 }
 
 
@@ -698,72 +1092,190 @@
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  gap: 6px;
 
-  padding: 9px 17px;
+  padding: 7px 12px;
 
-  border-radius: 10px;
+  border-radius: 7px;
 
-  font-size: 12px;
+  font-size: 11px;
 
   font-weight: bold;
 
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
 }
 
 
 .oauth-btn-github {
-  border: 1px solid var(--pink);
-
-  background: rgba(255, 255, 255, 0.08);
+  background: #24292e;
 
   color: white;
+
+  border: 1px solid #ff1493;
 }
 
 
 .oauth-btn-google {
-  border: 1px solid var(--pink);
+  background: white;
 
-  background: rgba(255, 255, 255, 0.95);
+  color: #333;
 
-  color: #111;
-}
-
-
-.oauth-btn:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 0 10px var(--pink),
-    0 0 20px rgba(255, 20, 147, 0.3);
+  border: 1px solid #ff1493;
 }
 
 
 /* ============================================================
-   FOOTER
+   NEON Y2K TOAST
+   ============================================================ */
+
+.retro-toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+  pointer-events: none;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.retro-toast {
+  position: relative;
+
+  /* Deep purple glassy background */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(45, 5, 70, 0.96),
+      rgba(20, 3, 35, 0.98)
+    );
+
+  color: #ffb6e6;
+
+  /* Neon pink border */
+  border: 2px solid #ff00aa;
+
+  /* Pink neon glow */
+  box-shadow:
+    0 0 5px #ff00aa,
+    0 0 12px #ff00aa,
+    0 0 25px rgba(255, 0, 170, 0.75),
+    inset 0 0 12px rgba(255, 0, 170, 0.15);
+
+  padding: 13px 20px;
+
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  white-space: nowrap;
+
+  /* Slight Y2K shape */
+  border-radius: 8px;
+
+  /* Subtle glow animation */
+  animation: toastGlow 2s ease-in-out infinite alternate;
+}
+
+/* Little decorative sparkle on the toast */
+.retro-toast::before {
+  content: "✦";
+
+  position: absolute;
+  top: -11px;
+  right: 12px;
+
+  color: #ff00aa;
+  font-size: 16px;
+
+  text-shadow:
+    0 0 5px #ff00aa,
+    0 0 12px #ff00aa,
+    0 0 20px #ff1493;
+}
+
+/* Toast icon */
+.retro-toast-icon {
+  font-size: 19px;
+  flex-shrink: 0;
+
+  color: #ff00aa;
+
+  filter:
+    drop-shadow(0 0 4px #ff00aa)
+    drop-shadow(0 0 9px #ff1493);
+}
+
+/* ============================================================
+   TOAST ANIMATIONS
+   ============================================================ */
+
+.toast-in {
+  animation:
+    slideIn 0.35s ease-out forwards,
+    toastGlow 2s ease-in-out 0.35s infinite alternate;
+}
+
+
+.auth-form input:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%) scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(120%) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes toastGlow {
+  from {
+    box-shadow:
+      0 0 5px #ff00aa,
+      0 0 12px #ff00aa,
+      0 0 22px rgba(255, 0, 170, 0.6),
+      inset 0 0 10px rgba(255, 0, 170, 0.12);
+  }
+
+  to {
+    box-shadow:
+      0 0 7px #ff00aa,
+      0 0 18px #ff00aa,
+      0 0 35px rgba(255, 0, 170, 0.85),
+      inset 0 0 16px rgba(255, 0, 170, 0.2);
+  }
+}
+
+
+/* ============================================================
+   FOOTER INSIDE AUTH
    ============================================================ */
 
 .retro-footer {
-  position: relative;
-
-  z-index: 5;
-
-  margin-top: 18px;
-
-  color: rgba(255, 20, 147, 0.60);
-
-  font-family: var(--font-retro);
-
-  font-size: 0.7rem;
-
-  text-align: center;
-
-  text-shadow:
-    0 0 5px rgba(255, 20, 147, 0.35);
+  display: none;
 }
 
 
@@ -776,8 +1288,8 @@
     opacity: 0;
 
     transform:
-      translateY(25px)
-      scale(0.96);
+      translateY(20px)
+      scale(0.97);
   }
 
   to {
@@ -797,7 +1309,7 @@
   }
 
   50% {
-    transform: scale(1.25);
+    transform: scale(1.18);
   }
 }
 
@@ -809,13 +1321,13 @@
       scale(1)
       rotate(0deg);
 
-    opacity: 0.75;
+    opacity: 0.8;
   }
 
   50% {
     transform:
-      scale(1.2)
-      rotate(15deg);
+      scale(1.15)
+      rotate(12deg);
 
     opacity: 1;
   }
@@ -848,7 +1360,7 @@
 
   50% {
     transform:
-      translateY(-18px)
+      translateY(-10px)
       rotate(5deg);
   }
 }
@@ -865,9 +1377,9 @@
 
   50% {
     transform:
-      translateY(-13px)
-      rotate(25deg)
-      scale(1.15);
+      translateY(-8px)
+      rotate(12deg)
+      scale(1.08);
   }
 }
 
@@ -879,33 +1391,66 @@
 @media (max-width: 600px) {
 
   .skyblog-container {
-    padding: 35px 15px;
+    min-height: 100vh;
+
+    height: auto;
+
+    padding:
+      25px 15px 70px;
   }
 
   .skyblog-box {
-    padding: 25px 18px;
+    width: min(420px, 100%);
+
+    padding:
+      22px 18px 18px;
   }
 
   .skyblog-header {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
 
     letter-spacing: 3px;
   }
 
+  .skyblog-content {
+    padding:
+      16px 14px;
+  }
+
   .y2k-heart-1 {
-    left: 2%;
+    left: 1%;
+
+    font-size: 45px;
   }
 
   .y2k-heart-2 {
+    right: 1%;
+
+    font-size: 38px;
+  }
+
+  .y2k-heart-3 {
     right: 2%;
+
+    font-size: 45px;
   }
 
   .y2k-star-1 {
-    right: 3%;
+    right: 2%;
+
+    font-size: 48px;
   }
 
   .y2k-star-2 {
     left: 2%;
+
+    font-size: 24px;
+  }
+
+  .y2k-star-3 {
+    left: 2%;
+
+    font-size: 34px;
   }
 
   .oauth-buttons {
