@@ -43,7 +43,7 @@ export function Auth({ triggerToast }) {
     window.location.href = '/api/auth/google';
   };
 
-  const pageTitle = '♡ SKYBLOG ♡';
+  const pageTitle = '♡ LETTERBLOG ♡';
 
   return (
     <div className="skyblog-container">
