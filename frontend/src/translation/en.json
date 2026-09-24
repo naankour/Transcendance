@@ -430,5 +430,10 @@
 		"profileUpdated": "Profile updated",
 		"loading": "Loading profile...",
 		"noBio": "No bio yet."
+	  },
+	  "footer": {
+		"privacyPolicy": "Privacy Policy",
+		"termsOfService": "Terms of Service",
+		"legalInformation": "Legal information"
 	  }
 }
