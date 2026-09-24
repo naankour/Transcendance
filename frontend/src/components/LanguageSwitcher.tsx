@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import '../styles/LanguageSwitcher.css';
+import './LanguageSwitcher.css';
 
 const LANGUAGES = [
 	{ code: 'en', label: 'EN' },
