@@ -243,8 +243,9 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 ### zamohame
 
 * Owns users on the backend (API, controller).
+* Owns auth on the backend (API, controller).
+* Owns conversations on the backend (API, controller).
 * Built the authentication system, including Google/GitHub OAuth, avatar upload and password management.
-* Chat backend.
 * JWT auth middleware.
 * Full profile CRUD.
 * User search/listing.
