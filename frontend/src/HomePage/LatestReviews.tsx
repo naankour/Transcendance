@@ -24,12 +24,6 @@ interface Review {
 	movies: ReviewMovie;
 }
 
-const colors = {
-	lightPink: '#e7d1dc',
-	hardPink: '#ff2e9a',
-};
-
-
 function LatestReviews() {
 	const { t, i18n } = useTranslation();
 	const [reviews, setReviews] = useState<Review[]>([]);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAvatarUrl } from '../utils/avatar.js';
+import AvatarLink from '../components/AvatarLink';
 import HelloKitty from '../assets/sticker-hello-kitty.png';
 import './ProfilePreview.css';
 
@@ -118,13 +118,13 @@ function ProfilePreview() {
 	return (
 		<div className="profile-preview">
 			<div className="profile-preview-main">
-				<Link to="/profile">
-					<img
-						src={getAvatarUrl(user.avatar_url)}
-						alt={user.username}
-						className="profile-preview-avatar"
-					/>
-				</Link>
+				<AvatarLink
+					userId={user.id}
+					avatarUrl={user.avatar_url}
+					username={user.username}
+					size="lg"
+					className="profile-preview-avatar-link"
+				/>
  
 				<div className="profile-preview-content">
 					<Link to="/profile" className="profile-preview-username">

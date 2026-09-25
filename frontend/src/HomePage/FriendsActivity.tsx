@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAvatarUrl } from '../utils/avatar.js';
+import AvatarLink from '../components/AvatarLink';
 import StickerInsect from '../assets/sticker-insect.png';
 import StickerArrow from '../assets/sticker-arrow.png';
 import './FriendsActivity.css';
@@ -126,13 +126,12 @@ function FriendsActivity() {
 				if (item.type === 'follow' && item.targetUser) {
 					return (
 						<div key={index} className="friends-activity-item">
-							<Link to={`/profile/${item.user.id}`}>
-								<img
-									src={getAvatarUrl(item.user.avatar_url)}
-									alt={item.user.username}
-									className="friends-activity-avatar"
-								/>
-							</Link>
+							<AvatarLink
+								userId={item.user.id}
+								avatarUrl={item.user.avatar_url}
+								username={item.user.username}
+								className="friends-activity-avatar-link"
+							/>
 
 							<div className="friends-activity-content">
 								<span className="friends-activity-line">
@@ -176,13 +175,12 @@ function FriendsActivity() {
 
 				return (
 					<div key={index} className="friends-activity-item">
-						<Link to={`/profile/${item.user.id}`}>
-							<img
-								src={getAvatarUrl(item.user.avatar_url)}
-								alt={item.user.username}
-								className="friends-activity-avatar"
-							/>
-						</Link>
+						<AvatarLink
+							userId={item.user.id}
+							avatarUrl={item.user.avatar_url}
+							username={item.user.username}
+							className="friends-activity-avatar-link"
+						/>
 
 						<div className="friends-activity-content">
 							<span className="friends-activity-line">
