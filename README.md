@@ -225,7 +225,7 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 * Owns genres on the backend (API, controller).
 * Built the Discover page (movie search & filtering).
 * Built the real-time chat module (Socket.IO).
-* **Challenges faced:** [TODO]
+* **Challenges faced:** Correcting different errors from different members from a distance, finding solutions to avoid API's problems (not being able to load more than 500 pages, movies without posters, movie duplicates). Learning new language through what a colleague did. Correcting git merges. Learning new concepts without a 42 project.
 
 ### mpinguet
 
