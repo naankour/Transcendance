@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { getAvatarUrl } from '../utils/avatar';
 import FollowsButton from '../components/FollowsButton';
 import OnlineStatus from '../components/Onlinestatus';
+import './ProfileHeader.css';
 
 export function ProfileHeader({ user, isOwnProfile, onEditClick, onStartChat, triggerToast, isFollowing, onFollowChange }) {
   const { t } = useTranslation();
