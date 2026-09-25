@@ -235,8 +235,10 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 
 * Owns films on the backend (API, controller).
 * Built the Films page.
-* Gave some frontend support to ilhasnao. [TODO: confirm specifics]
-* **Challenges faced:** [TODO]
+* Implemented the reviews feature on the film pages.
+* Built the frontend for profile editing.
+* Gave frontend support to ilhasnao, specifically on the user profile page.
+* **Challenges faced:** This was my first time working with this kind of API, and I had never used TypeScript before. It was also challenging to work on my own part of the project without stepping on someone else's code. Merge conflicts were another difficulty, since this was the first time I worked on a project with 5 people, which made them more frequent and harder to manage.
 
 ### zamohame
 
