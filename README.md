@@ -66,7 +66,7 @@ make re      # fclean + all
 
 | Member       | Responsibilities                                                                                                                                        |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **naankour** | Bootstrapped the backend and set up the Docker infrastructure; owns follows/followers and reviews (API/controller); built the reviews and follows pages |
+| **naankour** | Bootstrapped the backend, set up the Docker infrastructure and Prisma ORM; owns follows/followers, favorites, watchlist, and reviews (API/controller); built the reviews, follows, watchlist, and favorites pages        |
 | **ilhasnao** | Genres feature (API/controller); Discover page (search & filtering); chat module (WebSockets)                                                           |
 | **mpinguet** | Films feature (API/controller); Films page; reviews feature; profile edit frontend;  Support interface for ilhasnao within the profile section          |
 | **zamohame** | Users feature (API/controller); authentication (incl. OAuth) and profile system: avatar upload, password management, profile editing                    |
@@ -76,13 +76,11 @@ make re      # fclean + all
 
 | Members       | Roles
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **naankour**  | Developer + Technical Lead / Architect — bootstrapped the backend, set up the Docker infrastructure, and made the main technical/architecture decisions. (Express, Prisma, PostgreSQL, container setup)                                                                                                                                                                  
+| **naankour**  | Developer + Technical Lead / Architect — bootstrapped the backend, set up the Docker infrastructure, and made the main technical/architecture decisions. (Express, Prisma, PostgreSQL, container setup)                                                                                                                                            
 | **ilhasnao**  | Developer
 | **mpinguet**  | Developer
-| **zamohame**  | Developer
-| **cmontaig**  | Developer      
-
-No single member was formally assigned as Product Owner or Project Manager. Coordination tasks typically handled by those roles (e.g. scheduling meetings) were instead made collectively — the team used surveys/polls to agree on meeting times, and organized work as a group rather than through a dedicated PM.
+| **zamohame**  | Developer + Product Owner 
+| **cmontaig**  | Developer + Project Manager (PM) / Scrum Master     
 
 ## Project Management
 
@@ -188,8 +186,8 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 |   **Module**    | **Type** | **Points** | **Contributor(s)** | **Notes**                                                                                                                                                                                                                                                       |
 | :----------------------------------- | :-------: | :--------: | :----------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Framework — Frontend & Backend**   | **Major** |    **2**   | **Team**                                               | **React** (frontend) + **Express** (backend)                                                                                                                                                                                                                    |
-| **Public API**                       | **Major** |    **2**   | **naankour/zamohame ?**                                     | Public API with **secured API key**, **rate limiting**, **documentation**, and **5+ endpoints** using GET/POST/PUT/DELETE                                                                                                                                       |
-| **ORM**                              | **Minor** |    **1**   | **?**                                               | **Prisma**                                                                                                                                                                                                                                                      |
+| **Public API**                       | **Major** |    **2**   | **naankour/mpinguet**                                     | Public API with **secured API key**, **rate limiting**, **documentation**, and **5+ endpoints** using GET/POST/PUT/DELETE                                                                                                                                       |
+| **ORM**                              | **Minor** |    **1**   | **naankour**                                               | **Prisma**                                                                                                                                                                                                                                                      |
 | **Real-time features**               | **Major** |    **2**   | **ilhasnao**                                           | **Socket.IO** — connection/disconnection handling and message broadcasting                                                                                                                                                                                      |
 | **User interaction**                 | **Major** |    **2**   | **ilhasnao** (basic chat)<br>**zamohame** (profile system) | **Basic chat** + **profile system** + **follow/follower system**
 | **Advanced search**                  | **Minor** |    **1**   | **ilhasnao, cmontaig**                                 | **Discover filters** + **global search**                                                                                                           |
@@ -203,7 +201,7 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 
 | **Module**                               |  **Type** | **Points** | **Contributor(s)** | **Notes**                                                                                          |
 | :--------------------------------------- | :-------: | :--------: | :----------------- | :------------------------------------------------------------------------------------------------- |
-| **Complete notification system**         | **Minor** |    **1**   | **?**           | Toast notifications (`notification.tsx`) — confirmed to cover all creation/update/deletion actions |
+| **Complete notification system**         | **Minor** |    **1**   | **zamohame/naankour**           | Toast notifications (`notification.tsx`) — confirmed to cover all creation/update/deletion actions |
 | **Multiple languages (3+)**              | **Minor** |    **1**   | **cmontaig**       | **French / English / Spanish** via i18next                                                         |
 | **Remote authentication with OAuth 2.0** | **Minor** |    **1**   | **zamohame**       | **Google and GitHub OAuth**                                                                        |
 
@@ -213,9 +211,11 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 
 ### naankour
 
-* Bootstrapped most of the backend early on and set up the Docker Compose infrastructure.
-* Owns follows/followers and reviews on the backend (API, controllers) and their frontend pages.
-* **Challenges faced:** [TODO]
+* Bootstrapped most of the backend early on and set up the Docker Compose infrastructure, including Dockerfiles for Nginx, the database with Prisma ORM, the frontend, and the backend.
+* Configured the TMDB API.
+* Own the backend API routes and controllers for watchlist, favorites, follows, followers, reviews, and my reviews.
+* Built the watchlist, favorites, follows, followers, reviews, and my reviews pages.
+* **Challenges faced:** This was my first time doing both frontend and backend work with React and Express, so there was a real learning curve throughout the project. Setting up the Docker Compose infrastructure from scratch was one of the earlier hurdles, getting Nginx, the database, the frontend, and the backend to all build and talk to each other correctly as separate containers took a lot of trial and error, especially around networking and making sure services started in the right order. Learning Prisma ORM at the same time meant discovering what an ORM was actually for and how to use one, all while getting familiar with SQL itself for the first time. The follows/followers system ended up being trickier than expected, since it required careful handling of the relational logic to avoid duplicate or one-sided relationships, and to make sure the counts stayed accurate on both sides. Finally, building out watchlist, favorites, reviews, and my reviews as both backend routes and frontend pages meant constantly keeping the API contracts consistent across the whole stack, which wasn't always straightforward given that React and Express were both new to me.
 
 ### cmontaig
 
@@ -278,6 +278,9 @@ AI tools were used as development and debugging assistance throughout the projec
 * The project is intended primarily for local deployment and demonstration as part of the 42 curriculum rather than as a production-ready service.
 * The initial database seed provides sample users, reviews, follows and other social data to make the application immediately usable after installation. This data is intended for demonstration and testing purposes.
 
-## License / Credits
+### License
+
+This project is for educational purposes as part of the 42 School curriculum and is not intended for commercial use.
 
 [TODO]
+
