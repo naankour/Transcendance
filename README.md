@@ -242,7 +242,11 @@ The project must total **14 points minimum** (Major = 2pts, Minor = 1pt), with u
 
 * Owns users on the backend (API, controller).
 * Built the authentication system, including Google/GitHub OAuth, avatar upload and password management.
-* **Challenges faced:** [TODO]
+* Chat backend.
+* JWT auth middleware.
+* Full profile CRUD.
+* User search/listing.
+* **Challenges faced:** The biggest challenge was authentication. bcrypt needs native compilation, which can break depending on the machine or Docker environment, so I used bcryptjs instead to avoid that risk. Adding Google/GitHub login was harder than expected because those users don't have a password at all, so I had to change the database to allow no password, and figure out how to safely pass the login token from the backend back to the frontend after redirecting. Avatar uploads were tricky because I had to handle real files instead of normal form data, using Multer to save them and link them to the right user. For chat, the tricky part was making sure two users couldn't end up with two separate conversations between them, since either one could start the chat first. But the biggest villain of this project remains my laptop, my extremely slow laptop, since rebuilding the Docker containers could take 10-20 minutes each time. That made testing changes really tedious and slowed down debugging a lot, so I had to be careful about when a full rebuild was actually necessary versus just restarting a container.
 
 ## Resources
 
