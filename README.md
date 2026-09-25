@@ -68,7 +68,7 @@ make re      # fclean + all
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **naankour** | Bootstrapped the backend and set up the Docker infrastructure; owns follows/followers and reviews (API/controller); built the reviews and follows pages |
 | **ilhasnao** | Genres feature (API/controller); Discover page (search & filtering); chat module (WebSockets)                                                           |
-| **mpinguet** | Films feature (API/controller); Films page; some frontend support to ilhasnao                                                                           |
+| **mpinguet** | Films feature (API/controller); Films page; reviews feature; profile edit frontend;  Support interface for ilhasnao within the profile section          |
 | **zamohame** | Users feature (API/controller); authentication (incl. OAuth) and profile system: avatar upload, password management, profile editing                    |
 | **cmontaig** | Actors feature (API/controller), homepage modules, header/footer, global search + search results page, site translation (i18next)                       |
 
