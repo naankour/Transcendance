@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AvatarLink from '../components/AvatarLink';
+import StatusMessage from '../components/StatusMessage';
 import HelloKitty from '../assets/sticker-hello-kitty.png';
 import './ProfilePreview.css';
 
@@ -76,11 +77,7 @@ function ProfilePreview() {
 	}, []);
 
 	if (loading) {
-		return (
-			<p className="profile-preview-status">
-				{t('home.loading')}
-			</p>
-		);
+		return <StatusMessage message={t('home.loading')} />;
 	}
 
 	if (loggedOut) {
@@ -106,11 +103,7 @@ function ProfilePreview() {
 	}
 
 	if (!user) {
-		return (
-			<p className="profile-preview-status">
-				{t('errors.generic')}
-			</p>
-		);
+		return <StatusMessage message={t('errors.generic')} />;
 	}
 
 	const memberSince = formatMemberSince(user.created_at, t('home.dateLocale', { defaultValue: 'en-US' }));

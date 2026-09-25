@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import StatusMessage from '../components/StatusMessage';
 import './LatestReviews.css';
 
 interface ReviewUser {
@@ -53,27 +54,15 @@ function LatestReviews() {
 	}, []);
 
 	if (loading) {
-		return (
-			<p className="latest-reviews-status">
-				{t('home.loading')}
-			</p>
-		);
+		return <StatusMessage message={t('home.loading')} />;
 	}
 
 	if (error) {
-		return (
-			<p className="latest-reviews-status">
-				{t('home.latestReviewsError')}
-			</p>
-		);
+		return <StatusMessage message={t('home.latestReviewsError')} />;
 	}
 
 	if (reviews.length === 0) {
-		return (
-			<p className="latest-reviews-status">
-				{t('home.latestReviewsEmpty')}
-			</p>
-		);
+		return <StatusMessage message={t('home.latestReviewsEmpty')} />;
 	}
 
 	return (

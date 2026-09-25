@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AvatarLink from '../components/AvatarLink';
+import StatusMessage from '../components/StatusMessage';
 import StickerInsect from '../assets/sticker-insect.png';
 import StickerArrow from '../assets/sticker-arrow.png';
 import './FriendsActivity.css';
@@ -76,11 +77,7 @@ function FriendsActivity() {
 	}, []);
 
 	if (loading) {
-		return (
-			<p className="friends-activity-status">
-				{t('home.loading')}
-			</p>
-		);
+		return <StatusMessage message={t('home.loading')} />;
 	}
 
 	if (loggedOut) {
@@ -103,19 +100,11 @@ function FriendsActivity() {
 	}
 
 	if (!feed) {
-		return (
-			<p className="friends-activity-status">
-				{t('errors.generic')}
-			</p>
-		);
+		return <StatusMessage message={t('errors.generic')} />;
 	}
 
 	if (feed.length === 0) {
-		return (
-			<p className="friends-activity-status">
-				{t('home.friendsActivityEmpty')}
-			</p>
-		);
+		return <StatusMessage message={t('home.friendsActivityEmpty')} />;
 	}
 
 	return (

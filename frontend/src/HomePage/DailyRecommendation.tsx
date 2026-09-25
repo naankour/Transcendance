@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import StatusMessage from '../components/StatusMessage';
 import './DailyRecommendation.css';
 
 interface Recommendation {
@@ -31,10 +32,10 @@ function DailyPick() {
 	}, [i18n.language]);
 
 	if (loading)
-		return <p className="daily-pick-status">{t('home.loading')}</p>;
+		return <StatusMessage message={t('home.loading')} />;
 
 	if (!movie)
-		return <p className="daily-pick-status">{t('home.noRecommendation')}</p>;
+		return <StatusMessage message={t('home.noRecommendation')} />;
 
 	return (
 		<div className="daily-pick" onClick={() => navigate(`/movie/${movie.id}`)}>

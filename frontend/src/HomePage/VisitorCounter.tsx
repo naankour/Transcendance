@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import StatusMessage from '../components/StatusMessage';
 import Stickers from '../assets/pixel-art-thank-you.png';
 import './VisitorCounter.css';
 
@@ -42,10 +43,10 @@ function VisitorCounter() {
 	}, []);
 
 	if (loading)
-		return (<p className="visitor-counter-status">{t('home.loading')}</p>);
+		return <StatusMessage message={t('home.loading')} />;
     
 	if (count === null)
-		return (<p className="visitor-counter-status">{t('errors.generic')}</p>);
+		return <StatusMessage message={t('errors.generic')} />;
 
 	const paddedCount = String(count).padStart(6, '0');
 	const digits = paddedCount.split('');
