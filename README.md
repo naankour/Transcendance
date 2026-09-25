@@ -155,6 +155,10 @@ movies ──┬── movie_actor ── actors
 | `messages`                    | conversation_id, sender_id, content, read_at                                |                                                            |
 | `visitor_stats`               | single-row counter                                                          | powers the homepage visitor counter                        |
 
+![Database Schema](./database/database-schema.png)
+
+The diagram above shows all tables and their foreign key relationships, generated via pgAdmin's ERD tool.
+
 ## Features List
 
 | Feature               | Description                                                                                               | Contributor(s)                |
