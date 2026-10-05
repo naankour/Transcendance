@@ -18,6 +18,15 @@ export function Auth({ triggerToast }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const oauthToken = searchParams.get('token');
+    const existingToken = localStorage.getItem('token');
+
+    if (!oauthToken && existingToken) {
+      navigate('/profile', { replace: true });
+    }
+  }, [searchParams, navigate]);
+
+  useEffect(() => {
     const token = searchParams.get('token');
 
     if (token) {
