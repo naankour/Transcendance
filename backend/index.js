@@ -32,6 +32,7 @@ io.on("connection", (socket) => {
 
   socket.on("identify", (userId) => {
     socket.join(`user_${userId}`);
+    socket.join('authenticated');
     socket.data.userId = userId;
     const count = onlineUsers.get(userId) || 0;
 

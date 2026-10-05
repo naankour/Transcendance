@@ -231,7 +231,7 @@ const deleteReview = async(req, res) =>
     });
 
     const io = req.app.get("io");
-    io.emit("reviewDeleted", {
+    io.to('authenticated').emit("reviewDeleted", {
       reviewId: deletedReview.id,
       movieId: deletedReview.movie_id,
       author: deletedReview.users.username,
