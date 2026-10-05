@@ -35,7 +35,7 @@ export default function ChatBubble() {
 		};
 	}, []);
 
-    if (location.pathname.startsWith('/conversations'))
+    if (location.pathname.startsWith('/conversations') || location.pathname.startsWith('/auth'))
     {
         return null;
     }
