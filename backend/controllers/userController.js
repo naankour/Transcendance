@@ -16,11 +16,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// récupère le profil du user connecté
 const getMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    // récupère toutes les infos du user
     const user = await prisma.users.findUnique({
       where: { id: Number(userId) },
       select: {
@@ -39,7 +37,6 @@ const getMyProfile = async (req, res) => {
       return res.status(404).json({ error: 'notifications.userNotFound' });
     }
 
-    // on renvoie l'objet du user en format json
     return res.json(user);
   } catch (error) {
     console.error('Error fetching profile:', error);
@@ -47,7 +44,6 @@ const getMyProfile = async (req, res) => {
   }
 };
 
-// modifie le profil
 const updateMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -57,7 +53,7 @@ const updateMyProfile = async (req, res) => {
       return res.status(400).json({ error: 'notifications.usernameEmailRequired' });
     }
 
-    // Récupère l'utilisateur actuel pour vérifier le mdp si besoin
+
     const currentUser = await prisma.users.findUnique({
       where: { id: Number(userId) },
     });
@@ -68,7 +64,7 @@ const updateMyProfile = async (req, res) => {
 
     let password_hash = currentUser.password_hash;
 
-    // Si l'utilisateur demande à changer son mot de passe
+ 
     if (newPassword) {
       if (!currentPassword) {
         return res.status(400).json({ error: 'notifications.currentPasswordRequired' });
@@ -95,7 +91,7 @@ const updateMyProfile = async (req, res) => {
         username,
         email,
         bio,
-        password_hash, // Met à jour le mdp (soit le nouveau, soit l'ancien inchangé)
+        password_hash,
         ...(avatar_url && { avatar_url }),
       },
       select: {
@@ -120,7 +116,6 @@ const updateMyProfile = async (req, res) => {
   }
 };
 
-// supprime le compte du user connecté
 const deleteMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -130,7 +125,6 @@ const deleteMyProfile = async (req, res) => {
       return res.status(400).json({ error: 'notifications.passwordRequiredToDelete' });
     }
 
-    // récupère le password_hash dans la bdd
     const user = await prisma.users.findUnique({
       where: { id: Number(userId) },
     });
@@ -145,7 +139,6 @@ const deleteMyProfile = async (req, res) => {
       return res.status(500).json({ error: 'Password hash missing in database' });
     }
 
-    // vérifie le mdp
     const isMatch = await bcrypt.compare(password, currentHashedPassword);
     if (!isMatch) {
       return res.status(401).json({ error: 'notifications.incorrectPassword' });
@@ -162,7 +155,6 @@ const deleteMyProfile = async (req, res) => {
   }
 };
 
-// récupère le profil public d'un user via son id
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -191,7 +183,6 @@ const getUserById = async (req, res) => {
   }
 };
 
-// recherche et liste les users  
 const getUsers = async (req, res) => {
   try {
     const { search } = req.query;
