@@ -32,6 +32,12 @@
 		"users": "Users",
 		"loadMore": "Load more"
 	},
+	"notFound": {
+		"title": "Page not found",
+		"message": "The page you are looking for does not exist or is no longer available.",
+		"back": "Back",
+		"home": "Home"
+	},
 	"watchlist": {
 		"loading": "Loading...",
 		"title": "My Watchlist",
@@ -95,7 +101,6 @@
 		"lastname": "Last Name",
 		"email": "Email",
 		"bio": "Bio",
-		"changePassword": "Chaaaaaaange Paaaaaaaaaaasswoooooooooooord",
 		"currentPassword": "Current Password",
 		"currentPasswordPlaceholder": "Enter current password",
 		"newPassword": "New Password",
@@ -105,7 +110,8 @@
 		"cancel": "Cancel",
 		"updateSuccess": "Profile updated successfully!",
 		"updateFailed": "Failed to update profile",
-		"somethingWrong": "Something went wrong"
+		"somethingWrong": "Something went wrong",
+		"changePassword": "Change password"
 	  },
 	  
 	"terms": {
@@ -303,14 +309,15 @@
 		"noReviews": "No reviews yet.",
 		"editReview": "Edit my review",
 		"updateReview": "Update my review",
-		"you": "you"
+		"you": "you",
+		"deleteReview": "Delete",
+		"deleting": "Deleting...",
+		"reviewPublished": "Review published!",
+		"reviewUpdated": "Review updated!",
+		"reviewDeleted": "Review deleted!"
 	},
 	"errors": {
 		"generic": "Something went wrong. Please try again."
-	},
-	"auth": {
-		"requiredDefault": "You need to be logged in to access this page.",
-		"requiredButton": "Log in"
 	},
 	"discover": {
 		"title": "✦ Discover Movies ✦",
@@ -384,5 +391,61 @@
 	"newMessageList": {
 		"loading": "Loading...",
 		"empty": "You're following nobody at the moment ✦"
-	}
+	},
+	"auth": {
+		"welcomeBack": "Welcome Back",
+		"createAccount": "Create Account",
+		"username": "Username",
+		"email": "Email",
+		"password": "Password",
+		"signIn": "Sign In",
+		"signingIn": "Signing In...",
+		"signUp": "Sign Up",
+		"creatingAccount": "Creating Account...",
+		"noAccount": "Don't have an account?",
+		"haveAccount": "Already have an account?",
+		"register": "Register",
+		"login": "Login",
+		"loginFailed": "Login failed",
+		"registerFailed": "Registration failed",
+		"somethingWrong": "Something went wrong",
+		"loginSuccess": "You're in ◝(ᵔᗜᵔ)◜ heehee...",
+		"registerSuccess": "Account created ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ heehee...",
+		"oauthSuccess": "Logged in successfully! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"orQuickConnect": "Or quick connect with:",
+		"footer": "© 2004 LetterBlog Enterprises LLC. Best viewed in Internet Explorer 6.0",
+		"requiredDefault": "You need to be logged in to access this page.",
+		"requiredButton": "Log in"
+	  },
+	  "notifications": {
+		"userNotFound": "User not found (╥﹏╥)",
+		"usernameEmailRequired": "Username and email are required fields (ง •̀_•́)ง",
+		"currentPasswordRequired": "Current password is required to set a new password (ง •̀_•́)ง",
+		"incorrectCurrentPassword": "Incorrect current password ( ｡ •̀ ᴖ •́ ｡)💢",
+		"profileUpdated": "Profile updated successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"passwordRequiredToDelete": "Password is required to delete your account (ง •̀_•́)ง",
+		"incorrectPassword": "Incorrect password (╥﹏╥)",
+		"accountDeleted": "Account deleted successfully ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"internalServerError": "Internal server error"
+	  },
+	  "profile": {
+		"editProfile": "Edit Profile",
+		"message": "Message",
+		"failedToLoad": "Failed to load profile",
+		"somethingWentWrong": "Something went wrong",
+		"failedToStartConversation": "Failed to start conversation",
+		"profileUpdated": "Profile updated",
+		"loading": "Loading profile...",
+		"noBio": "No bio yet."
+	  },
+	  "footer": {
+		"privacyPolicy": "Privacy Policy",
+		"termsOfService": "Terms of Service",
+		"legalInformation": "Legal information"
+	  },
+	  "app": {
+		"reviewCreated": "{{author}} published a new review on {{movie}}!",
+		"reviewUpdated": "{{author}} updated their review on {{movie}}!",
+		"reviewDeleted": "{{author}} deleted their review on {{movie}}"
+	  }
 }

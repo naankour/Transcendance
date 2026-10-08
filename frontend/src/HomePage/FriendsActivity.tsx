@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAvatarUrl } from '../utils/avatar.js';
+import AvatarLink from '../components/AvatarLink';
+import StatusMessage from '../components/StatusMessage';
 import StickerInsect from '../assets/sticker-insect.png';
 import StickerArrow from '../assets/sticker-arrow.png';
-import './FriendsActivity.css';
 
 interface MovieRef {
 	id: number;
@@ -76,88 +76,62 @@ function FriendsActivity() {
 	}, []);
 
 	if (loading) {
-		return (
-			<p className="friends-activity-status">
-				{t('home.loading')}
-			</p>
-		);
+		return <StatusMessage message={t('home.loading')} />;
 	}
 
 	if (loggedOut) {
 		return (
-			<div className="loggedOut-activity">
-				<p className="friends-activity-status">
-					{t('home.friendsActivityLoginPrompt')}
-				</p>
-				<Link to="/auth" className="login-link">
-						{t('home.login')} →
+			<div className="flex min-h-0 flex-1 flex-col gap-[10px] pt-[10px]">
+				<p className="text-[var(--color-text-muted)]">{t('home.friendsActivityLoginPrompt')}</p>
+				<Link to="/auth" className="w-fit text-[15px] font-semibold uppercase text-[var(--color-accent-soft)] transition hover:text-[var(--color-text)]">
+					{t('home.login')} →
 				</Link>
-				<div className="friends-activity-arrow">
-					<img src={StickerArrow} alt="Arrow" className="sticker-login" />
+				<div className="flex justify-start pl-[60px]">
+					<img src={StickerArrow} alt="Arrow" className="h-10" />
 				</div>
-				<div className="friends-activity-footer">
-					<img src={StickerInsect} alt="Insect" className="friends-activity-sticker" />
+				<div className="mt-auto">
+					<img src={StickerInsect} alt="Insect" className="h-[130px] w-full object-contain max-[750px]:h-20" />
 				</div>
 			</div>
 		);
 	}
 
 	if (!feed) {
-		return (
-			<p className="friends-activity-status">
-				{t('errors.generic')}
-			</p>
-		);
+		return <StatusMessage message={t('errors.generic')} />;
 	}
 
 	if (feed.length === 0) {
-		return (
-			<p className="friends-activity-status">
-				{t('home.friendsActivityEmpty')}
-			</p>
-		);
+		return <StatusMessage message={t('home.friendsActivityEmpty')} />;
 	}
 
 	return (
-		<div className="friends-activity">
+		<div className="flex min-h-0 flex-1 flex-col">
 			{feed.slice(0, 6).map((item, index) => {
 				const date = new Date(item.created_at).toLocaleDateString(i18n.language);
 
 				if (item.type === 'follow' && item.targetUser) {
 					return (
-						<div key={index} className="friends-activity-item">
-							<Link to={`/profile/${item.user.id}`}>
-								<img
-									src={getAvatarUrl(item.user.avatar_url)}
-									alt={item.user.username}
-									className="friends-activity-avatar"
-								/>
-							</Link>
+						<div key={index} className="flex gap-[10px] border-b-2 border-dotted border-[var(--color-accent)] py-[7px]">
+							<AvatarLink
+								userId={item.user.id}
+								avatarUrl={item.user.avatar_url}
+								username={item.user.username}
+								className="shrink-0"
+							/>
 
-							<div className="friends-activity-content">
-								<span className="friends-activity-line">
-									<Link
-										to={`/profile/${item.user.id}`}
-										className="friends-activity-user"
-									>
-										<strong>{item.user.username}</strong>
+							<div className="flex flex-col text-[var(--color-text)]">
+								<span className="text-[18px]">
+									<Link to={`/profile/${item.user.id}`} className="font-semibold text-pink-100 hover:text-pink-200">
+										{item.user.username}
 									</Link>
-
 									{' '}
 									{t('home.activityFollow')}
 									{' '}
-
-									<Link
-										to={`/profile/${item.targetUser.id}`}
-										className="friends-activity-user"
-									>
-										<strong>{item.targetUser.username}</strong>
+									<Link to={`/profile/${item.targetUser.id}`} className="font-semibold text-pink-100 hover:text-pink-200">
+										{item.targetUser.username}
 									</Link>
 								</span>
-
-								<span className="friends-activity-meta">
-									{date}
-								</span>
+								<p className="text-[13px] text-[var(--color-text-muted)]">{date}</p>
 							</div>
 						</div>
 					);
@@ -175,56 +149,42 @@ function FriendsActivity() {
 				}
 
 				return (
-					<div key={index} className="friends-activity-item">
-						<Link to={`/profile/${item.user.id}`}>
-							<img
-								src={getAvatarUrl(item.user.avatar_url)}
-								alt={item.user.username}
-								className="friends-activity-avatar"
-							/>
-						</Link>
+					<div key={index} className="flex gap-[10px] border-b-2 border-dotted border-[var(--color-accent)] py-[7px]">
+						<AvatarLink
+							userId={item.user.id}
+							avatarUrl={item.user.avatar_url}
+							username={item.user.username}
+							className="shrink-0"
+						/>
 
-						<div className="friends-activity-content">
-							<span className="friends-activity-line">
-								<Link
-									to={`/profile/${item.user.id}`}
-									className="friends-activity-user"
-								>
-									<strong>{item.user.username}</strong>
+						<div className="flex flex-col text-[var(--color-text)]">
+							<span className="text-[18px]">
+								<Link to={`/profile/${item.user.id}`} className="font-semibold text-pink-100 hover:text-pink-200">
+									{item.user.username}
 								</Link>
-
 								{' — '}
-
 								{item.movie?.tmdb_id ? (
-									<Link
-										to={`/movie/${item.movie.tmdb_id}`}
-										className="friends-activity-movie"
-									>
-										<strong>{item.movie.title}</strong>
+									<Link to={`/movie/${item.movie.tmdb_id}`} className="font-semibold text-pink-100 hover:text-pink-200">
+										{item.movie.title}
 									</Link>
 								) : (
-									<strong>{item.movie?.title}</strong>
+									<span className="font-semibold text-pink-100">{item.movie?.title}</span>
 								)}
 							</span>
-
-							<span className="friends-activity-meta">
-								{label} · {date}
-							</span>
+							<p className="text-[13px] text-[var(--color-text-muted)]">{label} · {date}</p>
 						</div>
 					</div>
 				);
 			})}
-			<div className="friends-activity-divider" >
-			
-				<div className="friends-activity-all">
-					<Link to="/reviews" className="friends-activity-see-all">
+			<div className="flex flex-1 flex-col justify-between pt-[10px]">
+				<div>
+					<Link to="/reviews" className="text-[15px] font-semibold uppercase text-[var(--color-accent-soft)] transition hover:text-[var(--color-text)]">
 						{t('home.seeAllReviews')} →
 					</Link>
 				</div>
-				<div className="friends-activity-footer">
-					<img src={StickerInsect} alt="Insect" className="friends-activity-sticker" />
+				<div className="mt-auto">
+					<img src={StickerInsect} alt="Insect" className="h-[130px] w-full object-contain [animation:moving-sticker_2s_ease-in-out_infinite] max-[750px]:h-20" />
 				</div>
-
 			</div>
 		</div>
 	);

@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import './Discover.css'
+// import './Discover.css'
 
 interface Genre {
   id: number;
@@ -18,6 +18,22 @@ const CURRENT_YEAR = 2026;
 const EARLIEST_YEAR = 1900;
 const PAGE_SIZE = 24;
 
+const selectClass =
+  'min-w-[140px] bg-brand-black text-brand-white border border-brand-pink-soft rounded-[4px] px-[10px] py-[6px] font-hand text-[16px] cursor-pointer focus:outline-none focus:shadow-[0_0_8px_var(--color-brand-pink)]';
+
+const labelClass = 'text-[15px] text-brand-pink-soft lowercase';
+
+const pickerBtnBase =
+  'font-retro text-[14px] cursor-pointer rounded-[4px] px-[4px] py-[6px] border transition-all duration-150';
+const pickerBtnIdle =
+  'bg-brand-dark text-brand-white border-brand-pink-soft/40 hover:bg-brand-pink/25 hover:border-brand-pink';
+const pickerBtnActive =
+  'bg-linear-135 from-brand-pink to-brand-pink-soft text-brand-black font-bold border-brand-pink';
+
+const paginationBtn =
+  'bg-brand-dark text-brand-white border border-brand-pink rounded-[4px] px-[16px] py-[6px] font-hand text-[18px] cursor-pointer enabled:hover:bg-brand-pink/25 enabled:hover:shadow-[0_0_10px_rgba(255,46,154,0.5)] disabled:opacity-35 disabled:cursor-not-allowed';
+
+const statusClass = 'text-center text-[22px] my-[24px]';
 
 function buildDecades() {
   const decades: number[] = [];
@@ -239,12 +255,23 @@ useEffect(() => {
   }
 
   return (
-    <div className="discover-page">
-      <h1 className="discover-title">{t('discover.title')}</h1>
-      <div className="discover-filters">
-        <div className="discover-filter">
-          <label htmlFor="genres">{t('discover.filters.genre')}</label>
-          <select id="genres" value={genre} onChange={(e) => setGenre(e.target.value)}>
+    <div className="min-h-[calc(100vh_-_120px)] p-[24px] bg-brand-black text-brand-white font-hand">
+      <h1 className="mt-0 mb-[42px] text-center text-[42px] text-brand-pink [text-shadow:0_0_10px_rgba(255,46,154,0.7)]">
+        {t('discover.title')}
+      </h1>
+
+      <div className="flex flex-wrap items-end justify-center gap-[16px] mb-[28px] p-[16px] bg-brand-dark border-2 border-brand-pink rounded-[6px] shadow-[0_0_16px_rgba(255,46,154,0.25)]">
+        {/* Genre */}
+        <div className="relative flex flex-col gap-[4px]">
+          <label htmlFor="genres" className={labelClass}>
+            {t('discover.filters.genre')}
+          </label>
+          <select
+            id="genres"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            className={selectClass}
+          >
             <option value="">{t('discover.filters.anyGenre')}</option>
             {genreArray.map((g) => (
               <option key={g.id} value={g.id}>
@@ -254,8 +281,9 @@ useEffect(() => {
           </select>
         </div>
 
-        <div className="discover-filter">
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+        {/* Tri */}
+        <div className="relative flex flex-col gap-[4px]">
+          <select value={sort} onChange={(e) => setSort(e.target.value)} className={selectClass}>
             <option value="">{t('discover.filters.neutral')}</option>
             <optgroup label={t('discover.filters.popularity')}>
               <option value="popularity.desc">{t('discover.filters.highestFirst')}</option>
@@ -272,29 +300,33 @@ useEffect(() => {
           </select>
         </div>
 
-        <div className="discover-filter discover-year-filter">
-          <label>{t('discover.filters.year')}</label>
+        {/* Année (décennie -> année) */}
+        <div className="relative flex flex-col items-stretch gap-[4px]">
+          <label className={labelClass}>{t('discover.filters.year')}</label>
           <button
             type="button"
-            className="discover-year-trigger"
             onClick={() => setIsYearPickerOpen((prev) => !prev)}
+            className="min-w-[140px] bg-brand-black text-brand-white border border-brand-pink-soft rounded-[4px] px-[10px] py-[6px] font-hand text-[16px] text-left cursor-pointer hover:shadow-[0_0_8px_var(--color-brand-pink)]"
           >
             {year || t('discover.filters.anyYear')}
           </button>
 
           {isYearPickerOpen && (
-            <div className="discover-year-panel">
+            <div className="absolute top-[calc(100%_+_6px)] left-0 z-50 w-[260px] p-[10px] bg-linear-160 from-brand-black to-brand-dark border-2 border-brand-pink rounded-[6px] shadow-[0_0_20px_rgba(255,46,154,0.5)]">
               {openDecade === null ? (
                 <>
-                  <button className="discover-year-reset" onClick={handleClearYear}>
+                  <button
+                    onClick={handleClearYear}
+                    className="block w-full mb-[8px] px-[4px] py-[6px] border-b border-brand-pink-soft/30 text-left text-[17px] text-brand-pink-soft font-hand cursor-pointer hover:text-brand-pink"
+                  >
                     ✦ {t('discover.filters.anyYear')} ✦
                   </button>
-                  <div className="discover-decade-grid">
+                  <div className="grid grid-cols-3 gap-[6px]">
                     {decades.map((decade) => (
                       <button
                         key={decade}
-                        className="discover-decade-btn"
                         onClick={() => setOpenDecade(decade)}
+                        className={`${pickerBtnBase} ${pickerBtnIdle}`}
                       >
                         {decade}s
                       </button>
@@ -303,17 +335,22 @@ useEffect(() => {
                 </>
               ) : (
                 <>
-                  <button className="discover-year-back" onClick={() => setOpenDecade(null)}>
+                  <button
+                    onClick={() => setOpenDecade(null)}
+                    className="block p-0 mb-[8px] text-[16px] text-brand-pink-soft font-hand cursor-pointer hover:text-brand-pink"
+                  >
                     ← {t('discover.filters.backToDecades')}
                   </button>
-                  <div className="discover-year-grid">
+                  <div className="grid grid-cols-3 gap-[6px]">
                     {Array.from({ length: 10 }, (_, i) => openDecade + i)
                       .filter((y) => y >= EARLIEST_YEAR && y <= CURRENT_YEAR)
                       .map((y) => (
                         <button
                           key={y}
-                          className={`discover-year-btn ${year === y.toString() ? 'active' : ''}`}
                           onClick={() => handleSelectYear(y)}
+                          className={`${pickerBtnBase} ${
+                            year === y.toString() ? pickerBtnActive : pickerBtnIdle
+                          }`}
                         >
                           {y}
                         </button>
@@ -325,8 +362,13 @@ useEffect(() => {
           )}
         </div>
 
-        <div className="discover-filter">
-          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+        {/* Langue */}
+        <div className="relative flex flex-col gap-[4px]">
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className={selectClass}
+          >
             <option value="">{t('discover.filters.language')}</option>
             <option value="en">{t('discover.filters.english')}</option>
             <option value="fr">{t('discover.filters.french')}</option>
@@ -339,18 +381,17 @@ useEffect(() => {
         </div>
       </div>
 
-      {loading && <p className="discover-status">{t('discover.status.loading')}</p>}
-      {error && <p className="discover-status discover-error">Error: {error}</p>}
+      {loading && <p className={`${statusClass} text-brand-pink-soft`}>{t('discover.status.loading')}</p>}
+      {error && <p className={`${statusClass} text-brand-pink`}>Error: {error}</p>}
 
       {!loading && !error && movies.length === 0 && (
-        <p className="discover-status">{t('discover.status.noMovies')}</p>
+        <p className={`${statusClass} text-brand-pink-soft`}>{t('discover.status.noMovies')}</p>
       )}
 
-      <div className="discover-grid">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-[14px] mb-[24px]">
         {movies.map((movie) => (
           <img
             key={movie.id}
-            className="discover-poster"
             src={
               movie.poster_path
                 ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
@@ -358,6 +399,7 @@ useEffect(() => {
             }
             alt={movie.title}
             onClick={() => handleSearch(movie)}
+            className="w-full rounded-[4px] cursor-pointer border-2 border-transparent transition-all duration-200 hover:border-brand-pink hover:shadow-[0_0_14px_rgba(255,46,154,0.6)] hover:-translate-y-[4px]"
           />
         ))}
       </div>
@@ -367,11 +409,13 @@ useEffect(() => {
         exhaustedRef.current &&
         movies.length > 0 &&
         page >= Math.ceil(movieBufferRef.current.length / PAGE_SIZE) && (
-          <p className="discover-status">✦ {t('discover.status.noMoreMovies')} ✦</p>
+          <p className={`${statusClass} text-brand-pink-soft`}>
+            ✦ {t('discover.status.noMoreMovies')} ✦
+          </p>
         )}
 
-      <div className="discover-pagination">
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+      <div className="flex items-center justify-center gap-[16px] text-[20px]">
+        <button className={paginationBtn} disabled={page === 1} onClick={() => setPage(page - 1)}>
           {t('discover.pagination.previous')}
         </button>
 
@@ -380,6 +424,7 @@ useEffect(() => {
         </span>
 
         <button
+          className={paginationBtn}
           disabled={exhaustedRef.current && movieBufferRef.current.length <= page * PAGE_SIZE}
           onClick={() => setPage(page + 1)}
         >

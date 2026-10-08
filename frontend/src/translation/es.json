@@ -32,6 +32,12 @@
 		"users": "Usuarios",
 		"loadMore": "Cargar más"
 	},
+	"notFound": {
+		"title": "Página no encontrada",
+		"message": "La página que buscas no existe o ya no está disponible.",
+		"back": "Volver",
+		"home": "Inicio"
+	},
 	"watchlist": {
 		"loading": "Cargando...",
 		"title": "Mi Watchlist",
@@ -95,7 +101,6 @@
 		"lastname": "Apellido",
 		"email": "Email",
 		"bio": "Biografía",
-		"changePassword": "Caaaaaaambia la contraaaaaaaseñaaaaaaa",
 		"currentPassword": "Contraseña actual",
 		"currentPasswordPlaceholder": "Introduce tu contraseña actual",
 		"newPassword": "Nueva contraseña",
@@ -105,7 +110,8 @@
 		"cancel": "Cancelar",
 		"updateSuccess": "¡Perfil actualizado correctamente!",
 		"updateFailed": "Error al actualizar el perfil",
-		"somethingWrong": "Algo salió mal"
+		"somethingWrong": "Algo salió mal",
+		"changePassword": "Cambiar la contraseña"
 	  },
 	  
 	"terms": {
@@ -305,15 +311,16 @@
 		"noReviews": "Aún no hay reseñas.",
 		"editReview": "Editar mi reseña",
 		"updateReview": "Actualizar mi reseña",
-		"you": "tú"
+		"you": "tú",
+		"deleteReview": "Eliminar",
+		"deleting": "Eliminando...",
+		"reviewPublished": "¡Reseña publicada!",
+		"reviewUpdated": "¡Reseña actualizada!",
+		"reviewDeleted": "¡Reseña eliminada!"
 	},
 
 	"errors": {
 		"generic": "Ha ocurrido un error. Inténtalo de nuevo."
-	},
-	"auth": {
-		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
-		"requiredButton": "Iniciar sesión"
 	},
 	"discover": {
 		"title": "✦ Descubrir películas ✦",
@@ -387,5 +394,61 @@
 	"newMessageList": {
 		"loading": "Cargando...",
 		"empty": "No sigues a nadie por el momento ✦"
-	}
+	},
+	"auth": {
+		"requiredDefault": "Debes iniciar sesión para acceder a esta página.",
+		"requiredButton": "Iniciar sesión",
+		"welcomeBack": "Bienvenida de nuevo",
+		"createAccount": "Crear cuenta",
+		"username": "Nombre de usuario",
+		"email": "Correo electrónico",
+		"password": "Contraseña",
+		"signIn": "Iniciar sesión",
+		"signingIn": "Iniciando sesión...",
+		"signUp": "Registrarse",
+		"creatingAccount": "Creando cuenta...",
+		"noAccount": "¿Aún no tienes cuenta?",
+		"haveAccount": "¿Ya tienes cuenta?",
+		"register": "Regístrate",
+		"login": "Inicia sesión",
+		"loginFailed": "Error al iniciar sesión",
+		"registerFailed": "Error al registrarse",
+		"somethingWrong": "Algo salió mal",
+		"loginSuccess": "Ya estás dentro ◝(ᵔᗜᵔ)◜ jeje...",
+		"registerSuccess": "Cuenta creada ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ jeje...",
+		"oauthSuccess": "¡Sesión iniciada con éxito! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"orQuickConnect": "O conéctate rápidamente con:",
+		"footer": "© 2004 LetterBlog Enterprises LLC. Mejor visto en Internet Explorer 6.0"
+	},
+	"notifications": {
+		"userNotFound": "Usuario no encontrado (╥﹏╥)",
+		"usernameEmailRequired": "El nombre de usuario y el email son obligatorios (ง •̀_•́)ง",
+		"currentPasswordRequired": "Se requiere la contraseña actual para establecer una nueva (ง •̀_•́)ง",
+		"incorrectCurrentPassword": "Contraseña actual incorrecta ( ｡ •̀ ᴖ •́ ｡)💢",
+		"profileUpdated": "Perfil actualizado con éxito ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"passwordRequiredToDelete": "Se requiere la contraseña para eliminar tu cuenta (ง •̀_•́)ง",
+		"incorrectPassword": "Contraseña incorrecta (╥﹏╥)",
+		"accountDeleted": "Cuenta eliminada con éxito ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"internalServerError": "Error interno del servidor"
+	  },
+	  "profile": {
+		"editProfile": "Editar perfil",
+		"message": "Mensaje",
+		"failedToLoad": "No se pudo cargar el perfil",
+		"somethingWentWrong": "Algo salió mal",
+		"failedToStartConversation": "No se pudo iniciar la conversación",
+		"profileUpdated": "Perfil actualizado",
+		"loading": "Cargando perfil...",
+		"noBio": "Aún no hay biografía."
+	},
+	"footer": {
+		"privacyPolicy": "Política de privacidad",
+		"termsOfService": "Términos de servicio",
+		"legalInformation": "Información legal"
+	  },
+	  "app": {
+		"reviewCreated": "¡{{author}} ha publicado una nueva crítica sobre {{movie}}!",
+		"reviewUpdated": "¡{{author}} ha modificado su crítica sobre {{movie}}!",
+		"reviewDeleted": "{{author}} ha eliminado su crítica sobre {{movie}}"
+	  }
 }

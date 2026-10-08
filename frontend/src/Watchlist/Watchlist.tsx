@@ -35,6 +35,12 @@ useEffect(() => {
 
   const endpoint = userId ? `/api/watchlist/user/${userId}` : '/api/watchlist';
 
+ if (!token) {
+    setLoading(false);
+    setIsAuthError(true);
+    return;
+}
+
   fetch(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`

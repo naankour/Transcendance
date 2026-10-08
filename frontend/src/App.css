@@ -15,3 +15,8 @@
 .footer {
 	width: 100%;
 }
+
+.app:has(.skyblog-container) .header,
+.app:has(.skyblog-container) .footer {
+  display: none;
+}

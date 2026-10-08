@@ -121,7 +121,7 @@ const createReview = async (req, res) =>
         });
 
         if (existingReview)
-        {z
+        {
             return res.status(409).json({
                 error: "You already reviewed this movie"
             });
@@ -223,8 +223,21 @@ const deleteReview = async(req, res) =>
     const deletedReview = await prisma.reviews.delete({
       where: {
         id: review_id
+      },
+      include: {
+        users: true,
+        movies: true
       }
     });
+
+    const io = req.app.get("io");
+    io.to('authenticated').emit("reviewDeleted", {
+      reviewId: deletedReview.id,
+      movieId: deletedReview.movie_id,
+      author: deletedReview.users.username,
+      movie_name: deletedReview.movies.title,
+    });
+
     return res.status(200).json(deletedReview);
   }
   catch (error)

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { jwtDecode } from 'jwt-decode';
 import { socket } from '../../socket';
 import { refreshUnreadCount } from '../notification'
-import './ChatBubble.css'
 
 interface Sender {
   id: number;
@@ -141,38 +140,63 @@ export default function ChatWindow({ conversationId }: ChatWindowProps) {
     }
   }
     if (loading) {
-        return <div className="chat-window-loading">{t('chatWindow.loadingMessages')}</div>;
+        return (
+      <div className="p-[20px] text-center text-[18px] text-brand-white/60">
+        {t('chatWindow.loadingMessages')}
+      </div>
+    );
     }
 
     return (
-      <div className="chat-window">
-        <div className="chat-window-messages">
-      {messages.map((message) => {
-        const isOwn = message.sender.id === myId;
-        
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto p-[10px] flex flex-col gap-[8px]">
+        {messages.map((message) => {
+          const isOwn = message.sender.id === myId;
 
-        return (
-            <div key={message.id} className={`chat-message-row ${isOwn ? 'own' : 'other'}`}>
-              {!isOwn && <p className="chat-message-sender">{message.sender.username}</p>}
-              <div className="chat-message-bubble">{message.content}</div>
+          return (
+            <div
+              key={message.id}
+              className={`flex flex-col max-w-[75%] ${
+                isOwn ? 'self-end items-end' : 'self-start items-start'
+              }`}
+            >
+              {!isOwn && (
+                <p className="mb-[2px] ml-[4px] font-retro text-[12px] text-brand-pink-soft">
+                  {message.sender.username}
+                </p>
+              )}
+              <div
+                className={`px-[12px] py-[8px] rounded-[4px] text-[17px] leading-[1.3] break-words ${
+                  isOwn
+                    ? 'bg-linear-135 from-brand-pink to-brand-pink-soft text-brand-black border border-brand-pink shadow-[0_0_8px_rgba(255,46,154,0.4)]'
+                    : 'bg-brand-dark text-brand-white border border-brand-white/20'
+                }`}
+              >
+                {message.content}
+              </div>
             </div>
           );
-    })}
-     </div>
-
-      <div className="chat-window-input-bar">
-       <input
-        type="text"
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key == 'Enter') 
-            handleSend();
-        }}
-        placeholder={t('chatWindow.writeMessagePlaceholder')}
-        />
-        <button className="chat-window-send-btn" onClick={handleSend}>{t('chatWindow.send')}</button>
+        })}
       </div>
-     </div>
-    );
+
+      <div className="flex gap-[6px] p-[8px] border-t-2 border-brand-pink bg-brand-black">
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key == 'Enter') handleSend();
+          }}
+          placeholder={t('chatWindow.writeMessagePlaceholder')}
+          className="flex-1 px-[10px] py-[8px] rounded-[3px] bg-brand-dark border border-brand-pink-soft text-brand-white font-hand text-[17px] placeholder:text-brand-white/40 focus:outline-none focus:shadow-[0_0_8px_var(--color-brand-pink)]"
+        />
+        <button
+          onClick={handleSend}
+          className="px-[16px] rounded-[3px] bg-brand-pink text-brand-white font-hand text-[18px] cursor-pointer transition-shadow duration-200 hover:shadow-[0_0_10px_var(--color-brand-pink)]"
+        >
+          {t('chatWindow.send')}
+        </button>
+      </div>
+    </div>
+  );
 }

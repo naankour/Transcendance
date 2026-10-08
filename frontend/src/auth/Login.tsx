@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { identifySocket } from '../../socket';
 import { refreshUnreadCount } from '../notification';
 
 export function Login({ onSwitchToRegister, triggerToast }) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export function Login({ onSwitchToRegister, triggerToast }) {
       const data = await response.json();
 
       if (!response.ok) {
-        const errorMessage = data.error || data.message || 'Login failed';
+        const errorMessage = data.error || data.message || t('auth.loginFailed');
         throw new Error(errorMessage);
       }
 
@@ -34,7 +36,7 @@ export function Login({ onSwitchToRegister, triggerToast }) {
         refreshUnreadCount();
       }
 
-      triggerToast("You're in ◝(ᵔᗜᵔ)◜ heehee...");
+      triggerToast(t('auth.loginSuccess'));
 
       setTimeout(() => {
         navigate('/');
@@ -42,7 +44,7 @@ export function Login({ onSwitchToRegister, triggerToast }) {
 
     } catch (err) {
       if (triggerToast) {
-        triggerToast(err.message || 'Something went wrong', '⚠️');
+        triggerToast(err.message || t('auth.somethingWrong'), '⚠️');
       }
     } finally {
       setLoading(false);
@@ -51,11 +53,11 @@ export function Login({ onSwitchToRegister, triggerToast }) {
 
   return (
     <form onSubmit={handleSubmit} className="auth-form">
-      <h2>Welcome Back</h2>
+      <h2>{t('auth.welcomeBack')}</h2>
 
       <input
         type="email"
-        placeholder="Email"
+        placeholder={t('auth.email')}
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         required
@@ -64,7 +66,7 @@ export function Login({ onSwitchToRegister, triggerToast }) {
 
       <input
         type="password"
-        placeholder="Password"
+        placeholder={t('auth.password')}
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         required
@@ -72,13 +74,13 @@ export function Login({ onSwitchToRegister, triggerToast }) {
       />
 
       <button type="submit" disabled={loading}>
-        {loading ? 'Signing In...' : 'Sign In'}
+        {loading ? t('auth.signingIn') : t('auth.signIn')}
       </button>
 
       <p>
-        Don't have an account?{' '}
+        {t('auth.noAccount')}{' '}
         <button type="button" onClick={onSwitchToRegister} className="link-btn" disabled={loading}>
-          Register
+          {t('auth.register')}
         </button>
       </p>
     </form>

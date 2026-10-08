@@ -203,10 +203,20 @@ async function postReview(req, res) {
 
     if (isNewReview) {
       const io = req.app.get("io");
-      io.emit("reviewCreated", {
+      io.to('authenticated').emit("reviewCreated", {
         reviewId: review.id,
         movieId: review.movie_id,
         author: review.users.username,
+        movie_name: savedMovie.title,
+      });
+    }
+    else {
+      const io = req.app.get("io");
+      io.to('authenticated').emit("reviewUpdated",{
+        reviewId: review.id,
+        movieId: review.movie_id,
+        author: review.users.username,
+        movie_name: savedMovie.title,
       });
     }
 

@@ -1,0 +1,147 @@
+/* ==========================================================================
+   ProfilePage.css — Thème "cinéma nocturne" (fond noir, accents magenta)
+   ========================================================================== */
+
+.profile-container {
+  --bg-color: #0c0208;
+  --accent: #e6197a;
+  --accent-soft: #f06bb0;
+  --accent-glow: rgba(230, 25, 122, 0.35);
+  --text-color: #f5f0f3;
+  --text-muted: #c9b8c3;
+  --border-color: rgba(230, 25, 122, 0.25);
+
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  color: var(--text-color);
+  background:
+    radial-gradient(circle at 8% 10%, var(--accent-glow) 0%, transparent 35%),
+    radial-gradient(circle at 92% 85%, var(--accent-glow) 0%, transparent 35%),
+    var(--bg-color);
+  min-height: 100vh;
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---- Header (avatar + infos + bouton) ------------------------------------- */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.profile-header-info {
+  flex: 1;
+}
+
+.profile-username {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.profile-fullname {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
+/* ---- Boutons d'action (edit / message) ------------------------------------ */
+
+.edit-profile-btn {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 11px 26px;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px var(--accent-glow);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.edit-profile-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.edit-profile-btn:active {
+  transform: translateY(0);
+}
+
+.message-btn {
+  background: transparent;
+  color: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.message-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Regroupe message + follow proprement quand ce n'est pas son propre profil */
+.profile-header > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---- Section bio ------------------------------------------------------------ */
+
+.profile-info-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+
+.profile-info p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ---- Sections follow / watchlist / favorites ------------------------------- */
+
+.profile-follow-section,
+.profile-watchlist-section,
+.profile-favorites-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px 22px;
+}

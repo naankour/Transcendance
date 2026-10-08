@@ -33,6 +33,12 @@
 		"users": "Utilisateurs",
 		"loadMore": "Charger plus"
 	},
+	"notFound": {
+		"title": "Page introuvable",
+		"message": "La page que vous cherchez n'existe pas ou n'est plus disponible.",
+		"back": "Retour",
+		"home": "Accueil"
+	},
 	"watchlist": {
 		"loading": "Chargement...",
 		"title": "Ma Watchlist",
@@ -96,7 +102,6 @@
 		"lastname": "Nom",
 		"email": "Email",
 		"bio": "Bio",
-		"changePassword": "Chaaaaaaange le mot de paaaaaaaaaaasse",
 		"currentPassword": "Mot de passe actuel",
 		"currentPasswordPlaceholder": "Entre ton mot de passe actuel",
 		"newPassword": "Nouveau mot de passe",
@@ -106,7 +111,8 @@
 		"cancel": "Annuler",
 		"updateSuccess": "Profil mis à jour avec succès !",
 		"updateFailed": "Échec de la mise à jour du profil",
-		"somethingWrong": "Une erreur est survenue"
+		"somethingWrong": "Une erreur est survenue",
+		"changePassword": "Changer le mot de passe"
 	  },
 	"terms": {
 		"title": "Conditions d'utilisation",
@@ -305,15 +311,16 @@
 		"noReviews": "Aucune review pour le moment.",
 		"editReview": "Modifier ma review",
 		"updateReview": "Mettre à jour ma review",
-		"you": "vous"
+		"you": "vous",
+		"deleteReview": "Supprimer",
+		"deleting": "Suppression...",
+		"reviewPublished": "Review publiée !",
+		"reviewUpdated": "Review mise à jour !",
+		"reviewDeleted": "Review supprimée !"
 	},
 
 	"errors": {
 		"generic": "Une erreur est survenue. Veuillez réessayer."
-	},
-	"auth": {
-		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
-		"requiredButton": "Se connecter"
 	},
 	"discover": {
 		"title": "✦ Découvrir des films ✦",
@@ -387,5 +394,60 @@
 	"newMessageList": {
 		"loading": "Chargement...",
 		"empty": "Vous ne suivez personne pour le moment ✦"
-	}
+	},
+	"auth": {
+		"welcomeBack": "Bon retour",
+		"createAccount": "Créer un compte",
+		"username": "Nom d'utilisateur",
+		"email": "E-mail",
+		"password": "Mot de passe",
+		"signIn": "Se connecter",
+		"signingIn": "Connexion...",
+		"signUp": "S'inscrire",
+		"creatingAccount": "Création du compte...",
+		"noAccount": "Pas encore de compte ?",
+		"haveAccount": "Déjà un compte ?",
+		"register": "S'inscrire",
+		"login": "Se connecter",
+		"loginFailed": "Échec de la connexion",
+		"registerFailed": "Échec de l'inscription",
+		"somethingWrong": "Une erreur est survenue",
+		"loginSuccess": "Te voilà ◝(ᵔᗜᵔ)◜ hihi...",
+		"registerSuccess": "Compte créé ദ്ദി ˉ͈̀꒳ˉ͈́ )✧ hihi...",
+		"oauthSuccess": "Connexion réussie ! ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"orQuickConnect": "Ou connexion rapide avec :",
+		"footer": "© 2004 LetterBlog Enterprises LLC. Optimisé pour Internet Explorer 6.0",
+		"requiredDefault": "Vous devez être connecté pour accéder à cette page.",
+		"requiredButton": "Se connecter"
+	  },
+	  "notifications": {
+		"userNotFound": "Utilisateur introuvable (╥﹏╥)",
+		"usernameEmailRequired": "Le nom d'utilisateur et l'email sont obligatoires (ง •̀_•́)ง",
+		"currentPasswordRequired": "Le mot de passe actuel est requis pour en définir un nouveau (ง •̀_•́)ง",
+		"incorrectCurrentPassword": "Mot de passe actuel incorrect ( ｡ •̀ ᴖ •́ ｡)💢",
+		"profileUpdated": "Profil mis à jour avec succès ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"passwordRequiredToDelete": "Le mot de passe est requis pour supprimer votre compte (ง •̀_•́)ง",
+		"incorrectPassword": "Mot de passe incorrect (╥﹏╥)",
+		"accountDeleted": "Compte supprimé avec succès ♡⸜(˶˃ ᵕ ˂˶)⸝♡",
+		"internalServerError": "Erreur interne du serveur"
+	  },
+	  "profile": { "editProfile": "Modifier le profil",
+	  "message": "Message",
+	  "failedToLoad": "Impossible de charger le profil",
+	  "somethingWentWrong": "Une erreur s'est produite",
+	  "failedToStartConversation": "Impossible de démarrer la conversation",
+	  "profileUpdated": "Profil mis à jour",
+	  "loading": "Chargement du profil...",
+	  "noBio": "Pas encore de bio."
+	},
+	"footer": {
+		"privacyPolicy": "Politique de confidentialité",
+		"termsOfService": "Conditions d'utilisation",
+		"legalInformation": "Informations légales"
+	  },
+	  "app": {
+		"reviewCreated": "{{author}} a publié une nouvelle critique sur {{movie}} !",
+		"reviewUpdated": "{{author}} a modifié sa critique sur {{movie}} !",
+		"reviewDeleted": "{{author}} a supprimé sa critique sur {{movie}}"
+	  }
 }

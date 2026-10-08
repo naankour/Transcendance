@@ -8,13 +8,6 @@ const Followers = ({ triggerToast }) => {
     const [myFollows, setMyFollows] = useState([]);
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const removeFollower = (userId:number) => 
-    {
-        setFollowers(prev =>
-            prev.filter(item => item.follower_id !== userId)
-        );
-    };
-
     useEffect(() => {
         const token = localStorage.getItem('token');
 

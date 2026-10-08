@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 
-export const socket = io("https://localhost", {
+export const socket = io({
   transports: ["websocket"]
 });
 
