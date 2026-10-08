@@ -3,7 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import defaultActor from '../assets/sticker-mask.png';
 import { getAvatarUrl } from '../utils/avatar.js';
-import './SearchResultsPage.css';
+import NeonCard from '../components/NeonCard';
+import NeonButton from '../components/NeonButton';
+import SectionTitle from '../components/SectionTitle';
+import MovieCard from '../components/MovieCard';
+import ProfileCard from '../components/ProfileCard';
 
 interface MovieResult {
 	id: number;
@@ -127,79 +131,59 @@ function SearchResultsPage() {
 	};
 
 	return (
-		<div className="search-page">
-			<h1 className="search-page-title">{t('searchPage.resultsFor', { query })}</h1>
+		<NeonCard className="mx-auto my-10 w-[min(1100px,calc(100%-40px))] border-[var(--border)] bg-[rgba(0,0,0,0.6)] p-[25px] shadow-[0_0_0_4px_var(--color-bg),0_0_0_6px_var(--color-accent-soft),0_0_24px_rgba(255,46,154,0.5)] max-[750px]:my-5 max-[750px]:w-[calc(100%-24px)] max-[750px]:p-[18px] max-[450px]:w-[calc(100%-16px)] max-[450px]:p-[14px]">
+			<h1 className="mb-[30px] text-center text-[32px] font-bold text-[var(--text-h)] [text-shadow:0_0_5px_var(--accent),0_0_12px_rgba(255,46,154,0.35)] max-[750px]:text-[26px]">{t('searchPage.resultsFor', { query })}</h1>
 
-			{loading && <p className="search-page-status">{t('searchPage.loading')}</p>}
-			{error && <p className="search-page-status">{error}</p>}
+			{loading && <p className="my-10 text-center text-base text-[var(--text)] opacity-80">{t('searchPage.loading')}</p>}
+			{error && <p className="my-10 text-center text-base text-[var(--text)] opacity-80">{error}</p>}
 
 			{!loading && !error && movies.length === 0 && people.length === 0 && users.length === 0 && (
-				<p className="search-page-status">{t('searchPage.noResults')}</p>
+				<p className="my-10 text-center text-base text-[var(--text)] opacity-80">{t('searchPage.noResults')}</p>
 			)}
 
 			{movies.length > 0 && (
-				<div className="search-page-section">
-					<h2 className="search-page-section-title">{t('searchPage.movies')}</h2>
-					<div className="search-page-grid">
+				<div className="mt-[35px] first:mt-0">
+					<SectionTitle className="mb-[18px]">{t('searchPage.movies')}</SectionTitle>
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-[18px] max-[750px]:grid-cols-[repeat(auto-fill,minmax(120px,1fr))] max-[750px]:gap-3 max-[450px]:grid-cols-2">
 						{movies.map((movie) => (
-							<div
+							<MovieCard
 								key={movie.id}
-								className="search-page-card"
+								title={movie.title}
+								year={movie.release_date ? movie.release_date.slice(0, 4) : undefined}
+								posterUrl={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : null}
 								onClick={() => navigate(`/movie/${movie.id}`)}
-							>
-								{movie.poster_path && (
-									<img
-										src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-										alt={movie.title}
-										className="search-page-poster"
-									/>
-								)}
-								<p className="search-page-card-title">
-									{movie.title} {movie.release_date ? `(${movie.release_date.slice(0, 4)})` : ''}
-								</p>
-							</div>
+							/>
 						))}
 					</div>
 					{hasMoreMovies && (
-						<button
-							type="button"
-							className="search-page-load-more"
+						<NeonButton
+							className="mt-4"
 							disabled={loadingMore}
 							onClick={() => loadMore('movies')}
 						>
 							{t('searchPage.loadMore')}
-						</button>
+						</NeonButton>
 					)}
 				</div>
 			)}
 
 			{people.length > 0 && (
-				<div className="search-page-section">
-					<h2 className="search-page-section-title">{t('searchPage.actorsDirectors')}</h2>
-					<div className="search-page-grid">
+				<div className="mt-[35px]">
+					<SectionTitle className="mb-[18px]">{t('searchPage.actorsDirectors')}</SectionTitle>
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-[18px] max-[750px]:grid-cols-[repeat(auto-fill,minmax(120px,1fr))] max-[750px]:gap-3 max-[450px]:grid-cols-2">
 						{people.map((person) => (
-							<div
+							<ProfileCard
 								key={person.id}
-								className="search-page-card"
+								name={person.name}
+								avatarUrl={person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : defaultActor}
 								onClick={() => navigate(`/actor/${person.id}`)}
-							>
-								<img
-									src={
-										person.profile_path
-											? `https://image.tmdb.org/t/p/w200${person.profile_path}`
-											: defaultActor
-									}
-									alt={person.name}
-									className="search-page-avatar"
-								/>
-								<p className="search-page-card-title">{person.name}</p>
-							</div>
+							/>
 						))}
 					</div>
 					{hasMorePeople && (
 						<button
 							type="button"
-							className="search-page-load-more"
+							className="mt-4 inline-flex items-center rounded-full border border-pink-500/60 bg-pink-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-pink-50 transition hover:bg-pink-500/20 disabled:cursor-not-allowed disabled:opacity-60"
 							disabled={loadingMore}
 							onClick={() => loadMore('people')}
 						>
@@ -210,28 +194,22 @@ function SearchResultsPage() {
 			)}
 
 			{users.length > 0 && (
-				<div className="search-page-section">
-					<h2 className="search-page-section-title">{t('searchPage.users')}</h2>
-					<div className="search-page-grid">
+				<div className="mt-[35px]">
+					<SectionTitle className="mb-[18px]">{t('searchPage.users')}</SectionTitle>
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-[18px] max-[750px]:grid-cols-[repeat(auto-fill,minmax(120px,1fr))] max-[750px]:gap-3 max-[450px]:grid-cols-2">
 						{users.map((user) => (
-							<div
+							<ProfileCard
 								key={user.id}
-								className="search-page-card"
+								name={user.username}
+								avatarUrl={getAvatarUrl(user.avatar_url)}
 								onClick={() => navigate(`/profile/${user.id}`)}
-							>
-								<img
-									src={getAvatarUrl(user.avatar_url)}
-									alt={user.username}
-									className="search-page-avatar"
-								/>
-								<p className="search-page-card-title">{user.username}</p>
-							</div>
+							/>
 						))}
 					</div>
 					{hasMoreUsers && (
 						<button
 							type="button"
-							className="search-page-load-more"
+							className="mt-4 inline-flex items-center rounded-full border border-pink-500/60 bg-pink-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-pink-50 transition hover:bg-pink-500/20 disabled:cursor-not-allowed disabled:opacity-60"
 							disabled={loadingMore}
 							onClick={() => loadMore('users')}
 						>
@@ -240,7 +218,7 @@ function SearchResultsPage() {
 					)}
 				</div>
 			)}
-		</div>
+		</NeonCard>
 	);
 }
 

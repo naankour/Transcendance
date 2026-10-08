@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import StatusMessage from '../components/StatusMessage';
-import './LatestReviews.css';
 
 interface ReviewUser {
 	id: number;
@@ -66,7 +65,7 @@ function LatestReviews() {
 	}
 
 	return (
-		<div className="latest-reviews">
+		<div className="flex flex-col">
 			{reviews.map((review) => {
 				const date = new Date(review.created_at).toLocaleDateString(i18n.language);
 
@@ -76,54 +75,38 @@ function LatestReviews() {
 						: `https://image.tmdb.org/t/p/w200${review.movies.poster}`
 					: null;
 
-					const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+				const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
 
 				return (
-					<div key={review.id} className="latest-review-item">
+					<div key={review.id} className="flex items-center gap-3 border-b-2 border-dotted border-[var(--color-accent)] py-[10px] last:border-b-0">
 						{review.movies.tmdb_id && posterUrl && (
-							<Link
-								to={`/movie/${review.movies.tmdb_id}`}
-								className="latest-review-poster-link"
-							>
-								<img
-									src={posterUrl}
-									alt={review.movies.title}
-									className="latest-review-poster"
-								/>
+							<Link to={`/movie/${review.movies.tmdb_id}`} className="shrink-0">
+								<img src={posterUrl} alt={review.movies.title} className="block h-[87px] w-[58px] rounded border-[3px] border-[var(--color-bg)] object-cover outline outline-1 outline-[var(--color-accent-soft)] shadow-[0_0_0_1px_var(--color-bg),0_0_6px_var(--color-accent)]" />
 							</Link>
 						)}
 
-						<div className="latest-review-content">
-							<div className="latest-review-header">
-								<Link
-									to={`/profile/${review.users.id}`}
-									className="latest-review-user"
-								>
-									<strong>{review.users.username}</strong>
+						<div className="flex min-w-0 flex-col justify-center gap-[5px]">
+							<div className="text-[17px] text-[var(--color-text)]">
+								<Link to={`/profile/${review.users.id}`} className="font-semibold text-pink-50 hover:text-pink-200">
+									{review.users.username}
 								</Link>
-
 								<span> {t('home.reviewed')} </span>
-
 								{review.movies.tmdb_id ? (
-									<Link
-										to={`/movie/${review.movies.tmdb_id}`}
-										className="latest-review-movie"
-									>
-										<strong>{review.movies.title}</strong>
+									<Link to={`/movie/${review.movies.tmdb_id}`} className="font-semibold text-pink-50 hover:text-pink-200">
+										{review.movies.title}
 									</Link>
 								) : (
-									<strong>{review.movies.title}</strong>
+									<span className="font-semibold text-pink-50">{review.movies.title}</span>
 								)}
 							</div>
 
-							<p className="latest-review-text">
-								{review.content}
-							</p>
-							
-							<div className="latest-review-meta">
-								<span className="latest-review-stars">{stars}</span>
-								<span> {review.rating}/5 </span>
-								<span> - {date}</span>
+							<p className="line-clamp-2 overflow-hidden text-[15px] leading-[1.4] text-[var(--color-text-muted)] before:mr-[3px] before:text-[var(--color-accent)] before:content-['“'] after:ml-[3px] after:text-[var(--color-accent)] after:content-['“']">{review.content}</p>
+
+							<div className="text-[13px] text-[var(--color-text-muted)]">
+								<span className="tracking-[1px] text-[var(--color-accent-soft)]">{stars}</span>
+								<span>{review.rating}/5</span>
+								<span>•</span>
+								<span>{date}</span>
 							</div>
 						</div>
 					</div>

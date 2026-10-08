@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@keyframes star-twinkle {
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	50% {
+		opacity: 0.4;
+		transform: scale(0.85);
+	}
+}
+
 @theme {
 	--color-brand-black: #0a0a0a;
   --color-brand-dark: #1c1c1c;
@@ -10,6 +22,8 @@
   --font-hand: 'Caveat', cursive;
 
   --font-retro: 'Courier New', monospace;
+	--font-logo: 'Rubik Puddles', cursive;
+	--font-nav: 'Modak', cursive;
   --animate-sparkle: sparkle 1.8s infinite;
   --animate-bubble-pulse: bubble-pulse 2.4s infinite ease-in-out;
   --animate-badge-blink: badge-blink 1s infinite;

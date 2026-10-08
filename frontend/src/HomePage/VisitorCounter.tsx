@@ -2,10 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import StatusMessage from '../components/StatusMessage';
 import Stickers from '../assets/pixel-art-thank-you.png';
-import './VisitorCounter.css';
 
 function VisitorCounter() {
-
 	const { t } = useTranslation();
 	const [count, setCount] = useState<number | null>(null);
 	const [loading, setLoading] = useState(true);
@@ -22,18 +20,16 @@ function VisitorCounter() {
 		let url = '/api/visitors/count';
 		let method = 'GET';
 
-		if (!alreadyCounted)
-        {
+		if (!alreadyCounted) {
 			url = '/api/visitors/increment';
 			method = 'POST';
 		}
 
 		fetch(url, { method })
-			.then(async (res) =>
-            {
+			.then(async (res) => {
 				const data = await res.json();
 				if (!res.ok)
-					throw (new Error(data.error || 'Error'));
+					throw new Error(data.error || 'Error');
 
 				setCount(data.count);
 				sessionStorage.setItem('letterblog_visited', 'true');
@@ -44,7 +40,7 @@ function VisitorCounter() {
 
 	if (loading)
 		return <StatusMessage message={t('home.loading')} />;
-    
+
 	if (count === null)
 		return <StatusMessage message={t('errors.generic')} />;
 
@@ -52,22 +48,21 @@ function VisitorCounter() {
 	const digits = paddedCount.split('');
 
 	return (
-        <div className="visitor-counter-wrapper">
-            <div className="visitor-counter">
-                {digits.map((digit, index) => (
-                    <span key={index} className="visitor-counter-digit">{digit}</span>
-                ))}
-            </div>
-
-            <p className="visitor-counter-text">
-                {t('home.visitorCounterText')}
-            </p>
-			<div className="visitor-counter-stickers">
-				<img src={Stickers} alt="thank-you" className="visitor-counter-sticker" />
+		<div className="flex flex-col items-center gap-[10px] pt-2">
+			<div className="flex justify-center gap-[3px]">
+				{digits.map((digit, index) => (
+					<span key={index} className="rounded-[8px] border border-[var(--color-accent-soft)] bg-[var(--color-bg)] px-[6px] py-[6px] text-[24px] font-bold text-[var(--color-text)] [text-shadow:0_0_8px_var(--color-accent)]">
+						{digit}
+					</span>
+				))}
 			</div>
-        </div>
 
-    );
+			<p className="pt-[5px] text-center text-[16px] font-semibold uppercase text-[var(--color-text)] [text-shadow:0_0_8px_var(--color-accent)]">{t('home.visitorCounterText')}</p>
+			<div className="flex justify-center">
+				<img src={Stickers} alt="thank-you" className="mt-2 h-auto w-[200px]" />
+			</div>
+		</div>
+	);
 }
 
 export default VisitorCounter;

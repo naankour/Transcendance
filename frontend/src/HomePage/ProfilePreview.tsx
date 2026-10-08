@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import AvatarLink from '../components/AvatarLink';
 import StatusMessage from '../components/StatusMessage';
 import HelloKitty from '../assets/sticker-hello-kitty.png';
-import './ProfilePreview.css';
 
 interface UserProfile {
 	id: number;
@@ -17,12 +16,12 @@ interface UserProfile {
 function formatMemberSince(dateString: string | null, locale: string): string | null {
 	if (!dateString)
 		return null;
- 
+
 	const date = new Date(dateString);
- 
+
 	if (Number.isNaN(date.getTime()))
 		return null;
- 
+
 	return date.toLocaleDateString(locale, {
 		year: 'numeric',
 		month: 'long',
@@ -82,21 +81,16 @@ function ProfilePreview() {
 
 	if (loggedOut) {
 		return (
-			<div className="profile-preview">
-				<div className="profile-preview-status">
+			<div className="flex flex-col gap-[10px] pt-[10px]">
+				<div className="flex flex-col gap-[10px] text-[var(--color-text-muted)]">
 					<p>{t('home.aboutMeLoginPrompt')}</p>
-	
-					<Link to="/auth" className="profile-preview-link">
+					<Link to="/auth" className="w-fit text-[15px] font-semibold uppercase text-[var(--color-accent-soft)] transition hover:text-[var(--color-text)]">
 						{t('home.login')} →
 					</Link>
 				</div>
-	
-				<div className="profile-preview-sticker-area">
-					<img
-						src={HelloKitty}
-						alt="hello"
-						className="profile-preview-sticker"
-					/>
+
+				<div className="flex flex-1 items-center justify-end pb-[15px]">
+					<img src={HelloKitty} alt="hello" className="w-[130px] rotate-[-6deg]" />
 				</div>
 			</div>
 		);
@@ -109,38 +103,37 @@ function ProfilePreview() {
 	const memberSince = formatMemberSince(user.created_at, t('home.dateLocale', { defaultValue: 'en-US' }));
 
 	return (
-		<div className="profile-preview">
-			<div className="profile-preview-main">
+		<div className="flex h-full flex-col px-0 py-[5px]">
+			<div className="flex items-start gap-[15px]">
 				<AvatarLink
 					userId={user.id}
 					avatarUrl={user.avatar_url}
 					username={user.username}
 					size="lg"
-					className="profile-preview-avatar-link"
 				/>
- 
-				<div className="profile-preview-content">
-					<Link to="/profile" className="profile-preview-username">
-						<strong>{user.username}</strong>
+
+				<div className="flex min-w-0 flex-col gap-[6px]">
+					<Link to="/profile" className="text-[18px] text-[var(--color-text)] hover:text-[var(--color-accent-soft)]">
+						{user.username}
 					</Link>
- 
-					<p className="profile-preview-bio">
+
+					<p className="line-clamp-3 overflow-hidden text-[14px] leading-[1.4] text-[var(--color-text-muted)]">
 						{user.bio || t('home.noBio')}
 					</p>
- 
-					<Link to="/profile" className="profile-preview-link">
+
+					<Link to="/profile" className="w-fit text-[15px] font-semibold uppercase text-[var(--color-accent-soft)] transition hover:text-[var(--color-text)]">
 						{t('home.viewProfile')} →
 					</Link>
 				</div>
 			</div>
- 
-			<div className="profile-preview-footer">
+
+			<div className="mt-[10px] flex items-center justify-between gap-[50px] border-t border-dashed border-[var(--color-accent)]">
 				{memberSince && (
-					<span className="profile-preview-meta">
+					<span className="text-[12px] uppercase text-[var(--color-text-muted)]">
 						{t('home.memberSince', { date: memberSince })}
 					</span>
 				)}
-				<img src={HelloKitty} alt="hello" className="profile-preview-sticker-footer" />
+				<img src={HelloKitty} alt="hello" className="w-[90px] rotate-[-6deg]" />
 			</div>
 		</div>
 	);
