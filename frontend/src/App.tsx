@@ -38,6 +38,7 @@ import PrivacyPolicy from './layout/PrivacyPolicy';
 import TermsOfService from './layout/TermsOfService';
 import Footer from './layout/Footer';
 import ChatBubble from './conversations/ChatBubble';
+import NotFoundPage from './pages/NotFoundPage';
 
 import './App.css';
 
@@ -105,6 +106,7 @@ return (
           <Route path="/discover" element={<Discover />} />
           <Route path="/conversations" element={<ConversationPage />} />
           <Route path="/movie/:id" element={<MoviePage triggerToast={triggerToast} />} />
+		  <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 

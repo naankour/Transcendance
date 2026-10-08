@@ -32,6 +32,12 @@
 		"users": "Users",
 		"loadMore": "Load more"
 	},
+	"notFound": {
+		"title": "Page not found",
+		"message": "The page you are looking for does not exist or is no longer available.",
+		"back": "Back",
+		"home": "Home"
+	},
 	"watchlist": {
 		"loading": "Loading...",
 		"title": "My Watchlist",
