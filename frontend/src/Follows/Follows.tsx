@@ -54,7 +54,6 @@ const Follows = ({ triggerToast, userId, isOwnProfile = true }: FollowsProps) =>
             setLoading(false);
         })
         .catch(err => {
-            console.error(err);
             setError(err.message);
             setLoading(false);
         });

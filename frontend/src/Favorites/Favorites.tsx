@@ -68,7 +68,6 @@ useEffect(() =>
     })
     .catch(err => 
     {
-      console.error(err);
       setError(err.message);
       setLoading(false);
     });
