@@ -5,14 +5,13 @@ import VisitorCounter from './VisitorCounter';
 import FriendsActivity from './FriendsActivity';
 import ProfilePreview from './ProfilePreview';
 import LatestReviews from './LatestReviews';
-import './HomePage.css';
 
 function HomePage() {
 	const { t } = useTranslation();
 
 	return (
-		<div className="home-grid">
-			<div className='right-column'>
+		<div className="m-5 flex min-h-[calc(100vh-250px)] flex-col gap-10 md:flex-row md:items-stretch md:justify-between max-[750px]:items-center max-[750px]:gap-[25px]">
+			<div className="flex w-full flex-col gap-10 md:w-1/4 max-[750px]:gap-[25px]">
 				<HomeModule title={t('home.aboutMe')}>
 					<ProfilePreview />
 				</HomeModule>
@@ -23,15 +22,15 @@ function HomePage() {
 					<VisitorCounter />
 				</HomeModule>
 			</div>
-			<div className='middle-column'>
+			<div className="flex w-full flex-col gap-10 md:w-1/2 max-[750px]:gap-[25px]">
 				<HomeModule title={t('home.latestReviews')}>
 					<LatestReviews />
 				</HomeModule>
 			</div>
-			<div className='left-column'>
-			<HomeModule title={t('home.friendsActivity')}>
-				<FriendsActivity />
-			</HomeModule>
+			<div className="flex w-full flex-col gap-10 md:w-1/4 max-[750px]:gap-[25px]">
+				<HomeModule title={t('home.friendsActivity')}>
+					<FriendsActivity />
+				</HomeModule>
 			</div>
 		</div>
 	);
