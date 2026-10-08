@@ -13,7 +13,6 @@ const register = async (req, res) => {
       return res.status(400).json({ error: 'Username, email, and password are required (ง •̀_•́)ง' });
     }
 
-    // check email valide
     if (!validator.isEmail(email)) {
       return res.status(400).json({ error: 'Please enter a valid email address (≖_≖ )' });
     }
@@ -32,7 +31,6 @@ const register = async (req, res) => {
       });
     }
 
-    // check si le user existe
     const existingUser = await prisma.users.findFirst({
       where: {
         OR: [
@@ -63,7 +61,6 @@ const register = async (req, res) => {
     ];
     const randomAvatar = defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
 
-    // insertion bdd
     const newUser = await prisma.users.create({
       data: {
         firstname: firstname || null,
@@ -99,7 +96,6 @@ const login = async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required (ง •̀_•́)ง' });
     }
 
-    // cherche le user par email
     const user = await prisma.users.findUnique({
       where: { email }
     });
@@ -112,21 +108,18 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'This account uses GitHub login. Please sign in with GitHub instead. (≖_≖ )' });
     }
 
-    // vérifie le mot de passe
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
     
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid email or password (≖_≖ )' });
     }
 
-    // génére le token JWT
     const token = jwt.sign(
       { id: user.id, username: user.username },
       process.env.JWT_SECRET || 'your_fallback_secret_key',
       { expiresIn: '24h' }
     );
 
-    // réponse json
     return res.json({
       message: 'Login successful ♡⸜(˶˃ ᵕ ˂˶)⸝♡',
       token,
@@ -143,7 +136,6 @@ const login = async (req, res) => {
   }
 };
 
-// redirige vers github
 const githubLogin = (req, res) => {
   const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email`;
   return res.redirect(githubAuthUrl);

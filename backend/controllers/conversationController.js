@@ -1,7 +1,6 @@
 
 const prisma = require('../prisma/prismaClient.js');
 
-// récup ou crée la conv
 const getOrCreateConversation = async (req, res) => {
   try {
     const { otherUserId } = req.body; 
@@ -49,7 +48,6 @@ const getOrCreateConversation = async (req, res) => {
   }
 };
 
-// liste les conv d'un user
 const getMyConversations = async (req, res) => 
 {
   try 
@@ -104,7 +102,6 @@ const getMyConversations = async (req, res) =>
   }
 };
 
-// récup les messages d'une conv
 const getMessages = async (req, res) => 
 {
   try 
