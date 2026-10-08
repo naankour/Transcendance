@@ -3,11 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import defaultActor from '../assets/sticker-mask.png';
 import { getAvatarUrl } from '../utils/avatar.js';
-import NeonCard from '../components/NeonCard';
-import NeonButton from '../components/NeonButton';
-import SectionTitle from '../components/SectionTitle';
-import MovieCard from '../components/MovieCard';
-import ProfileCard from '../components/ProfileCard';
 
 interface MovieResult {
 	id: number;
@@ -131,7 +126,7 @@ function SearchResultsPage() {
 	};
 
 	return (
-		<NeonCard className="mx-auto my-10 w-[min(1100px,calc(100%-40px))] border-[var(--border)] bg-[rgba(0,0,0,0.6)] p-[25px] shadow-[0_0_0_4px_var(--color-bg),0_0_0_6px_var(--color-accent-soft),0_0_24px_rgba(255,46,154,0.5)] max-[750px]:my-5 max-[750px]:w-[calc(100%-24px)] max-[750px]:p-[18px] max-[450px]:w-[calc(100%-16px)] max-[450px]:p-[14px]">
+		<div className="mx-auto my-10 w-[min(1100px,calc(100%-40px))] rounded-[18px] border-2 border-[var(--border)] bg-[rgba(0,0,0,0.6)] p-[25px] shadow-[0_0_0_4px_var(--color-bg),0_0_0_6px_var(--color-accent-soft),0_0_24px_rgba(255,46,154,0.5)] max-[750px]:my-5 max-[750px]:w-[calc(100%-24px)] max-[750px]:p-[18px] max-[450px]:w-[calc(100%-16px)] max-[450px]:p-[14px]">
 			<h1 className="mb-[30px] text-center text-[32px] font-bold text-[var(--text-h)] [text-shadow:0_0_5px_var(--accent),0_0_12px_rgba(255,46,154,0.35)] max-[750px]:text-[26px]">{t('searchPage.resultsFor', { query })}</h1>
 
 			{loading && <p className="my-10 text-center text-base text-[var(--text)] opacity-80">{t('searchPage.loading')}</p>}
@@ -143,41 +138,37 @@ function SearchResultsPage() {
 
 			{movies.length > 0 && (
 				<div className="mt-[35px] first:mt-0">
-					<SectionTitle className="mb-[18px]">{t('searchPage.movies')}</SectionTitle>
+					<h2 className="mb-[18px] rounded-[15px] border-2 border-[var(--color-accent-soft)] bg-gradient-to-b from-[#b52b75] to-[#681039] px-[14px] py-[10px] text-center text-[25px] font-bold uppercase text-[var(--text-h)] shadow-[inset_0_8px_15px_-10px_#ff63ae,0_3px_8px_rgba(0,0,0,0.5)] max-[750px]:text-[18px]">{t('searchPage.movies')}</h2>
 					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-[18px] max-[750px]:grid-cols-[repeat(auto-fill,minmax(120px,1fr))] max-[750px]:gap-3 max-[450px]:grid-cols-2">
 						{movies.map((movie) => (
-							<MovieCard
-								key={movie.id}
-								title={movie.title}
-								year={movie.release_date ? movie.release_date.slice(0, 4) : undefined}
-								posterUrl={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : null}
-								onClick={() => navigate(`/movie/${movie.id}`)}
-							/>
+							<div key={movie.id} className="group relative flex min-w-0 cursor-pointer flex-col items-center rounded-[6px] border border-[var(--border)] bg-gradient-to-b from-[rgba(255,46,154,0.05)] to-[rgba(0,0,0,0.25)] p-[10px] transition hover:-translate-y-1 hover:border-[var(--accent)] hover:from-[rgba(255,46,154,0.12)] hover:to-[rgba(0,0,0,0.3)] hover:shadow-[0_0_6px_var(--accent),0_0_16px_rgba(255,46,154,0.3)] max-[750px]:p-[7px]" onClick={() => navigate(`/movie/${movie.id}`)}>
+								{movie.poster_path && <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} className="h-[215px] w-full rounded-[3px] border-2 border-[var(--bg)] object-cover outline outline-1 outline-[var(--border)] shadow-[0_0_0_1px_var(--bg),0_0_6px_rgba(255,46,154,0.25)] max-[750px]:h-[175px] max-[450px]:h-[210px]" />}
+								<p className="my-[10px] w-full overflow-hidden text-center text-[14px] font-semibold leading-[1.35] text-[var(--text)]">{movie.title} {movie.release_date ? `(${movie.release_date.slice(0, 4)})` : ''}</p>
+							</div>
 						))}
 					</div>
 					{hasMoreMovies && (
-						<NeonButton
-							className="mt-4"
+						<button
+							type="button"
+							className="mt-4 inline-flex items-center rounded-full border border-pink-500/60 bg-pink-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-pink-50 transition hover:bg-pink-500/20 disabled:cursor-not-allowed disabled:opacity-60"
 							disabled={loadingMore}
 							onClick={() => loadMore('movies')}
 						>
 							{t('searchPage.loadMore')}
-						</NeonButton>
+						</button>
 					)}
 				</div>
 			)}
 
 			{people.length > 0 && (
 				<div className="mt-[35px]">
-					<SectionTitle className="mb-[18px]">{t('searchPage.actorsDirectors')}</SectionTitle>
+					<h2 className="mb-[18px] rounded-[15px] border-2 border-[var(--color-accent-soft)] bg-gradient-to-b from-[#b52b75] to-[#681039] px-[14px] py-[10px] text-center text-[25px] font-bold uppercase text-[var(--text-h)] shadow-[inset_0_8px_15px_-10px_#ff63ae,0_3px_8px_rgba(0,0,0,0.5)] max-[750px]:text-[18px]">{t('searchPage.actorsDirectors')}</h2>
 					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-[18px] max-[750px]:grid-cols-[repeat(auto-fill,minmax(120px,1fr))] max-[750px]:gap-3 max-[450px]:grid-cols-2">
 						{people.map((person) => (
-							<ProfileCard
-								key={person.id}
-								name={person.name}
-								avatarUrl={person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : defaultActor}
-								onClick={() => navigate(`/actor/${person.id}`)}
-							/>
+							<div key={person.id} className="group relative flex min-w-0 cursor-pointer flex-col items-center rounded-[6px] border border-[var(--border)] bg-gradient-to-b from-[rgba(255,46,154,0.05)] to-[rgba(0,0,0,0.25)] p-[10px] text-center transition hover:-translate-y-1 hover:border-[var(--accent)] hover:from-[rgba(255,46,154,0.12)] hover:to-[rgba(0,0,0,0.3)] hover:shadow-[0_0_6px_var(--accent),0_0_16px_rgba(255,46,154,0.3)] max-[750px]:p-[7px]" onClick={() => navigate(`/actor/${person.id}`)}>
+								<img src={person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : defaultActor} alt={person.name} className="h-[180px] w-[140px] rounded-[4px] border-[3px] border-[var(--bg)] object-cover outline outline-1 outline-[var(--color-accent-soft)] shadow-[0_0_0_1px_var(--bg),0_0_7px_rgba(255,46,154,0.3)] max-[750px]:h-[145px] max-[750px]:w-[110px] max-[450px]:h-[160px] max-[450px]:w-[120px]" />
+								<p className="my-[10px] w-full overflow-hidden text-center text-[14px] font-semibold leading-[1.35] text-[var(--text)]">{person.name}</p>
+							</div>
 						))}
 					</div>
 					{hasMorePeople && (
@@ -195,15 +186,13 @@ function SearchResultsPage() {
 
 			{users.length > 0 && (
 				<div className="mt-[35px]">
-					<SectionTitle className="mb-[18px]">{t('searchPage.users')}</SectionTitle>
+					<h2 className="mb-[18px] rounded-[15px] border-2 border-[var(--color-accent-soft)] bg-gradient-to-b from-[#b52b75] to-[#681039] px-[14px] py-[10px] text-center text-[25px] font-bold uppercase text-[var(--text-h)] shadow-[inset_0_8px_15px_-10px_#ff63ae,0_3px_8px_rgba(0,0,0,0.5)] max-[750px]:text-[18px]">{t('searchPage.users')}</h2>
 					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-[18px] max-[750px]:grid-cols-[repeat(auto-fill,minmax(120px,1fr))] max-[750px]:gap-3 max-[450px]:grid-cols-2">
 						{users.map((user) => (
-							<ProfileCard
-								key={user.id}
-								name={user.username}
-								avatarUrl={getAvatarUrl(user.avatar_url)}
-								onClick={() => navigate(`/profile/${user.id}`)}
-							/>
+							<div key={user.id} className="group relative flex min-w-0 cursor-pointer flex-col items-center rounded-[6px] border border-[var(--border)] bg-gradient-to-b from-[rgba(255,46,154,0.05)] to-[rgba(0,0,0,0.25)] p-[10px] text-center transition hover:-translate-y-1 hover:border-[var(--accent)] hover:from-[rgba(255,46,154,0.12)] hover:to-[rgba(0,0,0,0.3)] hover:shadow-[0_0_6px_var(--accent),0_0_16px_rgba(255,46,154,0.3)] max-[750px]:p-[7px]" onClick={() => navigate(`/profile/${user.id}`)}>
+								<img src={getAvatarUrl(user.avatar_url)} alt={user.username} className="h-[140px] w-[140px] rounded-[4px] border-[3px] border-[var(--bg)] object-cover outline outline-1 outline-[var(--color-accent-soft)] shadow-[0_0_0_1px_var(--bg),0_0_7px_rgba(255,46,154,0.3)] max-[750px]:h-[110px] max-[750px]:w-[110px] max-[450px]:h-[120px] max-[450px]:w-[120px]" />
+								<p className="my-[10px] w-full overflow-hidden text-center text-[14px] font-semibold leading-[1.35] text-[var(--text)]">{user.username}</p>
+							</div>
 						))}
 					</div>
 					{hasMoreUsers && (
@@ -218,7 +207,7 @@ function SearchResultsPage() {
 					)}
 				</div>
 			)}
-		</NeonCard>
+		</div>
 	);
 }
 

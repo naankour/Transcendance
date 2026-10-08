@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import HoverLink from '../components/HoverLink';
+import { Link } from 'react-router-dom';
 
 function Footer() {
 	const { t } = useTranslation();
@@ -9,13 +9,13 @@ function Footer() {
 			<p className="m-0">© 2026 LetterBlog</p>
 
 			<nav className="flex items-center gap-6 max-[600px]:flex-wrap max-[600px]:justify-center max-[600px]:gap-x-5 max-[600px]:gap-y-3" aria-label={t('footer.legalInformation')}>
-				<HoverLink to="/privacy-policy" className="text-[#ff80bd] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-text)] focus-visible:outline-offset-4">
+				<Link to="/privacy-policy" className="text-[#ff80bd] no-underline transition hover:text-[var(--color-text)] hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-text)] focus-visible:outline-offset-4">
 					{t('footer.privacyPolicy')}
-				</HoverLink>
+				</Link>
 
-				<HoverLink to="/terms-of-service" className="text-[#ff80bd] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-text)] focus-visible:outline-offset-4">
+				<Link to="/terms-of-service" className="text-[#ff80bd] no-underline transition hover:text-[var(--color-text)] hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-text)] focus-visible:outline-offset-4">
 					{t('footer.termsOfService')}
-				</HoverLink>
+				</Link>
 			</nav>
 		</footer>
 	);
