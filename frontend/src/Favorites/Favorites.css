@@ -131,33 +131,47 @@
   }
 }
 
-/* responsive */
-@media (max-width: 768px) {
-  .favorites-list,
-  .favorites-grid {
-    width: 92%;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-  }
-  .favorites_title {
-    font-size: 26px;
-  }
-  .favorites-poster {
-    height: 220px;
-  }
-}
-
-footer {
-  position: relative;
-  z-index: 10;
-  background-color: var(--color-bg);
-}
-
-.myreviews-list,
-.watchlist-list,
 .favorites-list,
 .favorites-grid {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+
+  .favorites-list,
+  .favorites-grid {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 20px;
+    row-gap: 40px;
+
+    justify-items: center;
+    align-items: start;
+  }
+
+  .favorites_title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .favorites-card {
+    width: 100%;
+    max-width: 250px;
+    box-sizing: border-box;
+  }
+
+  .favorites-poster {
+    width: 100%;
+    max-width: 180px;
+    height: 220px;
+    object-fit: cover;
+  }
 }
 
 
