@@ -81,7 +81,7 @@ function FriendsActivity() {
 
 	if (loggedOut) {
 		return (
-			<div className="flex flex-col gap-[10px] pt-[10px]">
+			<div className="flex min-h-0 flex-1 flex-col gap-[10px] pt-[10px]">
 				<p className="text-[var(--color-text-muted)]">{t('home.friendsActivityLoginPrompt')}</p>
 				<Link to="/auth" className="w-fit text-[15px] font-semibold uppercase text-[var(--color-accent-soft)] transition hover:text-[var(--color-text)]">
 					{t('home.login')} →
