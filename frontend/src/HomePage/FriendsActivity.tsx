@@ -86,8 +86,8 @@ function FriendsActivity() {
 				<Link to="/auth" className="w-fit text-[15px] font-semibold uppercase text-[var(--color-accent-soft)] transition hover:text-[var(--color-text)]">
 					{t('home.login')} →
 				</Link>
-				<div className="flex justify-center">
-					<img src={StickerArrow} alt="Arrow" className="h-10 pl-[60px]" />
+				<div className="flex justify-start pl-[60px]">
+					<img src={StickerArrow} alt="Arrow" className="h-10" />
 				</div>
 				<div className="mt-auto">
 					<img src={StickerInsect} alt="Insect" className="h-[130px] w-full object-contain max-[750px]:h-20" />
