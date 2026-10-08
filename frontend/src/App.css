@@ -12,11 +12,11 @@
 
 }
 
-.footer {
-	width: 100%;
+.app:has(.skyblog-container) .app-content {
+  padding-bottom: 0;
 }
 
-.app:has(.skyblog-container) .header,
-.app:has(.skyblog-container) .footer {
+.app:has(.skyblog-container) header,
+.app:has(.skyblog-container) footer {
   display: none;
 }

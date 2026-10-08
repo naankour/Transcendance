@@ -1,6 +1,11 @@
 /* ============================================================
-   SKYBLOG — Y2K NEON AUTH
+   SKYBLOG — Y2K NEON AUTH (Tailwind @apply version)
+
+   Tailwind v4 only: @reference lets this file use @apply without
+   re-importing all of Tailwind. Point it at the CSS file that
+   contains `@import "tailwindcss";`. Tailwind v3 users: delete it.
    ============================================================ */
+@reference "../index.css";
 
 :root {
   --pink: #ff1493;
@@ -15,6 +20,12 @@
   --muted: rgba(255, 255, 255, 0.52);
 
   --font-retro: "Courier New", Courier, monospace;
+
+  /* 4-point sparkle shape, reused by every sparkle below */
+  --sparkle-clip: polygon(
+    50% 0%, 58% 42%, 100% 50%, 58% 58%,
+    50% 100%, 42% 58%, 0% 50%, 42% 42%
+  );
 }
 
 
@@ -23,24 +34,7 @@
    ============================================================ */
 
 .skyblog-container {
-  position: relative;
-
-  width: 100%;
-  height: 100vh;
-  min-height: 620px;
-
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 25px 20px 90px;
-
-  overflow: hidden;
-
-  color: var(--white);
+  @apply relative flex flex-col justify-center items-center w-full h-screen min-h-[620px] box-border overflow-hidden pt-[25px] px-[20px] pb-[90px] text-white;
 
   background:
     radial-gradient(
@@ -49,22 +43,9 @@
       rgba(255, 20, 147, 0.05) 28%,
       transparent 55%
     ),
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(126, 0, 255, 0.12),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 90% 70%,
-      rgba(255, 0, 180, 0.08),
-      transparent 30%
-    ),
-    linear-gradient(
-      180deg,
-      #040007 0%,
-      #09000f 42%,
-      #100018 100%
-    );
+    radial-gradient(circle at 10% 20%, rgba(126, 0, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 90% 70%, rgba(255, 0, 180, 0.08), transparent 30%),
+    linear-gradient(180deg, #040007 0%, #09000f 42%, #100018 100%);
 }
 
 
@@ -73,69 +54,36 @@
    ============================================================ */
 
 .skyblog-container::before {
+  @apply absolute left-[-60%] w-[220%] bottom-0 h-[98%] pointer-events-none origin-bottom z-[1];
+
   content: "";
 
-  position: absolute;
-
-  /* Make the grid extend far beyond both sides of the screen */
-  left: -60%;
-  width: 220%;
-
-  /* Push the grid high enough to reach toward the card */
-  bottom: 0%;
-  height: 98%;
-
-  pointer-events: none;
-
   background-image:
-    linear-gradient(
-      rgba(255, 20, 147, 0.75) 2px,
-      transparent 2px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 20, 147, 0.75) 2px,
-      transparent 2px
-    );
+    linear-gradient(rgba(255, 20, 147, 0.75) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 20, 147, 0.75) 2px, transparent 2px);
+  background-size: 120px 88px, 120px 88px;
 
-  /* Bigger grid squares */
-  background-size:
-    120px 88px,
-    120px 88px;
+  transform: perspective(420px) rotateX(62deg);
 
-  /* Perspective floor */
-  transform:
-    perspective(420px)
-    rotateX(62deg);
-
-  transform-origin: center bottom;
-
-  /* Strong neon glow */
   filter:
     drop-shadow(0 0 3px #ff1493)
     drop-shadow(0 0 8px rgba(255, 20, 147, 0.85))
     drop-shadow(0 0 18px rgba(255, 20, 147, 0.55));
 
-  /* Fade as the grid approaches the card */
   -webkit-mask-image: linear-gradient(
     to top,
-    black 0%,
-    black 45%,
+    black 0%, black 45%,
     rgba(0, 0, 0, 0.85) 62%,
     rgba(0, 0, 0, 0.45) 76%,
     transparent 94%
   );
-
   mask-image: linear-gradient(
     to top,
-    black 0%,
-    black 45%,
+    black 0%, black 45%,
     rgba(0, 0, 0, 0.85) 62%,
     rgba(0, 0, 0, 0.45) 76%,
     transparent 94%
   );
-
-  z-index: 1;
 }
 
 
@@ -144,28 +92,9 @@
    ============================================================ */
 
 .skyblog-box {
-  position: relative;
+  @apply relative w-[min(420px,100%)] box-border pt-[24px] px-[24px] pb-[21px] border-2 border-[color:var(--pink)] rounded-[20px] z-[5];
 
-  width: min(420px, 100%);
-
-  box-sizing: border-box;
-
-  padding: 24px 24px 21px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(27, 9, 39, 0.98),
-      rgba(8, 2, 15, 0.99)
-    );
-
-  /*
-     SOLID outer border.
-     The dashed line is only the inner frame.
-  */
-  border: 2px solid var(--pink);
-
-  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(27, 9, 39, 0.98), rgba(8, 2, 15, 0.99));
 
   box-shadow:
     0 0 0 5px #0b0512,
@@ -174,39 +103,18 @@
     0 0 45px rgba(255, 20, 147, 0.22);
 
   animation: cardAppear 0.55s ease-out;
-
-  z-index: 5;
 }
 
 
 /* ============================================================
-   INNER FRAME
+   CARD HEART
    ============================================================ */
 
 .skyblog-box::before {
+  @apply absolute top-[-17px] left-[27px] w-[30px] h-[30px] flex items-center justify-center bg-transparent text-[color:var(--pink)] text-[24px] leading-none z-20;
+
   content: "♥";
-
-  position: absolute;
-
-  top: -17px;
-  left: 27px;
-
-  width: 30px;
-  height: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: transparent;
-
-  color: var(--pink);
-
   font-family: Arial, sans-serif;
-
-  font-size: 24px;
-
-  line-height: 1;
 
   text-shadow:
     0 0 5px var(--pink),
@@ -214,22 +122,12 @@
     0 0 25px var(--pink);
 
   animation: heartBeat 1.4s ease-in-out infinite;
-
-  z-index: 20;
 }
 
 
 /* dashed inner frame */
 .skyblog-content {
-  position: relative;
-
-  padding: 18px 18px 17px;
-
-  border:
-    2px dashed
-    rgba(255, 20, 147, 0.75);
-
-  border-radius: 13px;
+  @apply relative pt-[18px] px-[18px] pb-[17px] border-2 border-dashed border-[rgba(255,20,147,0.75)] rounded-[13px];
 }
 
 
@@ -238,29 +136,10 @@
    ============================================================ */
 
 .skyblog-box::after {
+  @apply absolute right-[22px] bottom-[-17px] w-[31px] h-[31px] flex items-center justify-center bg-transparent text-[color:var(--pink)] text-[22px] leading-none z-20;
+
   content: "★";
-
-  position: absolute;
-
-  right: 22px;
-  bottom: -17px;
-
-  width: 31px;
-  height: 31px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: transparent;
-
-  color: var(--pink);
-
   font-family: Arial, sans-serif;
-
-  font-size: 22px;
-
-  line-height: 1;
 
   text-shadow:
     0 0 5px var(--pink),
@@ -268,8 +147,6 @@
     0 0 25px var(--pink);
 
   animation: starPulse 1.7s ease-in-out infinite;
-
-  z-index: 20;
 }
 
 
@@ -278,21 +155,9 @@
    ============================================================ */
 
 .skyblog-header {
-  position: relative;
-
-  color: var(--pink);
+  @apply relative text-[color:var(--pink)] text-[1.75rem] font-black text-center pt-[5px] pb-[14px] tracking-[4px];
 
   font-family: var(--font-retro);
-
-  font-size: 1.75rem;
-
-  font-weight: 900;
-
-  text-align: center;
-
-  padding: 5px 0 14px;
-
-  letter-spacing: 4px;
 
   text-shadow:
     0 0 5px var(--pink),
@@ -303,23 +168,11 @@
 }
 
 
-/* ============================================================
-   PINK LINE UNDER SKYBLOG
-   ============================================================ */
-
+/* pink line under the logo */
 .skyblog-header::after {
+  @apply absolute left-[15px] right-[15px] bottom-0 border-b-2 border-dashed border-[rgba(255,20,147,0.65)];
+
   content: "";
-
-  position: absolute;
-
-  left: 15px;
-  right: 15px;
-
-  bottom: 0;
-
-  border-bottom:
-    2px dashed
-    rgba(255, 20, 147, 0.65);
 }
 
 
@@ -328,13 +181,7 @@
    ============================================================ */
 
 .auth-form {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 11px;
-
-  width: 100%;
+  @apply flex flex-col gap-[11px] w-full;
 }
 
 
@@ -343,17 +190,9 @@
    ============================================================ */
 
 .auth-form h2 {
-  margin: 0 0 4px;
-
-  color: white;
+  @apply m-0 mb-[4px] text-white text-[1.42rem] font-extrabold text-center;
 
   font-family: Arial, Helvetica, sans-serif;
-
-  font-size: 1.42rem;
-
-  font-weight: 800;
-
-  text-align: center;
 
   text-shadow:
     0 0 5px rgba(255, 20, 147, 0.75),
@@ -362,38 +201,17 @@
 
 
 /* ============================================================
-   INPUT WRAPPER
+   INPUT WRAPPER + ICON
    ============================================================ */
 
 .auth-input-wrapper {
-  position: relative;
-
-  width: 100%;
+  @apply relative w-full;
 }
 
-
-/* ============================================================
-   INPUT ICON
-   ============================================================ */
-
 .auth-input-icon {
-  position: absolute;
+  @apply absolute left-[14px] top-1/2 -translate-y-1/2 text-[rgba(255,190,230,0.75)] text-[18px] pointer-events-none z-[2];
 
-  left: 14px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: rgba(255, 190, 230, 0.75);
-
-  font-size: 18px;
-
-  pointer-events: none;
-
-  z-index: 2;
-
-  text-shadow:
-    0 0 6px rgba(255, 20, 147, 0.45);
+  text-shadow: 0 0 6px rgba(255, 20, 147, 0.45);
 }
 
 
@@ -402,28 +220,10 @@
    ============================================================ */
 
 .auth-form input {
-  width: 100%;
-
-  box-sizing: border-box;
-
-  height: 47px;
-
-  padding: 10px 14px 10px 45px;
-
-  border: 2px solid var(--pink);
-
-  border-radius: 10px;
+  @apply w-full box-border h-[47px] py-[10px] pr-[14px] pl-[45px] border-2 border-[color:var(--pink)] rounded-[10px] bg-black/[0.3] text-white text-[0.9rem];
 
   outline: none;
-
-  background:
-    rgba(0, 0, 0, 0.30);
-
-  color: white;
-
   font-family: Arial, Helvetica, sans-serif;
-
-  font-size: 0.9rem;
 
   box-shadow:
     inset 0 0 8px rgba(0, 0, 0, 0.5),
@@ -435,14 +235,12 @@
     transform 0.2s ease;
 }
 
-
 .auth-form input::placeholder {
-  color: rgba(255, 255, 255, 0.50);
+  @apply text-white/[0.5];
 }
 
-
 .auth-form input:focus {
-  border-color: var(--pink-light);
+  @apply border-[color:var(--pink-light)];
 
   box-shadow:
     0 0 8px var(--pink),
@@ -450,11 +248,8 @@
     inset 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-
 .auth-form input:disabled {
-  opacity: 0.5;
-
-  cursor: not-allowed;
+  @apply opacity-50 cursor-not-allowed;
 }
 
 
@@ -463,36 +258,10 @@
    ============================================================ */
 
 .auth-form button[type="submit"] {
-  width: 100%;
-
-  height: 48px;
-
-  margin-top: 5px;
-
-  padding: 10px;
-
-  border: none;
-
-  border-radius: 11px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ff2ea8 0%,
-      #f90083 100%
-    );
-
-  color: white;
+  @apply w-full h-[48px] mt-[5px] p-[10px] border-0 rounded-[11px] text-white text-[0.95rem] font-black tracking-[1px] cursor-pointer;
 
   font-family: var(--font-retro);
-
-  font-size: 0.95rem;
-
-  font-weight: 900;
-
-  letter-spacing: 1px;
-
-  cursor: pointer;
+  background: linear-gradient(180deg, #ff2ea8 0%, #f90083 100%);
 
   box-shadow:
     0 0 10px rgba(255, 20, 147, 0.70),
@@ -503,8 +272,8 @@
     box-shadow 0.2s ease;
 }
 
-
 .auth-form button[type="submit"]:hover:not(:disabled) {
+  /* plain transform (not a translate utility) so the transition above still animates it */
   transform: translateY(-2px);
 
   box-shadow:
@@ -513,11 +282,8 @@
     0 0 50px rgba(255, 20, 147, 0.40);
 }
 
-
 .auth-form button[type="submit"]:disabled {
-  opacity: 0.5;
-
-  cursor: not-allowed;
+  @apply opacity-50 cursor-not-allowed;
 }
 
 
@@ -526,42 +292,20 @@
    ============================================================ */
 
 .auth-form p {
-  margin: 4px 0 0;
-
-  color: white;
+  @apply m-0 mt-[4px] text-white text-[0.82rem] text-center;
 
   font-family: Arial, Helvetica, sans-serif;
-
-  font-size: 0.82rem;
-
-  text-align: center;
 }
-
 
 .link-btn {
-  padding: 0 3px;
-
-  border: none;
-
-  background: none;
-
-  color: var(--pink);
+  @apply py-0 px-[3px] border-0 bg-transparent text-[color:var(--pink)] font-bold underline cursor-pointer;
 
   font-size: inherit;
-
-  font-weight: bold;
-
-  text-decoration: underline;
-
-  cursor: pointer;
-
-  text-shadow:
-    0 0 6px var(--pink);
+  text-shadow: 0 0 6px var(--pink);
 }
 
-
 .link-btn:hover {
-  color: white;
+  @apply text-white;
 
   text-shadow:
     0 0 8px white,
@@ -574,41 +318,16 @@
    ============================================================ */
 
 .error-badge {
-  margin-bottom: 3px;
-
-  padding: 6px;
-
-  color: #ff7ac8;
-
-  background: rgba(255, 20, 147, 0.06);
-
-  border: 1px solid var(--pink);
-
-  border-radius: 6px;
-
-  font-size: 0.78rem;
-
-  font-weight: bold;
-
-  text-align: center;
+  @apply mb-[3px] p-[6px] text-[#ff7ac8] bg-[rgba(255,20,147,0.06)] border border-[color:var(--pink)] rounded-[6px] text-[0.78rem] font-bold text-center;
 }
 
 
 /* ============================================================
-   BACKGROUND HEARTS
+   BACKGROUND DECORATIONS
    ============================================================ */
 
 .y2k-decoration {
-  position: absolute;
-
-  display: block;
-
-  color: #ff39aa;
-
-  pointer-events: none;
-  user-select: none;
-
-  z-index: 2;
+  @apply absolute block text-[#ff39aa] pointer-events-none select-none z-[2];
 
   text-shadow:
     0 0 4px #ff1493,
@@ -621,16 +340,9 @@
 /* HEARTS */
 
 .y2k-heart {
+  @apply font-normal text-[62px] leading-none text-transparent;
+
   font-family: Arial, sans-serif;
-
-  font-weight: normal;
-
-  font-size: 62px;
-
-  line-height: 1;
-
-  color: transparent;
-
   -webkit-text-stroke: 2px #ff39aa;
 
   text-shadow:
@@ -638,119 +350,54 @@
     0 0 12px #ff1493,
     0 0 22px rgba(255, 20, 147, 0.75);
 
-  animation:
-    floatHeart 4s ease-in-out infinite;
+  animation: floatHeart 4s ease-in-out infinite;
 }
 
 
 /* TOP-LEFT HEART */
 
 .y2k-heart-1 {
-  top: 8%;
-  left: 7%;
-
-  font-size: 67px;
+  @apply top-[8%] left-[7%] text-[67px];
 }
 
-
 /* orbit */
-
 .y2k-heart-1::after {
+  @apply absolute w-[126px] h-[42px] left-[-31px] top-[23px] border-[1.5px] border-[#ff39aa] rounded-[50%] z-[-1];
+
   content: "";
-
-  position: absolute;
-
-  width: 126px;
-  height: 42px;
-
-  left: -31px;
-  top: 23px;
-
-  border: 1.5px solid #ff39aa;
-
-  border-radius: 50%;
-
   transform: rotate(-18deg);
 
   box-shadow:
     0 0 5px #ff1493,
     0 0 12px rgba(255, 20, 147, 0.45);
-
-  z-index: -1;
 }
 
-
-/* little sparkle above-right of top-left heart */
-
+/* sparkle above-right */
 .y2k-heart-1::before {
+  @apply absolute w-[20px] h-[20px] left-[137px] top-[-20px] bg-[#ff39aa] z-[5];
+
   content: "";
-
-  position: absolute;
-
-  width: 20px;
-  height: 20px;
-
-  left: 137px;
-  top: -20px;
-
-  background: #ff39aa;
-
-  clip-path: polygon(
-    50% 0%,
-    58% 42%,
-    100% 50%,
-    58% 58%,
-    50% 100%,
-    42% 58%,
-    0% 50%,
-    42% 42%
-  );
+  clip-path: var(--sparkle-clip);
 
   filter:
     drop-shadow(0 0 4px #ff1493)
     drop-shadow(0 0 9px #ff1493);
-
-  z-index: 5;
 }
 
 
 /* RIGHT-MIDDLE HEART */
 
 .y2k-heart-2 {
-  top: 46%;
-  right: 6%;
-
-  font-size: 52px;
+  @apply top-[46%] right-[6%] text-[52px];
 
   animation-delay: 1s;
 }
 
-
-/* small sparkle near right heart */
-
 .y2k-heart-2::before {
+  @apply absolute w-[13px] h-[13px] left-[-28px] top-[-18px] bg-[#ff39aa];
+
   content: "";
-
-  position: absolute;
-
-  width: 13px;
-  height: 13px;
-
-  left: -28px;
-  top: -18px;
-
-  background: #ff39aa;
-
-  clip-path: polygon(
-    50% 0%,
-    58% 42%,
-    100% 50%,
-    58% 58%,
-    50% 100%,
-    42% 58%,
-    0% 50%,
-    42% 42%
-  );
+  clip-path: var(--sparkle-clip);
 
   filter:
     drop-shadow(0 0 4px #ff1493)
@@ -761,67 +408,29 @@
 /* BOTTOM-RIGHT HEART */
 
 .y2k-heart-3 {
-  right: 6%;
-  bottom: 9%;
-
-  font-size: 62px;
+  @apply right-[6%] bottom-[9%] text-[62px];
 
   animation-delay: 2s;
 }
 
-
 /* orbit */
-
 .y2k-heart-3::after {
+  @apply absolute w-[126px] h-[40px] left-[-30px] top-[25px] border-[1.5px] border-[#ff39aa] rounded-[50%] z-[-1];
+
   content: "";
-
-  position: absolute;
-
-  width: 126px;
-  height: 40px;
-
-  left: -30px;
-  top: 25px;
-
-  border: 1.5px solid #ff39aa;
-
-  border-radius: 50%;
-
   transform: rotate(-18deg);
 
   box-shadow:
     0 0 5px #ff1493,
     0 0 12px rgba(255, 20, 147, 0.45);
-
-  z-index: -1;
 }
 
-
-/* small sparkle above-left of bottom-right heart */
-
+/* sparkle above-left */
 .y2k-heart-3::before {
+  @apply absolute w-[15px] h-[15px] left-[-35px] top-[-22px] bg-[#ff39aa];
+
   content: "";
-
-  position: absolute;
-
-  width: 15px;
-  height: 15px;
-
-  left: -35px;
-  top: -22px;
-
-  background: #ff39aa;
-
-  clip-path: polygon(
-    50% 0%,
-    58% 42%,
-    100% 50%,
-    58% 58%,
-    50% 100%,
-    42% 58%,
-    0% 50%,
-    42% 42%
-  );
+  clip-path: var(--sparkle-clip);
 
   filter:
     drop-shadow(0 0 4px #ff1493)
@@ -834,48 +443,16 @@
    ============================================================ */
 
 .y2k-star {
-  font-size: 0;
+  @apply w-[24px] h-[24px] text-[0] leading-[0] text-transparent;
 
-  width: 24px;
-  height: 24px;
-
-  line-height: 0;
-
-  color: transparent;
-
-  animation:
-    floatStar 3s ease-in-out infinite;
+  animation: floatStar 3s ease-in-out infinite;
 }
 
-
-/* actual thin four-point sparkle */
-
 .y2k-star::before {
+  @apply absolute left-1/2 top-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 bg-[#ff00aa];
+
   content: "";
-
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 100%;
-  height: 100%;
-
-  transform: translate(-50%, -50%);
-
-  /* BRIGHT NEON PINK */
-  background: #ff00aa;
-
-  clip-path: polygon(
-    50% 0%,
-    58% 42%,
-    100% 50%,
-    58% 58%,
-    50% 100%,
-    42% 58%,
-    0% 50%,
-    42% 42%
-  );
+  clip-path: var(--sparkle-clip);
 
   filter:
     drop-shadow(0 0 3px #ff00aa)
@@ -885,69 +462,34 @@
     drop-shadow(0 0 40px rgba(255, 0, 170, 0.8));
 }
 
-
 /* LARGE TOP-RIGHT SPARKLE */
-
 .y2k-star-1 {
-  top: 9%;
-  right: 7%;
-
-  width: 48px;
-  height: 48px;
+  @apply top-[9%] right-[7%] w-[48px] h-[48px];
 }
 
-
 /* SMALL LEFT SPARKLE */
-
 .y2k-star-2 {
-  top: 40%;
-  left: 6%;
-
-  width: 18px;
-  height: 18px;
+  @apply top-[40%] left-[6%] w-[18px] h-[18px];
 
   animation-delay: 0.7s;
 }
 
-
 /* LOWER-LEFT SPARKLE */
-
 .y2k-star-3 {
-  left: 6%;
-  bottom: 14%;
-
-  width: 31px;
-  height: 31px;
+  @apply left-[6%] bottom-[14%] w-[31px] h-[31px];
 
   animation-delay: 1.4s;
 }
+
 
 /* ============================================================
    TWINKLING BACKGROUND STARS
    ============================================================ */
 
 .twinkle-star {
-  position: absolute;
+  @apply absolute w-[6px] h-[6px] bg-[#ffb6e6] pointer-events-none opacity-0;
 
-  width: 6px;
-  height: 6px;
-
-  background: #ffb6e6;
-
-  clip-path: polygon(
-    50% 0%,
-    58% 42%,
-    100% 50%,
-    58% 58%,
-    50% 100%,
-    42% 58%,
-    0% 50%,
-    42% 42%
-  );
-
-  pointer-events: none;
-
-  opacity: 0;
+  clip-path: var(--sparkle-clip);
 
   filter:
     drop-shadow(0 0 3px #ff39aa)
@@ -956,97 +498,14 @@
   animation: twinkle 3s ease-in-out infinite;
 }
 
-
-/* different positions */
-
-.twinkle-star-1 {
-  top: 17%;
-  left: 23%;
-  animation-delay: 0s;
-}
-
-.twinkle-star-2 {
-  top: 29%;
-  left: 13%;
-  width: 4px;
-  height: 4px;
-  animation-delay: 1.2s;
-}
-
-.twinkle-star-3 {
-  top: 22%;
-  right: 25%;
-  width: 5px;
-  height: 5px;
-  animation-delay: 2.1s;
-}
-
-.twinkle-star-4 {
-  top: 57%;
-  left: 24%;
-  width: 4px;
-  height: 4px;
-  animation-delay: 0.7s;
-}
-
-.twinkle-star-5 {
-  top: 68%;
-  right: 25%;
-  width: 6px;
-  height: 6px;
-  animation-delay: 1.8s;
-}
-
-.twinkle-star-6 {
-  bottom: 24%;
-  left: 18%;
-  width: 5px;
-  height: 5px;
-  animation-delay: 2.6s;
-}
-
-.twinkle-star-7 {
-  bottom: 31%;
-  right: 17%;
-  width: 4px;
-  height: 4px;
-  animation-delay: 1.5s;
-}
-
-.twinkle-star-8 {
-  top: 14%;
-  left: 40%;
-  width: 4px;
-  height: 4px;
-  animation-delay: 3.1s;
-}
-
-
-/* ============================================================
-   TWINKLE ANIMATION
-   ============================================================ */
-
-@keyframes twinkle {
-  0% {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-
-  35% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  55% {
-    opacity: 0.85;
-    transform: scale(1.15);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-}
+.twinkle-star-1 { @apply top-[17%] left-[23%]; animation-delay: 0s; }
+.twinkle-star-2 { @apply top-[29%] left-[13%] w-[4px] h-[4px]; animation-delay: 1.2s; }
+.twinkle-star-3 { @apply top-[22%] right-[25%] w-[5px] h-[5px]; animation-delay: 2.1s; }
+.twinkle-star-4 { @apply top-[57%] left-[24%] w-[4px] h-[4px]; animation-delay: 0.7s; }
+.twinkle-star-5 { @apply top-[68%] right-[25%] w-[6px] h-[6px]; animation-delay: 1.8s; }
+.twinkle-star-6 { @apply bottom-[24%] left-[18%] w-[5px] h-[5px]; animation-delay: 2.6s; }
+.twinkle-star-7 { @apply bottom-[31%] right-[17%] w-[4px] h-[4px]; animation-delay: 1.5s; }
+.twinkle-star-8 { @apply top-[14%] left-[40%] w-[4px] h-[4px]; animation-delay: 3.1s; }
 
 
 /* ============================================================
@@ -1054,73 +513,27 @@
    ============================================================ */
 
 .oauth-section {
-  margin-top: 14px;
-
-  padding-top: 10px;
-
-  border-top:
-    1px dashed
-    rgba(255, 20, 147, 0.25);
-
-  text-align: center;
+  @apply mt-[14px] pt-[10px] border-t border-dashed border-[rgba(255,20,147,0.25)] text-center;
 }
-
 
 .oauth-title {
-  margin: 0 0 8px;
-
-  color: rgba(255, 255, 255, 0.55);
-
-  font-size: 10px;
-
-  text-transform: uppercase;
+  @apply m-0 mb-[8px] text-white/[0.55] text-[10px] uppercase;
 }
-
 
 .oauth-buttons {
-  display: flex;
-
-  justify-content: center;
-
-  gap: 8px;
+  @apply flex justify-center gap-[8px];
 }
-
 
 .oauth-btn {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 6px;
-
-  padding: 7px 12px;
-
-  border-radius: 7px;
-
-  font-size: 11px;
-
-  font-weight: bold;
-
-  cursor: pointer;
+  @apply flex items-center justify-center gap-[6px] py-[7px] px-[12px] rounded-[7px] text-[11px] font-bold cursor-pointer;
 }
-
 
 .oauth-btn-github {
-  background: #24292e;
-
-  color: white;
-
-  border: 1px solid #ff1493;
+  @apply bg-[#24292e] text-white border border-[#ff1493];
 }
 
-
 .oauth-btn-google {
-  background: white;
-
-  color: #333;
-
-  border: 1px solid #ff1493;
+  @apply bg-white text-[#333] border border-[#ff1493];
 }
 
 
@@ -1129,68 +542,30 @@
    ============================================================ */
 
 .retro-toast-container {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 9999;
-  pointer-events: none;
-
-  display: flex;
-  justify-content: flex-end;
+  @apply fixed top-[24px] right-[24px] z-[9999] pointer-events-none flex justify-end;
 }
 
 .retro-toast {
-  position: relative;
+  @apply relative flex items-center gap-[10px] whitespace-nowrap py-[13px] px-[20px] border-2 border-[#ff00aa] rounded-[8px] text-[#ffb6e6] text-[14px] font-bold;
 
-  /* Deep purple glassy background */
-  background:
-    linear-gradient(
-      135deg,
-      rgba(45, 5, 70, 0.96),
-      rgba(20, 3, 35, 0.98)
-    );
+  font-family: 'Courier New', Courier, monospace;
 
-  color: #ffb6e6;
+  background: linear-gradient(135deg, rgba(45, 5, 70, 0.96), rgba(20, 3, 35, 0.98));
 
-  /* Neon pink border */
-  border: 2px solid #ff00aa;
-
-  /* Pink neon glow */
   box-shadow:
     0 0 5px #ff00aa,
     0 0 12px #ff00aa,
     0 0 25px rgba(255, 0, 170, 0.75),
     inset 0 0 12px rgba(255, 0, 170, 0.15);
 
-  padding: 13px 20px;
-
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: bold;
-  font-size: 14px;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  white-space: nowrap;
-
-  /* Slight Y2K shape */
-  border-radius: 8px;
-
-  /* Subtle glow animation */
   animation: toastGlow 2s ease-in-out infinite alternate;
 }
 
-/* Little decorative sparkle on the toast */
+/* sparkle on the toast */
 .retro-toast::before {
+  @apply absolute top-[-11px] right-[12px] text-[#ff00aa] text-[16px];
+
   content: "✦";
-
-  position: absolute;
-  top: -11px;
-  right: 12px;
-
-  color: #ff00aa;
-  font-size: 16px;
 
   text-shadow:
     0 0 5px #ff00aa,
@@ -1198,21 +573,13 @@
     0 0 20px #ff1493;
 }
 
-/* Toast icon */
 .retro-toast-icon {
-  font-size: 19px;
-  flex-shrink: 0;
-
-  color: #ff00aa;
+  @apply text-[19px] shrink-0 text-[#ff00aa];
 
   filter:
     drop-shadow(0 0 4px #ff00aa)
     drop-shadow(0 0 9px #ff1493);
 }
-
-/* ============================================================
-   TOAST ANIMATIONS
-   ============================================================ */
 
 .toast-in {
   animation:
@@ -1224,33 +591,28 @@
   animation: slideOut 0.3s ease-in forwards;
 }
 
-.auth-form input:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+
+/* ============================================================
+   FOOTER INSIDE AUTH
+   ============================================================ */
+
+.retro-footer {
+  @apply hidden;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(120%) scale(0.95);
-    opacity: 0;
-  }
 
-  to {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-  }
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+@keyframes slideIn {
+  from { transform: translateX(120%) scale(0.95); opacity: 0; }
+  to   { transform: translateX(0) scale(1); opacity: 1; }
 }
 
 @keyframes slideOut {
-  from {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-  }
-
-  to {
-    transform: translateX(120%) scale(0.95);
-    opacity: 0;
-  }
+  from { transform: translateX(0) scale(1); opacity: 1; }
+  to   { transform: translateX(120%) scale(0.95); opacity: 0; }
 }
 
 @keyframes toastGlow {
@@ -1261,7 +623,6 @@
       0 0 22px rgba(255, 0, 170, 0.6),
       inset 0 0 10px rgba(255, 0, 170, 0.12);
   }
-
   to {
     box-shadow:
       0 0 7px #ff00aa,
@@ -1271,70 +632,20 @@
   }
 }
 
-
-/* ============================================================
-   FOOTER INSIDE AUTH
-   ============================================================ */
-
-.retro-footer {
-  display: none;
-}
-
-
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
-
 @keyframes cardAppear {
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(20px)
-      scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
-  }
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
-
 
 @keyframes heartBeat {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.18);
-  }
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.18); }
 }
-
 
 @keyframes starPulse {
-  0%,
-  100% {
-    transform:
-      scale(1)
-      rotate(0deg);
-
-    opacity: 0.8;
-  }
-
-  50% {
-    transform:
-      scale(1.15)
-      rotate(12deg);
-
-    opacity: 1;
-  }
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+  50%      { transform: scale(1.15) rotate(12deg); opacity: 1; }
 }
-
 
 @keyframes logoGlow {
   from {
@@ -1342,7 +653,6 @@
       0 0 5px var(--pink),
       0 0 12px var(--pink);
   }
-
   to {
     text-shadow:
       0 0 5px var(--pink),
@@ -1351,38 +661,21 @@
   }
 }
 
-
 @keyframes floatHeart {
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(-5deg);
-  }
-
-  50% {
-    transform:
-      translateY(-10px)
-      rotate(5deg);
-  }
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%      { transform: translateY(-10px) rotate(5deg); }
 }
 
-
 @keyframes floatStar {
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(0deg)
-      scale(1);
-  }
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50%      { transform: translateY(-8px) rotate(12deg) scale(1.08); }
+}
 
-  50% {
-    transform:
-      translateY(-8px)
-      rotate(12deg)
-      scale(1.08);
-  }
+@keyframes twinkle {
+  0%   { opacity: 0; transform: scale(0.4); }
+  35%  { opacity: 1; transform: scale(1); }
+  55%  { opacity: 0.85; transform: scale(1.15); }
+  100% { opacity: 0; transform: scale(0.4); }
 }
 
 
@@ -1393,69 +686,28 @@
 @media (max-width: 600px) {
 
   .skyblog-container {
-    min-height: 100vh;
-
-    height: auto;
-
-    padding:
-      25px 15px 70px;
+    @apply min-h-screen h-auto pt-[25px] px-[15px] pb-[70px];
   }
 
   .skyblog-box {
-    width: min(420px, 100%);
-
-    padding:
-      22px 18px 18px;
+    @apply w-[min(420px,100%)] pt-[22px] px-[18px] pb-[18px];
   }
 
   .skyblog-header {
-    font-size: 1.45rem;
-
-    letter-spacing: 3px;
+    @apply text-[1.45rem] tracking-[3px];
   }
 
   .skyblog-content {
-    padding:
-      16px 14px;
+    @apply py-[16px] px-[14px];
   }
 
-  .y2k-heart-1 {
-    left: 1%;
+  .y2k-heart-1 { @apply left-[1%] text-[45px]; }
+  .y2k-heart-2 { @apply right-[1%] text-[38px]; }
+  .y2k-heart-3 { @apply right-[2%] text-[45px]; }
 
-    font-size: 45px;
-  }
+  .y2k-star-1 { @apply right-[2%] text-[48px]; }
+  .y2k-star-2 { @apply left-[2%] text-[24px]; }
+  .y2k-star-3 { @apply left-[2%] text-[34px]; }
 
-  .y2k-heart-2 {
-    right: 1%;
-
-    font-size: 38px;
-  }
-
-  .y2k-heart-3 {
-    right: 2%;
-
-    font-size: 45px;
-  }
-
-  .y2k-star-1 {
-    right: 2%;
-
-    font-size: 48px;
-  }
-
-  .y2k-star-2 {
-    left: 2%;
-
-    font-size: 24px;
-  }
-
-  .y2k-star-3 {
-    left: 2%;
-
-    font-size: 34px;
-  }
-
-  .oauth-buttons {
-    flex-wrap: wrap;
-  }
+  .oauth-buttons { @apply flex-wrap; }
 }
