@@ -411,25 +411,37 @@ async function test_seed() {
 
         for (const movie of movies)
         {
-            const newMovie = await prisma.movies.create(
-            {
-                data: movie,
+            const newMovie = await prisma.movies.upsert({
+                where: {
+                    tmdb_id: movie.tmdb_id,
+                },
+                update: {
+                    ...movie,
+                },
+                create: {
+                    ...movie,
+                },
             });
 
             createdMovies.push(newMovie);
-            console.log("Movie created:", newMovie);
         }
-
 
         const createdUsers = [];
 
         for (const user of users)
         {
             const hashedPassword = await bcrypt.hash(user.password, 10);
-            
-            const newUser = await prisma.users.create(
-            {
-                data: {
+
+            const newUser = await prisma.users.upsert({
+                where: {
+                    username: user.username,
+                },
+                update: {
+                    email: user.email,
+                    password_hash: hashedPassword,
+                    avatar_url: user.avatar_url,
+                },
+                create: {
                     username: user.username,
                     email: user.email,
                     password_hash: hashedPassword,
@@ -438,7 +450,6 @@ async function test_seed() {
             });
 
             createdUsers.push(newUser);
-            console.log("User created:", newUser);
         }
 
         const reviewsWithIds = reviews.map((review) => ({
@@ -447,18 +458,26 @@ async function test_seed() {
             movie_id: createdMovies[review.movie_id - 1].id,
         }));
 
-        for (const review of reviewsWithIds) {
+        for (const review of reviewsWithIds)
+        {
+            await prisma.reviews.deleteMany({
+                where: {
+                    user_id: review.user_id,
+                    movie_id: review.movie_id,
+                },
+            });
+        }
 
-            const newReview = await prisma.reviews.create({
+        for (const review of reviewsWithIds)
+        {
+            await prisma.reviews.create({
                 data: review,
             });
-
-            console.log("Review created:", newReview);
         }
     }
     catch(error)
     {
-        console.error(error);
+        console.error("Erreur while seed :", error);
     }
     finally
     {
@@ -469,34 +488,13 @@ async function test_seed() {
 module.exports = { test_seed };
 
 if (require.main === module) {
-  test_seed()
-    .then(() => console.log("✅ Seed terminé avec succès !"))
-    .catch((e) => {
-      console.error("❌ Erreur pendant le seed :", e);
-      process.exit(1);
-    });
+    test_seed()
+        .then(() => {
+            console.log("Seed ok !");
+        })
+        .catch((e) => {
+            console.error("Erreur seed ! :", e);
+            process.exit(1);
+        });
 }
 
-
-
-// async function test_seed() {
-//     try {
-//         const movie = await prisma.movies.create({
-//             data: {
-//                 title: "Inception",
-//                 synopsis: "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: 'inception', the implantation of another person's idea into a target's subconscious.",
-//                 poster: "https://www.themoviedb.org/t/p/w1280/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg",
-//                 release_date: new Date("2010-07-16"),
-//                 tmdb_id: 27205,
-//                 average_rating: 0
-//             }
-//         });
-//         console.log("Movie created:", movie);
-//     } catch (error) {
-//         console.error("Error creating movie:", error);
-//     } finally {
-//         await prisma.$disconnect();
-//     }
-// }
-
-// test_seed();

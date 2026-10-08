@@ -1,63 +1,40 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Dancing+Script:wght@700&family=Press+Start+2P&family=Caveat:wght@700&display=swap');
 
+/* Tailwind v4 : décommente la ligne qui correspond à ton projet
+   - si Tailwind est déjà importé dans ton CSS global : @reference
+   - sinon : @import
+   Tailwind v3 : ne mets rien, @apply fonctionne directement */
+@reference "../index.css";
+/* @import "tailwindcss"; */
+
 .reviews-title {
-    color: var(--color-accent);
-  font-family: var(--font-title);
-  text-shadow: 0 0 6px var(--color-accent);
+  @apply text-[color:var(--color-accent)] font-[family-name:var(--font-title)] [text-shadow:0_0_6px_var(--color-accent)];
 }
 
 .reviews-list {
-  width: 70%;
-  margin: auto;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 45px;
-  position: relative;
-  z-index: 1;
-  overflow: visible; 
+  @apply w-[70%] mx-auto mb-10 flex flex-col gap-[45px] relative z-[1] overflow-visible;
 }
 
 .reviews-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-
-  background-color: var(--color-surface);
-  border: 3px dashed var(--color-accent);
-  border-radius: 18px;
-  padding: 30px;
-
-  box-shadow:
-    0 0 0 5px var(--color-surface-alt),
-    0 0 0 8px var(--color-accent-soft),
-    8px 8px 0 rgba(255,46,154,0.25);
-
-  animation: cardAppear 0.5s ease;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  @apply relative flex items-center gap-[30px]
+    bg-[color:var(--color-surface)]
+    border-[3px] border-dashed border-[color:var(--color-accent)]
+    rounded-[18px] p-[30px]
+    shadow-[0_0_0_5px_var(--color-surface-alt),0_0_0_8px_var(--color-accent-soft),8px_8px_0_rgba(255,46,154,0.25)]
+    animate-[cardAppear_0.5s_ease]
+    transition-[transform,box-shadow] duration-[250ms] ease-[ease];
 }
 
 .reviews-card:hover {
-  transform: translateY(-6px) rotate(-0.5deg);
-  box-shadow:
-    0 0 0 5px var(--color-surface-alt),
-    0 0 0 8px var(--color-accent),
-    12px 12px 0 rgba(255,46,154,0.35);
+  @apply [transform:translateY(-6px)_rotate(-0.5deg)]
+    shadow-[0_0_0_5px_var(--color-surface-alt),0_0_0_8px_var(--color-accent),12px_12px_0_rgba(255,46,154,0.35)];
 }
 
 .reviews-card::before {
-  content: "♥";
-  position: absolute;
-  top: -18px;
-  left: 20px;
-  background: var(--color-surface);
-  padding: 0 10px;
-  color: var(--color-accent);
-  font-size: 20px;
-  animation: heartBeat 1.4s ease-in-out infinite;
-  z-index: 2;
+  @apply content-['♥'] absolute -top-[18px] left-5 px-[10px] z-[2]
+    bg-[color:var(--color-surface)]
+    text-[color:var(--color-accent)] text-[20px]
+    animate-[heartBeat_1.4s_ease-in-out_infinite];
 }
 
 @keyframes heartBeat {
@@ -66,90 +43,48 @@
 }
 
 .reviews-card::after {
-  content: "★";
-  position: absolute;
-  bottom: -18px;
-  right: 15px;
-  background: var(--color-surface);
-  padding: 0 10px;
-  color: var(--color-accent-soft);
-  font-size: 18px;
-  animation: heartBeat 1.4s linear infinite;
-  z-index: 2;
+  @apply content-['★'] absolute -bottom-[18px] right-[15px] px-[10px] z-[2]
+    bg-[color:var(--color-surface)]
+    text-[color:var(--color-accent-soft)] text-[18px]
+    animate-[heartBeat_1.4s_linear_infinite];
 }
 
 .reviews-movie-title {
-  font-family: var(--font-title);
-  color: var(--color-accent);
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 25px;
-  text-shadow:
-    1px 1px var(--color-text),
-    0 0 8px var(--color-accent),
-    0 0 16px rgba(255,46,154,0.4);
-  animation: titlePulse 3s infinite;
+  @apply font-[family-name:var(--font-title)] text-[color:var(--color-accent)]
+    text-center text-[28px] mb-[25px]
+    [text-shadow:1px_1px_var(--color-text),0_0_8px_var(--color-accent),0_0_16px_rgba(255,46,154,0.4)]
+    animate-[titlePulse_3s_infinite];
 }
 
 .reviews-card p {
-  color: var(--color-text);
-  font-size: 17px;
-  text-align: center;
-  padding: 5px 20px;
-  line-height: 1.6;
+  @apply text-[color:var(--color-text)] text-[17px] text-center px-5 py-[5px] leading-[1.6];
 }
 
-
 .reviews-content {
-  color: var(--color-text-muted);
-  font-size: 17px;
-  text-align: center;
-  line-height: 1.7;
-  font-style: italic;
-  position: relative;
-  margin: 15px auto 25px;
-  padding: 15px 35px;
-  max-width: 90%;
-  background: var(--color-surface-alt);
-  border-left: 3px solid var(--color-accent-soft);
-  border-radius: 8px;
+  @apply text-[color:var(--color-text-muted)] text-[17px] text-center leading-[1.7] italic
+    relative mt-[15px] mb-[25px] mx-auto px-[35px] py-[15px] max-w-[90%]
+    bg-[color:var(--color-surface-alt)]
+    [border-left:3px_solid_var(--color-accent-soft)]
+    rounded-[8px];
 }
 
 .reviews-content::before {
-  content: "\201C";
-  position: absolute;
-  top: -10px;
-  left: 8px;
-  font-family: var(--font-title);
-  font-size: 40px;
-  color: var(--color-accent-soft);
-  opacity: 0.7;
+  @apply content-['“'] absolute -top-[10px] left-2
+    font-[family-name:var(--font-title)] text-[40px]
+    text-[color:var(--color-accent-soft)] opacity-70;
 }
 
 .reviews-content::after {
-  content: "\201D";
-  position: absolute;
-  bottom: -32px;
-  right: 8px;
-  font-family: var(--font-title);
-  font-size: 45px;
-  color: var(--color-accent-soft);
-  opacity: 0.7;
+  @apply content-['”'] absolute -bottom-[32px] right-2
+    font-[family-name:var(--font-title)] text-[45px]
+    text-[color:var(--color-accent-soft)] opacity-70;
 }
 
 .reviews-rating {
-  color: var(--color-accent-soft) !important;
-  font-family: var(--font-title);
-  font-size: 20px !important;
-  display: inline-block;
-  letter-spacing: 3px;
-  animation: ratingTwinkle 1.8s ease-in-out infinite;
-  text-shadow:
-    0 0 4px var(--color-accent-soft),
-    0 0 10px var(--color-accent-soft),
-    0 0 18px var(--color-accent),
-    0 0 30px var(--color-accent),
-    0 0 45px var(--color-accent);
+  @apply !text-[color:var(--color-accent-soft)] font-[family-name:var(--font-title)]
+    !text-[20px] inline-block tracking-[3px]
+    animate-[ratingTwinkle_1.8s_ease-in-out_infinite]
+    [text-shadow:0_0_4px_var(--color-accent-soft),0_0_10px_var(--color-accent-soft),0_0_18px_var(--color-accent),0_0_30px_var(--color-accent),0_0_45px_var(--color-accent)];
 }
 
 @keyframes ratingTwinkle {
@@ -184,19 +119,15 @@
   }
 }
 
-
 @keyframes titlePulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
 
 .reviews-empty {
-  color: var(--color-accent-soft);
-  font-family: var(--font-title);
-  text-align: center;
-  font-size: 22px;
-  padding: 60px 20px;
-  animation: emptyFloat 3s ease-in-out infinite;
+  @apply text-[color:var(--color-accent-soft)] font-[family-name:var(--font-title)]
+    text-center text-[22px] px-5 py-[60px]
+    animate-[emptyFloat_3s_ease-in-out_infinite];
 }
 
 @keyframes emptyFloat {
@@ -205,58 +136,77 @@
 }
 
 .reviews-poster {
-  width: 140px;
-  height: 210px;
-  object-fit: cover;
-
-  border-radius: 10px;
-
-  border: 2px solid var(--color-accent);
-
-  box-shadow:
-    0 0 10px var(--color-accent);
-
-  flex-shrink: 0;
+  @apply w-[140px] h-[210px] object-cover rounded-[10px]
+    border-2 border-solid border-[color:var(--color-accent)]
+    shadow-[0_0_10px_var(--color-accent)]
+    shrink-0;
 }
 
 .reviews-info {
-  flex: 1;
-  padding-left: 15px;
+  @apply flex-1 pl-[15px];
 }
 
 .reviews-user {
-    position:absolute;
-    top:15px;
-    right:20px;
-
-    display:flex;
-    align-items:center;
-    flex-direction: row-reverse;
-    gap:12px;
+  @apply absolute top-[15px] right-5 flex items-center flex-row-reverse gap-3;
 }
 
-
 .reviews-user-avatar {
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    object-fit:cover;
-
-    border:3px solid var(--color-accent-soft);
-
-    box-shadow:
-        0 0 8px var(--color-accent),
-        0 0 15px var(--color-accent-soft);
+  @apply w-[55px] h-[55px] rounded-full object-cover
+    border-[3px] border-solid border-[color:var(--color-accent-soft)]
+    shadow-[0_0_8px_var(--color-accent),0_0_15px_var(--color-accent-soft)];
 }
 
 .reviews-user-username {
-    color:var(--color-accent);
-    font-family:'Caveat', cursive;
-    text-shadow:0 0 8px var(--color-accent);
+  @apply text-[color:var(--color-accent)] font-[family-name:Caveat,cursive]
+    [text-shadow:0_0_8px_var(--color-accent)];
 }
 
-/* 
-'Baloo 2', cursive
-'Dancing Script', cursive 
-'Press Start 2P', cursive 
-'Caveat', cursive  */
+@media (max-width: 768px) {
+  .reviews-title {
+    @apply text-[26px] text-center;
+  }
+
+  .reviews-list {
+    @apply w-full max-w-full px-[15px] box-border gap-10 mb-[60px];
+  }
+
+  .reviews-card {
+    @apply w-full box-border flex flex-col items-center gap-5 py-[25px] px-[15px];
+  }
+
+  .reviews-poster {
+    @apply w-[140px] h-[210px];
+  }
+
+  .reviews-info {
+    @apply w-full pl-0 box-border;
+  }
+
+  .reviews-movie-title {
+    @apply text-[24px] mb-5;
+  }
+
+  .reviews-card p {
+    @apply text-[16px] px-[10px] py-[5px];
+  }
+
+  .reviews-content {
+    @apply w-[90%] max-w-[90%] box-border text-[16px] px-[25px] py-[15px] mt-[15px] mb-[25px] mx-auto;
+  }
+
+  .reviews-rating {
+    @apply !text-[18px];
+  }
+
+  .reviews-user {
+    @apply relative top-auto right-auto justify-center mt-[5px];
+  }
+
+  .reviews-user-avatar {
+    @apply w-[50px] h-[50px];
+  }
+
+  .reviews-user-username {
+    @apply text-[24px];
+  }
+}
