@@ -147,6 +147,46 @@
   50% { transform: translateY(-8px); }
 }
 
+@media (max-width: 768px) {
+
+    .follows-title {
+        font-size: 26px;
+        text-align: center;
+    }
+
+    .follows-list {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        column-gap: 20px;
+        row-gap: 40px;
+
+        justify-items: center;
+
+        margin-bottom: 60px;
+    }
+
+    .follows-card {
+        width: 100%;
+        max-width: 250px;
+        box-sizing: border-box;
+        padding: 25px 15px;
+    }
+
+    .heart-avatar-wrapper {
+        width: 110px;
+        height: 110px;
+    }
+
+    .follows-user-username {
+        font-size: 26px;
+    }
+}
+
 .link {
     text-decoration:none;
 }

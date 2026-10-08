@@ -225,4 +225,68 @@
   padding-left: 15px;
 }
 
+@media (max-width: 768px) {
+
+  .myreviews-title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .myreviews-list {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+
+  .myreviews-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 20px;
+    padding: 25px 15px;
+  }
+
+  .myreviews-poster {
+    width: 140px;
+    height: 210px;
+  }
+
+  .myreviews-info {
+    width: 100%;
+    padding-left: 0;
+    box-sizing: border-box;
+  }
+
+  .myreviews-movie-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .myreviews-card p {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+
+  .myreviews-content {
+    width: 90%;
+    max-width: 90%;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    padding: 15px 25px;
+    margin: 15px auto 25px;
+  }
+
+  .myreviews-rating {
+    font-size: 18px !important;
+    letter-spacing: 2px;
+  }
+}
 
