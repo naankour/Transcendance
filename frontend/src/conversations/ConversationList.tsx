@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import { socket } from '../../socket';
-import './ChatBubble.css'
 
 interface User {
   id: number;
@@ -68,7 +67,7 @@ export default function ConversationList({ selectedConversationId, onSelect }: C
     socket.on('conversationUpdated', fetchConversations);
 
       return () => {
-        socket.off('conversationUdpdated', fetchConversations);
+        socket.off('conversationUpdated', fetchConversations);
       };
     }, []);
 
@@ -78,16 +77,25 @@ export default function ConversationList({ selectedConversationId, onSelect }: C
         <div
           key={conv.id}
           onClick={() => onSelect(conv.id)}
-          className={`chat-bubble-list-item ${conv.id === selectedConversationId ? 'active' : ''}`}
+          className={`flex items-center gap-[10px] px-[10px] py-[8px] cursor-pointer border-b border-brand-white/8 transition-colors duration-150 ${
+            conv.id === selectedConversationId ? 'bg-brand-pink/25' : 'hover:bg-brand-pink/15'
+          }`}
         >
           <img
             src={conv.otherUser.avatar_url || '/avatars/default_avatar.png'}
             alt={conv.otherUser.username}
-            className="chat-bubble-avatar"
+            className="size-[40px] shrink-0 rounded-full object-cover border-2 border-brand-pink-soft shadow-[0_0_6px_var(--color-brand-pink-soft)]"
           />
-          <p className="chat-bubble-list-name">{conv.otherUser.username}</p>
 
-          {conv.lastMessage && ( <p className="chat-bubble-list-preview">{conv.lastMessage.content}</p>)}
+          <div className="min-w-0">
+            <p className="text-[18px] text-brand-white">{conv.otherUser.username}</p>
+
+            {conv.lastMessage && (
+              <p className="font-retro text-[13px] text-brand-white/60 truncate">
+                {conv.lastMessage.content}
+              </p>
+            )}
+          </div>
         </div>
       ))}
     </div>

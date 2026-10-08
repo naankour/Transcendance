@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import AuthRequired from '../components/AuthRequired';
-import './ChatBubble.css'
 
 interface FollowedUser {
     id: number;
@@ -83,33 +82,42 @@ export default function NewMessageList({ onConversationStarted }: NewMessageList
     }
     
     if (loading) {
-        return <p className="chat-bubble-empty">{t('newMessageList.loading')}</p>
+        return (
+      <p className="p-[20px] text-center text-[18px] text-brand-white/60">
+        {t('newMessageList.loading')}
+      </p>
+    );
+
     }
 
     if (follows.length === 0) {
-        return <p className="chat-bubble-empty">{t('newMessageList.empty')}</p>;
+        return (
+      <p className="p-[20px] text-center text-[18px] text-brand-white/60">
+        {t('newMessageList.empty')}
+      </p>
+    );
     }
 
     return (
-        <div>
-            {follows.map((item: any) => {
-                const followedUser: FollowedUser = item.users_follows_followed_idTousers;
+    <div>
+      {follows.map((item: any) => {
+        const followedUser: FollowedUser = item.users_follows_followed_idTousers;
 
-            return (
-                <div
-                key={followedUser.id}
-                onClick={() => handleStartConversation(followedUser.id)}
-                className="chat-bubble-list-item"
-                >
-                <img 
-                    src={followedUser.avatar_url || '/avatars/default_avatar.png'}
-                    alt={followedUser.username}
-                    className="chat-bubble-avatar"
-                />
-                <p className="chat-bubbke-list-name">{followedUser.username}</p>
-                </div>
-            );
-            })}
-        </div>
-    );
+        return (
+          <div
+            key={followedUser.id}
+            onClick={() => handleStartConversation(followedUser.id)}
+            className="flex items-center gap-[10px] px-[10px] py-[8px] cursor-pointer border-b border-brand-white/8 transition-colors duration-150 hover:bg-brand-pink/15"
+          >
+            <img
+              src={followedUser.avatar_url || '/avatars/default_avatar.png'}
+              alt={followedUser.username}
+              className="size-[40px] shrink-0 rounded-full object-cover border-2 border-brand-pink-soft shadow-[0_0_6px_var(--color-brand-pink-soft)]"
+            />
+            <p className="text-[18px] text-brand-white">{followedUser.username}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 }

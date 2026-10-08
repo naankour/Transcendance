@@ -8,8 +8,29 @@
   --color-brand-white: #f5f5f5;
 
   --font-hand: 'Caveat', cursive;
+
+  --font-retro: 'Courier New', monospace;
+  --animate-sparkle: sparkle 1.8s infinite;
+  --animate-bubble-pulse: bubble-pulse 2.4s infinite ease-in-out;
+  --animate-badge-blink: badge-blink 1s infinite;
+
+	@keyframes sparkle {
+		0%, 100% {opacity: 1; transform: rotate(0deg); }
+		50% { opacity: 0.3; transform: rotate(180deg); }
+	}
+
+	@keyframes bubble-pulse {
+		0%, 100% { transform: scale(1); }
+		50% { transform: scale(1.06); }
+	}
+
+	@keyframes badge-blink {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.55; }
+	}
 }
 
+@layer base {
 :root {
 	--text: #e7c7d8;
 	--text-h: #fff5fa;
@@ -140,4 +161,5 @@ code {
 	body {
 		background-attachment: scroll;
 	}
+}
 }
