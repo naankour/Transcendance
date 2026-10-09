@@ -1,5 +1,3 @@
-import './StatusMessage.css';
-
 interface StatusMessageProps {
 	message: string;
 	className?: string;
@@ -7,7 +5,7 @@ interface StatusMessageProps {
 
 function StatusMessage({ message, className = '' }: StatusMessageProps) {
 	return (
-		<p className={`status-message ${className}`}>
+		<p className={`rounded-xl border border-pink-500/40 bg-[#130b12]/70 px-4 py-3 text-sm text-pink-100/80 ${className}`.trim()}>
 			{message}
 		</p>
 	);

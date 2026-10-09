@@ -32,6 +32,12 @@
 		"users": "Usuarios",
 		"loadMore": "Cargar más"
 	},
+	"notFound": {
+		"title": "Página no encontrada",
+		"message": "La página que buscas no existe o ya no está disponible.",
+		"back": "Volver",
+		"home": "Inicio"
+	},
 	"watchlist": {
 		"loading": "Cargando...",
 		"title": "Mi Watchlist",

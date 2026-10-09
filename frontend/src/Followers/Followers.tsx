@@ -1,32 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 import "./Followers.css"
 import FollowsButton from "../components/FollowsButton";
 import { Link } from "react-router-dom";
 
-interface FollowersProps {
-    triggerToast?: (msg: string, icon?: string) => void;
-    userId?: number;
-    isOwnProfile?: boolean;
-}
-
-const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps) => {
-    const { t } = useTranslation();
+const Followers = ({ userId, isOwnProfile, triggerToast }: any) => {
     const [followers, setFollowers] = useState([])
     const [myFollows, setMyFollows] = useState([]);
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const removeFollower = (userId:number) => 
-    {
-        setFollowers(prev =>
-            prev.filter(item => item.follower_id !== userId)
-        );
-    };
-
     useEffect(() => {
         const token = localStorage.getItem('token');
-
-        const followersEndpoint= userId ? `/api/follows/followers/user/${userId}` : '/api/follows/followers';
 
         Promise.all([
             fetch('/api/follows', {
@@ -38,7 +21,7 @@ const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps
                 return res.json();
             }),
 
-            fetch(followersEndpoint, {
+            fetch(`/api/follows/followers/user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -53,25 +36,24 @@ const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps
             setLoading(false);
         })
         .catch(err => {
-            console.error(err);
             setError(err.message);
             setLoading(false);
         });
     }, [userId]);
 
-    if (loading) return <p>{t('followers.loading')}</p>
-    if (error) return <p>{t('followers.error', { message: error })}</p>
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error : {error}</p>
 
     return (
         <div className="followers-page">
 
             <h1 className="followers-title">
-                {t('followers.title')}
+                My Followers
             </h1>
 
             {followers.length === 0 ? (
                 <p className="followers-empty">
-                    {t('followers.empty')}
+                    You don't have any followers yet.
                 </p>
             ) : (
                 <div className="followers-list">
@@ -107,7 +89,6 @@ const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps
 
                                 </Link>
 
-                                {isOwnProfile && (
                                 <FollowsButton
                                     userId={item.follower_id}
                                     action={alreadyFollowing ? "unfollow" : "follow"}
@@ -128,9 +109,9 @@ const Followers = ({ triggerToast, userId, isOwnProfile = true }: FollowersProps
                                                 { followed_id: item.follower_id }
                                             ]);
                                         }
-                                }}
+                                    }}
                                 />
-                            )}
+
                             </div>
                         );
                     })}

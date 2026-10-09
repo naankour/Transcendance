@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import "./Follows.css"
 import FollowsButton from "../components/FollowsButton";
-import UserCard from '../components/UserCard';
 import AuthRequired from "../components/AuthRequired";
 import { Link } from "react-router-dom";
 
@@ -54,7 +53,6 @@ const Follows = ({ triggerToast, userId, isOwnProfile = true }: FollowsProps) =>
             setLoading(false);
         })
         .catch(err => {
-            console.error(err);
             setError(err.message);
             setLoading(false);
         });
