@@ -7,7 +7,7 @@
 
 .followers-list {
   display: grid;
-  grid-template-columns: repeat(3, 250px);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
   gap: 35px;
   justify-content: center;
   width: 100%;
@@ -149,4 +149,10 @@
 
 .link {
     text-decoration:none;
+}
+
+@media (max-width: 480px) {
+  .followers-list {
+    gap: 20px;
+  }
 }

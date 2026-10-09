@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MovieListButton from '../components/MovieListButton';
-import './MoviePage.css';
 
 interface Review {
   id: number;
@@ -31,6 +30,16 @@ interface Movie {
 interface Props {
   triggerToast: (message: string, icon?: string) => void;
 }
+
+// ---- Classes Tailwind réutilisées ------------------------------------------
+
+const focusRing =
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-movie-accent-soft';
+
+const linkClass = `text-movie-accent-soft underline decoration-movie-accent transition-colors duration-200 hover:text-white hover:decoration-white ${focusRing}`;
+
+const sectionTitle =
+  'clear-both mb-3 mt-8 border-b border-movie-border pb-2.5 text-base font-bold uppercase tracking-wider text-movie-accent-soft sm:text-[1.15rem]';
 
 function getCurrentUserId(): number | null {
   const token = localStorage.getItem('token');
@@ -179,46 +188,67 @@ function MoviePage({ triggerToast }: Props) {
   };
 
   return (
-    <div className="movie-page">
-      <Link to="/" className="movie-page__back">← {t('moviePage.backToSearch')}</Link>
+    <div className="mx-auto min-h-screen w-full max-w-[900px] bg-movie-bg bg-movie-glow px-4 pb-20 pt-6 font-movie text-movie-text sm:px-6 sm:pt-8">
+      <Link to="/" className={`mb-5 inline-block ${linkClass}`}>
+        ← {t('moviePage.backToSearch')}
+      </Link>
 
-      {loading && <p className="movie-page__state">{t('moviePage.loading')}</p>}
-      {error && <p className="movie-page__state movie-page__state--error">{error}</p>}
+      {loading && <p className="text-movie-muted">{t('moviePage.loading')}</p>}
+      {error && (
+        <p role="alert" className="text-movie-danger">
+          {error}
+        </p>
+      )}
 
       {movie && (
         <div>
-          <div className="movie-page__header">
+          {/* ---- Header (poster + infos) : en colonne sur mobile, en ligne dès sm ---- */}
+          <div className="mt-5 flex flex-col items-center gap-6 sm:flex-row sm:items-start">
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.title}
-              className="movie-page__poster"
+              className="h-auto w-36 max-w-full shrink-0 rounded-xl shadow-[0_8px_28px_rgba(0,0,0,0.5)] sm:w-[160px] md:w-[180px]"
             />
-            <div className="movie-page__info">
-              <h2 className="movie-page__title">{movie.title} ({movie.release_date?.slice(0, 4)})</h2>
+            <div className="w-full min-w-0 sm:flex-1 [&_p]:my-1.5 [&_p]:break-words [&_p]:leading-normal [&_p]:text-movie-muted [&_strong]:text-movie-text">
+              <h2 className="mb-3 mt-0 break-words text-2xl font-bold text-white sm:text-[1.6rem]">
+                {movie.title} ({movie.release_date?.slice(0, 4)})
+              </h2>
               <p>
                 <strong>{t('moviePage.director')} :</strong>{' '}
                 {movie.director ? (
-                  <Link to={`/actor/${movie.director.id}`}>{movie.director.name}</Link>
+                  <Link to={`/actor/${movie.director.id}`} className={linkClass}>
+                    {movie.director.name}
+                  </Link>
                 ) : (
                   t('moviePage.unknown')
                 )}
               </p>
-              <p><strong>{t('moviePage.genres')} :</strong> {movie.genres.join(', ')}</p>
-              <p><strong>{t('moviePage.duration')} :</strong> {formatRuntime(movie.runtime)}</p>
-              <p><strong>{t('moviePage.userRating')} :</strong> {Number(movie.average_rating).toFixed(1)} / 5</p>
-              <p><strong>{t('moviePage.rating')} (TMDB) :</strong> {movie.vote_average} / 10</p>
+              <p>
+                <strong>{t('moviePage.genres')} :</strong> {movie.genres.join(', ')}
+              </p>
+              <p>
+                <strong>{t('moviePage.duration')} :</strong> {formatRuntime(movie.runtime)}
+              </p>
+              <p>
+                <strong>{t('moviePage.userRating')} :</strong> {Number(movie.average_rating).toFixed(1)} / 5
+              </p>
+              <p>
+                <strong>{t('moviePage.rating')} (TMDB) :</strong> {movie.vote_average} / 10
+              </p>
               <p>
                 <strong>{t('moviePage.cast')} :</strong>{' '}
                 {movie.cast.map((actor, index) => (
                   <span key={actor.id}>
-                    <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
+                    <Link to={`/actor/${actor.id}`} className={linkClass}>
+                      {actor.name}
+                    </Link>
                     {index < movie.cast.length - 1 ? ', ' : ''}
                   </span>
                 ))}
               </p>
 
               {isLoggedIn && (
-                <div className="movie-page__list-buttons">
+                <div className="mt-3 flex flex-wrap gap-2">
                   <MovieListButton
                     movieId={movie.id}
                     type="favorites"
@@ -238,19 +268,28 @@ function MoviePage({ triggerToast }: Props) {
             </div>
           </div>
 
-          <h3 className="movie-page__section-title">{t('moviePage.synopsis')}</h3>
-          <p className="movie-page__synopsis">{movie.overview}</p>
+          {/* ---- Synopsis ---- */}
+          <h3 className={sectionTitle}>{t('moviePage.synopsis')}</h3>
+          <p className="break-words leading-[1.6] text-movie-muted">{movie.overview}</p>
 
+          {/* ---- Formulaire de review ---- */}
           {isLoggedIn && (
             <>
-              <h3 className="movie-page__section-title">
+              <h3 className={sectionTitle}>
                 {myReviewId ? t('moviePage.editReview') : t('moviePage.leaveReview')}
               </h3>
-              <div className="movie-page__rating-select">
-                <label>{t('moviePage.rating')} :</label>
-                <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <label htmlFor="movie-rating">{t('moviePage.rating')} :</label>
+                <select
+                  id="movie-rating"
+                  value={rating}
+                  onChange={(e) => setRating(Number(e.target.value))}
+                  className={`rounded-md border-0 bg-white px-2.5 py-1 font-semibold text-[#222] ${focusRing}`}
+                >
                   {[0, 1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n}>{n} / 5</option>
+                    <option key={n} value={n}>
+                      {n} / 5
+                    </option>
                   ))}
                 </select>
               </div>
@@ -258,10 +297,15 @@ function MoviePage({ triggerToast }: Props) {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder={t('moviePage.reviewPlaceholder')}
-                className="movie-page__textarea"
+                aria-label={t('moviePage.reviewPlaceholder')}
+                className={`min-h-[100px] w-full max-w-full resize-y rounded-lg border-0 bg-white p-3 text-[#222] ${focusRing}`}
               />
-              <div className="movie-page__form-actions">
-                <button onClick={handleSubmitReview} disabled={submitting} className="movie-page__submit-btn">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <button
+                  onClick={handleSubmitReview}
+                  disabled={submitting}
+                  className={`mt-3 w-full cursor-pointer rounded-lg border-0 bg-[#e9e6e8] px-[22px] py-2.5 font-semibold text-[#1a1a1a] transition duration-200 enabled:hover:-translate-y-px enabled:hover:bg-movie-accent-soft enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto ${focusRing}`}
+                >
                   {submitting
                     ? t('moviePage.submitting')
                     : myReviewId
@@ -272,26 +316,35 @@ function MoviePage({ triggerToast }: Props) {
                   <button
                     onClick={() => handleDeleteReview(myReviewId)}
                     disabled={deletingReviewId === myReviewId}
-                    className="movie-page__delete-btn"
+                    className={`mt-3 w-full cursor-pointer rounded-lg border border-movie-danger bg-transparent px-5 py-2.5 font-semibold text-movie-danger transition duration-200 enabled:hover:-translate-y-px enabled:hover:bg-movie-danger enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto ${focusRing}`}
                   >
                     {deletingReviewId === myReviewId ? t('moviePage.deleting') : t('moviePage.deleteReview')}
                   </button>
                 )}
               </div>
-              {submitError && <p className="movie-page__submit-error">{submitError}</p>}
+              {submitError && (
+                <p role="alert" className="mt-2 text-movie-danger">
+                  {submitError}
+                </p>
+              )}
             </>
           )}
 
-          <h3 className="movie-page__section-title">{t('moviePage.reviewsCount', { count: movie.reviews.length })}</h3>
-          {movie.reviews.length === 0 && <p className="movie-page__state">{t('moviePage.noReviews')}</p>}
+          {/* ---- Liste des reviews ---- */}
+          <h3 className={sectionTitle}>{t('moviePage.reviewsCount', { count: movie.reviews.length })}</h3>
+          {movie.reviews.length === 0 && <p className="text-movie-muted">{t('moviePage.noReviews')}</p>}
           {movie.reviews.map((r) => (
-            <div key={r.id} className="movie-page__review">
-              <span className="movie-page__review-author">
-                <strong>{r.user.username}</strong>
-                {r.user.id === currentUserId && ` (${t('moviePage.you')})`}
-              </span>
-              <span className="movie-page__review-rating">{r.rating} / 5</span>
-              <p className="movie-page__review-content">{r.content}</p>
+            <div key={r.id} className="border-b border-movie-border py-3.5 last:border-b-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="break-words text-movie-accent-soft">
+                  <strong>{r.user.username}</strong>
+                  {r.user.id === currentUserId && ` (${t('moviePage.you')})`}
+                </span>
+                <span className="inline-block rounded-full bg-movie-accent px-2.5 py-0.5 text-[0.8rem] font-semibold text-white">
+                  {r.rating} / 5
+                </span>
+              </div>
+              <p className="mt-1.5 break-words leading-normal text-movie-muted">{r.content}</p>
             </div>
           ))}
         </div>

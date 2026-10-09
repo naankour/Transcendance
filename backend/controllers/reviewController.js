@@ -230,6 +230,16 @@ const deleteReview = async(req, res) =>
       }
     });
 
+    const agg = await prisma.reviews.aggregate({
+      where: { movie_id: deletedReview.movie_id },
+      _avg: { rating: true },
+    });
+
+    await prisma.movies.update({
+      where: { id: deletedReview.movie_id },
+      data: { average_rating: agg._avg.rating || 0 },
+    });
+
     const io = req.app.get("io");
     io.to('authenticated').emit("reviewDeleted", {
       reviewId: deletedReview.id,
